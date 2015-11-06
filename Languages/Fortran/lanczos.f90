@@ -23,7 +23,7 @@
 !      GFORTRAN: gfortran -o lanczos.x lanczos.f90 -O2 
 !      INTEL:    ifort -o lanczos.x lanczos.f90 -O2
 !
-!  +++ RUNNIN THE PROGRAM +++
+!  +++ RUNNING THE PROGRAM +++
 !
 !      ./lanczos.x
 !
