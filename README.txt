@@ -20,7 +20,11 @@ CONTENTS
     * MKL
     * BLAS
     * HDF5
+    * FFTW
 
 (3) Parallel_Computing
+
 (4) Example_Recepies
+    * Job arrays
+    * Movie processing and reading data from CSV files
 
