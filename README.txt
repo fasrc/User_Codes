@@ -16,6 +16,7 @@ CONTENTS
     * Perl  
     * Python  
     * STATA
+
 (2) Libraries 
     * MKL
     * BLAS
@@ -23,6 +24,13 @@ CONTENTS
     * FFTW
 
 (3) Parallel_Computing
+    * MPI (Fortran, C, C++)
+    * OpenMP (Fortran, C, C++)
+    * Python
+    * R
+    * Julia
+    * MATLAB
+    * Mathematica
 
 (4) Example_Recepies
     * Job arrays
