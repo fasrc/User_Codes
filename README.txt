@@ -14,7 +14,8 @@ CONTENTS
     * Mathematica  
     * MATLAB  
     * Perl  
-    * Python  
+    * Python
+    * R  
     * STATA
 
 (2) Libraries 
