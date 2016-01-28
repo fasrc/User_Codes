@@ -1,10 +1,10 @@
-PURPOSE
+###PURPOSE
 
 Repository of various codes, scripts, use cases, and recipes.
 
-CONTENTS
+###CONTENTS
 
-(1) Languages
+####(1) Languages
     * BASH  
     * C  
     * Cpp  
@@ -18,13 +18,13 @@ CONTENTS
     * R  
     * STATA
 
-(2) Libraries 
+####(2) Libraries 
     * MKL
     * BLAS
     * HDF5
     * FFTW
 
-(3) Parallel_Computing
+####(3) Parallel_Computing
     * MPI (Fortran, C, C++)
     * OpenMP (Fortran, C, C++)
     * Python
@@ -33,7 +33,7 @@ CONTENTS
     * MATLAB
     * Mathematica
 
-(4) Example_Recepies
+####(4) Example_Recepies
     * Job arrays
     * Movie processing and reading data from CSV files
 

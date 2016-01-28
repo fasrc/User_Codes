@@ -1,11 +1,11 @@
-###PURPOSE:
+####PURPOSE:
 
 Example illustrating calling  C++ functions that use the GSL numerical
 library from MATLAB. The specific example first creates a binary MEX-file
 from a C++ source MEX-file, and then computes the value of the Bessel
 function J_0(x) for x=5.
 
-###Contents:
+####Contents:
 
 (1) bessel_test.cpp: C++ source MEX-file
 
@@ -15,7 +15,8 @@ function J_0(x) for x=5.
 
 (4) mex_test.sbatch: SLURM batch-jobs submission scrip for the Odysswy cluster
 
-###Example Usage:
+####Example Usage:
+
 	source new-modules.sh
 	module load matlab/R2015a-fasrc01
 	module load gcc/4.7.4-fasrc01
