@@ -1,17 +1,17 @@
-PURPOSE:
+#### PURPOSE:
 
 Example workflow illustrating processing of multiple video files,
 and reading data from CVS files. In this example the movie names 
 and timecode data are read from a CSV file.
 
-CONTENTS:
+#### CONTENTS:
 
 (1) movie_info.csv: File with movie names and timecode data for
                     each movie. There are 10 movies in this example.
 
 (2) process_movies.sh: Bash script automating video processing.
                        
-RUN:
+#### RUN:
 
 The bash script is set up for a "dry run". I.e., instead of executing
 the commands, it echos them to the screen. For actual production runs,
@@ -22,8 +22,9 @@ Run the example workflow with
 
 bash process_movies.sh movie_info.csv mov
 
-EXAMPLE OUTPUT:
+#### EXAMPLE OUTPUT:
 
+<pre>
 [pkrastev@sa01 movie_processing]$ bash process_movies.sh movie_info.csv mov
 Filename: movie_01.mov
 Timecode: 04:13.0
@@ -76,3 +77,4 @@ ffmpeg -ss 07:32.5 -i movie_10.mov
 ffmpeg -i movie_10.mov -c:v libx264 -r 10 -s 1280x720 -b:v 5000k -threads 4 movie_10_10fps720p.mov
 
 All DONE.
+</pre>
