@@ -1,4 +1,4 @@
-#### PURPOSE:
+#### Purpose:
 
 Example of using NetCDF libraries on the cluster. The specific example creates a random vector and writes it to a netCDF (nc) file.
 
@@ -12,7 +12,6 @@ Example of using NetCDF libraries on the cluster. The specific example creates a
 
 #### Example Usage:
 
-
 	source new-modules.sh
 	module load gcc/4.8.2-fasrc01
 	module load openmpi/1.10.0-fasrc01
@@ -22,7 +21,7 @@ Example of using NetCDF libraries on the cluster. The specific example creates a
 
 #### Example Output:
 
-<pre>
+```
 [pkrastev@sa01 NETCDF]$ ncdump vector_x.nc
 netcdf vector_x {
 dimensions:
@@ -65,4 +64,4 @@ data:
     0.603259484938656, 0.945959505246437, 0.566918499966449, 
     0.348724013137411, 0.493279464049104, 0.437733302620056 ;
 }
-</pre>
+```

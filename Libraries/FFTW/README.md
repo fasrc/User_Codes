@@ -1,27 +1,25 @@
-Contents:
+### Purpose:
 
-(1) fftw_test.f90: Perform 1D transform
-(2) Makefile
+Example of using FFTW libraries on the cluster. The specific example performs 1D transform.
 
-Compile and Run:
+### Contents:
 
-(1) Load required modules, e.g.,
+(1) fftw_test.f90: Fortran source code
 
-source new-modules.sh
-module load gcc/4.8.2-fasrc01
-module load openmpi/1.8.3-fasrc02
-module load fftw/3.3.4-fasrc06 
+(2) Makefile: Makefile to compile the source code
 
-(2) Compile
+(3) fftw_test.sbatch: Btach-job submission script to send the job to the queue
 
-make
+### Example Usage:
 
-(3) Run
+    source new-modules.sh
+    module load gcc/4.8.2-fasrc01
+    module load openmpi/1.8.3-fasrc02
+    module load fftw/3.3.4-fasrc06
+    
+### Example Output:
 
-./fftw_test.x
-
-Example output:
- 
+```
  Input array:
      in(           1 ) =  (  1.0000000000000000     ,  2.0000000000000000     )
      in(           2 ) =  (  2.0000000000000000     ,  3.0000000000000000     )
@@ -37,3 +35,4 @@ Example output:
                 4  * in(           2 ) =  (  16.000000000000000     ,  20.000000000000000     )
                 4  * in(           3 ) =  (  12.000000000000000     ,  16.000000000000000     )
                 4  * in(           4 ) =  (  8.0000000000000000     ,  12.000000000000000     )
+```
