@@ -1,6 +1,7 @@
 ### Purpose:
 
 Program performs [Lanczos diagonalization](https://en.wikipedia.org/wiki/Lanczos_algorithm) with reorthogonalization of a 100X100 matrix.
+Uses MPI-IO to write and read Lanczos vectors to disk at each iteration.
 
 ### Contents:
 
