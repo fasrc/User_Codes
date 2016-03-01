@@ -37,7 +37,7 @@ Repository of various codes, scripts, use cases, and recipes.
    * MATLAB
    * Mathematica
 
-#### (4) Example_Recepies
+#### (4) Example_Recipes
 
    * Job arrays
    * Movie processing and reading data from CSV files
