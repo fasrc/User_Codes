@@ -5,7 +5,7 @@
 #SBATCH -p general
 #SBATCH -t 30
 #SBATCH -n 8
-#SBATCH --mem=4000
+#SBATCH --mem-per-cpu=4000
 
 # Load required modules
 source new-modules.sh

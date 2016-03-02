@@ -23,6 +23,7 @@ Repository of various codes, scripts, use cases, and recipes.
 
    * MKL
    * BLAS
+   * GSL
    * HDF5
    * FFTW
    * NETCDF
@@ -31,6 +32,7 @@ Repository of various codes, scripts, use cases, and recipes.
 
    * MPI (Fortran, C, C++)
    * OpenMP (Fortran, C, C++)
+   * Parallel_HDF5
    * Python
    * R
    * Julia
