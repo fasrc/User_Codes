@@ -33,6 +33,7 @@ Repository of various codes, scripts, use cases, and recipes.
    * MPI (Fortran, C, C++)
    * OpenMP (Fortran, C, C++)
    * Parallel_HDF5
+   * MPI_IO
    * Python
    * R
    * Julia
