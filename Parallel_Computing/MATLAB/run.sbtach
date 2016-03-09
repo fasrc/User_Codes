@@ -6,8 +6,12 @@
 #SBATCH -n 8
 #SBATCH -t 30
 #SBATCH -p general
-#SBATCH --mem=40000
+#SBATCH --mem=32000
+
+# Load required software modules
 source new-modules.sh
 module load matlab/R2015b-fasrc01
+
+# Run program
 matlab-default -nosplash -nodesktop -r "parallel_monte_carlo($SLURM_NTASKS);exit"
 
