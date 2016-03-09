@@ -1,0 +1,11 @@
+#!/bin/bash
+#SBATCH -J parallel_pi
+#SBATCH -o parallel_pi.out
+#SBATCH -e parallel_pi.err
+#SBATCH -p general
+#SBATCH -N 1
+#SBATCH -n 8
+#SBATCH -t 20
+#SBATCH --mem=4000
+mathematica/10.3.0-fasrc01
+math -script parallel_pi.m
