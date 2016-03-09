@@ -1,0 +1,13 @@
+#!/bin/bash
+#SBATCH -J parallel_monte_carlo
+#SBATCH -o parallel_monte_carlo.out
+#SBATCH -e parallel_monte_carlo.err
+#SBATCH -N 1
+#SBATCH -n 8
+#SBATCH -t 30
+#SBATCH -p general
+#SBATCH --mem=40000
+source new-modules.sh
+module load matlab/R2015b-fasrc01
+matlab-default -nosplash -nodesktop -r "parallel_monte_carlo($SLURM_NTASKS);exit"
+

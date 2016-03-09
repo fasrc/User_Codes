@@ -4,7 +4,7 @@ Program computes PI with parallel Monte-Carlo mathod.
 
 ### Contents:
 
-(1) parallel_pi.m: C++ source code
+(1) parallel_pi.m: Mathematica source code
 
 (2) run.sbatch: Btach-job submission script to send the job to the queue.
 
