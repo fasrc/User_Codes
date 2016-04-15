@@ -27,6 +27,7 @@ Repository of various codes, scripts, use cases, and recipes.
    * HDF5
    * FFTW
    * NETCDF
+   * OpenBLAS
 
 #### (3) Parallel_Computing
 
