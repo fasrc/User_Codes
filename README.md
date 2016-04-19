@@ -20,9 +20,11 @@ Repository of various codes, scripts, use cases, and recipes.
    * STATA
 
 #### (2) Libraries
-
+   
+   * Armadillo
    * MKL
    * BLAS
+   * LAPACK
    * GSL
    * HDF5
    * FFTW
