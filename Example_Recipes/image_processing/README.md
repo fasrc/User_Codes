@@ -27,12 +27,12 @@ improves the image contrast, and writes out the processed image.
 Example input image:
 
 ![Input image]
-(https://github.com/fasrc/User_Codes/tree/master/Example_Recipes/image_processing/images_in/image_in_2.tif)
+(https://github.com/fasrc/User_Codes/tree/master/Example_Recipes/image_processing/images_png/image_in_2.png)
 
 Example output image:
 
 ![Output image]
-(https://github.com/fasrc/User_Codes/blob/master/Example_Recipes/image_processing/images_out/image_out_2.tif)
+(https://github.com/fasrc/User_Codes/blob/master/Example_Recipes/image_processing/images_png/image_out_2.png)
 
 #### REFERENCES:
 
