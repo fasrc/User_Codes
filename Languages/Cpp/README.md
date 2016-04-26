@@ -7,3 +7,5 @@
 (3) allocate.cpp: Illustrates using dynamic memory
 
 (4) matvec.cpp: Performs matrix-vector multiplication
+
+(5) dot_prod.cpp: Computes DOT product of 2 random vectors
