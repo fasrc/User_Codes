@@ -2,7 +2,7 @@
 #SBATCH -J parallel_sum
 #SBATCH -o output_%a.out
 #SBATCH -e error_%a.err
-#SBATCH -p meade
+#SBATCH -p general
 #SBATCH -N 1
 #SBATCH -n 4
 #SBATCH -t 30
