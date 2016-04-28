@@ -9,3 +9,5 @@
 (4) matvec.cpp: Performs matrix-vector multiplication
 
 (5) dot_prod.cpp: Computes DOT product of 2 random vectors
+
+(6) arrays_and_pointers.cpp: Illustrates arrays and pointers in C++
