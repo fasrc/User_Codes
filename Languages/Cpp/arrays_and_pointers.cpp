@@ -2,7 +2,7 @@
   Program: arrays_and_pointers.cpp
            Arrays and pointers in C++
 
-           Compile: g++ -oarrays_and_pointers.x arrays_and_pointers.cpp
+           Compile: g++ -o arrays_and_pointers.x arrays_and_pointers.cpp
  */
 #include <iostream>
 #include <iomanip>
