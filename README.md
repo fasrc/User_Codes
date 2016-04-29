@@ -48,3 +48,9 @@ Repository of various codes, scripts, use cases, and recipes.
    * Job arrays
    * Movie processing and reading data from CSV files
    * MATLAB MEX files from C++ source code
+   * Image processing with MATLAB 
+   * Parallel Job Arrays
+
+#### (5) Applications
+
+   * Schrodinger
