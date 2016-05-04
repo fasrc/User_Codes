@@ -54,3 +54,4 @@ Repository of various codes, scripts, use cases, and recipes.
 #### (5) Applications
 
    * Schrodinger
+   * Knitro
