@@ -1,20 +1,22 @@
 #### PURPOSE:
 
-Schrodinger is a scientific leader in computational chemistry, providing software solutions and services for life sciences and materials research.
+Knitro is an optimization software library for finding solutions of both continuous (smooth) optimization models (with or without constraints), 
+as well as discrete optimization models with integer or binary variables (i.e. mixed integer programs). Knitro is primarily designed for finding 
+local optimal solutions of large-scale, continuous nonlinear problems.
 
-This example illustrates using Schrodinger in a batch mode on the Odyssey cluster at Harvard University. The specific example computes properties of
-water molecule using Jaguar.
+This example illustrates using Knitro with its MATLAB interface in a batch mode on the Odyssey cluster at Harvard University. 
 
 #### CONTENTS:
 
-(1) H20.in: Input data file
+(1) knitro_test.m: MATLAB source code
 
-(2) run.sbatch: Batch job submission script for sending the job to the queue.
+(2) run.sbatch: Batch job submission script for sending the job to the queue
                        
 #### EXAMPLE USAGE:
 
 	source new-modules.sh
-	module load schrodinger/2014.3-fasrc01
+	module load matlab/R2015b-fasrc01
+	module load knitro/9.1.0-fasrc01
 	sbatch run.sbatch
 
 

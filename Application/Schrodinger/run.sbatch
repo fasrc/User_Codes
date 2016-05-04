@@ -10,7 +10,7 @@
 
 # Load required modules
 source new-modules.sh
-module load 
+module load schrodinger/2014.3-fasrc01
 
 # Run Schrodinger
 $SCHRODINGER/jaguar run -WAIT H2O.in
