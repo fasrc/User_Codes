@@ -42,6 +42,7 @@ Repository of various codes, scripts, use cases, and recipes.
    * Julia
    * MATLAB
    * Mathematica
+   * STATA
 
 #### (4) Example_Recipes
 
