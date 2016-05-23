@@ -271,10 +271,6 @@ etot    7  N  N  2  U     -76.02360707695  7.3E-07  0.0E+00  0.0E+00
  Total elapsed time:    8 seconds
 
 Job H2O completed on holy2a13308.rc.fas.harvard.edu at Fri Apr 29 14:42:07 2016
-[pkrastev@sa01 test2]$ cp run.sbatch /n/home06/pkrastev/Computer/User_Codes/Application/Schrodinger
-[pkrastev@sa01 test2]$ cp H2O.in /n/home06/pkrastev/Computer/User_Codes/Application/Schrodinger
-[pkrastev@sa01 test2]$ ls
-H2O.01.in  H2O.01.mae  H2O.in  H2O.log  H2O.out  run.sbatch  test_water.err  test_water.out
 ```
 
 #### REFERENCES:
