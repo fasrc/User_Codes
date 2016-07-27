@@ -11,7 +11,7 @@ Program computes PI with parallel Monte-Carlo mathod.
 ### Example Usage:
 
 	source new-modules.sh
-	module load matlab/R2015b-fasrc01
+	module load matlab/R2016a-fasrc01
 	sbatch run.sbatch
     
 ### Example Output:
