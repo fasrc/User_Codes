@@ -1,6 +1,6 @@
 ### Purpose:
 
-Program generates a random matrix and diagonalize it. Uses OpenMP to
+Program generates a random matrix and calculates its eigen values. Uses OpenMP to
 generate the matrix and threaded version of MKL diagonalize it.
 
 ### Contents:
@@ -16,13 +16,13 @@ generate the matrix and threaded version of MKL diagonalize it.
 	source new-modules.sh
 	module load intel/15.0.0-fasrc01
 	module load intel-mkl/11.0.0.079-fasrc02
-        make
+	make
 	sbatch run.sbatch
     
 ### Example Output:
 
 ```
- Number of threads:          12
+ Number of threads:          4
  Eigen values of h:
            1  -18.1903779141984
            2  -17.9346399306460

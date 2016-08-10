@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH -J omp_dot
-#SBATCH -o omp_dot.out
-#SBATCH -e omp_dot.err
+#SBATCH -J omp_diag
+#SBATCH -o omp_diag.out
+#SBATCH -e omp_diag.err
 #SBATCH -p general
 #SBATCH -t 30
 #SBATCH -N 1
