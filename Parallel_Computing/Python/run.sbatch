@@ -9,4 +9,4 @@
 
 source new-modules.sh
 module load python/2.7.6-fasrc01
-mpirun -np 16 python mpi4py_test.py
+srun -n 16 --mpi=pmi2 python mpi4py_test.py

@@ -14,7 +14,7 @@ module load mvapich2/2.0-fasrc03
 module load R/3.2.2-fasrc02
 
 # Run program
-mpirun -np 8 R CMD BATCH --no-save --no-restore mpi_test.R
+srun -n 8 --mpi=pmi2 R CMD BATCH --no-save --no-restore mpi_test.R
 
 # NOTE: When using OpenMPI, please replace the mpirun command line above with
-# mpirun -np 8 --mca mpi_warn_on_fork 0 R CMD BATCH --no-save --no-restore mpi_test.R
+# srun -n 8 --mpi=pmi2 --mca mpi_warn_on_fork 0 R CMD BATCH --no-save --no-restore mpi_test.R

@@ -1,7 +1,7 @@
 #### Purpose:
 
 Example of using *parallel HDF5* libraries on the cluster. The specific example creates a random 3D array of dimension 
-10 X 30 X 8 end writes it to a HDF5 (.h5) file in parallel.
+10 X 30 X 8 and writes it to a HDF5 (.h5) file in parallel.
 
 #### Contents:
 

@@ -13,4 +13,4 @@ module load intel/15.0.0-fasrc01
 module load openmpi/1.8.3-fasrc02
 
 # Run program
-mpirun -np 8 ./pi_monte_carlo.x
+srun -n 8 --mpi=pmi2 ./pi_monte_carlo.x

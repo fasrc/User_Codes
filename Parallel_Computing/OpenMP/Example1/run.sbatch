@@ -5,12 +5,12 @@
 #SBATCH -p general
 #SBATCH -t 30
 #SBATCH -N 1
-#SBATCH -n 4
+#SBATCH -c 4
 #SBATCH --mem=4000
 
 # Set up environment
 source new-modules.sh
-export OMP_NUM_THREADS=4
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
 # Run program
-./omp_dor.x
+srun -c $SLURM_CPUS_PER_TASK ./omp_dor.x

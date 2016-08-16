@@ -14,4 +14,4 @@ module load openmpi/1.10.0-fasrc01
 module load hdf5/1.8.12-fasrc07
 
 # Run program
-mpirun -np 8 ./parallel_hdf5_3d.x
+srun -n 8 --mpi=pmi2 ./parallel_hdf5_3d.x
