@@ -14,6 +14,7 @@ N where N is a number read from the command line.
 (3) Makefile
 
 #### EXAMPLE USAGE:
+	make
 	sbatch run.sbatch
 
 #### EXAMPLE OUTPUT:
