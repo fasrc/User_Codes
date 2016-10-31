@@ -17,7 +17,7 @@ function [] = parallel_sum(infile)
   pc.JobStorageLocation = strcat('/scratch/', getenv('USER'),'/', getenv('SLURM_ARRAY_TASK_ID'))
 
   % Start local parallel pool
-  parpool(pc, str2num(getenv('SLURM_NTASKS')))
+  parpool(pc, str2num(getenv('SLURM_CPUS_PER_TASK')))
 
   % Calculate sum in parallel with PARFOR
   s = 0;
