@@ -13,5 +13,5 @@ source new-modules.sh
 module load matlab/R2016a-fasrc01
 
 # Run program
-srun -n 1 -c 8 matlab-default -nosplash -nodesktop -r "parallel_monte_carlo($SLURM_NTASKS);exit"
+srun -n 1 -c 8 matlab-default -nosplash -nodesktop -r "parallel_monte_carlo($SLURM_CPUS_PER_TASK);exit"
 

@@ -1,6 +1,6 @@
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 % Program: se_fdm.m
-
+%
 % Purpose: Solutions to 1D time independent Schrodinger Equation
 %          with Finite Difference Method
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
