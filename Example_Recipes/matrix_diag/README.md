@@ -1,6 +1,6 @@
 ### Purpose:
 
-Example of using MKL libraries on the cluster. The specific example creates 300X300 random matrix and diagonalizes it.
+Example of using MKL libraries on the cluster. The specific example creates 3000X3000 random matrix and diagonalizes it.
 The program prints out the first 10 eigen values.
 
 ### Contents:
