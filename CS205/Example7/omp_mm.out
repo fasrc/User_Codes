@@ -1,0 +1,17 @@
+
+Matrix multiplication tests.
+
+  Number of processors available = 4
+  Number of threads              = 4
+
+Matrix multiplication timing.
+  A(LxN) = B(LxM) * C(MxN).
+  L = 1000
+  M = 1000
+  N = 1000
+  Floating point OPS roughly 2000000000
+  Elapsed time dT = 0.152197
+  Rate = MegaOPS/dT = 13140.852903
+
+omp_mm:
+  Normal end of execution.

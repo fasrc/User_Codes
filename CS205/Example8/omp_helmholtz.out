@@ -1,0 +1,132 @@
+
+HELMHOLTZ
+  C/OpenMP version
+
+  A program which solves the 2D Helmholtz equation.
+
+  This program is being run in parallel.
+
+  Number of processors available = 4
+  Number of threads =              4
+
+  The region is [-1,1] x [-1,1].
+  The number of nodes in the X direction is M = 500
+  The number of nodes in the Y direction is N = 500
+  Number of variables in linear system M * N  = 250000
+  The scalar coefficient in the Helmholtz equation is ALPHA = 0.250000
+  The relaxation value is OMEGA = 1.100000
+  The error tolerance is TOL = 0.000000
+  The maximum number of Jacobi iterations is IT_MAX = 100
+
+  Right hand side l2 norm = 1458.457517
+  1  Residual RMS 2.342892e-08
+  2  Residual RMS 2.341733e-08
+  3  Residual RMS 2.340960e-08
+  4  Residual RMS 2.340331e-08
+  5  Residual RMS 2.339784e-08
+  6  Residual RMS 2.339291e-08
+  7  Residual RMS 2.338839e-08
+  8  Residual RMS 2.338417e-08
+  9  Residual RMS 2.338021e-08
+  10  Residual RMS 2.337644e-08
+  11  Residual RMS 2.337285e-08
+  12  Residual RMS 2.336941e-08
+  13  Residual RMS 2.336609e-08
+  14  Residual RMS 2.336289e-08
+  15  Residual RMS 2.335979e-08
+  16  Residual RMS 2.335678e-08
+  17  Residual RMS 2.335385e-08
+  18  Residual RMS 2.335099e-08
+  19  Residual RMS 2.334821e-08
+  20  Residual RMS 2.334548e-08
+  21  Residual RMS 2.334282e-08
+  22  Residual RMS 2.334020e-08
+  23  Residual RMS 2.333764e-08
+  24  Residual RMS 2.333512e-08
+  25  Residual RMS 2.333265e-08
+  26  Residual RMS 2.333022e-08
+  27  Residual RMS 2.332782e-08
+  28  Residual RMS 2.332547e-08
+  29  Residual RMS 2.332315e-08
+  30  Residual RMS 2.332086e-08
+  31  Residual RMS 2.331860e-08
+  32  Residual RMS 2.331637e-08
+  33  Residual RMS 2.331416e-08
+  34  Residual RMS 2.331199e-08
+  35  Residual RMS 2.330984e-08
+  36  Residual RMS 2.330772e-08
+  37  Residual RMS 2.330561e-08
+  38  Residual RMS 2.330354e-08
+  39  Residual RMS 2.330148e-08
+  40  Residual RMS 2.329944e-08
+  41  Residual RMS 2.329743e-08
+  42  Residual RMS 2.329543e-08
+  43  Residual RMS 2.329345e-08
+  44  Residual RMS 2.329149e-08
+  45  Residual RMS 2.328954e-08
+  46  Residual RMS 2.328762e-08
+  47  Residual RMS 2.328571e-08
+  48  Residual RMS 2.328381e-08
+  49  Residual RMS 2.328193e-08
+  50  Residual RMS 2.328007e-08
+  51  Residual RMS 2.327821e-08
+  52  Residual RMS 2.327638e-08
+  53  Residual RMS 2.327455e-08
+  54  Residual RMS 2.327274e-08
+  55  Residual RMS 2.327094e-08
+  56  Residual RMS 2.326916e-08
+  57  Residual RMS 2.326738e-08
+  58  Residual RMS 2.326562e-08
+  59  Residual RMS 2.326387e-08
+  60  Residual RMS 2.326213e-08
+  61  Residual RMS 2.326040e-08
+  62  Residual RMS 2.325868e-08
+  63  Residual RMS 2.325698e-08
+  64  Residual RMS 2.325528e-08
+  65  Residual RMS 2.325359e-08
+  66  Residual RMS 2.325191e-08
+  67  Residual RMS 2.325024e-08
+  68  Residual RMS 2.324858e-08
+  69  Residual RMS 2.324693e-08
+  70  Residual RMS 2.324529e-08
+  71  Residual RMS 2.324365e-08
+  72  Residual RMS 2.324203e-08
+  73  Residual RMS 2.324041e-08
+  74  Residual RMS 2.323880e-08
+  75  Residual RMS 2.323720e-08
+  76  Residual RMS 2.323560e-08
+  77  Residual RMS 2.323402e-08
+  78  Residual RMS 2.323244e-08
+  79  Residual RMS 2.323087e-08
+  80  Residual RMS 2.322930e-08
+  81  Residual RMS 2.322774e-08
+  82  Residual RMS 2.322619e-08
+  83  Residual RMS 2.322465e-08
+  84  Residual RMS 2.322311e-08
+  85  Residual RMS 2.322158e-08
+  86  Residual RMS 2.322006e-08
+  87  Residual RMS 2.321854e-08
+  88  Residual RMS 2.321703e-08
+  89  Residual RMS 2.321552e-08
+  90  Residual RMS 2.321402e-08
+  91  Residual RMS 2.321253e-08
+  92  Residual RMS 2.321104e-08
+  93  Residual RMS 2.320956e-08
+  94  Residual RMS 2.320808e-08
+  95  Residual RMS 2.320661e-08
+  96  Residual RMS 2.320514e-08
+  97  Residual RMS 2.320368e-08
+  98  Residual RMS 2.320223e-08
+  99  Residual RMS 2.320078e-08
+  100  Residual RMS 2.319933e-08
+
+  Total number of iterations 101
+
+  Computed U l2 norm :       0.640273
+  Computed U_EXACT l2 norm : 266.133333
+  Error l2 norm:             265.516926
+
+  Elapsed wall clock time = 0.070585
+
+HELMHOLTZ
+  Normal end of execution.
