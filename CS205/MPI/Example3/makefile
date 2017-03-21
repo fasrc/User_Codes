@@ -1,10 +1,10 @@
-EXECS=poisson_mpi
+EXECS=mmult
 MPICC?=mpicc
 
 all: ${EXECS}
 
-poisson_mpi: poisson_mpi.c
-	${MPICC} -o poisson_mpi poisson_mpi.c
+mmult: mmult.c
+	${MPICC} -o mmult mmult.c
 
 clean:
 	rm -f ${EXECS}
