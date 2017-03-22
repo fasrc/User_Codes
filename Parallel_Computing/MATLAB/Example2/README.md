@@ -47,7 +47,7 @@ Number of threads: 8
 
 ### Speedup
 
-![Speedup](/speedup.png)
+![Speedup](speedup.png)
 
 ### REFERENCES:
 
