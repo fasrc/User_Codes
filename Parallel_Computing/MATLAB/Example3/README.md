@@ -100,15 +100,11 @@ Parallel pool using the 'local' profile is shutting down.
 
 ### Example Output Figures:
 
-![Process 1:]
-(fig_1.png)
+![Process 1:](fig_1.png)
 
-![Process 2:]
-(fig_2.png)
+![Process 2:](fig_2.png)
 
-![Process 3:]
-(fig_3.png)
+![Process 3:](fig_3.png)
 
-![Process 4:]
-(fig_4.png)
+![Process 4:](fig_4.png)
 

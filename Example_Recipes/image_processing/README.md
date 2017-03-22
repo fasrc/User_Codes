@@ -26,13 +26,11 @@ improves the image contrast, and writes out the processed image.
 
 Example input image:
 
-![Input image]
-(images_png/image_in_2.png)
+![Input image](images_png/image_in_2.png)
 
 Example output image:
 
-![Output image]
-(images_png/image_out_2.png)
+![Output image](images_png/image_out_2.png)
 
 #### REFERENCES:
 

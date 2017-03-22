@@ -1,3 +1,3 @@
 ### Contents:
 
-(1) sum_array.pl: Generates a random array and sums up its elements.
+(1) Example1: Generates a random array and sums up its elements.
