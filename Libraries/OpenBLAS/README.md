@@ -14,7 +14,8 @@ Example of using OpenBLAS libraries on the cluster.
 
     source new-modules.sh
     module load intel/15.0.0-fasrc01
-    module load OpenBLAS/0.2.14-fasrc01 
+    module load OpenBLAS/0.2.14-fasrc01
+    make 
     sbatch run.sbatch
     
 ### Example Output:

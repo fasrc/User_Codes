@@ -16,6 +16,8 @@ Example of using FFTW libraries on the cluster. The specific example performs 1D
     module load gcc/4.8.2-fasrc01
     module load openmpi/1.8.3-fasrc02
     module load fftw/3.3.4-fasrc06
+    make
+    sbatch fftw_test.sbatch
     
 ### Example Output:
 
