@@ -14,9 +14,10 @@ Example of performing high-precision numeric calcualations. The specific example
 (4) run.sbatch: Btach-job submission script to send the job to the queue
 
 ### Example Usage:
+
 	source new-modules.sh
 	module load intel/15.0.0-fasrc01 
-        module load mpfr/3.1.2-fasrc03
+	module load mpfr/3.1.2-fasrc03
 	make
 	sbatch run.sbatch
     
