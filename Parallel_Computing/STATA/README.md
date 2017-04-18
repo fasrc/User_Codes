@@ -1,21 +1,22 @@
-#### PURPOSE:
+#### Purpose:
 
 This example illustrates using STATA on the Odyssey cluster at Harvard University.
 
-#### CONTENTS:
+#### Contents:
 
 (1) test.do: Input file (STATA "do" file)
 
 (2) run.sbatch: Batch job submission script for sending the job to the queue.
                        
-#### EXAMPLE USAGE:
+#### Example Usage:
 
-	source new-modules.sh
-	module load stata/13.0-fasrc01
-	sbatch run.sbatch
+```bash
+source new-modules.sh
+module load stata/13.0-fasrc01
+sbatch run.sbatch
+```
 
-
-#### EXAMPLE OUTPUT:
+#### Example Output:
 
 ```
 [pkrastev@sa01 STATA]$ cat test.log
@@ -140,5 +141,5 @@ end of do-file
 #### REFERENCES:
 
 * [STATA website](http://www.stata.com)
-* [STATA documentation (release 2014-3)] (https://www.stata.com/features/documentation)
+* [STATA documentation (release 2014-3)](https://www.stata.com/features/documentation)
 
