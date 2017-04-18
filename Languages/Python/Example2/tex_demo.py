@@ -3,6 +3,8 @@
 Program: tex_demo.py
          Text rendering With LaTeX
 """
+import matplotlib as mpl
+mpl.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -23,5 +25,4 @@ ax.text(0.05, 0.80, formula, transform=ax.transAxes, fontsize=20)
 ax.set_xlabel(r"$x$", fontsize=18)
 ax.set_ylabel(r"$y(x)$", fontsize=18)
 ax.legend()
-plt.savefig('tex_demo')
-plt.show()
+plt.savefig('tex_demo.png')
