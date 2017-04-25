@@ -1,19 +1,50 @@
+###  Purpose:
+
+Collection of example codes illustrating using C++ on the Odyssey cluster.
+
 ### Contents:
 
-(1) sum.cpp: Computes integer sum from 1 to N (N is read from command line)
+#### Source codes
 
-(2) sum2.cpp: Variation of the above program (sum.cpp)
+* <code>sum.cpp</code>: Computes integer sum from 1 to N (N is read from command line)
+* <code>sum2.cpp</code>: Variation of the above program (sum.cpp)
+* <code>allocate.cpp</code>: Illustrates using dynamic memory
+* <code>matvec.cpp</code>: Performs matrix-vector multiplication
+* <code>dot_prod.cpp</code>: Computes DOT product of 2 random vectors
+* <code>arrays\_and\_pointers.cpp</code>: Illustrates arrays and pointers
+* <code>void_point.cpp</code>: Void pointers
+* <code>function_factorial.cpp</code>: Illustrates recursion
+* <code>point_func.cpp</code>: Pointers to functions
 
-(3) allocate.cpp: Illustrates using dynamic memory
+#### Example Submission Script
 
-(4) matvec.cpp: Performs matrix-vector multiplication
+* run.sbatch
 
-(5) dot_prod.cpp: Computes DOT product of 2 random vectors
+### Compile:
 
-(6) arrays_and_pointers.cpp: Illustrates arrays and pointers in C++
+* Intel compilers, e.g.,
 
-(7) void_point.cpp: Void pointers in C++
+```bash
+source new-modules.sh
+module load intel/17.0.2-fasrc01
+icpc -o dot_prod.x dot_prod.cpp -O2
+```
 
-(8) function_factorial.cpp: Illustrates recursion in C++
+* GNU compilers, e.g.,
 
-(9) point_func.cpp: Pointers to functions in C++
+```bash
+source new-modules.sh
+module load gcc/6.3.0-fasrc01
+g++ -o dot_prod.x dot_prod.cpp -O2
+```
+
+### Submit Job:
+
+```bash
+sbatch run.sbatch
+```
+
+### Resources:
+
+* [cplusplus.com](http://www.cplusplus.com)
+* [C++ Language Tutorial](http://www.cplusplus.com/doc/tutorial)
