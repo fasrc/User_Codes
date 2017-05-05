@@ -1,24 +1,46 @@
 #### Purpose:
 
-Example of using *parallel HDF5* libraries on the cluster. The specific example creates a random 3D array of dimension 
+Example of using **parallel HDF5** libraries on the cluster. The specific example creates a random 3D array of dimension 
 10 X 30 X 8 and writes it to a HDF5 (.h5) file in parallel.
 
 #### Contents:
 
-(1) parallel_hdf5_3d.f90: Fortran 90 source file
-
-(2) Makefile: Makefile to compile the source code 
-
-(3) run.sbatch: Btach-job submission script to send the job to the queue
+* <code>parallel_hdf5_3d.f90</code>: Fortran 90 source file
+* <code>Makefile</code>: Makefile to compile the source code 
+* <code>run.sbatch</code>: Btach-job submission script to send the job to the queue
 
 #### Example Usage:
 
-	source new-modules.sh
-	module load intel/15.0.0-fasrc01
-	module load openmpi/1.10.0-fasrc01
-	module load hdf5/1.8.12-fasrc07
-	make
-	sbatch run.sbatch
+```bash
+source new-modules.sh
+module load intel/15.0.0-fasrc01
+module load openmpi/1.10.0-fasrc01
+module load hdf5/1.8.12-fasrc07
+make
+sbatch run.sbatch
+```
+
+#### Example Batch-Job Submission Script:
+
+```bash
+#!/bin/bash
+#SBATCH -J parallel_hdf5_3d
+#SBATCH -o parallel_hdf5_3d.out
+#SBATCH -e parallel_hdf5_3d.err
+#SBATCH -p general
+#SBATCH -t 30
+#SBATCH -n 8
+#SBATCH --mem-per-cpu=4000
+
+# Load required modules
+source new-modules.sh
+module load intel/15.0.0-fasrc01
+module load openmpi/1.10.0-fasrc01
+module load hdf5/1.8.12-fasrc07
+
+# Run program
+srun -n 8 --mpi=pmi2 ./parallel_hdf5_3d.x
+```
 
 #### Example Output:
 
