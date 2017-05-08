@@ -68,6 +68,6 @@ fig.PaperUnits = 'inches';
 fig.PaperPosition = [0 0 5 3];
 fig.PaperPositionMode = 'manual';
 
-print('figure','-dtiff')
+print('figure','-dpng')
 
 exit

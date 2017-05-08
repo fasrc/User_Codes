@@ -11,3 +11,4 @@ function s = serial_sum(N)
   end 
   fprintf('Sum of integers from 1 to %d is %d.\n', N, s); 
 end
+
