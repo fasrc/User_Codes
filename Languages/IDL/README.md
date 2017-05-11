@@ -1,3 +1,43 @@
-### Contents:
+#### Purpose:
 
-(1) pi_monte_carlo.pro: Computes PI via Monte-Carlo method.
+Example code to illustrate IDL use on the Odyssey cluster. The specific example computes PI via Monte-Carlo method.
+
+#### Contents:
+
+* <code>pi\_monte\_carlo.pro</code>: IDL source code
+* <code>run.sbatch</code>: Batch-job submission script
+
+#### Example Batch-Job Submission Script:
+
+```bash
+#!/bin/bash
+#SBATCH -J pi_monte_carlo
+#SBATCH -o pi_monte_carlo.out
+#SBATCH -e pi_monte_carlo.err
+#SBATCH -p serial_requeue
+#SBATCH -N 1
+#SBATCH -c 1
+#SBATCH -t 0-00:30
+#SBATCH --mem=4000
+
+# Load required software modules
+source new-modules.sh
+module load IDL/8.5.1-fasrc01
+srun -n 1 -c 1 idl -e pi_monte_carlo
+```
+
+#### Example Usage:
+
+```bash
+source new-modules.sh
+module load IDL/8.5.1-fasrc01
+sbatch run.sbatch
+```
+#### Example Output:
+
+```
+cat pi_monte_carlo.out 
+Computed PI:       3.1435720
+Exact PI:      3.14159
+```
+
