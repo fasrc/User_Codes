@@ -6,7 +6,7 @@ This example illustrates using STATA on the Odyssey cluster at Harvard Universit
 
 * test.do: Input file (STATA "do" file)
 * run.sbatch: Batch job submission script for sending the job to the queue.
-
+ 
 #### Example STATA do file:
 
 ```
@@ -16,31 +16,30 @@ summarize
 generate price2 = 2*price 
 describe
 exit
-```
-
-#### Example Batch-Job Submission Script:
+``` 
+                       
+#### Batch-Job Submission Script:
 
 ```bash
 #!/bin/bash
 #SBATCH -J my_stata_job
 #SBATCH -o my_stata_job.out
 #SBATCH -e my_stata_job.err
-#SBATCH -p general
+#SBATCH -p serial_requeue
 #SBATCH -t 0-00:30
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=16000
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -c 1
+#SBATCH --mem=4000
 
 # Load required modules
 source new-modules.sh
 module load stata/13.0-fasrc01
 
-# Run STATA in parallel
-stata-mp -b do test.do
+# Run program
+srun -n 1 -c 1 stata -b do test.do
 ```
 
-                       
 #### Example Usage:
 
 ```bash
@@ -52,27 +51,26 @@ sbatch run.sbatch
 #### Example Output:
 
 ```
-[pkrastev@sa01 STATA]$ cat test.log
+[pkrastev@sa01 STATA]$ cat test.log 
 
   ___  ____  ____  ____  ____ (R)
  /__    /   ____/   /   ____/
 ___/   /   /___/   /   /___/   13.1   Copyright 1985-2013 StataCorp LP
   Statistics/Data Analysis            StataCorp
                                       4905 Lakeway Drive
-     MP - Parallel Edition            College Station, Texas 77845 USA
+                                      College Station, Texas 77845 USA
                                       800-STATA-PC        http://www.stata.com
                                       979-696-4600        stata@stata.com
                                       979-696-4601 (fax)
 
-2-user 64-core Stata network perpetual license:
+2-user Stata network perpetual license:
        Serial number:  501306209182
          Licensed to:  Harvard Research Computing
                        Cambridge, MA
 
 Notes:
-      1.  (-v# option or -set maxvar-) 5000 maximum variables
-      2.  Command line editing disabled
-      3.  Stata running in batch mode
+      1.  Command line editing disabled
+      2.  Stata running in batch mode
 
 
 ****** Odyssey Notes ******

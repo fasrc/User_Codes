@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH -J sum_array
-#SBATCH -o sum_array.out
-#SBATCH -e sun_array.err
+#SBATCH -J count_down
+#SBATCH -o count_down.out
+#SBATCH -e count_down.err
 #SBATCH -p serial_requeue
 #SBATCH -N 1
 #SBATCH -c 1
@@ -10,10 +10,8 @@
 
 # Load required software modules
 source new-modules.sh
+module load R/3.2.0-fasrc01
 
 # Run program
-module load perl/5.10.1-fasrc04
-srun -n 1 -c 1 perl sum_array.pl << INPUT
-100
-INPUT
+srun -n 1 -c 1 R --vanilla < count_down.R 
 

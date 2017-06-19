@@ -1,6 +1,6 @@
 #### Purpose:
 
-Example code to illustrate Perl use on the Odyssey cluster. The specific example generates a random vector of dimension N and sums up its elemenst.
+Example code to illustrate Perl use on the Odyssey cluster. The specific example generates a random vector of dimension N and sums up its elements.
 
 #### Contents:
 
@@ -50,6 +50,8 @@ print "Sum of array elements: ", $isum, "\n";
 # Load required software modules
 source new-modules.sh
 module load perl/5.10.1-fasrc04
+
+# Run program
 srun -n 1 -c 1 perl sum_array.pl << INPUT
 100
 INPUT

@@ -1,3 +1,3 @@
-### Contents:
+#### Contents:
 
-(1) count_down.R: Perform countdown (from 10 to 1)
+* Example1: Print out integers from 10 down to 1
