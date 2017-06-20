@@ -6,7 +6,7 @@ This program tests netCDF-4 parallel I/O functions from Fortran 90. The specific
 
 * <code>simple\_xy\_par_rd.f90</code>: Fortran source code
 * <code>Makefile</code>: Makefile to compile this example
-* <code>simple\_xy_\par.nc</code>: Example NetCDF file (generated in **Example2**)
+* <code>simple\_xy\_par.nc</code>: Example NetCDF file (generated in **Example2**)
 * <code>run.sbatch</code>: Batch-job submission script
 
 ### Example NetCDF file:

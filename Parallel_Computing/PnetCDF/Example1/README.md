@@ -18,7 +18,7 @@ This program tests PnetCDF parallel I/O functions from Fortran. The specific exa
 #SBATCH -e parallel_netcdf.err
 #SBATCH -p general
 #SBATCH -t 0-00:30
-#SBATCH -n 4
+#SBATCH -n 8
 #SBATCH --mem-per-cpu=4000
 
 # Load required modules
@@ -29,6 +29,34 @@ module load parallel-netcdf/1.8.1-fasrc01
 
 # Run program
 srun -n 8 --mpi=pmi2 ./transpose.x
+```
+
+### Makefile:
+
+```bash
+#==========================================================================
+# Makefile
+#==========================================================================
+F90COMPILER = mpiifort
+F90CFLAGS   = -c -O2
+LIBS        = -lpnetcdf
+PRO         = transpose
+
+OBJECTS =  utils.o     \
+           transpose.o
+
+${PRO}.x : $(OBJECTS)
+	$(F90COMPILER) -o ${PRO}.x $(OBJECTS) $(LIBS)
+
+%.o : %.f90
+	$(F90COMPILER) $(F90CFLAGS) $(<F)
+
+%.o : %.F90
+	$(F90COMPILER) $(F90CFLAGS) $(<F)
+
+
+clean : 
+	rm -rf *.o *.x
 ```
 
 ### Example Usage:
