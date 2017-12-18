@@ -2,7 +2,7 @@
 tstart = AbsoluteTime[];
 Print [ "Parallel calculation of PI via Monte-Carlo method." ];
 
-nproc = 4;
+nproc = 8;
 LaunchKernels[nproc];
 
 Print[ " Number of kernels: ", nproc];
