@@ -50,5 +50,6 @@ int main (int argc, char *argv[]) {
   }
   
   printf("Global dot product = %f\n",sum);
- 
+
+  return 0; 
 }

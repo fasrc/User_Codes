@@ -1,0 +1,171 @@
+07 March 2018 07:54:29 PM
+
+POISSON_MPI:
+  C version
+  2-D Poisson equation using Jacobi algorithm
+  ===========================================
+  MPI version: 1-D domains, non-blocking send/receive
+  Number of processes         = 4
+  Number of interior vertices = 128
+  Desired fractional accuracy = 0.001000
+
+  N = 128, n = 362, my_n = 81, Step   10  Error = 0.379268
+  N = 128, n = 1522, my_n = 361, Step   20  Error = 0.329142
+  N = 128, n = 3482, my_n = 841, Step   30  Error = 0.312398
+  N = 128, n = 6016, my_n = 1451, Step   40  Error = 0.294685
+  N = 128, n = 8576, my_n = 1976, Step   50  Error = 0.273848
+  N = 128, n = 11136, my_n = 2401, Step   60  Error = 0.258585
+  N = 128, n = 12950, my_n = 2735, Step   70  Error = 0.232571
+  N = 128, n = 14010, my_n = 3055, Step   80  Error = 0.206428
+  N = 128, n = 14877, my_n = 3374, Step   90  Error = 0.185686
+  N = 128, n = 15552, my_n = 3688, Step  100  Error = 0.167779
+  N = 128, n = 16022, my_n = 3924, Step  110  Error = 0.151284
+  N = 128, n = 16282, my_n = 4059, Step  120  Error = 0.135143
+  N = 128, n = 16371, my_n = 4094, Step  130  Error = 0.118309
+  N = 128, n = 16380, my_n = 4095, Step  140  Error = 0.103419
+  N = 128, n = 16376, my_n = 4096, Step  150  Error = 0.0911946
+  N = 128, n = 16377, my_n = 4096, Step  160  Error = 0.0809696
+  N = 128, n = 16369, my_n = 4096, Step  170  Error = 0.0723986
+  N = 128, n = 16372, my_n = 4096, Step  180  Error = 0.0650727
+  N = 128, n = 16367, my_n = 4096, Step  190  Error = 0.0588296
+  N = 128, n = 16378, my_n = 4096, Step  200  Error = 0.0533923
+  N = 128, n = 16376, my_n = 4096, Step  210  Error = 0.0487114
+  N = 128, n = 16380, my_n = 4096, Step  220  Error = 0.0446055
+  N = 128, n = 16382, my_n = 4096, Step  230  Error = 0.0410032
+  N = 128, n = 16384, my_n = 4096, Step  240  Error = 0.0378215
+  N = 128, n = 16384, my_n = 4096, Step  250  Error = 0.0350018
+  N = 128, n = 16384, my_n = 4096, Step  260  Error = 0.0324874
+  N = 128, n = 16384, my_n = 4096, Step  270  Error = 0.0302356
+  N = 128, n = 16384, my_n = 4096, Step  280  Error = 0.0282109
+  N = 128, n = 16384, my_n = 4096, Step  290  Error = 0.0263829
+  N = 128, n = 16384, my_n = 4096, Step  300  Error = 0.0247241
+  N = 128, n = 16384, my_n = 4096, Step  310  Error = 0.0232407
+  N = 128, n = 16384, my_n = 4096, Step  320  Error = 0.0219023
+  N = 128, n = 16384, my_n = 4096, Step  330  Error = 0.0206324
+  N = 128, n = 16384, my_n = 4096, Step  340  Error = 0.0194829
+  N = 128, n = 16384, my_n = 4096, Step  350  Error = 0.0184294
+  N = 128, n = 16384, my_n = 4096, Step  360  Error = 0.0174603
+  N = 128, n = 16384, my_n = 4096, Step  370  Error = 0.0165664
+  N = 128, n = 16384, my_n = 4096, Step  380  Error = 0.0157399
+  N = 128, n = 16384, my_n = 4096, Step  390  Error = 0.0149741
+  N = 128, n = 16384, my_n = 4096, Step  400  Error = 0.014263
+  N = 128, n = 16384, my_n = 4096, Step  410  Error = 0.0136014
+  N = 128, n = 16384, my_n = 4096, Step  420  Error = 0.0129846
+  N = 128, n = 16384, my_n = 4096, Step  430  Error = 0.0124081
+  N = 128, n = 16384, my_n = 4096, Step  440  Error = 0.0118674
+  N = 128, n = 16384, my_n = 4096, Step  450  Error = 0.0113774
+  N = 128, n = 16384, my_n = 4096, Step  460  Error = 0.0115562
+  N = 128, n = 16384, my_n = 4096, Step  470  Error = 0.0104833
+  N = 128, n = 16384, my_n = 4096, Step  480  Error = 0.0100564
+  N = 128, n = 16384, my_n = 4096, Step  490  Error = 0.00966101
+  N = 128, n = 16384, my_n = 4096, Step  500  Error = 0.00928986
+  N = 128, n = 16384, my_n = 4096, Step  510  Error = 0.00894021
+  N = 128, n = 16384, my_n = 4096, Step  520  Error = 0.00861013
+  N = 128, n = 16384, my_n = 4096, Step  530  Error = 0.00829803
+  N = 128, n = 16384, my_n = 4096, Step  540  Error = 0.00800253
+  N = 128, n = 16384, my_n = 4096, Step  550  Error = 0.00772236
+  N = 128, n = 16384, my_n = 4096, Step  560  Error = 0.00745632
+  N = 128, n = 16384, my_n = 4096, Step  570  Error = 0.00720321
+  N = 128, n = 16384, my_n = 4096, Step  580  Error = 0.00696659
+  N = 128, n = 16384, my_n = 4096, Step  590  Error = 0.0067447
+  N = 128, n = 16384, my_n = 4096, Step  600  Error = 0.00654949
+  N = 128, n = 16384, my_n = 4096, Step  610  Error = 0.00638913
+  N = 128, n = 16384, my_n = 4096, Step  620  Error = 0.00614015
+  N = 128, n = 16384, my_n = 4096, Step  630  Error = 0.00594475
+  N = 128, n = 16384, my_n = 4096, Step  640  Error = 0.00576226
+  N = 128, n = 16384, my_n = 4096, Step  650  Error = 0.00558905
+  N = 128, n = 16384, my_n = 4096, Step  660  Error = 0.00542388
+  N = 128, n = 16384, my_n = 4096, Step  670  Error = 0.00526601
+  N = 128, n = 16384, my_n = 4096, Step  680  Error = 0.00511488
+  N = 128, n = 16384, my_n = 4096, Step  690  Error = 0.00497001
+  N = 128, n = 16384, my_n = 4096, Step  700  Error = 0.00483145
+  N = 128, n = 16384, my_n = 4096, Step  710  Error = 0.00469994
+  N = 128, n = 16384, my_n = 4096, Step  720  Error = 0.00457432
+  N = 128, n = 16384, my_n = 4096, Step  730  Error = 0.00445498
+  N = 128, n = 16384, my_n = 4096, Step  740  Error = 0.00434425
+  N = 128, n = 16384, my_n = 4096, Step  750  Error = 0.00426761
+  N = 128, n = 16384, my_n = 4096, Step  760  Error = 0.00415645
+  N = 128, n = 16384, my_n = 4096, Step  770  Error = 0.00402377
+  N = 128, n = 16384, my_n = 4096, Step  780  Error = 0.00391681
+  N = 128, n = 16384, my_n = 4096, Step  790  Error = 0.00381689
+  N = 128, n = 16384, my_n = 4096, Step  800  Error = 0.00372157
+  N = 128, n = 16384, my_n = 4096, Step  810  Error = 0.00363005
+  N = 128, n = 16384, my_n = 4096, Step  820  Error = 0.00354191
+  N = 128, n = 16384, my_n = 4096, Step  830  Error = 0.00345781
+  N = 128, n = 16384, my_n = 4096, Step  840  Error = 0.00337679
+  N = 128, n = 16384, my_n = 4096, Step  850  Error = 0.00329876
+  N = 128, n = 16384, my_n = 4096, Step  860  Error = 0.00322369
+  N = 128, n = 16384, my_n = 4096, Step  870  Error = 0.00315174
+  N = 128, n = 16384, my_n = 4096, Step  880  Error = 0.00308368
+  N = 128, n = 16384, my_n = 4096, Step  890  Error = 0.00302295
+  N = 128, n = 16384, my_n = 4096, Step  900  Error = 0.00300683
+  N = 128, n = 16384, my_n = 4096, Step  910  Error = 0.00291721
+  N = 128, n = 16384, my_n = 4096, Step  920  Error = 0.00283296
+  N = 128, n = 16384, my_n = 4096, Step  930  Error = 0.00276799
+  N = 128, n = 16384, my_n = 4096, Step  940  Error = 0.00270849
+  N = 128, n = 16384, my_n = 4096, Step  950  Error = 0.00265355
+  N = 128, n = 16384, my_n = 4096, Step  960  Error = 0.00260486
+  N = 128, n = 16384, my_n = 4096, Step  970  Error = 0.00258967
+  N = 128, n = 16384, my_n = 4096, Step  980  Error = 0.00252917
+  N = 128, n = 16384, my_n = 4096, Step  990  Error = 0.00245181
+  N = 128, n = 16384, my_n = 4096, Step 1000  Error = 0.00239737
+  N = 128, n = 16384, my_n = 4096, Step 1010  Error = 0.00234804
+  N = 128, n = 16384, my_n = 4096, Step 1020  Error = 0.00230182
+  N = 128, n = 16384, my_n = 4096, Step 1030  Error = 0.00225874
+  N = 128, n = 16384, my_n = 4096, Step 1040  Error = 0.00222128
+  N = 128, n = 16384, my_n = 4096, Step 1050  Error = 0.0022179
+  N = 128, n = 16384, my_n = 4096, Step 1060  Error = 0.00216482
+  N = 128, n = 16384, my_n = 4096, Step 1070  Error = 0.00209778
+  N = 128, n = 16384, my_n = 4096, Step 1080  Error = 0.0020526
+  N = 128, n = 16384, my_n = 4096, Step 1090  Error = 0.00201185
+  N = 128, n = 16384, my_n = 4096, Step 1100  Error = 0.00197331
+  N = 128, n = 16384, my_n = 4096, Step 1110  Error = 0.00193631
+  N = 128, n = 16384, my_n = 4096, Step 1120  Error = 0.00190059
+  N = 128, n = 16384, my_n = 4096, Step 1130  Error = 0.00186603
+  N = 128, n = 16384, my_n = 4096, Step 1140  Error = 0.00183271
+  N = 128, n = 16384, my_n = 4096, Step 1150  Error = 0.00180055
+  N = 128, n = 16384, my_n = 4096, Step 1160  Error = 0.00176953
+  N = 128, n = 16384, my_n = 4096, Step 1170  Error = 0.00173987
+  N = 128, n = 16384, my_n = 4096, Step 1180  Error = 0.00171217
+  N = 128, n = 16384, my_n = 4096, Step 1190  Error = 0.00168804
+  N = 128, n = 16384, my_n = 4096, Step 1200  Error = 0.00167898
+  N = 128, n = 16384, my_n = 4096, Step 1210  Error = 0.00170675
+  N = 128, n = 16384, my_n = 4096, Step 1220  Error = 0.00161181
+  N = 128, n = 16384, my_n = 4096, Step 1230  Error = 0.00157717
+  N = 128, n = 16384, my_n = 4096, Step 1240  Error = 0.00154834
+  N = 128, n = 16384, my_n = 4096, Step 1250  Error = 0.00152182
+  N = 128, n = 16384, my_n = 4096, Step 1260  Error = 0.00149682
+  N = 128, n = 16384, my_n = 4096, Step 1270  Error = 0.00147321
+  N = 128, n = 16384, my_n = 4096, Step 1280  Error = 0.00145137
+  N = 128, n = 16384, my_n = 4096, Step 1290  Error = 0.00143275
+  N = 128, n = 16384, my_n = 4096, Step 1300  Error = 0.00142567
+  N = 128, n = 16384, my_n = 4096, Step 1310  Error = 0.00153848
+  N = 128, n = 16384, my_n = 4096, Step 1320  Error = 0.00137758
+  N = 128, n = 16384, my_n = 4096, Step 1330  Error = 0.00134807
+  N = 128, n = 16384, my_n = 4096, Step 1340  Error = 0.00132675
+  N = 128, n = 16384, my_n = 4096, Step 1350  Error = 0.00131254
+  N = 128, n = 16384, my_n = 4096, Step 1360  Error = 0.00135337
+  N = 128, n = 16384, my_n = 4096, Step 1370  Error = 0.00128881
+  N = 128, n = 16384, my_n = 4096, Step 1380  Error = 0.00124877
+  N = 128, n = 16384, my_n = 4096, Step 1390  Error = 0.00122447
+  N = 128, n = 16384, my_n = 4096, Step 1400  Error = 0.00120358
+  N = 128, n = 16384, my_n = 4096, Step 1410  Error = 0.00118421
+  N = 128, n = 16384, my_n = 4096, Step 1420  Error = 0.00116578
+  N = 128, n = 16384, my_n = 4096, Step 1430  Error = 0.00114806
+  N = 128, n = 16384, my_n = 4096, Step 1440  Error = 0.00113096
+  N = 128, n = 16384, my_n = 4096, Step 1450  Error = 0.00111443
+  N = 128, n = 16384, my_n = 4096, Step 1460  Error = 0.00109845
+  N = 128, n = 16384, my_n = 4096, Step 1470  Error = 0.00108309
+  N = 128, n = 16384, my_n = 4096, Step 1480  Error = 0.00106845
+  N = 128, n = 16384, my_n = 4096, Step 1490  Error = 0.00105486
+  N = 128, n = 16384, my_n = 4096, Step 1500  Error = 0.00104327
+  N = 128, n = 16384, my_n = 4096, Step 1510  Error = 0.00103754
+  N = 128, n = 16384, my_n = 4096, Step 1520  Error = 0.00111119
+  N = 128, n = 16384, my_n = 4096, Step 1530  Error = 0.00102205
+
+  Wall clock time = 0.170960 secs
+
+POISSON_MPI:
+  Normal end of execution.
+
+07 March 2018 07:54:30 PM

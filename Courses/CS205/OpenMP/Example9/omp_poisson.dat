@@ -1,11 +1,11 @@
-08 March 2017 02:50:54 PM
+07 March 2018 06:38:04 PM
 
 POISSON_OPENMP:
   C version
   A program for solving the Poisson equation.
 
   Use OpenMP for parallel execution.
-  The number of processors is 8
+  The number of processors is 4
   The maximum number of threads is 4
 
   -DEL^2 U = F(X,Y)
@@ -74,9 +74,9 @@ POISSON_OPENMP:
   24000        0.617019     9.29454e-07      0.00481811
   The iteration has converged.
 
-  Elapsed seconds = 7.68736
+  Elapsed seconds = 1.49
 
 POISSON_OPENMP:
   Normal end of execution.
 
-08 March 2017 02:51:02 PM
+07 March 2018 06:38:06 PM

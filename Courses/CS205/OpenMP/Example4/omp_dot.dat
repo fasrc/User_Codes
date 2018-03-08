@@ -1,0 +1,6 @@
+Global dot product = 657096.000000
+Running on 4 threads.
+Thread 0: partial dot product = 128399.000000
+Thread 1: partial dot product = 150649.000000
+Thread 2: partial dot product = 175399.000000
+Thread 3: partial dot product = 202649.000000

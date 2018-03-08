@@ -20,6 +20,8 @@ int main (int argc, char *argv[]) {
   nthreads = atoi(argv[2]);
   omp_set_num_threads (nthreads); // Set number of threads
 
+  printf("Number of threads: %2i\n", nthreads);
+
   t0 = omp_get_wtime();
   count = 0;
 
@@ -45,6 +47,6 @@ int main (int argc, char *argv[]) {
 
   printf("Exact value of PI: %7.5f\n", M_PI);
   printf("Estimate of PI:    %7.5f\n", PI);
-  printf("Time: %7.2f sec.\n", tf);
+  printf("Time: %7.2f sec.\n\n", tf);
   return 0;
 }
