@@ -1,5 +1,8 @@
 /*
-  Program: hello_mpi.cpp
+  Program: mpi_hello.cpp
+
+           An intro MPI Hello World program that uses MPI_Init, 
+           MPI_Comm_size, MPI_Comm_rank and MPI_Finalize.
  */
 #include <iostream>
 #include <mpi.h>
