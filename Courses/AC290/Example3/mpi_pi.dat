@@ -1,0 +1,24 @@
+Number of MPI processes: 1
+Elapsed time = 12.270778 seconds 
+Pi is approximately 3.1415854880000000, Error is 0.0000071655897931
+Exact value of PI is 3.1415926535897931
+
+Number of MPI processes: 2
+Elapsed time = 6.186086 seconds 
+Pi is approximately 3.1415564159999998, Error is 0.0000362375897933
+Exact value of PI is 3.1415926535897931
+
+Number of MPI processes: 4
+Elapsed time = 3.429223 seconds 
+Pi is approximately 3.1416008000000000, Error is 0.0000081464102069
+
+Number of MPI processes: 8
+Exact value of PI is 3.1415926535897931
+Elapsed time = 1.840915 seconds 
+Pi is approximately 3.1416454720000000, Error is 0.0000528184102069
+Exact value of PI is 3.1415926535897931
+
+Number of MPI processes: 16
+Elapsed time = 0.895412 seconds 
+Pi is approximately 3.1416518400000002, Error is 0.0000591864102071
+Exact value of PI is 3.1415926535897931
