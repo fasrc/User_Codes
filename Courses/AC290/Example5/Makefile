@@ -14,4 +14,5 @@ ${PRO}.x : $(OBJECTS)
 	$(F90COMPILER) $(F90CFLAGS) $(<F)
 
 clean : 
-	rm *.o *.x *.mod
+	rm -f *.o *.x *.mod
+
