@@ -14,10 +14,9 @@
 ### Example Usage:
 
 ```bash
-source new-modules.sh				# Set up Harvard's LMOD environment
 module load gcc/4.8.2-fasrc01		# Load required software modules
-make             					# Compile
-sbatch sbatch.run 					# Send the job to the queue
+make             			# Compile
+sbatch sbatch.run 			# Send the job to the queue
 ```
 
 ### Source Code:
@@ -102,8 +101,7 @@ rm -rf ${PRO}.dat
 touch ${PRO}.dat
 
 # Load required software modules
-source new-modules.sh
-module load gcc/4.8.2-fasrc01
+module load gcc/8.2.0-fasrc01
 
 # Run program with 1, 2, 4, and 8 OpenMP threads
 for i in 1 2 4 8

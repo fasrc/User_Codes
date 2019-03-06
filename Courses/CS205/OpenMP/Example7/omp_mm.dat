@@ -1,7 +1,7 @@
 
 Matrix multiplication tests.
 
-  Number of processors available = 1
+  Number of processors available = 8
   Number of threads              = 1
 
 Matrix multiplication timing.
@@ -10,134 +10,15 @@ Matrix multiplication timing.
   M = 1000
   N = 1000
   Floating point OPS roughly 2000000000
-  Elapsed time dT = 2.239889
-  Rate = MegaOPS/dT = 892.901388
+  Elapsed time dT = 1.470206
+  Rate = MegaOPS/dT = 1360.353942
 
 omp_mm:
   Normal end of execution.
 
 Matrix multiplication tests.
 
-  Number of processors available = 1
-  Number of threads              = 1
-
-Matrix multiplication timing.
-  A(LxN) = B(LxM) * C(MxN).
-  L = 1000
-  M = 1000
-  N = 1000
-  Floating point OPS roughly 2000000000
-  Elapsed time dT = 2.254892
-  Rate = MegaOPS/dT = 886.960579
-
-omp_mm:
-  Normal end of execution.
-
-Matrix multiplication tests.
-
-  Number of processors available = 1
-  Number of threads              = 1
-
-Matrix multiplication timing.
-  A(LxN) = B(LxM) * C(MxN).
-  L = 1000
-  M = 1000
-  N = 1000
-  Floating point OPS roughly 2000000000
-  Elapsed time dT = 2.259132
-  Rate = MegaOPS/dT = 885.295731
-
-omp_mm:
-  Normal end of execution.
-
-Matrix multiplication tests.
-
-  Number of processors available = 1
-  Number of threads              = 1
-
-Matrix multiplication timing.
-  A(LxN) = B(LxM) * C(MxN).
-  L = 1000
-  M = 1000
-  N = 1000
-  Floating point OPS roughly 2000000000
-  Elapsed time dT = 2.262287
-  Rate = MegaOPS/dT = 884.060981
-
-omp_mm:
-  Normal end of execution.
-
-Matrix multiplication tests.
-
-  Number of processors available = 1
-  Number of threads              = 1
-
-Matrix multiplication timing.
-  A(LxN) = B(LxM) * C(MxN).
-  L = 1000
-  M = 1000
-  N = 1000
-  Floating point OPS roughly 2000000000
-  Elapsed time dT = 2.382344
-  Rate = MegaOPS/dT = 839.509179
-
-omp_mm:
-  Normal end of execution.
-
-Matrix multiplication tests.
-
-  Number of processors available = 1
-  Number of threads              = 1
-
-Matrix multiplication timing.
-  A(LxN) = B(LxM) * C(MxN).
-  L = 1000
-  M = 1000
-  N = 1000
-  Floating point OPS roughly 2000000000
-  Elapsed time dT = 2.392408
-  Rate = MegaOPS/dT = 835.977925
-
-omp_mm:
-  Normal end of execution.
-
-Matrix multiplication tests.
-
-  Number of processors available = 1
-  Number of threads              = 1
-
-Matrix multiplication timing.
-  A(LxN) = B(LxM) * C(MxN).
-  L = 1000
-  M = 1000
-  N = 1000
-  Floating point OPS roughly 2000000000
-  Elapsed time dT = 2.400227
-  Rate = MegaOPS/dT = 833.254532
-
-omp_mm:
-  Normal end of execution.
-
-Matrix multiplication tests.
-
-  Number of processors available = 1
-  Number of threads              = 1
-
-Matrix multiplication timing.
-  A(LxN) = B(LxM) * C(MxN).
-  L = 1000
-  M = 1000
-  N = 1000
-  Floating point OPS roughly 2000000000
-  Elapsed time dT = 2.403612
-  Rate = MegaOPS/dT = 832.081116
-
-omp_mm:
-  Normal end of execution.
-
-Matrix multiplication tests.
-
-  Number of processors available = 2
+  Number of processors available = 8
   Number of threads              = 2
 
 Matrix multiplication timing.
@@ -146,66 +27,15 @@ Matrix multiplication timing.
   M = 1000
   N = 1000
   Floating point OPS roughly 2000000000
-  Elapsed time dT = 0.850212
-  Rate = MegaOPS/dT = 2352.354677
+  Elapsed time dT = 0.707995
+  Rate = MegaOPS/dT = 2824.877163
 
 omp_mm:
   Normal end of execution.
 
 Matrix multiplication tests.
 
-  Number of processors available = 2
-  Number of threads              = 2
-
-Matrix multiplication timing.
-  A(LxN) = B(LxM) * C(MxN).
-  L = 1000
-  M = 1000
-  N = 1000
-  Floating point OPS roughly 2000000000
-  Elapsed time dT = 0.864590
-  Rate = MegaOPS/dT = 2313.234177
-
-omp_mm:
-  Normal end of execution.
-
-Matrix multiplication tests.
-
-  Number of processors available = 2
-  Number of threads              = 2
-
-Matrix multiplication timing.
-  A(LxN) = B(LxM) * C(MxN).
-  L = 1000
-  M = 1000
-  N = 1000
-  Floating point OPS roughly 2000000000
-  Elapsed time dT = 0.928837
-  Rate = MegaOPS/dT = 2153.229830
-
-omp_mm:
-  Normal end of execution.
-
-Matrix multiplication tests.
-
-  Number of processors available = 2
-  Number of threads              = 2
-
-Matrix multiplication timing.
-  A(LxN) = B(LxM) * C(MxN).
-  L = 1000
-  M = 1000
-  N = 1000
-  Floating point OPS roughly 2000000000
-  Elapsed time dT = 0.940654
-  Rate = MegaOPS/dT = 2126.179213
-
-omp_mm:
-  Normal end of execution.
-
-Matrix multiplication tests.
-
-  Number of processors available = 4
+  Number of processors available = 8
   Number of threads              = 4
 
 Matrix multiplication timing.
@@ -214,25 +44,8 @@ Matrix multiplication timing.
   M = 1000
   N = 1000
   Floating point OPS roughly 2000000000
-  Elapsed time dT = 0.411850
-  Rate = MegaOPS/dT = 4856.135825
-
-omp_mm:
-  Normal end of execution.
-
-Matrix multiplication tests.
-
-  Number of processors available = 4
-  Number of threads              = 4
-
-Matrix multiplication timing.
-  A(LxN) = B(LxM) * C(MxN).
-  L = 1000
-  M = 1000
-  N = 1000
-  Floating point OPS roughly 2000000000
-  Elapsed time dT = 0.416562
-  Rate = MegaOPS/dT = 4801.201079
+  Elapsed time dT = 0.383261
+  Rate = MegaOPS/dT = 5218.382421
 
 omp_mm:
   Normal end of execution.
@@ -248,8 +61,8 @@ Matrix multiplication timing.
   M = 1000
   N = 1000
   Floating point OPS roughly 2000000000
-  Elapsed time dT = 0.310018
-  Rate = MegaOPS/dT = 6451.236044
+  Elapsed time dT = 0.300551
+  Rate = MegaOPS/dT = 6654.445679
 
 omp_mm:
   Normal end of execution.

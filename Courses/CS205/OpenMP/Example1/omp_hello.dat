@@ -1,5 +1,5 @@
 Hello World from thread = 0
 Number of threads = 4
-Hello World from thread = 1
-Hello World from thread = 2
 Hello World from thread = 3
+Hello World from thread = 2
+Hello World from thread = 1

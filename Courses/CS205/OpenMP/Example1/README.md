@@ -14,10 +14,9 @@ The master thread only prints the total number of threads.
 ### Example Usage:
 
 ```bash
-source new-modules.sh				# Set up Harvard's LMOD environment
-module load gcc/4.8.2-fasrc01		# Load required software modules
-make             					# Compile
-sbatch sbatch.run 					# Send the job to the queue
+module gcc/8.2.0-fasrc01	   	        # Load required software modules
+make             				# Compile
+sbatch sbatch.run 				# Send the job to the queue
 ```
 
 ### Source Code:
@@ -77,7 +76,7 @@ cp ${SLURM_SUBMIT_DIR}/${PRO}.x .
 
 # Load required software modules
 source new-modules.sh
-module load gcc/4.8.2-fasrc01
+module load gcc/8.2.0-fasrc01
 
 # Run program
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
