@@ -75,7 +75,6 @@ cd $WORK_DIR
 cp ${SLURM_SUBMIT_DIR}/${PRO}.x .
 
 # Load required software modules
-source new-modules.sh
 module load gcc/8.2.0-fasrc01
 
 # Run program

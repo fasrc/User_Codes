@@ -74,7 +74,7 @@ int main (int argc, char *argv[]) {
   printf("Time: %7.2f sec.\n\n", tf);
   return 0;
 }
-}
+
 ```
 
 ### Batch-Job Submission Script:
