@@ -2,19 +2,20 @@
 #SBATCH -J mpi_test
 #SBATCH -o mpi_test.out
 #SBATCH -e mpi_test.err
-#SBATCH -p general
+#SBATCH -p shared
 #SBATCH -n 8
 #SBATCH -t 30
 #SBATCH --mem-per-cpu=4000
 
 # Load required software modules
-source new-modules.sh
-module load intel/15.0.0-fasrc01
-module load mvapich2/2.0-fasrc03
-module load R/3.2.2-fasrc02
+module load gcc/7.1.0-fasrc01 
+module load openmpi/3.1.3-fasrc01 
+module load R/3.5.1-fasrc02
+
+# Set up Rmpi package
+export R_LIBS_USER=$HOME/software/R/3.5.1:$R_LIBS_USER
+export R_PROFILE=$HOME/software/R/3.5.1/Rmpi/Rprofile
 
 # Run program
-srun -n 8 --mpi=pmi2 R CMD BATCH --no-save --no-restore mpi_test.R
-
-# NOTE: When using OpenMPI, please replace the mpirun command line above with
-# srun -n 8 --mpi=pmi2 --mca mpi_warn_on_fork 0 R CMD BATCH --no-save --no-restore mpi_test.R
+export OMPI_MCA_mpi_warn_on_fork=0
+srun -n 8 --mpi=pmix R CMD BATCH --no-save --no-restore mpi_test.R
