@@ -103,7 +103,7 @@ export R_PROFILE=$HOME/software/R/3.5.1/Rmpi/Rprofile
 export OMPI_MCA_mpi_warn_on_fork=0
 srun -n 8 --mpi=pmix R CMD BATCH --no-save --no-restore mpi_test.R
 ```
-**Note:** Please notice the line <code>export R_PROFILE=$HOME/software/R/3.5.1/Rmpi/Rprofile</code> in the above batch-job submission script. It is very important for to set the <code>R\_PROFILE</code> environment variable to point to the correct <code>Rprofile</code> file for <code>Rmpi</code> to work correctly.
+**Note:** Please notice the line <code>export R_PROFILE=$HOME/software/R/3.5.1/Rmpi/Rprofile</code> in the above batch-job submission script. It is very important to set the <code>R\_PROFILE</code> environment variable to point to the correct <code>Rprofile</code> file for <code>Rmpi</code> to work correctly.
 
 ### Example Output:
 
