@@ -1,14 +1,14 @@
-### PURPOSE
+![FASRC Logo](Images/rc-logo-text_2017-88.png)
 
-Repository of various codes, scripts, use cases, and recipes.
+Repository of various example codes, scripts, use cases and recipes.
 
-### CONTENTS
+### Contents
 
-#### (1) Languages
+#### Programming Languages and Environments
     
-   * BASH  
+   * Bash
    * C  
-   * Cpp  
+   * C++  
    * Fortran  
    * IDL  
    * Julia  
@@ -19,7 +19,7 @@ Repository of various codes, scripts, use cases, and recipes.
    * R  
    * STATA
 
-#### (2) Libraries
+#### Numerical and I/O Libraries
    
    * Armadillo
    * MKL
@@ -31,12 +31,11 @@ Repository of various codes, scripts, use cases, and recipes.
    * NETCDF
    * OpenBLAS
 
-#### (3) Parallel_Computing
+#### Parallel Computing
 
-   * MPI (Fortran, C, C++)
-   * OpenMP (Fortran, C, C++)
-   * Parallel_HDF5
-   * MPI_IO
+   * MPI
+   * OpenMP
+   * Parallel HDF5
    * Python
    * R
    * Julia
@@ -44,7 +43,7 @@ Repository of various codes, scripts, use cases, and recipes.
    * Mathematica
    * STATA
 
-#### (4) Example_Recipes
+#### Example Recipes
 
    * Job arrays
    * Movie processing and reading data from CSV files
@@ -52,7 +51,13 @@ Repository of various codes, scripts, use cases, and recipes.
    * Image processing with MATLAB 
    * Parallel Job Arrays
 
-#### (5) Applications
+#### Applications
 
    * Schrodinger
    * Knitro
+
+#### Visualization
+
+   * ParaView
+   * VisIt
+

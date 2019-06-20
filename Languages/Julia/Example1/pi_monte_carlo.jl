@@ -4,7 +4,7 @@
 #
 # Usage: julia pi_monte_carlo.jl
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-function montepi(n)
+function montepi(n::Int)
    R = 1.0
    s = 0
    for i = 1: n
@@ -18,7 +18,8 @@ function montepi(n)
 end
 
 # Main program
-for n in 10.^(3:8)
+for i in 3: 8
+    n = 10^i
     p = montepi(n)
     println("N = $n: PI = $p")
 end

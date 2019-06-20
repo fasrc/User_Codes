@@ -1,74 +1,28 @@
-#### Purpose:
+![Julia Logo](Images/julia-logo.png)
 
-This example illustrates **Julia** use on the Odyssey cluster. The specific example evaluates PI via Monte-Carlo method.
+[Julia](https://en.wikipedia.org/wiki/Julia_(programming_language)) is a high-level, high-performance dynamic programming language for technical computing. It has syntax that is familiar to users of many other technical computing environments. Designed at MIT to tackle large-scale partial-differential equation simulation and distributed linear algebra, Julia features a robust ecosystem of tools for
+[optimization,](https://www.juliaopt.org/)
+[statistics,](https://juliastats.github.io/)
+[parallel programming,](https://julia.mit.edu/#parallel) and 
+[data visualization.](https://juliaplots.github.io/)
+Julia is actively developed by teams
+[at MIT](https://julia.mit.edu/) and 
+[in industry,](https://juliacomputing.com/) along with 
+[hundreds of domain-expert scientists and programmers from around the world](https://github.com/JuliaLang/julia/graphs/contributors).
 
-#### Contents:
+To get started with Julia on Odyssey you can try the below examples:
 
-* <code>pi\_monte\_carlo.jl</code>: Monte-Carlo computation of PI
-* <code>run.sbatch</code>: Batch-job submission script
+* [Example 1](Example1): Monte-Carlo calculation of PI
 
-#### Julia code:
 
-```julia
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Program: pi_monte_carlo.jl
-#          Monte-Carlo calculation of PI
-#
-# Usage: julia pi_monte_carlo.jl
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-function montepi(n)
-   R = 1.0
-   s = 0
-   for i = 1: n
-      x = R * rand()
-      y = R * rand()
-      if x^2 + y^2 <= R^2
-         s = s + 1
-      end
-   end
-   return 4.0*s/n
-end
+You can also try out Julia in a web browser with [JuliaBox.](https://juliabox.com/)
 
-# Main program
-for n in 10.^(3:8)
-    p = montepi(n)
-    println("N = $n: PI = $p")
-end
-```
+![Gadfly Demo](Images/gadfly-demo.png)
 
-#### Example Batch-Job Submission Script:
+#### References:
 
-```bash
-#!/bin/bash
-#SBATCH -J pi_monte_carlo
-#SBATCH -o pi_monte_carlo.out
-#SBATCH -e pi_monte_carlo.err
-#SBATCH -p general
-#SBATCH -N 1
-#SBATCH -c 1
-#SBATCH -t 0-00:30
-#SBATCH --mem=4000
+* [The Julia Programming Language](https://julialang.org/)
+* [Julia Computing](https://juliacomputing.com/)
+* [Julia Documentation](https://docs.julialang.org/en/v1/)
 
-# Load required software modules
-source new-modules.sh
-module load julia/0.4.6-fasrc01
-srun -n 1 -c 1 julia pi_monte_carlo.jl
-```
-
-#### Example Usage:
-
-```bash
-sbatch run.sbatch
-```
-
-#### Example Output:
-
-```
-N = 1000: PI = 3.084
-N = 10000: PI = 3.1336
-N = 100000: PI = 3.14116
-N = 1000000: PI = 3.139972
-N = 10000000: PI = 3.140994
-N = 100000000: PI = 3.1418198
-```
 
