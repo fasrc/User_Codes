@@ -2,7 +2,7 @@
 
 Repository of various example codes, scripts, use cases and recipes.
 
-### Contents
+## Contents
 
 #### Programming Languages and Environments
     
@@ -11,7 +11,7 @@ Repository of various example codes, scripts, use cases and recipes.
    * C++  
    * Fortran  
    * IDL  
-   * Julia  
+   * [Julia](Languages/Julia)  
    * Mathematica  
    * MATLAB  
    * Perl  
