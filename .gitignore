@@ -1,2 +1,11 @@
+<<<<<<< HEAD
 .DS_Store
 
+=======
+dcgan/data
+data
+*.pyc
+OpenNMT/data
+cpp/mnist/build
+cpp/dcgan/build
+>>>>>>> ee964a2eeb41e1712fe719b83645c79bcbd0ba1a
