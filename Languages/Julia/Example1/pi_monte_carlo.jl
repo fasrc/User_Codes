@@ -18,8 +18,7 @@ function montepi(n::Int)
 end
 
 # Main program
-for i in 3: 8
-    n = 10^i
+for n in 10 .^(3: 8)
     p = montepi(n)
     println("N = $n: PI = $p")
 end
