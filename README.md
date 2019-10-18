@@ -52,7 +52,7 @@ Repository of various example codes, scripts, use cases and recipes.
    * Parallel Job Arrays
 
 #### Applications
-
+   * [Weather Research and Forecasting (WRF) Model](Applications/WRF_Model)
    * Schrodinger
    * Knitro
 
