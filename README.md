@@ -50,6 +50,7 @@ Repository of various example codes, scripts, use cases and recipes.
    * MATLAB MEX files from C++ source code
    * Image processing with MATLAB 
    * Parallel Job Arrays
+   * [Pytorch Example](Example_Recipes/pytorch)
 
 #### Applications
    * [Weather Research and Forecasting (WRF) Model](Applications/WRF_Model)
