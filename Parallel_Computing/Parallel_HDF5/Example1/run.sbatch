@@ -8,6 +8,10 @@
 #SBATCH --mem-per-cpu=4000
 
 # Load required modules
-module load intel/17.0.4-fasrc01 openmpi/3.1.1-fasrc01 hdf5/1.10.1-fasrc01
+source new-modules.sh
+module load intel/15.0.0-fasrc01
+module load openmpi/1.10.0-fasrc01
+module load hdf5/1.8.12-fasrc07
+
 # Run program
 srun -n 8 --mpi=pmi2 ./parallel_hdf5.x
