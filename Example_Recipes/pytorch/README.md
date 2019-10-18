@@ -1,7 +1,7 @@
 ### Running Pytorch examples on FASRC Cluster
 
 ##### 1. Get an interactive node
-        srun --pty -p gpu_test -t 0-03:00 --mem 4000 --gres=gpu:1 /bin/bash
+        srun --pty -p gpu -t 0-03:00 --mem 4000 --gres=gpu:1 /bin/bash
 ##### 2. Module load Anaconda and CUDA
 module load Anaconda3/5.0.1-fasrc02  
 module load cuda/10.0.130-fasrc01 cudnn/7.4.1.5_cuda10.0-fasrc01
