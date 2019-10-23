@@ -1,0 +1,63 @@
+---
+title: "R Notebook Example - FAS Research Computing"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+editor_options: 
+  chunk_output_type: console
+---
+
+
+
+```{r}
+# Load from URL
+data_url <-"https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
+file_n <- "iris.csv"
+download.file(url=data_url, destfile = file_n, method ="curl")
+file_iris <- read.csv(file = file_n, header = FALSE, sep = ",")
+
+colnames(file_iris)<-c("Sepal.Length","Sepal.Width","Petal.Length","Petal.Width","Species")
+
+head(file_iris, 5)
+```
+
+Specify test and train,
+
+```{r}
+# library(caret)
+# idx <- createDataPartition(iris_filedata$Species, p=0.80, list=FALSE)
+
+set.seed(3527)
+idx <- sample(1:150, size = 30, replace = FALSE)
+
+x_test <- file_iris[-idx,]
+x_train <- file_iris[idx,]
+```
+
+Let's check the data,
+
+```{r}
+dim(x_train)
+summary(x_train)
+levels(x_train$Species)
+```
+
+
+Data visualization
+
+```{r}
+hist(x_train$Sepal.Width)
+
+plot(x_train$Petal.Length, x_train$Petal.Width)
+```
+
+
+Distribution of the features,
+
+```{r}
+par(mfrow=c(1,4))
+for(i in 1:4) {
+  boxplot(x_train[,i], main=names(x_train)[i])
+}
+```
