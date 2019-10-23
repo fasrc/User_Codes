@@ -12,4 +12,4 @@ for i in `seq 1 $n`
 do
     k=$(($k+$i))
 done
-echo "Sum of integers from 1 to $n is $k."
+echo -e "Sum of integers from 1 to $n is $k."

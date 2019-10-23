@@ -1,6 +1,6 @@
 #### Purpose:
 
-This example illustrates the use of Julia on Odyssey. Specifically, it evaluates PI via a Monte-Carlo method.
+This example illustrates the use of Julia on the Harvard University FAS cluster. Specifically, it evaluates PI via a Monte-Carlo method.
 
 
 #### Contents:
