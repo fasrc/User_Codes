@@ -1,65 +1,13 @@
-### Purpose:
+## C Programming Language
+![BASH Logo](Images/c-logo.png)
 
-Example of using C on the Odyssey cluster.
+C is a general-purpose, procedural computer programming language supporting structured programming, lexical variable scope, and recursion, while a static type system prevents unintended operations. By design, C provides constructs that map efficiently to typical machine instructions and has found lasting use in applications previously coded in assembly language. Such applications include operating systems and various application software for computers, from supercomputers to embedded systems.[Wikipedia](https://en.wikipedia.org/wiki/C_(programming_language))
 
-### Contents:
+To get started with C on the Harvard University FAS cluster you can try the below examples:
 
-* <code>sum.c</code>: Computes integer sum from 1 to N (N is read from command line)
-* <code>run.sbatch</code>: Example batch-job submission script
+* [Example 1](Example1): Sum of integers from 1 to N
 
-### Compile:
+#### References:
 
-GNU compilers, e.g.,
-
-```bash
-source new-modules.sh
-module load gcc/6.3.0-fasrc01
-gcc -o sum.x sum.c -O2
-``` 
-
-Intel compilers, e.g.,
-
-```bash
-source new-modules.sh
-module load intel/17.0.2-fasrc01
-icc -o sum.x sum.c -O2
-``` 
-
-### Example batch-job submission script:
-
-```bash
-#!/usr/bin/env bash
-#SBATCH -J c_test_job
-#SBATCH -o c_test_job.out
-#SBATCH -e c_test_job.err
-#SBATCH -N 1
-#SBATCH -c 1
-#SBATCH -t 0-00:30
-#SBATCH --mem=4000
-
-# Load required software modules
-source new-modules.sh
-module load intel/17.0.2-fasrc01
-
-# Run program
-./sum.x 100
-```
-
-### Submit job:
-
-```bash
-sbatch run.sbatch
-```
-
-### Example output:
-
-```
-Welcome! This program prints out the sum of 1 to 100 
-Sum of 1 to 100 is 5050 
-End of program. 
-```
-
-### References:
-
-* [C Tutorial (tutorialspoint.com)](https://www.tutorialspoint.com/cprogramming)
-* [C Language Tutorial (Drexel U)](https://www.physics.drexel.edu/~valliere/General/C_basics/c_tutorial.html)
+* [**Cprogramming.com** C Tutorial](https://www.cprogramming.com/tutorial/c-tutorial.html?inl=hp)
+* [**Tutorilaspoint** C Tutorial](https://www.tutorialspoint.com/cprogramming/index.htm)

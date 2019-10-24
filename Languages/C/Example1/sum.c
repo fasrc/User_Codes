@@ -8,6 +8,7 @@
 // Usage:   ./sum.x N
 //====================================================================
 #include <stdio.h>
+#include <stdlib.h>
 
 // Main program.......................................................
 int main(int argc, char *argv[] ){

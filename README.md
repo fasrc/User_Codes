@@ -7,7 +7,7 @@ Repository of various example codes, scripts, use cases and recipes.
 #### Programming Languages and Environments
     
    * [BASH](Languages/BASH)
-   * C  
+   * [C](Languages/C)  
    * C++  
    * Fortran  
    * IDL  
