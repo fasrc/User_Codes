@@ -7,13 +7,20 @@
 (1) Load required software modules (the specific example uses Intel compiler and MPI libraries) 
 
 ```bash
-module load intel/17.0.4-fasrc01module load impi/2017.2.174-fasrc01module load netcdf/4.1.3-fasrc02module load libpng/1.6.25-fasrc01module load jasper/1.900.1-fasrc02 
+module load intel/17.0.4-fasrc01
+module load impi/2017.2.174-fasrc01
+module load netcdf/4.1.3-fasrc02
+module load libpng/1.6.25-fasrc01
+module load jasper/1.900.1-fasrc02 
 ```
 
 (2) Define required environment variables
 
 ```bash
-export NETCDF=${NETCDF_HOME}export JASPERLIB=${JASPER_LIB}export JASPERINC=${JASPER_INCLUDE}unset MPI_LIB
+export NETCDF=${NETCDF_HOME}
+export JASPERLIB=${JASPER_LIB}
+export JASPERINC=${JASPER_INCLUDE}
+unset MPI_LIB
 ```
 
 (3) Create top-level directory for code and clone the official code repository from Github, e.g.,
@@ -82,7 +89,8 @@ Configuration successful!
 (5) Modify the file “configure.wrf” (around lines 154-155) to read the following. Note that you have to do this each time you run ./configure, because the "configure.wrf" script is overwritten each time:
 
 ```bash
-DM_FC  =  mpiifort -f90=$(SFC)DM_CC  =  mpiicc -cc=$(SCC) -DMPI2_SUPPORT
+DM_FC  =  mpiifort -f90=$(SFC)
+DM_CC  =  mpiicc -cc=$(SCC) -DMPI2_SUPPORT
 ```
 
 (6) Compile WRF before WPS!! Compilation will take a while. If you're on an interactive shell, remove the "&" to avoid timing out:
@@ -193,7 +201,7 @@ This generates the **[compile_wps.log](compile_wps.log)** file with details of t
 
 ### References:
 
-1. [The Weather Research and Forecasting (WRF) Model (official website)] (https://www.mmm.ucar.edu/weather-research-and-forecasting-model)
+1. [The Weather Research and Forecasting (WRF) Model (official website)](https://www.mmm.ucar.edu/weather-research-and-forecasting-model)
 2. [WRF user's page](http://www2.mmm.ucar.edu/wrf/users)
 3. [WRF - Github repo](https://github.com/wrf-model/WRF)
 4. [WRF - User Guide](http://www2.mmm.ucar.edu/wrf/users/docs/user_guide_v4/contents.html)
