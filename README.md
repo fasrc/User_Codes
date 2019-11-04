@@ -4,6 +4,15 @@ Repository of various example codes, scripts, use cases and recipes.
 
 ## Contents
 
+#### Machine Learning Frameworks
+
+   * [TensorFlow](AI/TensorFlow)
+   * PyTorch
+   * MXNet
+   * Theano
+   * Keras
+   * FLUX (Julia)  
+
 #### Programming Languages and Environments
     
    * [BASH](Languages/BASH)
