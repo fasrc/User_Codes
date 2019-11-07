@@ -15,7 +15,11 @@ The below instructions are intended to help you set up TF on the FASRC cluster.
 
 The specific example illustrates the installation of TF version 2.0 with Python version 3.7, CUDA version 10.0, and CUDNN version 7.4. Please refer to our documentation on [running GPU jobs on the FASRC cluster](https://www.rc.fas.harvard.edu/resources/documentation/gpgpu-computing-on-the-cluster/).
 
-The recommended method for setting up TF in your user environment is installing TF in a [conda environment](https://www.rc.fas.harvard.edu/resources/documentation/software-on-the-cluster/python/) in your user space. You can install your own TF instance following these simple steps:
+The two recommended methods for setting up TF in your user environment is installing TF in a [conda environment](https://www.rc.fas.harvard.edu/resources/documentation/software-on-the-cluster/python/) in your user space, or use a TF [singularity container](https://www.rc.fas.harvard.edu/resources/documentation/software/singularity-on-the-cluster). 
+
+**Installing TF in a Conda Environment**
+
+You can install your own TF instance following these simple steps:
 
 * Load required software modules, e.g.,
 
@@ -48,6 +52,66 @@ Installing collected packages: absl-py, werkzeug, grpcio, pyasn1, pyasn1-modules
 Successfully installed absl-py-0.8.1 astor-0.8.0 cachetools-3.1.1 chardet-3.0.4 gast-0.2.2 google-auth-1.6.3 google-auth-oauthlib-0.4.1 google-pasta-0.1.8 grpcio-1.24.3 idna-2.8 keras-applications-1.0.8 keras-preprocessing-1.1.0 markdown-3.1.1 oauthlib-3.1.0 opt-einsum-3.1.0 protobuf-3.10.0 pyasn1-0.4.7 pyasn1-modules-0.2.7 requests-2.22.0 requests-oauthlib-1.2.0 rsa-4.0 tensorboard-2.0.1 tensorflow-estimator-2.0.1 tensorflow-gpu-2.0.0 termcolor-1.1.0 urllib3-1.25.6 werkzeug-0.16.0 wrapt-1.11.2
 ```
 
+**Pull a TF singularity container**
+
+Alternatively, one can pull and use a TensorFlow [singularity](https://sylabs.io/guides/3.4/user-guide/index.html) container:
+
+```bash
+$ singularity pull --name tf20_gpu.simg docker://tensorflow/tensorflow:latest-gpu
+```
+
+This will result in the image <code>tf20_gpu.simg</code>. The image then can be used with, e.g.,
+
+```bash
+$ singularity exec --nv tf20_gpu.simg python
+Python 2.7.15+ (default, Jul  9 2019, 16:51:35) 
+[GCC 7.4.0] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+```
+
+**Note:** Please notice the use of the <code>--nv</code> option. This is required to make use of the NVIDIA GPU card on the host system.
+
+
+#### CPU Version
+
+Similarly to the GPU installation you can either install TF in a *conda* environment or use a TF singularity container.
+
+**Installing TF in a Conda Environment**
+
+```bash
+# (1) Load required software modules
+$ module load python/3.6.3-fasrc02
+
+# (2) Create conda environment
+$ conda create -n tf2.0_cpu python=3.7 pip numpy six wheel scipy pandas matplotlib seaborn h5py jupyterlab
+
+# (3) Activate the conda environment
+$ source activate tf2.0_cpu
+(tf2.0_cpu)
+
+# (4) Install TF with pip
+pip install --upgrade tensorflow==2.0 
+```
+
+**Pull a TF singularity container**
+
+```bash
+$ singularity pull --name tf20_cpu.simg docker://tensorflow/tensorflow:latest
+```
+
+This will result in the image <code>tf20_cpu.simg</code>. The image then can be used with, e.g.,
+
+```bash
+$ singularity exec tf20_cpu.simg python
+Python 2.7.15+ (default, Jul  9 2019, 16:51:35) 
+[GCC 7.4.0] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import tensorflow as tf
+>>> print (tf.__version__)
+2.0.0
+```
+
 ### Running TensorFlow:
 
 #### Run TensorFlow interactively
@@ -59,7 +123,6 @@ $ srun --pty -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 /bin/bash
 ```
 
 While on GPU node, you can run <code>nvidia-smi</code> to get information about the assigned GPU's.
-
 
 ```bash
 [username@holygpu2c0716 ~]$ nvidia-smi
@@ -93,7 +156,7 @@ Test TF:
 
 (Example adapted from [here](https://www.tensorflow.org/tutorials/keras/classification/).)
 
-```python
+```
 (tf2.0_cuda10) [username@holygpu2c0716 ~]$ python
 Python 3.7.5 (default, Oct 25 2019, 15:51:11) 
 [GCC 7.3.0] :: Anaconda, Inc. on linux
