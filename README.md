@@ -7,7 +7,7 @@ Repository of various example codes, scripts, use cases and recipes.
 #### Machine Learning Frameworks
 
    * [TensorFlow](AI/TensorFlow)
-   * PyTorch
+   * [PyTorch](AI/PyTorch)
    * MXNet
    * Theano
    * Keras
@@ -25,7 +25,7 @@ Repository of various example codes, scripts, use cases and recipes.
    * MATLAB  
    * Perl  
    * Python
-   * R  
+   * [R](Languages/R)  
    * STATA
 
 #### Numerical and I/O Libraries
