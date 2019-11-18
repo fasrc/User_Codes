@@ -2,6 +2,8 @@
 
 [Particle Swarm Optimization](https://en.wikipedia.org/wiki/Particle_swarm_optimization) (PSO) with [Rosenbrock](https://en.wikipedia.org/wiki/Rosenbrock_function) objective function. The specific implementation uses the [pso R package](https://cran.r-project.org/web/packages/pso/). 
 
+**Note:** Example assumes the *pso* R package is already [installed locally in user environment](https://www.rc.fas.harvard.edu/resources/documentation/software-on-the-cluster/r/).
+
 #### Contents:
 
 * <code>pso_rosenbrock.R</code>: R source code
@@ -76,12 +78,16 @@ pso_rosen()
 #SBATCH -t 0-00:30
 #SBATCH --mem=4000
 
-# Load required software modules
+# Set up software environment
 module load R/3.5.1-fasrc01
+export R_LIBS_USER=$HOME/software/R/3.5.1:$R_LIBS_USER
 
 # Run program
-srun -n 1 -c 1 R CMD BATCH --no-save --no-restore pso_rosenbrock.R 
+srun -n 1 -c 1 R CMD BATCH --no-save --no-restore pso_rosenbrock.R  
 ```
+
+**Note:** This assumes the *pso* R package is installed at <code>$HOME/software/R/3.5.1</code>
+
 
 #### Example Usage:
 
