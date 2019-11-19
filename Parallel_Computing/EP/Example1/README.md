@@ -1,6 +1,6 @@
 #### Purpose:
 
-Example illustrating using job-arrays on the Harvard University FASRC cluster. The specific example computes the integer sum from 1 through N, where N is the value of the job array index (in this case 100, 200, and 300).
+Example illustrating use of job-arrays on the Harvard University FASRC cluster. The specific example computes the sum of integers from 1 through N, where N is the value of the job array index (100, 200, 300).
 
 #### Contents:
 
