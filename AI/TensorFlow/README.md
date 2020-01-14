@@ -25,8 +25,8 @@ You can install your own TF instance following these simple steps:
 
 ```bash
 $ module load python/3.6.3-fasrc02
-$ module load cuda/10.0.130-fasrc01
-$ module load cudnn/7.4.1.5_cuda10.0-fasrc01
+$ module load cuda/10.1.243-fasrc01
+$ module load cudnn/7.6.5.32_cuda10.1-fasrc01
 ```
 
 * Create a new *conda* environment with Python and some additional packages needed by TensorFlow 
@@ -148,7 +148,7 @@ Mon Nov  4 18:18:14 2019
 Load required modules, and source your TF environment:
 
 ```bash
-[username@holygpu2c0716 ~]$ module load cuda/10.0.130-fasrc01 cudnn/7.4.1.5_cuda10.0-fasrc01 python/3.6.3-fasrc02 && source activate tf2.0_cuda10 
+[username@holygpu2c0716 ~]$ module load cuda/10.1.243-fasrc01 cudnn/7.6.5.32_cuda10.1-fasrc01 python/3.6.3-fasrc02 && source activate tf2.0_cuda10 
 (tf2.0_cuda10) [username@holygpu2c0716 ~]$ 
 ```
 

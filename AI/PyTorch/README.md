@@ -26,8 +26,8 @@ $ srun --pty -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 /bin/bash
 
 ```bash
 $ module load python/3.6.3-fasrc02
-$ module load cuda/10.0.130-fasrc01
-$ module load cudnn/7.4.1.5_cuda10.0-fasrc01
+$ module load cuda/10.1.243-fasrc01
+$ module load cudnn/7.6.5.32_cuda10.1-fasrc01
 ```
 
 (3) Create a [conda environment](https://conda.io/projects/conda/en/latest/index.html), e.g.,
@@ -62,7 +62,7 @@ $ srun --pty -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 /bin/bash
 Load required software modules and source your PyTorch conda environment.
 
 ```bash
-[username@holygpu2c0716 ~]$ module load cuda/10.0.130-fasrc01 cudnn/7.4.1.5_cuda10.0-fasrc01 python/3.6.3-fasrc02 && source activate pt1.3_cuda10
+[username@holygpu2c0716 ~]$ module load cuda/10.1.243-fasrc01 cudnn/7.6.5.32_cuda10.1-fasrc01 python/3.6.3-fasrc02 && source activate pt1.3_cuda10
 (pt1.3_cuda10)
 ```
 
@@ -121,7 +121,7 @@ An example batch-job submission script is included below:
 
 # Load software modules and source conda environment
 module load Anaconda3/5.0.1-fasrc02
-module load cuda/10.0.130-fasrc01 cudnn/7.4.1.5_cuda10.0-fasrc01
+module load module load cuda/10.1.243-fasrc01 cudnn/7.6.5.32_cuda10.1-fasrc01
 
 # Run program
 srun -c 1 --gres=gpu:1 python check_gpu.py 
