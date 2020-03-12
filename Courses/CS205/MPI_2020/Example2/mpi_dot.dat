@@ -1,0 +1,5 @@
+Global dot product: 676700
+Local dot product for MPI process 0: 11050
+Local dot product for MPI process 1: 74800
+Local dot product for MPI process 2: 201050
+Local dot product for MPI process 3: 389800
