@@ -62,7 +62,7 @@ module load openmpi/4.0.2-fasrc01
 source activate python3_env2
 ```
 
-###Example Usage:
+### Example Usage:
 
 ```
 sbatch run.sbatch
