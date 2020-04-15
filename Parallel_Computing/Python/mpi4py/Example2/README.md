@@ -2,27 +2,6 @@
 
 This example illustrates how to minimize a target function in parallel using the mpi4py package. The specific example first distributes a set of initial function values to all MPI processes, and then each MPI process minimizes an instance of the objective function for a given (local) initial value. At the end, results are gathered at the root MPI process.
 
-### Install mpi4py:
-
-To run this example you need to install mpi4py following the below instructions.
-
-(1) You may first need to create a conda environment, e.g.,
-
-```
-module load python/3.6.3-fasrc02
-conda create -n python3_env1 python=3.6 numpy scipy pip wheel
-source activate python3_env1 
-```
-This creates the <code>python3_env1</code> environment with the specified packages.
-
-(2) Next, you need to install the mpi4py module. 
-
-```
-module load gcc/8.2.0-fasrc01
-module load openmpi/3.1.1-fasrc01
-pip install mpi4py
-```
-
 ### Contents:
 
 * <code>optimize_mpi.py</code>: Python MPI source code.
@@ -80,9 +59,7 @@ if __name__ == '__main__':
 #SBATCH --mem-per-cpu=4000
 
 # Set up environment
-module load python/3.6.3-fasrc02
-module load gcc/8.2.0-fasrc01
-module load openmpi/3.1.1-fasrc01
+module load python/3.7.7-fasrc01
 source activate python3_env1
 
 # Run the program
@@ -94,7 +71,7 @@ srun -n 8 --mpi=pmi2 python optimize_mpi.py
 ```
 sbatch run.sbatch
 ```
- 
+
 ### Example Output:
 
 ```bash

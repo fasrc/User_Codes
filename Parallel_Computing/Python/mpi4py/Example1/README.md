@@ -1,32 +1,11 @@
 ### Purpose:
 
-Program illustrates use of MPI for Python (mpi4py) on the Odyssey cluster.
-
-### Install mpi4py:
-
-To run this example you need to install mpi4py following the below instructions.
-
-(1) You may first need to create a conda environment, e.g.,
-
-```
-module load python/3.6.3-fasrc02
-conda create -n python3_env1 python=3.6 numpy scipy pip wheel
-source activate python3_env1 
-```
-This creates the <code>python3_env1</code> environment with the specified packages.
-
-(2) Next, you need to install the mpi4py module. 
-
-```
-module load gcc/8.2.0-fasrc01
-module load openmpi/3.1.1-fasrc01
-pip install mpi4py
-```
+Program illustrates using MPI for Python (mpi4py) on the FAS cluster at Harvard University.
 
 ### Contents:
 
 * <code>mpi4py_test.py</code>: Python MPI source code.
-* <code>run.sbatch</code>: Btach-job submission script to send the job to the queue.
+* <code>run.sbatch</code>: Batch-job submission script to send the job to the queue.
 
 ### Python Source Code:
 
@@ -53,6 +32,8 @@ MPI.Finalize()
 
 ### Example Batch-Job Submission Script:
 
+If you have installed <code>mpi4py</code> with <code>conda</code> and use the default MPICH instance in the conda environment you could use the below batch-job submission script to send your job to the queue: 
+
 ```bash
 #!/bin/bash
 #SBATCH -J mpi4py_test
@@ -64,21 +45,29 @@ MPI.Finalize()
 #SBATCH --mem-per-cpu=4000
 
 # Set up environment
-module load python/3.6.3-fasrc02
-module load gcc/8.2.0-fasrc01
-module load openmpi/3.1.1-fasrc01
+module load python/3.7.7-fasrc01
 source activate python3_env1
 
 # Run the program
 srun -n 16 --mpi=pmi2 python mpi4py_test.py
 ```
 
-### Example Usage:
+If you opted out for installing mpi4py with your MPI flavor and/or version of choice via pip as explained [here](../README.md). you will need to modify the "Set up environment" section in the above script as follows:
+
+```bash
+# Set up environment
+module load python/3.7.7-fasrc01
+module load gcc/9.2.0-fasrc01
+module load openmpi/4.0.2-fasrc01
+source activate python3_env2
+```
+
+###Example Usage:
 
 ```
 sbatch run.sbatch
 ```
- 
+
 ### Example Output:
 
 ```
