@@ -52,7 +52,7 @@ source activate python3_env1
 srun -n 16 --mpi=pmi2 python mpi4py_test.py
 ```
 
-If you opted out for installing mpi4py with your MPI flavor and/or version of choice via pip as explained [here](../README.md). you will need to modify the "Set up environment" section in the above script as follows:
+If you opted out for installing mpi4py with your MPI flavor and/or version of choice via pip as explained [here](../README.md). You will need to modify the "Set up environment" section in the above script as follows:
 
 ```bash
 # Set up environment
