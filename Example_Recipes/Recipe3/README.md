@@ -11,7 +11,7 @@ Example of calling FORTRAN executable from Python code. The specific example use
 
 #### FORTRAN source code:
 
-<pre>
+```fortran
 !===========================================================
 ! NAME:    sum.f90
 ! PURPOSE: Computes sum of integers from 1 to N
@@ -50,11 +50,11 @@ program sum
   write(6,'(a,1x,i4,1x,a3,1x,i4,a1)') 'The sum of integers from 1 to', n, 'is', isum, '.'
   !stop "End of program."
 end program sum
-</pre>
+```
 
 #### Python source code:
 
-<pre>
+```python
 """
 Program: drive_sum.py
          Driver for sum.f90
@@ -65,11 +65,11 @@ import numpy as np
 for n in np.arange(1, 101):
     command = ["./sum.x", "-n", str(n)]
     subprocess.call( command )
-</pre>
+```
 
 #### Example batch-job submission script:
 
-<pre>
+```bash
 #!/bin/bash
 #SBATCH -J test
 #SBATCH -o test.out
@@ -86,11 +86,11 @@ module load gcc/9.3.0-fasrc01
 
 # Run program
 srun -n 1 -c 1 python drive_sum.py
-</pre>
+```
 
 #### Example Usage:
 
-<pre>
+```bash
 # --- Load required modules ---
 module load python/3.7.7-fasrc01
 module load gcc/9.3.0-fasrc01
@@ -98,11 +98,11 @@ module load gcc/9.3.0-fasrc01
 gfortran -o sum.x sum.f90 -O2
 # --- Submit the job to the queue ---
 sbatch run.sbatch
-</pre>
+```
 
 #### Example Output:
 
-<pre>
+```
 $ cat test.out
 The sum of integers from 1 to    1  is    1.
 The sum of integers from 1 to    2  is    3.
@@ -204,4 +204,4 @@ The sum of integers from 1 to   97  is 4753.
 The sum of integers from 1 to   98  is 4851.
 The sum of integers from 1 to   99  is 4950.
 The sum of integers from 1 to  100  is 5050.
-</pre>
+```
