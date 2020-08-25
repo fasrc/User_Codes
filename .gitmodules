@@ -1,0 +1,3 @@
+[submodule "IQSS-slurm-examples"]
+	path = IQSS-slurm-examples
+	url = https://github.com/IQSS/IQSS-slurm-examples.git
