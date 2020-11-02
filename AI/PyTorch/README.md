@@ -25,28 +25,28 @@ $ srun --pty -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 /bin/bash
 (2) Load required software modules, e.g.,
 
 ```bash
-$ module load python/3.6.3-fasrc02
-$ module load cuda/10.1.243-fasrc01
-$ module load cudnn/7.6.5.32_cuda10.1-fasrc01
+$ module load python/3.7.7-fasrc01
+$ module load cuda/10.2.89-fasrc01
+$ module load cudnn/7.6.5.32_cuda10.2-fasrc01
 ```
 
 (3) Create a [conda environment](https://conda.io/projects/conda/en/latest/index.html), e.g.,
 
 ```bash
-$ conda create -n pt1.3_cuda10 python=3.7 pip numpy wheel matplotlib
+$ conda create -n pt1.7_cuda102 python=3.7 pip numpy wheel matplotlib
 ```
 
 (4) Activate the new *conda* environment:
 
 ```bash
-$ source activate pt1.3_cuda10
-(pt1.3_cuda10)
+$ source activate pt1.7_cuda102
+(pt1.7_cuda102)
 ```
 
 (5) Install PyTorch with conda
 
 ```bash
-$ conda install pytorch=1.3 torchvision cudatoolkit=10.0 -c pytorch
+$ conda install pytorch=1.7 torchvision cudatoolkit=10.2 -c pytorch
 ```
 
 ### Running PyTorch:
@@ -62,14 +62,14 @@ $ srun --pty -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 /bin/bash
 Load required software modules and source your PyTorch conda environment.
 
 ```bash
-[username@holygpu2c0716 ~]$ module load cuda/10.1.243-fasrc01 cudnn/7.6.5.32_cuda10.1-fasrc01 python/3.6.3-fasrc02 && source activate pt1.3_cuda10
-(pt1.3_cuda10)
+[username@holygpu2c0716 ~]$ module load python/3.7.7-fasrc01 cuda/10.2.89-fasrc01 cudnn/7.6.5.32_cuda10.2-fasrc01 && source activate pt1.7_cuda102
+(pt1.7_cuda102)
 ```
 
 Test PyTorch interactively:
 
 ```bash
-(pt1.3_cuda10) $ python check_gpu.py 
+(pt1.7_cuda102) $ python check_gpu.py 
 Using device: cuda
 
 Tesla V100-PCIE-32GB
@@ -120,11 +120,11 @@ An example batch-job submission script is included below:
 #SBATCH -e pytorch_%j.err 
 
 # Load software modules and source conda environment
-module load Anaconda3/5.0.1-fasrc02
-module load module load cuda/10.1.243-fasrc01 cudnn/7.6.5.32_cuda10.1-fasrc01
+module load python/3.7.7-fasrc01
+module load cuda/10.2.89-fasrc01 cudnn/7.6.5.32_cuda10.2-fasrc01
 
 # Run program
-srun -c 1 --gres=gpu:1 python check_gpu.py 
+python check_gpu.py 
 ```
 
 If you name the above batch-job submission script <code>run.sbatch</code>, for instance, the job is submitted with:
