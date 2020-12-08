@@ -1,0 +1,7 @@
+#!/usr/bin/env math
+(* This is a simple Mathematica code *)
+
+Print["Hello, World!"]
+
+(* Exit from the program *)
+Exit[]
