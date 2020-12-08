@@ -4,7 +4,7 @@ Example of using OpenBLAS libraries on the cluster.
 
 ### Contents:
 
-(1) openblas_test.f90_test.f90: Fortran source code
+(1) openblas\_test.f90\_test.f90: Fortran source code
 
 (2) Makefile: Makefile to compile the source code
 
@@ -12,9 +12,8 @@ Example of using OpenBLAS libraries on the cluster.
 
 ### Example Usage:
 
-    source new-modules.sh
-    module load intel/15.0.0-fasrc01
-    module load OpenBLAS/0.2.14-fasrc01
+    module load gcc/9.2.0-fasrc01
+    module load OpenBLAS/0.3.7-fasrc02
     make 
     sbatch run.sbatch
     

@@ -6,7 +6,7 @@ COMPILER = gcc
 PRO         = gsl_int_test
 OBJECTS     = gsl_int_test.o
 
-LINK_GSL = -lgsl -lgslcblas
+LINK_GSL = -lm -lgsl -lgslcblas
 
 ${PRO}.x : $(OBJECTS)
 	$(COMPILER) -o ${PRO}.x $(OBJECTS) $(LINK_GSL)
@@ -15,4 +15,4 @@ ${PRO}.x : $(OBJECTS)
 	$(COMPILER) $(CFLAGS) $(<F)
 
 clean : 
-	rm *.o *.x
+	rm -rf *.o *.x *.mod

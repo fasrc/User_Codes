@@ -1,7 +1,7 @@
 #==========================================================================
 # Makefile
 #==========================================================================
-F90COMPILER = ifort
+F90COMPILER = gfortran
 F90CFLAGS   = -c -O2
 LIBS        = -lopenblas
 PRO         = openblas_test
@@ -15,4 +15,4 @@ ${PRO}.x : $(OBJECTS)
 	$(F90COMPILER) $(F90CFLAGS) $(INC) $(<F)
 
 clean : 
-	rm *.o *.x
+	rm -rf *.o *.x

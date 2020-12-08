@@ -1,0 +1,26 @@
+Using license file /opt/gurobi/gurobi.lic
+Set parameter TokenServer to value rclic1.rc.fas.harvard.edu
+Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+Optimize a model with 19 rows, 41 columns and 75 nonzeros
+Model fingerprint: 0x8e06b20f
+Coefficient statistics:
+  Matrix range     [5e-01, 1e+01]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [7e-01, 7e+00]
+Presolve removed 0 rows and 1 columns
+Presolve time: 0.04s
+Presolved: 19 rows, 40 columns, 75 nonzeros
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0      handle free variables                          0s
+      20    1.1466250e+01   0.000000e+00   0.000000e+00      0s
+
+Solved in 20 iterations and 0.04 seconds
+Optimal objective  1.146625000e+01
+
+
+_________________________________________________________________________________
+The best straight line that minimizes the absolute value of the deviations is:
+_________________________________________________________________________________
+y = 0.6375x + (0.5813)
