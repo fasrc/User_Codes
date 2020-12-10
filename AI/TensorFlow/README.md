@@ -24,7 +24,7 @@ You can install your own TF instance following these simple steps:
 * Load required software modules, e.g.,
 
 ```bash
-$ module load python/3.6.3-fasrc02
+$ module load python/3.7.7-fasrc01
 $ module load cuda/10.1.243-fasrc01
 $ module load cudnn/7.6.5.32_cuda10.1-fasrc01
 ```
@@ -33,20 +33,20 @@ $ module load cudnn/7.6.5.32_cuda10.1-fasrc01
 (**Note:** the specific example includes additional packages, such as <code>scipy</code>, <code>pandas</code>, <code>matplotlib</code>, <code>seaborn</code>, <code>h5py</code> and <code>jupyterlab</code>, required for data analytics and visualization.)
 
 ```bash
-$ conda create -n tf2.0_cuda10 python=3.7 pip numpy six wheel scipy pandas matplotlib seaborn h5py jupyterlab
+$ conda create -n tf2.3_cuda10 python=3.7 pip numpy six wheel scipy pandas matplotlib seaborn h5py jupyterlab
 ```
 
 * Activate the new *conda* environment, e.g.,
 
 ```bash
-$ source activate tf2.0_cuda10
+$ source activate tf2.3_cuda10
 (tf2.0_cuda10) $
 ```
 
 * Install TF with <code>pip</code>, e.g.,
 
 ```bash
-(tf2.0_cuda10) $ pip install --upgrade tensorflow-gpu==2.0
+(tf2.0_cuda10) $ pip install --upgrade tensorflow-gpu==2.3
 ...
 Installing collected packages: absl-py, werkzeug, grpcio, pyasn1, pyasn1-modules, rsa, cachetools, google-auth, protobuf, markdown, oauthlib, idna, urllib3, chardet, requests, requests-oauthlib, google-auth-oauthlib, tensorboard, tensorflow-estimator, termcolor, keras-applications, gast, google-pasta, keras-preprocessing, opt-einsum, wrapt, astor, tensorflow-gpu
 Successfully installed absl-py-0.8.1 astor-0.8.0 cachetools-3.1.1 chardet-3.0.4 gast-0.2.2 google-auth-1.6.3 google-auth-oauthlib-0.4.1 google-pasta-0.1.8 grpcio-1.24.3 idna-2.8 keras-applications-1.0.8 keras-preprocessing-1.1.0 markdown-3.1.1 oauthlib-3.1.0 opt-einsum-3.1.0 protobuf-3.10.0 pyasn1-0.4.7 pyasn1-modules-0.2.7 requests-2.22.0 requests-oauthlib-1.2.0 rsa-4.0 tensorboard-2.0.1 tensorflow-estimator-2.0.1 tensorflow-gpu-2.0.0 termcolor-1.1.0 urllib3-1.25.6 werkzeug-0.16.0 wrapt-1.11.2
@@ -81,17 +81,17 @@ Similarly to the GPU installation you can either install TF in a *conda* environ
 
 ```bash
 # (1) Load required software modules
-$ module load python/3.6.3-fasrc02
+$ module load python/3.7.7-fasrc01
 
 # (2) Create conda environment
-$ conda create -n tf2.0_cpu python=3.7 pip numpy six wheel scipy pandas matplotlib seaborn h5py jupyterlab
+$ conda create -n tf2.3_cpu python=3.7 pip numpy six wheel scipy pandas matplotlib seaborn h5py jupyterlab
 
 # (3) Activate the conda environment
-$ source activate tf2.0_cpu
+$ source activate tf2.3_cpu
 (tf2.0_cpu)
 
 # (4) Install TF with pip
-pip install --upgrade tensorflow==2.0 
+pip install --upgrade tensorflow==2.3 
 ```
 
 **Pull a TF singularity container**
@@ -148,8 +148,8 @@ Mon Nov  4 18:18:14 2019
 Load required modules, and source your TF environment:
 
 ```bash
-[username@holygpu2c0716 ~]$ module load cuda/10.1.243-fasrc01 cudnn/7.6.5.32_cuda10.1-fasrc01 python/3.6.3-fasrc02 && source activate tf2.0_cuda10 
-(tf2.0_cuda10) [username@holygpu2c0716 ~]$ 
+[username@holygpu2c0716 ~]$ module load python/3.7.7-fasrc01 cuda/10.1.243-fasrc01 cudnn/7.6.5.32_cuda10.1-fasrc01 && source activate tf2.3_cuda10 
+(tf2.3_cuda10) [username@holygpu2c0716 ~]$ 
 ```
 
 Test TF:
@@ -157,7 +157,7 @@ Test TF:
 (Example adapted from [here](https://www.tensorflow.org/tutorials/keras/classification/).)
 
 ```
-(tf2.0_cuda10) [username@holygpu2c0716 ~]$ python
+(tf2.3_cuda10) [username@holygpu2c0716 ~]$ python
 Python 3.7.5 (default, Oct 25 2019, 15:51:11) 
 [GCC 7.3.0] :: Anaconda, Inc. on linux
 Type "help", "copyright", "credits" or "license" for more information.
@@ -258,8 +258,11 @@ array([7.2989198e-10, 2.9799860e-11, 1.2714995e-09, 9.6692572e-14,
 >>> np.argmax(predictions[0])
 9
 >>> quit()
-(tf2.0_cuda10) [username@holygpu2c0716 ~]$
+(tf2.3_cuda10) [username@holygpu2c0716 ~]$
 ```
+#### Examples:
+
+* [Example 1](Example1): Simple 2D CNN with the MNIST dataset
 
 ### Suggested Reading:
 
