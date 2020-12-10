@@ -10,7 +10,7 @@ Simple 2D CNN with the MNIST dataset. Example also illustrates computing the con
 
 ### Python source code:
 
-<pre>
+```python
 #!/usr/bin/env python
 from __future__ import print_function
 import tensorflow as tf
@@ -122,11 +122,11 @@ print(TPR[0])
 print('False Positive Rate: for class 0')
 print(FPR[0])
 print('AUC = %0.3f' % AUC[0])
-</pre> 
+```
 
 ### Example batch-job submission script:
 
-<pre>
+```bash
 #!/bin/bash
 #SBATCH -p gpu_test
 #SBATCH -n 1
@@ -146,16 +146,17 @@ source activate tf2.3_cuda10
 
 # --- Run the code ---
 srun -n 1 --gres=gpu:1 python tf_mnist.py 
-</pre>
+```
 
 ### Example usage:
 
-<pre>
+```bash
 sbatch run.sbatch
-</pre>
+```
 
 ### Example output:
-<pre>
+
+```
 cat tf_mnist.out
 x_train shape: (60000, 28, 28, 1)
 60000 train samples
@@ -226,4 +227,4 @@ False Positive Rate: for class 0
  1.21951220e-03 1.55210643e-03 1.55210643e-03 4.21286031e-03
  4.21286031e-03 1.00000000e+00]
 AUC = 1.000
-</pre>
+```
