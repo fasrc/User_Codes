@@ -6,7 +6,7 @@ Example code to illustrate R use on the Odyssey cluster. The specific example pr
 
 * <code>count\_down.R</code>: R source code
 * <code>run.sbatch</code>: Batch-job submission script
-* <code>count_down.Rout
+* <code>count_down.Rout</code>
 
 #### R source code:
 
