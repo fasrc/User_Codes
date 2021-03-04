@@ -126,7 +126,7 @@ HELMHOLTZ
   Computed U_EXACT l2 norm : 266.133333
   Error l2 norm:             265.516926
 
-  Elapsed wall clock time = 0.416378
+  Elapsed wall clock time = 0.194215
 
 HELMHOLTZ
   Normal end of execution.

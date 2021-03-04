@@ -23,10 +23,10 @@ for i in n:
     efficiency.append(e)
 
 # Print out results
-print "    Nthreads  Walltime  Speedup  Efficiency (%)"
+print ("    Nthreads  Walltime  Speedup  Efficiency (%)")
 for i in n:
-    print "%8d %11.2f %8.2f %11.2f" % \
-        (nproc[i], walltime[i], speedup[i], efficiency[i])
+    print ("%8d %11.2f %8.2f %11.2f" % \
+        (nproc[i], walltime[i], speedup[i], efficiency[i]))
     
 
 fig, ax = plt.subplots(figsize=(8,6))
@@ -39,4 +39,4 @@ plt.ylabel('Speedup', fontsize=20)
 plt.legend(fontsize=15,loc=2)
 
 plt.savefig('speedup.png', format='png')
-plt.show()
+#plt.show()
