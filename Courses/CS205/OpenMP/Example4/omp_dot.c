@@ -8,7 +8,7 @@
 #include <omp.h>
 #include <stdio.h>
 #include <stdlib.h>
-main(int argc, char *argv[])  {
+int main(int argc, char *argv[])  {
 
   int n = 100;
   int i, chunk, tid, nthreads;
