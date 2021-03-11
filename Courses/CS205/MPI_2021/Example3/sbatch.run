@@ -1,0 +1,23 @@
+#!/bin/bash -l
+#SBATCH -J mpi_pi
+#SBATCH -o mpi_pi.out
+#SBATCH -e mpi_pi.err
+#SBATCH -t 0-00:30
+#SBATCH -n 16
+#SBATCH --mem-per-cpu=1000
+
+PRO=mpi_pi
+rm -rf ${PRO}.dat
+touch ${PRO}.dat
+
+# Load required software modules
+module load gcc/9.3.0-fasrc01 openmpi/4.0.5-fasrc01
+
+# Run program
+for i in 1 2 4 8 16
+do
+    echo "Number of MPI processes: ${i}"
+    srun -n ${i} ./${PRO}.x 1000000000 >> ${PRO}.dat
+    echo " "
+done
+
