@@ -4,6 +4,7 @@
 #SBATCH -e mpi_dot.err
 #SBATCH -t 0-00:10
 #SBATCH -n 4
+#SBATCH -N 1
 #SBATCH --mem-per-cpu=1000
 
 PRO=mpi_dot

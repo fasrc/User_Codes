@@ -4,6 +4,7 @@
 #SBATCH -e mpi_pi.err
 #SBATCH -t 0-00:30
 #SBATCH -n 16
+#SBATCH -N 1
 #SBATCH --mem-per-cpu=1000
 
 PRO=mpi_pi
