@@ -16,4 +16,4 @@ clean :
 	rm -fr *.o *.x
 
 clean-output :
-	rm -f mpi_pi.err mpi_pi.out mpi_pi.dat
+	rm -f mpi_pi.err mpi_pi.out mpi_pi.dat *txt *png

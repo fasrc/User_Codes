@@ -17,8 +17,13 @@ module load gcc/9.3.0-fasrc01 openmpi/4.0.5-fasrc01
 # Run program
 for i in 1 2 4 8 16
 do
-    echo "Number of MPI processes: ${i}"
+    echo "Number of processes: ${i}" >> ${PRO}.dat
     srun -n ${i} ./${PRO}.x 1000000000 >> ${PRO}.dat
     echo " "
 done
 
+cat mpi_pi.dat  | grep -e Number -e time | awk '{if (NR%2 == 1 ){printf "%s ", $4}else{print $4}}'  > scaling_results.txt
+
+sleep 2
+module load Anaconda3
+python speedup.py
