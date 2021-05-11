@@ -18,36 +18,36 @@ To set up PyTorch with GPU support in your user environment, please follow the b
 
 (1) Start an interactive job requesting GPUs, e.g.,
 
-```bash
-$ srun --pty -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 /bin/bash
-```
+<pre>
+$ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 /bin/bash
+</pre>
 
 (2) Load required software modules, e.g.,
 
-```bash
-$ module load python/3.7.7-fasrc01
-$ module load cuda/10.2.89-fasrc01
-$ module load cudnn/7.6.5.32_cuda10.2-fasrc01
-```
+<pre>
+$ module load python/3.8.5-fasrc01
+$ module load cuda/11.1.0-fasrc01
+$ module load cudnn/7.6.5.32_cuda10.1-fasrc01
+</pre>
 
 (3) Create a [conda environment](https://conda.io/projects/conda/en/latest/index.html), e.g.,
 
-```bash
-$ conda create -n pt1.7_cuda102 python=3.7 pip numpy wheel matplotlib
-```
+<pre>
+$ conda create -n pt1.8_cuda111 python=3.8 pip numpy wheel matplotlib
+</pre>
 
 (4) Activate the new *conda* environment:
 
-```bash
-$ source activate pt1.7_cuda102
-(pt1.7_cuda102)
-```
+<pre>
+$ source activate conda/pt1.8_cuda111
+(conda/pt1.8_cuda111)
+</pre>
 
 (5) Install PyTorch with conda
 
-```bash
-$ conda install pytorch=1.7 torchvision cudatoolkit=10.2 -c pytorch
-```
+<pre>
+$ conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c pytorch -c nvidia
+</pre>
 
 ### Running PyTorch:
 
@@ -55,34 +55,34 @@ $ conda install pytorch=1.7 torchvision cudatoolkit=10.2 -c pytorch
 
 For an **interactive session** to work with the GPUs you can use following:
 
-```bash
-$ srun --pty -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 /bin/bash
-```
+<pre>
+$ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 /bin/bash
+</pre>
 
 Load required software modules and source your PyTorch conda environment.
 
-```bash
-[username@holygpu2c0716 ~]$ module load python/3.7.7-fasrc01 cuda/10.2.89-fasrc01 cudnn/7.6.5.32_cuda10.2-fasrc01 && source activate pt1.7_cuda102
+<pre>
+[username@holygpu2c0716 ~]$ module load python/3.8.5-fasrc01 cuda/11.1.0-fasrc01 cudnn/7.6.5.32_cuda10.1-fasrc01 && source activate pt1.8_cuda111
 (pt1.7_cuda102)
-```
+</pre>
 
 Test PyTorch interactively:
 
-```bash
-(pt1.7_cuda102) $ python check_gpu.py 
+<pre>
+(pt1.8_cuda111) $ python check_gpu.py 
 Using device: cuda
 
-Tesla V100-PCIE-32GB
+A100-PCIE-40GB
 Memory Usage:
 Allocated: 0.0 GB
-Cached:    0.0 GB
+Reserved:  0.0 GB
 
-tensor([[-1.2709,  2.0035]], device='cuda:0')
-```
+tensor([[-0.4709,  0.2093,  0.0426, -1.0579]], device='cuda:0')
+</pre>
 
 <code>check_gpu.py</code> checks if GPUs are available and if available sets up the device to use them.
 
-```python
+<pre>
 #!/usr/bin/env python
 import torch
 
@@ -96,19 +96,19 @@ if device.type == 'cuda':
     print(torch.cuda.get_device_name(0))
     print('Memory Usage:')
     print('Allocated:', round(torch.cuda.memory_allocated(0)/1024**3,1), 'GB')
-    print('Cached:   ', round(torch.cuda.memory_cached(0)/1024**3,1), 'GB')
+    print('Reserved: ', round(torch.cuda.memory_reserved(0)/1024**3,1), 'GB')
     print()
 
 # Run a small test on the available device
-T = torch.randn(1,2).to(device)
+T = torch.randn(1, 4).to(device)
 print(T)
-```
+</pre>
 
 #### Batch Jobs
 
 An example batch-job submission script is included below:
 
-```bash
+<pre>
 #!/bin/bash
 #SBATCH -c 1
 #SBATCH -N 1
@@ -120,18 +120,19 @@ An example batch-job submission script is included below:
 #SBATCH -e pytorch_%j.err 
 
 # Load software modules and source conda environment
-module load python/3.7.7-fasrc01
-module load cuda/10.2.89-fasrc01 cudnn/7.6.5.32_cuda10.2-fasrc01
+module load python/3.8.5-fasrc01
+module load cuda/11.1.0-fasrc01 cudnn/7.6.5.32_cuda10.1-fasrc01 
+source activate pt1.8_cuda111
 
 # Run program
-python check_gpu.py 
-```
+srun -c 1 --gres=gpu:1 python check_gpu.py 
+</pre>
 
 If you name the above batch-job submission script <code>run.sbatch</code>, for instance, the job is submitted with:
 
-```bash
+<pre>
 $ sbatch run.sbatch
-```
+</pre>
 
 ### References:
 
