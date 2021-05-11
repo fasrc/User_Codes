@@ -12,7 +12,7 @@
 ### Example Usage:
 
 ```bash
-module load gcc/8.2.0-fasrc01		# Load required software modules
+module load gcc/9.3.0-fasrc01		# Load required software modules
 make             			# Compile
 sbatch sbatch.run 			# Send the job to the queue
 ```
@@ -264,24 +264,17 @@ double r8_uniform_01 ( int *seed )
 #SBATCH -J omp_mm
 #SBATCH -o omp_mm.out
 #SBATCH -e omp_mm.err
-#SBATCH -p shared
 #SBATCH -t 0-00:30
 #SBATCH -N 1
 #SBATCH -c 8
 #SBATCH --mem=4000
 
-# Set up environment
-WORK_DIR=/scratch/${USER}/${SLURM_JOB_ID}
 PRO=omp_mm
-### or WORK_DIR=/n/regal/cs205/${USER}/${SLURM_JOB_ID}
-mkdir -pv ${WORK_DIR}
-cd $WORK_DIR
-cp ${SLURM_SUBMIT_DIR}/${PRO}.x .
-m -rf ${PRO}.dat
+rm -rf ${PRO}.dat
 touch ${PRO}.dat
 
 # Load required software modules
-module load gcc/8.2.0-fasrc01
+module load gcc/9.3.0-fasrc01
 
 # Run program with 1, 2, 4, and 8 OpenMP threads
 for i in 1 2 4 8
@@ -290,9 +283,6 @@ do
     srun -c ${i} ./${PRO}.x >> ${PRO}.dat
 done
 
-# Copy back the result and clean up
-cp *.dat ${SLURM_SUBMIT_DIR}
-rm -rf ${WORK_DIR}
 ```
 
 ### Example Output:

@@ -14,7 +14,7 @@ The master thread only prints the total number of threads.
 ### Example Usage:
 
 ```bash
-module gcc/8.2.0-fasrc01	   	        # Load required software modules
+module gcc/9.3.0-fasrc01	   	        # Load required software modules
 make             				# Compile
 sbatch sbatch.run 				# Send the job to the queue
 ```
@@ -60,30 +60,20 @@ int main (int argc, char *argv[]) {
 #SBATCH -J omp_hello
 #SBATCH -o omp_hello.out
 #SBATCH -e omp_hello.err
-#SBATCH -p shared
 #SBATCH -t 0-00:30
 #SBATCH -N 1
 #SBATCH -c 4
 #SBATCH --mem=4000
 
 # Set up environment
-WORK_DIR=/scratch/${USER}/${SLURM_JOB_ID}
 PRO=omp_hello
-### or WORK_DIR=/n/regal/cs205/${USER}/${SLURM_JOB_ID}
-mkdir -pv ${WORK_DIR}
-cd $WORK_DIR
-cp ${SLURM_SUBMIT_DIR}/${PRO}.x .
 
 # Load required software modules
-module load gcc/8.2.0-fasrc01
+module load gcc/9.3.0-fasrc01
 
 # Run program
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 srun -c $SLURM_CPUS_PER_TASK ./${PRO}.x > ${PRO}.dat
-
-# Copy back the result and clean up
-cp *.dat ${SLURM_SUBMIT_DIR}
-rm -rf ${WORK_DIR}
 ```
 
 ### Example Output:

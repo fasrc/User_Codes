@@ -10,23 +10,25 @@ import matplotlib as mpl
 mpl.rcParams['xtick.labelsize'] = 17
 mpl.rcParams['ytick.labelsize'] = 17
 
-nproc      = [1, 2, 4, 8]
-walltime   = [22.51, 11.46, 5.70, 2.87]
+with open('scaling_results.txt','r') as f: 
+     nproc,walltime = zip(*[ (int(i.strip().split(' ')[0]),float(i.strip().split(' ')[1])) for i in f.readlines()])
+
+nproc      = list(nproc)
+walltime   = list(walltime)
 
 speedup = []
 efficiency = []
-n = range(4)
-for i in n:
+for i in range(len(walltime)):
     s = walltime[0] / walltime[i]
     e = 100 * s / (2**i)
     speedup.append(s)
     efficiency.append(e)
 
 # Print out results
-print "    Nthreads  Walltime  Speedup  Efficiency (%)"
-for i in n:
-    print "%8d %11.2f %8.2f %11.2f" % \
-        (nproc[i], walltime[i], speedup[i], efficiency[i])
+print ("    Nthreads  Walltime  Speedup  Efficiency (%)")
+for i in range(len(walltime)):
+    print ("%8d %11.2f %8.2f %11.2f" % \
+        (nproc[i], walltime[i], speedup[i], efficiency[i]))
     
 
 fig, ax = plt.subplots(figsize=(8,6))
@@ -39,4 +41,4 @@ plt.ylabel('Speedup', fontsize=20)
 plt.legend(fontsize=15,loc=2)
 
 plt.savefig('speedup.png', format='png')
-plt.show()
+#plt.show()

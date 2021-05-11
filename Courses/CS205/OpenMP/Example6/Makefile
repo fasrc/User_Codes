@@ -13,4 +13,4 @@ ${PRO}.x : $(OBJECTS)
 	$(COMPILER) $(CFLAGS) $(<F)
 
 clean :
-	rm -fr *.o *.x
+	rm -fr *.o *.x *.out *.err *.dat scaling_results.txt
