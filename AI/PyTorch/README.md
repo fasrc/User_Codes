@@ -38,8 +38,8 @@ $ conda create -n pt1.8_cuda111 python=3.8 pip numpy wheel matplotlib
 (4) Activate the new *conda* environment:
 
 <pre>
-$ source activate conda/pt1.8_cuda111
-(conda/pt1.8_cuda111)
+$ source activate pt1.8_cuda111
+(pt1.8_cuda111)
 </pre>
 
 (5) Install PyTorch with conda
