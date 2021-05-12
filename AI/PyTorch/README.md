@@ -55,7 +55,7 @@ $ conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c pytorch -c nv
 For an **interactive session** to work with the GPUs you can use following:
 
 <pre>
-$ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 /bin/bash
+$ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 
 </pre>
 
 Load required software modules and source your PyTorch conda environment.
