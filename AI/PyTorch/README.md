@@ -19,7 +19,7 @@ To set up PyTorch with GPU support in your user environment, please follow the b
 (1) Start an interactive job requesting GPUs, e.g.,
 
 <pre>
-$ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 /bin/bash
+$ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 
 </pre>
 
 (2) Load required software modules, e.g.,
