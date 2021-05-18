@@ -68,7 +68,7 @@ This should add different folders for distributing source and binary files.
 <img width="300" src="project_python/figure/png/project_python-04.png"/></img>
 </div>
 
-## Step 3: Install the package
+## Step 4: Install the package
 
 Now you can install the package and import it into any working directory. The following code installs the package. While you are in mypackage1 folder, run:
 
