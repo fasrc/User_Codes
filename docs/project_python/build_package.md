@@ -43,6 +43,11 @@ Now the files and folders structure should be similar to the following figure.
 
 `requirements.txt` is a file to manage dependencies. This file indicates what packages are required to run the project. If you have already set up your environment and your modules work successfully, you can simply run the following code to create the requirements. 
 
+```python
+pip freeze > requirements.txt
+```
+
+
 Now the files and folders structure should be similar to the following figure.
 
 <div align=center>
