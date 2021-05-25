@@ -139,10 +139,10 @@ print('AUC = %0.3f' % AUC[0])
 #SBATCH --mem=8G
 
 # --- Set up software environment ---
-module load python/3.7.7-fasrc01
-module load cuda/10.1.243-fasrc01
-module load cudnn/7.6.5.32_cuda10.1-fasrc01
-source activate tf2.3_cuda10
+module load python/3.8.5-fasrc01 
+module load cuda/11.1.0-fasrc01
+module load cudnn/8.1.0.77_cuda11.2-fasrc01
+source activate tf2.5_cuda11
 
 # --- Run the code ---
 srun -n 1 --gres=gpu:1 python tf_mnist.py 
