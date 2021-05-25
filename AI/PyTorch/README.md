@@ -19,7 +19,7 @@ To set up PyTorch with GPU support in your user environment, please follow the b
 (1) Start an interactive job requesting GPUs, e.g.,
 
 <pre>
-$ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 /bin/bash
+$ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 
 </pre>
 
 (2) Load required software modules, e.g.,
@@ -38,8 +38,8 @@ $ conda create -n pt1.8_cuda111 python=3.8 pip numpy wheel matplotlib
 (4) Activate the new *conda* environment:
 
 <pre>
-$ source activate conda/pt1.8_cuda111
-(conda/pt1.8_cuda111)
+$ source activate pt1.8_cuda111
+(pt1.8_cuda111)
 </pre>
 
 (5) Install PyTorch with conda
@@ -55,7 +55,7 @@ $ conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c pytorch -c nv
 For an **interactive session** to work with the GPUs you can use following:
 
 <pre>
-$ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 /bin/bash
+$ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 
 </pre>
 
 Load required software modules and source your PyTorch conda environment.
