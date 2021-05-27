@@ -102,7 +102,7 @@ validation acc: accuracy=0.991300
 
 <code>mxnet_test.py</code> performs classification of handwritten digits with the MNIST data-set applying a convolutional algorithm.
 
-<pre>
+```python
 #!/usr/bin/env python
 from __future__ import print_function
 import mxnet as mx
@@ -210,13 +210,13 @@ for batch in val_data:
     metric.update(label, outputs)
 print('validation acc: %s=%f'%metric.get())
 assert metric.get()[1] > 0.98
-</pre>
+```
 
 #### Batch Jobs
 
 An example batch-job submission script is included below:
 
-<pre>
+```bash
 #!/bin/bash
 #SBATCH -c 1
 #SBATCH -N 1
@@ -235,7 +235,7 @@ source activate mxnet1.8_cuda11
 
 # Run program
 srun -c 1 --gres=gpu:1 python mxnet_test.py 
-</pre>
+```
 
 If you name the above batch-job submission script <code>run.sbatch</code>, for instance, the job is submitted with:
 
