@@ -7,7 +7,7 @@
 
 * [TensorFlow](AI/TensorFlow)
 * [PyTorch](AI/PyTorch)
-* MXNet
+* [MXNet](AI/MXNet)
 * Theano
 * Keras
 * FLUX (Julia)  
