@@ -27,7 +27,7 @@ $ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1
 <pre>
 $ module load python/3.8.5-fasrc01
 $ module load cuda/11.1.0-fasrc01
-$ cudnn/8.0.4.30_cuda11.1-fasrc01
+$ module load cudnn/8.0.4.30_cuda11.1-fasrc01
 </pre>
 
 (3) Create a [conda environment](https://conda.io/projects/conda/en/latest/index.html), e.g.,
@@ -102,7 +102,7 @@ validation acc: accuracy=0.991300
 
 <code>mxnet_test.py</code> performs classification of handwritten digits with the MNIST data-set applying a convolutional algorithm.
 
-<pre>
+```python
 #!/usr/bin/env python
 from __future__ import print_function
 import mxnet as mx
@@ -210,13 +210,13 @@ for batch in val_data:
     metric.update(label, outputs)
 print('validation acc: %s=%f'%metric.get())
 assert metric.get()[1] > 0.98
-</pre>
+```
 
 #### Batch Jobs
 
 An example batch-job submission script is included below:
 
-<pre>
+```bash
 #!/bin/bash
 #SBATCH -c 1
 #SBATCH -N 1
@@ -235,7 +235,7 @@ source activate mxnet1.8_cuda11
 
 # Run program
 srun -c 1 --gres=gpu:1 python mxnet_test.py 
-</pre>
+```
 
 If you name the above batch-job submission script <code>run.sbatch</code>, for instance, the job is submitted with:
 
