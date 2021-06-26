@@ -68,7 +68,7 @@ close(fo)
 #SBATCH --mem=4G
 
 # Load required software modules
-module load julia/1.1.1-fasrc01
+module load Julia/1.6.1-linux-x86_64
 srun -n 1 -c 1 julia ode_test.jl
 ```
 

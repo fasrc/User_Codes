@@ -12,12 +12,12 @@ Julia is actively developed by teams
 [in industry,](https://juliacomputing.com/) along with 
 [hundreds of domain-expert scientists and programmers from around the world](https://github.com/JuliaLang/julia/graphs/contributors).
 
-To get started with Julia on Odyssey you can try the below examples:
+To get started with Julia on the FAS cluster you can try the below examples:
 
 * [Example 1](Example1): Monte-Carlo calculation of PI
 * [Example 2](Example2): Ordinary Differential Equations (ODEs)
 
-You can also try out Julia in a web browser with [JuliaBox.](https://juliabox.com/)
+You can also use Julia in [Jupyter notebooks in our VDI interactive environment](Notebook.md).
 
 ![Gadfly Demo](Images/gadfly-demo.png)
 
