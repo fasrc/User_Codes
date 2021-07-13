@@ -1,0 +1,26 @@
+Bootstrap: yum
+OSVersion: 7
+MirrorURL: http://mirror.centos.org/centos-%{OSVERSION}/%{OSVERSION}/os/$basearch/
+Include: yum
+
+%files
+  /n/home06/pkrastev/holyscratch01/Singularity/MPI/mpitest.f90 /home/
+
+%environment
+  export SINGULARITY_MPICH_DIR=/usr
+
+%post
+  yum -y install vim-minimal
+  yum -y install gcc
+  yum -y install gcc-gfortran
+  yum -y install gcc-c++
+  yum -y install which tar wget gzip
+  yum -y install make
+  cd /root/
+  wget http://www.mpich.org/static/downloads/3.1.4/mpich-3.1.4.tar.gz
+  tar xvfz mpich-3.1.4.tar.gz
+  cd mpich-3.1.4/
+  ./configure --prefix=/usr && make -j2 && make install
+  cd /home
+  mpif90 -o mpitest.x mpitest.f90 -O2
+  cp mpitest.x /usr/bin/

@@ -1,0 +1,16 @@
+#!/bin/bash
+#SBATCH -p test
+#SBATCH -n 8
+#SBATCH -J mpi_test
+#SBATCH -o mpi_test.out
+#SBATCH -e mpi_test.err
+#SBATCH -t 30
+#SBATCH --mem-per-cpu=1000
+
+# --- Set up environment ---
+module load gcc/10.2.0-fasrc01 
+module load openmpi/4.1.0-fasrc01
+
+# --- Run the MPI application in the container ---
+srun -n 8 --mpi=pmix singularity exec openmpi_test.simg /home/mpitest.x
+

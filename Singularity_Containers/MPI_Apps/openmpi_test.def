@@ -1,0 +1,42 @@
+Bootstrap: yum
+OSVersion: 7
+MirrorURL: http://mirror.centos.org/centos-%{OSVERSION}/%{OSVERSION}/os/$basearch/
+Include: yum
+
+%files
+  /n/home06/pkrastev/holyscratch01/Singularity/MPI/mpitest.f90 /home/
+
+%environment
+  export OMPI_DIR=/opt/ompi
+  export SINGULARITY_OMPI_DIR=$OMPI_DIR
+  export SINGULARITYENV_APPEND_PATH=$OMPI_DIR/bin
+  export SINGULAIRTYENV_APPEND_LD_LIBRARY_PATH=$OMPI_DIR/lib
+
+%post
+  yum -y install vim-minimal
+  yum -y install gcc
+  yum -y install gcc-gfortran
+  yum -y install gcc-c++
+  yum -y install which tar wget gzip bzip2
+  yum -y install make
+  yum -y install perl
+
+  echo "Installing Open MPI ..."
+  export OMPI_DIR=/opt/ompi
+  export OMPI_VERSION=4.1.0
+  export OMPI_URL="https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-$OMPI_VERSION.tar.bz2"
+  mkdir -p /tmp/ompi
+  mkdir -p /opt
+  # --- Download ---
+  cd /tmp/ompi
+  wget -O openmpi-$OMPI_VERSION.tar.bz2 $OMPI_URL && tar -xjf openmpi-$OMPI_VERSION.tar.bz2
+  # --- Compile and install ---
+  cd /tmp/ompi/openmpi-$OMPI_VERSION
+  ./configure --prefix=$OMPI_DIR && make -j4 && make install
+  # --- Set environmental variables so we can compile our application ---
+  export PATH=$OMPI_DIR/bin:$PATH
+  export LD_LIBRARY_PATH=$OMPI_DIR/lib:$LD_LIBRARY_PATH
+  export MANPATH=$OMPI_DIR/share/man:$MANPATH
+  # --- Compile our application ---
+  cd /home
+  mpif90 -o mpitest.x mpitest.f90 -O2
