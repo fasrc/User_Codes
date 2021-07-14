@@ -192,7 +192,13 @@ source activate python3_env1
 srun -n 8 --mpi=pmi2 singularity exec mpich_test.simg /usr/bin/mpitest.x
 ```
 
-Please notice that we don't have Mpich installed as a software module on the FASRC cluster and therefore this example assumes that Mpich is installed in your user, or lab, environment. The easiest way to do this is through a [conda](https://docs.conda.io/en/latest/) environment. You can find more information on how to set up conda environments in our computing environment [here](https://docs.rc.fas.harvard.edu/kb/python/).
+If the above script is named <code>run.sbatch.mpich</code>, the MPI Singularity job is submitted as usual with:
+
+```bash
+sbatch run.sbatch.mpich
+``` 
+
+**Note:** Please notice that we don't have Mpich installed as a software module on the FASRC cluster and therefore this example assumes that Mpich is installed in your user, or lab, environment. The easiest way to do this is through a [conda](https://docs.conda.io/en/latest/) environment. You can find more information on how to set up conda environments in our computing environment [here](https://docs.rc.fas.harvard.edu/kb/python/).
 
 Provided you have set up and activated a conda environment named, e.g., <code>python3\_env1</code>, Mpich version 3.1.4 can be installed with:
 

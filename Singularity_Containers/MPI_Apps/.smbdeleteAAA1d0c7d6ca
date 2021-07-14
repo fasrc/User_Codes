@@ -1,9 +1,0 @@
-## Singularity & MPI Applications
-
-The goal of these instructions is to help you run [Message Passing Interface (MPI)](https://en.wikipedia.org/wiki/Message_Passing_Interface) programs using [Singularity](https://sylabs.io/guides/3.5/user-guide/introduction.html) containers on the FAS RC cluster. The MPI standard is used to implement distributed parallel applications across compute nodes of a single HPC cluster, such as [Cannon](https://www.rc.fas.harvard.edu/about/cluster-architecture/), or across multiple compute systems. The two major open-source implementations of MPI are [Mpich](https://www.mpich.org/) (and its derivatives, such as [Mvapich](https://mvapich.cse.ohio-state.edu/)), and [OpenMPI](https://www.open-mpi.org/). The most widely used MPI implementation on Cannon is OpenMPI.
-
-For information on using Singularity on the FASRC cluster, refer to [this](https://docs.rc.fas.harvard.edu/kb/singularity-on-the-cluster/) page.
-
-There are several ways of developing and running MPI applications using Singularity containers, where the most popular method relies on the MPI implementation available on the host machine. This approach is named *Host MPI* or the *Hybrid* model since it uses both the MPI implementation on the host and the one in the container.
-
-The key idea behind the *Hybrid* method is that when you execute a Singularity container with a MPI application, you call <code>mpiexec</code>, <code>mpirun</code>, or <code>srun</code>, e.g., when using the *SLURM* scheduler, on the <code>singularity</code> command itself. Then the MPI process outside of the container will work together with MPI inside the container to initialize the parallel job. **Therefore, it is very important that the MPI flavors and versions inside the container and on the host match.**
