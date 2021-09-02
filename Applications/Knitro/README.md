@@ -161,5 +161,5 @@ Time spent in evaluations (secs)    =       0.06753
 ### References:
 
 * [Official Knitro User's Manual](https://www.artelys.com/tools/knitro_doc/index.html)
-* [Knitro - MATLAB reference] (https://www.artelys.com/tools/knitro_doc/3_referenceManual/knitromatlabReference.html)
+* [Knitro / MATLAB reference](https://www.artelys.com/tools/knitro_doc/3_referenceManual/knitromatlabReference.html)
 
