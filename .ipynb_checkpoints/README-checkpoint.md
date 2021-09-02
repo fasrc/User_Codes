@@ -65,7 +65,7 @@
 
 * [Weather Research and Forecasting (WRF) Model](Applications/WRF_Model)
 * Schrodinger
-* [Knitro](Applications/)
+* Knitro
 
 #### Visualization
 
