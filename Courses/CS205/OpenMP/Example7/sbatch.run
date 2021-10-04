@@ -3,6 +3,7 @@
 #SBATCH -o omp_mm.out
 #SBATCH -e omp_mm.err
 #SBATCH -t 0-00:30
+#SBATCH -p test
 #SBATCH -N 1
 #SBATCH -c 8
 #SBATCH --mem=4000
@@ -12,7 +13,7 @@ rm -rf ${PRO}.dat
 touch ${PRO}.dat
 
 # Load required software modules
-module load gcc/9.3.0-fasrc01
+module load gcc/10.2.0-fasrc01
 
 # Run program with 1, 2, 4, and 8 OpenMP threads
 for i in 1 2 4 8

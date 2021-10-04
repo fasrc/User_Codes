@@ -1,4 +1,4 @@
-04 March 2021 09:54:33 AM
+03 October 2021 07:05:59 PM
 
 POISSON_OPENMP:
   C version
@@ -74,9 +74,9 @@ POISSON_OPENMP:
   24000        0.617019     9.29454e-07      0.00481811
   The iteration has converged.
 
-  Elapsed seconds = 6.67384
+  Elapsed seconds = 0.826736
 
 POISSON_OPENMP:
   Normal end of execution.
 
-04 March 2021 09:54:40 AM
+03 October 2021 07:05:59 PM
