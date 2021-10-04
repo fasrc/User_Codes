@@ -1,8 +1,8 @@
 #==========================================================
 # Make file
 #==========================================================
-F90CFLAGS   = -c -O2
-F90COMPILER = mpif90
+F90CFLAGS   = -c -w -fallow-argument-mismatch -O2
+F90COMPILER = mpifort
 PRO         = planczos
 OBJECTS     = planczos2.o \
               external_libs.o

@@ -1,0 +1,20 @@
+Number of processes: 1
+Elapsed time = 8.864620 seconds 
+Pi is approximately 3.1415848839999998, Error is 0.0000077695897933
+Exact value of PI is 3.1415926535897931
+Number of processes: 2
+Elapsed time = 4.433124 seconds 
+Pi is approximately 3.1415741439999998, Error is 0.0000185095897933
+Exact value of PI is 3.1415926535897931
+Number of processes: 4
+Elapsed time = 2.216823 seconds 
+Pi is approximately 3.1415549760000001, Error is 0.0000376775897930
+Exact value of PI is 3.1415926535897931
+Number of processes: 8
+Elapsed time = 1.124249 seconds 
+Pi is approximately 3.1416251840000000, Error is 0.0000325304102069
+Exact value of PI is 3.1415926535897931
+Number of processes: 16
+Elapsed time = 0.556365 seconds 
+Pi is approximately 3.1415802240000001, Error is 0.0000124295897930
+Exact value of PI is 3.1415926535897931
