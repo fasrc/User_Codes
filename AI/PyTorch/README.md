@@ -26,7 +26,7 @@ $ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1
 
 <pre>
 $ module load python/3.8.5-fasrc01
-$ module load cuda/11.1.0-fasrc01
+$ module load cuda/11.4.2-fasrc01
 </pre>
 
 (3) Create a [conda environment](https://conda.io/projects/conda/en/latest/index.html), e.g.,
