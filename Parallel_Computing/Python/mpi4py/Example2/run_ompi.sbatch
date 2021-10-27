@@ -9,7 +9,9 @@
 
 # Set up environment
 module load python/3.8.5-fasrc01
-source activate python3_env1
+module load gcc/10.2.0-fasrc01
+module load openmpi/4.1.1-fasrc01
+source activate python3_env2
 
 # Run the program
-srun -n 8 --mpi=pmi2 python optimize_mpi.py
+srun -n 8 --mpi=pmix python optimize_mpi.py

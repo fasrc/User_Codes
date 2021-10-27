@@ -53,18 +53,35 @@ if __name__ == '__main__':
 #SBATCH -J optimize_mpi
 #SBATCH -o optimize_mpi.out
 #SBATCH -e optimize_mpi.err
-#SBATCH -p shared
+#SBATCH -p test
 #SBATCH -n 8
 #SBATCH -t 30
 #SBATCH --mem-per-cpu=4000
 
 # Set up environment
-module load python/3.7.7-fasrc01
+module load python/3.8.5-fasrc01
 source activate python3_env1
 
 # Run the program
 srun -n 8 --mpi=pmi2 python optimize_mpi.py
 ```
+
+If you opted out for installing mpi4py with your MPI flavor and/or version of choice via pip as explained [here](../README.md). You will need to modify the "Set up environment" section in the above script as follows:
+
+```bash
+# Set up environment
+module load python/3.8.5-fasrc01
+module load gcc/10.2.0-fasrc01
+module load openmpi/4.1.1-fasrc01
+source activate python3_env2
+```
+and the "Run the program" section as follows:
+
+```bash
+srun -n 8 --mpi=pmix python optimize_mpi.py
+```
+
+**Note:** You can use as an example the included <code>run_ompi.sbatch</code> batch-job submission script for running with **OpenMPI**. Please, notice that you need to replace <code>--mpi=pmi2</code> with <code>--mpi=pmix</code> in this case.
 
 ### Example Usage:
 

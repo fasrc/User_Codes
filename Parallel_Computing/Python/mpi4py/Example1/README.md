@@ -45,7 +45,7 @@ If you have installed <code>mpi4py</code> with <code>conda</code> and use the de
 #SBATCH --mem-per-cpu=4000
 
 # Set up environment
-module load python/3.7.7-fasrc01
+module load python/3.8.5-fasrc01
 source activate python3_env1
 
 # Run the program
@@ -56,11 +56,18 @@ If you opted out for installing mpi4py with your MPI flavor and/or version of ch
 
 ```bash
 # Set up environment
-module load python/3.7.7-fasrc01
-module load gcc/9.2.0-fasrc01
-module load openmpi/4.0.2-fasrc01
+module load python/3.8.5-fasrc01
+module load gcc/10.2.0-fasrc01
+module load openmpi/4.1.1-fasrc01
 source activate python3_env2
 ```
+and the "Run the program" section as follows:
+
+```bash
+srun -n 16 --mpi=pmix python mpi4py_test.py
+```
+
+**Note:** You can use as an example the included <code>run_ompi.sbatch</code> batch-job submission script for running with **OpenMPI**. Please, notice that you need to replace <code>--mpi=pmi2</code> with <code>--mpi=pmix</code> in this case.
 
 ### Example Usage:
 
