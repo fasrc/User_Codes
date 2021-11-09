@@ -1,0 +1,20 @@
+Bootstrap: docker
+From: ubuntu:18.04
+
+%setup
+    mkdir ${SINGULARITY_ROOTFS}/opt/bin
+
+%files
+    omp_dot.c /opt/bin
+
+%environment
+    export PATH="/opt/bin:$PATH"
+
+%post
+    echo "Installing required packages..."
+    apt-get update && apt-get install -y bash gcc gfortran 
+
+    echo "Compiling the application..."
+    cd /opt/bin
+    gcc -fopenmp -o omp_dot.x omp_dot.c
+

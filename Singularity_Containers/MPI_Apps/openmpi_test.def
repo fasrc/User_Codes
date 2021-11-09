@@ -4,7 +4,7 @@ MirrorURL: http://mirror.centos.org/centos-%{OSVERSION}/%{OSVERSION}/os/$basearc
 Include: yum
 
 %files
-  /n/home06/pkrastev/holyscratch01/Singularity/MPI/mpitest.f90 /home/
+  ./mpitest.f90 /home/
 
 %environment
   export OMPI_DIR=/opt/ompi
