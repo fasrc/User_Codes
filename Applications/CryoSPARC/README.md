@@ -241,7 +241,7 @@ cryosparcm fixdbport
 cryosparcm restart
 ```
 
-Then the user must set up an `SSH` tunnel from their local machine through the login node to the compute node. 
+Then the user must set up an `SSH` tunnel from their local machine through the login node to the compute node. Note that this can also be done using a VDI session as your login node.  The VDI instance will have better performance.  Just substitute the name of the VDI node for the login node name.
 
 ```shell
 ssh -NL port:compute_node:port user@holylogin.rc.fas.harvard.edu
