@@ -8,12 +8,11 @@
 #SBATCH --mem-per-cpu=4000
 
 # Load required software modules 
-module load R/3.6.1-fasrc02
-module load gcc/8.2.0-fasrc01 openmpi/4.0.1-fasrc01
+module load gcc/9.3.0-fasrc01 openmpi/4.0.5-fasrc01 R/4.0.5-fasrc03
 
 # Set up Rmpi package
-export R_LIBS_USER=$HOME/software/R/3.6.1:$R_LIBS_USER
-export R_PROFILE=$HOME/software/R/3.6.1/Rmpi/Rprofile
+export R_LIBS_USER=$HOME/apps/R_4.0.5_fasrc03:$R_LIBS_USER
+export R_PROFILE=$HOME/apps/R_4.0.5_fasrc03/Rmpi/Rprofile
 
 # Run program
 export OMPI_MCA_mpi_warn_on_fork=0
