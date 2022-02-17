@@ -13,17 +13,15 @@ This example illustrates using [Rmpi](https://cran.r-project.org/web/packages/Rm
 Load required software modules.
 
 ```bash
-# R module
-module load R/3.6.1-fasrc02
-# Compiler & MPI libraries
-module load gcc/8.2.0-fasrc01 openmpi/4.0.1-fasrc01
+# Compiler, MPI, and R libraries
+module load gcc/9.3.0-fasrc01 openmpi/4.0.5-fasrc01 R/4.0.5-fasrc03
 ```
 
 Create directory for customized R packages and set it up as a local R-library location.
 
 ```bash
-mkdir -p $HOME/software/R/3.6.1
-export R_LIBS_USER=$HOME/software/R/3.6.1:$R_LIBS_USER
+mkdir -p $HOME/apps/R_4.0.5_fasrc03
+export R_LIBS_USER=$HOME/apps/R_4.0.5_fasrc03:$R_LIBS_USER
 ```
 
 Create a <code>$HOME/.R/Makevars</code> file with the below contents.
@@ -100,26 +98,25 @@ mpi.quit()
 #SBATCH --mem-per-cpu=4000
 
 # Load required software modules 
-module load R/3.6.1-fasrc02
-module load gcc/8.2.0-fasrc01 openmpi/4.0.1-fasrc01
+module load gcc/9.3.0-fasrc01 openmpi/4.0.5-fasrc01 R/4.0.5-fasrc03
 
 # Set up Rmpi package
-export R_LIBS_USER=$HOME/software/R/3.6.1:$R_LIBS_USER
-export R_PROFILE=$HOME/software/R/3.6.1/Rmpi/Rprofile
+export R_LIBS_USER=$HOME/apps/R_4.0.5_fasrc03:$R_LIBS_USER
+export R_PROFILE=$HOME/apps/R_4.0.5_fasrc03/Rmpi/Rprofile
 
 # Run program
 export OMPI_MCA_mpi_warn_on_fork=0
 srun -n 8 --mpi=pmix R CMD BATCH --no-save --no-restore mpi_test.R mpi_test.out
 ```
-**Note:** Please notice the line <code>export R_PROFILE=$HOME/software/R/3.6.1/Rmpi/Rprofile</code> in the above batch-job submission script. It is very important to set the <code>R\_PROFILE</code> environment variable to point to the correct <code>Rprofile</code> file for <code>Rmpi</code> to work correctly.
+**Note:** Please notice the line <code>export R_PROFILE=$HOME/apps/R_4.0.5_fasrc03/Rmpi/Rprofile</code> in the above batch-job submission script. It is very important to set the <code>R\_PROFILE</code> environment variable to point to the correct <code>Rprofile</code> file for <code>Rmpi</code> to work correctly.
 
 ### Example Output:
 
 ```r
 $ cat mpi_test.out 
 
-R version 3.6.1 (2019-07-05) -- "Action of the Toes"
-Copyright (C) 2019 The R Foundation for Statistical Computing
+R version 4.0.5 (2021-03-31) -- "Shake and Throw"
+Copyright (C) 2021 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
