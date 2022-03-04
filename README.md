@@ -41,7 +41,7 @@
 
 ### Parallel Computing
 
-* MPI
+* [MPI](Parallel_Computing/MPI)
 * OpenMP
 * Hybrid (MPI+OpenMP)
 * Python
