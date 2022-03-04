@@ -7,6 +7,7 @@
 ! Run:     mpirun -np <Number_of_MPI_ranks> ./pi_monte_carlo.x
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 program pi_monte_carlo
+  use ifport
   implicit none
   include 'mpif.h'
   integer(4) :: iseed
@@ -28,8 +29,8 @@ program pi_monte_carlo
   real(8)    :: t1
   real(8)    :: t2
   real(8)    :: t_tot
+  real(8)    :: randval
 
-  real(8), external  :: ran3
   real(8), parameter :: pi=3.141592653589793238462643d0
 
   ! Initialize MPI....................................................
@@ -40,10 +41,11 @@ program pi_monte_carlo
 
   t1 = MPI_WTIME(ierr)
 
-  iseed = -99           ! Seed for random number generator
-  r = 1.0d0             ! Unit circle
-  sample_number = 1e10  ! Number of samples
-  
+  iseed = -99            ! Seed for random number generator
+  r = 1.0d0              ! Unit circle
+  sample_number = 1e10   ! Number of samples
+  randval =  rand(iseed) ! Iinitialize the random number generator 
+ 
   ! Convert to INTEGER8...............................................
   iproc8 = iproc
   nproc8 = nproc
@@ -51,8 +53,8 @@ program pi_monte_carlo
   ! Parallel Monte-Carlo sampling.....................................
   n = 0
   do i = 1+iproc8, sample_number, nproc8 
-     x = r * ran3(iseed)
-     y = r * ran3(iseed)
+     x = r * rand()
+     y = r * rand()
      if ( x**2 + y**2 <= r**2 ) then
         n = n + 1
      end if
@@ -86,55 +88,3 @@ program pi_monte_carlo
 
 end program pi_monte_carlo
 
-!=====================================================================
-!     The function
-!        ran3
-!     returns a uniform random number deviate between 0.0 and 1.0. Set
-!     the idum to any negative value to initialize or reinitialize the
-!     sequence. Any large MBIG, and any small (but still large) MSEED
-!     can be substituted for the present values. 
-!=====================================================================
-REAL(8) FUNCTION ran3(idum)
-  IMPLICIT NONE
-  INTEGER(4) :: idum
-  INTEGER(4) :: mbig,mseed,mz
-  REAL(8)    ::  fac
-  PARAMETER (mbig=1000000000,mseed=161803398,mz=0,fac=1./mbig)
-  INTEGER(4) :: i,iff,ii,inext,inextp,k
-  INTEGER(4) :: mj,mk,ma(55)
-  SAVE iff,inext,inextp,ma
-  DATA iff /0/
-  
-  IF ( (idum < 0) .or. (iff == 0) ) THEN
-     iff=1
-     mj=mseed-IABS(idum)
-     mj=MOD(mj,mbig)
-     ma(55)=mj
-     mk=1
-     DO i=1,54
-        ii=MOD(21*i,55)
-        ma(ii)=mk
-        mk=mj-mk
-        IF(mk < mz)mk=mk+mbig
-        mj=ma(ii)
-     ENDDO
-     DO k=1,4
-        DO i=1,55
-           ma(i)=ma(i)-ma(1+MOD(i+30,55))
-           IF (ma(i) < mz)ma(i)=ma(i)+mbig
-        ENDDO
-     ENDDO
-     inext=0
-     inextp=31
-     idum=1
-  ENDIF
-  inext=inext+1
-  IF (inext == 56) inext=1
-  inextp=inextp+1
-  IF (inextp == 56) inextp=1
-  mj=ma(inext)-ma(inextp)
-  IF (mj < mz) mj=mj+mbig
-  ma(inext)=mj
-  ran3=mj*fac
-  return
-END FUNCTION ran3

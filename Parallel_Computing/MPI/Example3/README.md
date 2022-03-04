@@ -1,29 +1,39 @@
-### Purpose:
+## Purpose:
 
 Program performs [Lanczos diagonalization](https://en.wikipedia.org/wiki/Lanczos_algorithm) with reorthogonalization of a 100X100 matrix.
 Uses MPI-IO to write and read Lanczos vectors to disk at each iteration.
 
 ### Contents:
 
-(1) planczos2.f90: Fortran source code
+* <code>planczos2.f90</code>: Fortran source code
+* <code>external_libs.f90</code>: Subroutines needed by main program
+* <code>Makefile</code>: Makefile to compile the source code
+* <code>run.sbatch</code>: Btach-job submission script to send the job to the queue.
 
-(2) external_libs.f90: Subroutines needed by main program
 
-(3) Makefile: Makefile to compile the source code
+### Example Batch-Job Submission Script:
 
-(4) run.sbatch: Btach-job submission script to send the job to the queue.
+```bash
+#!/bin/bash
+#SBATCH -J planczos
+#SBATCH -o planczos.out
+#SBATCH -e planczos.err
+#SBATCH -p test
+#SBATCH -t 30
+#SBATCH -n 8
+#SBATCH --mem-per-cpu=4000
 
-### Example Usage:
+# Load required modules
+module load intel/21.2.0-fasrc01
+module load openmpi/4.1.1-fasrc01
 
-	source new-modules.sh
-	module load intel/15.0.0-fasrc01
-	module load openmpi/1.8.3-fasrc02
-	make
-	sbatch run.sbatch
+# Run program
+srun -n 8 --mpi=pmix ./planczos.x
+```
     
 ### Example Output:
 
-```
+```bash
            5  lowest eigenvalues - Lanczos, exact
  iteration:           1
            1   49.8653454477317        50.0109460873557     

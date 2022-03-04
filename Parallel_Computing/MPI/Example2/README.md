@@ -1,23 +1,92 @@
-### Purpose:
+## Purpose:
 
-Prallel implementation of the trapezoidal rule for integration. Uses "cyclic" distribution of loop iterations.
-Currently set up to compute integral \int_0^4 x**2 with 80 integration points.
+Parallel implementation of the trapezoidal rule for integration. Uses "cyclic" distribution of loop iterations. Currently set up to compute integral \int_0^4 x**2 with 80 integration points.
 
 ### Contents:
 
-(1) ptrap.f90: Fortran source code
+* <code>ptrap.f90</code>: Fortran source code
+* <code>Makefile</code>: Makefile to compile the source code
+* <code>run.sbatch</code>: Btach-job submission script to send the job to the queue.
 
-(2) Makefile: Makefile to compile the source code
+### Source Code:
 
-(3) run.sbatch: Btach-job submission script to send the job to the queue.
+```fortran
+!=====================================================================
+! Parallel trapezoidal integration (PGK @ SDSU)
+! Uses cyclic distribution of loop iterations
+!=====================================================================
+subroutine ptrap_int(a,b,tsum,n,func)
+  use nodeinfo
+  implicit none
+  include 'mpif.h'
+  integer(4)             :: ierr
+  integer(4), intent(in) :: n
+  integer(4)             :: j
+  real(8), intent(in)    :: a,b
+  real(8), intent(inout) :: tsum
+  real(8)                :: fa, fb, x, step, tmpsum
+
+  interface
+     double precision function  func(x)
+       implicit none
+       double precision, intent(in) :: x 
+     end function func
+  end interface
+  
+  step = ( b - a ) / dfloat(n)
+  fa = func(a) / 2.0d0
+  fb = func(b) / 2.0d0
+  tsum = 0.0d0
+  do j = 1 + iproc, n - 1, nproc 
+     x = j * step + a
+     tsum = tsum + func(x)
+  end do
+  call MPI_ALLREDUCE(tsum,tmpsum,1,MPI_REAL8,MPI_SUM,icomm,ierr)
+  tsum = tmpsum
+  tsum = ( tsum + fb + fa ) * step
+  return
+end subroutine ptrap_int
+
+!=====================================================================
+! User supplied function to integrate
+! Currently set to f(x) = x**2
+!=====================================================================
+double precision function func(x)
+  implicit none
+  double precision, intent(in) :: x
+  func = x * x
+  return
+end function func
+```
+
+### Example Batch-Job Submission Script:
+
+```bash
+#!/bin/bash
+#SBATCH -J ptrap
+#SBATCH -o ptrap.out
+#SBATCH -e ptrap.err
+#SBATCH -p test
+#SBATCH -t 30
+#SBATCH -n 8
+#SBATCH --mem-per-cpu=4000
+
+# Load required modules
+module load intel/21.2.0-fasrc01
+module load openmpi/4.1.1-fasrc01
+
+# Run program
+srun -n 8 --mpi=pmix ./ptrap.x
+```
 
 ### Example Usage:
 
-	source new-modules.sh
-	module load intel/15.0.0-fasrc01
-	module load openmpi/1.8.3-fasrc02
-	make
-	sbatch run.sbatch
+```bash
+module load intel/21.2.0-fasrc01
+module load openmpi/4.1.1-fasrc01
+make
+sbatch run.sbatch
+```
     
 ### Example Output:
 
