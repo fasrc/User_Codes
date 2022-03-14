@@ -21,7 +21,7 @@
 * IDL  
 * [Julia](Languages/Julia)  
 * Mathematica  
-* MATLAB  
+* [MATLAB](Languages/MATLAB)  
 * Perl  
 * Python
 * [R](Languages/R)  

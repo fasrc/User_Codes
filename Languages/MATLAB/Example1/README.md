@@ -14,24 +14,50 @@ MATLAB example code computing PI via Monte-Carlo method.
 #SBATCH -J pi_monte_carlo
 #SBATCH -o pi_monte_carlo.out
 #SBATCH -e pi_monte_carlo.err
-#SBATCH -p serial_requeue
+#SBATCH -p test
 #SBATCH -N 1
 #SBATCH -c 1
 #SBATCH -t 0-00:30
 #SBATCH --mem=4000
 
 # Load required software modules
-source new-modules.sh
-module load matlab/R2016b-fasrc01
+module load matlab/R2021a-fasrc01
 srun -n 1 -c 1 matlab -nosplash -nodesktop -nodisplay -r "pi_monte_carlo"
 ```
 
 #### Example Usage:
 
 ```bash
-source new-modules.sh
-module load matlab/R2016b-fasrc01
 sbatch run.sbatch
+```
+
+#### Example Code:
+
+```matlab
+%=====================================================================
+% Program: pi_monte_carlo.m
+%
+%          Parallel Monte Carlo calculation of PI
+%
+% Run:     matlab -nosplash -nodesktop -nodisplay -r "pi_monte_carlo"
+%=====================================================================
+R = 1.0;
+darts = 1e6;
+count = 0;
+for i = 1:darts
+  % Compute the X and Y coordinates of where the dart hit the.........
+  % square using Uniform distribution.................................
+  x = R*rand(1);
+  y = R*rand(1);
+  if x^2 + y^2 <= R^2
+    % Increment the count of darts that fell inside of the circle.....
+    count = count + 1; % Count is a reduction variable.
+  end
+end
+% Compute pi..........................................................
+myPI = 4*count/darts;
+fprintf('The computed value of pi is %8.7f.\n',myPI);
+exit;
 ```
 
 #### Example Output:
@@ -40,12 +66,12 @@ sbatch run.sbatch
 cat pi_monte_carlo.out 
 
                             < M A T L A B (R) >
-                  Copyright 1984-2016 The MathWorks, Inc.
-                   R2016b (9.1.0.441655) 64-bit (glnxa64)
-                             September 7, 2016
+                  Copyright 1984-2021 The MathWorks, Inc.
+                  R2021a (9.10.0.1602886) 64-bit (glnxa64)
+                             February 17, 2021
 
  
-To get started, type one of these: helpwin, helpdesk, or demo.
+To get started, type doc.
 For product information, visit www.mathworks.com.
  
 The computed value of pi is 3.1399480.
