@@ -205,7 +205,7 @@ if __name__ == "__main__":
 #SBATCH -t 2-00:00
 #SBATCH -o n512_shell.out
 #SBATCH -e n512_shell.err
-#SBATCH -p huce_intel
+#SBATCH -p shared
 #SBATCH -n 512
 #SBATCH -N 64
 #SBATCH --ntasks-per-node=8
