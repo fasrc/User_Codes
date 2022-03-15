@@ -10,8 +10,7 @@
 #SBATCH --array=17-32
 
 # Load required modules
-source new-modules.sh
-module load matlab/R2016b-fasrc01
+module load matlab/R2021a-fasrc01
 
 # Run program
 srun -n 1 -c 1 matlab -nosplash -nodesktop -nodisplay -r "serial_sum($SLURM_ARRAY_TASK_ID);exit"

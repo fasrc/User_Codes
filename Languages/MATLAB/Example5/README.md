@@ -59,13 +59,12 @@ end
 #SBATCH -t 0-00:30
 #SBATCH -o array_test_%a.out
 #SBATCH -e array_test_%a.err
-#SBATCH -p serial_requeue
+#SBATCH -p test
 #SBATCH --mem=4000
 #SBATCH --array=1-3
 
 # Load required modules
-source new-modules.sh
-module load matlab/R2016b-fasrc01
+module load matlab/R2021a-fasrc01
 
 # Seed for random number generator
 iseed=$(($SLURM_ARRAY_JOB_ID+$SLURM_ARRAY_TASK_ID))
@@ -78,25 +77,24 @@ srun -n 1 -c 1 matlab -nosplash -nodesktop -nodisplay -r "rnd_test(10, -2, 2, $i
 #### Example Usage:
 
 ```bash
-source new-modules.sh
-module load matlab/R2016b-fasrc01
 sbatch run.sbatch
 ```
 
 #### Example Output:
 
 ```
-iseed = 25603779
+cat array_test_1.out
+iseed = 65859596
 
                             < M A T L A B (R) >
-                  Copyright 1984-2016 The MathWorks, Inc.
-                   R2016b (9.1.0.441655) 64-bit (glnxa64)
-                             September 7, 2016
+                  Copyright 1984-2021 The MathWorks, Inc.
+                  R2021a (9.10.0.1602886) 64-bit (glnxa64)
+                             February 17, 2021
 
  
-To get started, type one of these: helpwin, helpdesk, or demo.
+To get started, type doc.
 For product information, visit www.mathworks.com.
  
-Random vector: [ 0.419598 -1.146946 -0.213620 0.857326 0.114036 -0.571077 1.146119 0.984016 1.501505 -0.129344  ]
-Sum of elements: 2.961613
+Random vector: [ -0.134309 1.373540 -1.385494 -1.880850 -1.963074 -1.782992 -1.509674 0.931186 -1.617545 1.217141  ]
+Sum of elements: -6.752070
 ```

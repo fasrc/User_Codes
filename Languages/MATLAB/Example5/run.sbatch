@@ -5,13 +5,12 @@
 #SBATCH -t 0-00:30
 #SBATCH -o array_test_%a.out
 #SBATCH -e array_test_%a.err
-#SBATCH -p serial_requeue
+#SBATCH -p test
 #SBATCH --mem=4000
 #SBATCH --array=1-3
 
 # Load required modules
-source new-modules.sh
-module load matlab/R2016b-fasrc01
+module load matlab/R2021a-fasrc01
 
 # Seed for random number generator
 iseed=$(($SLURM_ARRAY_JOB_ID+$SLURM_ARRAY_TASK_ID))
