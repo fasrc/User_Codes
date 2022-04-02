@@ -6,7 +6,7 @@ This example illustrates using [Rmpi](https://cran.r-project.org/web/packages/Rm
 
 * <code>mpi_test.R</code>: R source code
 * <code>run.sbatch</code>: Example batch-job submission script
-* <code>mpi\_test.out</code>: Example output
+* <code>mpi\_test.Rout</code>: Example output
 
 ### Install and set up Rmpi in user environment:
 
@@ -14,14 +14,15 @@ Load required software modules.
 
 ```bash
 # Compiler, MPI, and R libraries
-module load gcc/9.3.0-fasrc01 openmpi/4.0.5-fasrc01 R/4.0.5-fasrc03
+module load R/3.5.1-fasrc01
+module load gcc/10.2.0-fasrc01 openmpi/4.1.1-fasrc01
 ```
 
 Create directory for customized R packages and set it up as a local R-library location.
 
 ```bash
-mkdir -p $HOME/apps/R_4.0.5_fasrc03
-export R_LIBS_USER=$HOME/apps/R_4.0.5_fasrc03:$R_LIBS_USER
+mkdir -p $HOME/apps/R/3.5.1
+export R_LIBS_USER=$HOME/apps/R/3.5.1:$R_LIBS_USER
 ```
 
 Create a <code>$HOME/.R/Makevars</code> file with the below contents.
@@ -90,33 +91,34 @@ mpi.quit()
 ```bash
 #!/bin/bash
 #SBATCH -J mpi_test
-#SBATCH -o mpi_test.o
-#SBATCH -e mpi_test.e
-#SBATCH -p shared
+#SBATCH -o mpi_test.out
+#SBATCH -e mpi_test.err
+#SBATCH -p test
 #SBATCH -n 8
 #SBATCH -t 30
 #SBATCH --mem-per-cpu=4000
 
 # Load required software modules 
-module load gcc/9.3.0-fasrc01 openmpi/4.0.5-fasrc01 R/4.0.5-fasrc03
+module load R/3.5.1-fasrc01
+module load gcc/10.2.0-fasrc01 openmpi/4.1.1-fasrc01
 
 # Set up Rmpi package
-export R_LIBS_USER=$HOME/apps/R_4.0.5_fasrc03:$R_LIBS_USER
-export R_PROFILE=$HOME/apps/R_4.0.5_fasrc03/Rmpi/Rprofile
+export R_LIBS_USER=$HOME/apps/R/3.5.1:$R_LIBS_USER
+export R_PROFILE=$HOME/apps/R/3.5.1/Rmpi/Rprofile
 
 # Run program
 export OMPI_MCA_mpi_warn_on_fork=0
-srun -n 8 --mpi=pmix R CMD BATCH --no-save --no-restore mpi_test.R mpi_test.out
+srun -n 8 --mpi=pmix R CMD BATCH --no-save --no-restore mpi_test.R
 ```
-**Note:** Please notice the line <code>export R_PROFILE=$HOME/apps/R_4.0.5_fasrc03/Rmpi/Rprofile</code> in the above batch-job submission script. It is very important to set the <code>R\_PROFILE</code> environment variable to point to the correct <code>Rprofile</code> file for <code>Rmpi</code> to work correctly.
+**Note:** Please notice the line <code>export R_PROFILE=$HOME/apps/R/3.5.1/Rmpi/Rprofile</code> in the above batch-job submission script. It is very important to set the <code>R\_PROFILE</code> environment variable to point to the correct <code>Rprofile</code> file for <code>Rmpi</code> to work correctly.
 
 ### Example Output:
 
 ```r
-$ cat mpi_test.out 
+$ cat mpi_test.Rout 
 
-R version 4.0.5 (2021-03-31) -- "Shake and Throw"
-Copyright (C) 2021 The R Foundation for Statistical Computing
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -133,32 +135,19 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
 
-master (rank 0, comm 1) of size 8 is running on: holy7c16407 
-slave1 (rank 1, comm 1) of size 8 is running on: holy7c16407 
-slave2 (rank 2, comm 1) of size 8 is running on: holy7c16407 
-slave3 (rank 3, comm 1) of size 8 is running on: holy7c16408 
-slave4 (rank 4, comm 1) of size 8 is running on: holy7c16408 
-slave5 (rank 5, comm 1) of size 8 is running on: holy7c16409 
-slave6 (rank 6, comm 1) of size 8 is running on: holy7c16409 
-slave7 (rank 7, comm 1) of size 8 is running on: holy7c16410 
+master (rank 0, comm 1) of size 8 is running on: holy7c18312 
+slave1 (rank 1, comm 1) of size 8 is running on: holy7c18312 
+slave2 (rank 2, comm 1) of size 8 is running on: holy7c18312 
+slave3 (rank 3, comm 1) of size 8 is running on: holy7c18312 
+slave4 (rank 4, comm 1) of size 8 is running on: holy7c18312 
+slave5 (rank 5, comm 1) of size 8 is running on: holy7c18312 
+slave6 (rank 6, comm 1) of size 8 is running on: holy7c18312 
+slave7 (rank 7, comm 1) of size 8 is running on: holy7c18312 
 > # Load the R MPI package if it is not already loaded.
 > if (!is.loaded("mpi_initialize")) {
 +     library("Rmpi")
 +     }
 >  
-> #
-> # In case R exits unexpectedly, have it automatically clean up
-> # resources taken up by Rmpi (slaves, memory, etc...)
-> .Last <- function(){
-+        if (is.loaded("mpi_initialize")){
-+            if (mpi.comm.size(1) > 0){
-+                print("Please use mpi.close.Rslaves() to close slaves.")
-+                mpi.close.Rslaves()
-+            }
-+            print("Please use mpi.quit() to quit R")
-+            .Call("mpi_finalize")
-+        }
-+ }
 > # Tell all slaves to return a message identifying themselves
 > mpi.bcast.cmd( id <- mpi.comm.rank() )
 > mpi.bcast.cmd( ns <- mpi.comm.size() )
@@ -193,17 +182,17 @@ $slave7
 [1] 7
 > print(x)
            X1         X2         X3          X4         X5         X6
-1 -0.51796698  2.0623506  1.9722837  0.40322662  0.6707728 -0.1150194
-2  1.22351449 -0.2613692  0.5460643  0.06039536  0.4644074 -0.5661581
-3 -0.06609504  0.1705551  0.7206776 -1.39576360 -0.5939334  1.2169408
-4 -0.66172839 -0.7379895 -0.8374896 -1.51531698  1.3193620 -0.8606493
-5 -0.68540647 -0.9281437 -1.3998907 -0.83743830 -1.9481434  0.4069756
+1 -2.29725577 -1.2114942  1.6391021  0.40414602 -0.1129386  1.2655687
+2  1.61999298  0.2420147 -1.2218427 -0.47842102 -2.7758085  0.4352998
+3 -0.04977144  0.1748042 -1.3156919  0.71658806 -1.8217445 -0.4598137
+4 -0.25964969  0.3763296  0.8649287 -0.04017663  0.6134354 -1.4181552
+5  0.54973583  1.1025789  1.9306896  0.79261701 -1.2906490 -0.6792234
           X7
-1 -0.7803866
-2  0.1022698
-3 -1.1203312
-4  0.2049703
-5 -1.5066558
+1 -0.8693797
+2 -1.0577793
+3  1.1263427
+4  1.1208240
+5  0.8360957
 >  
 > # Tell all slaves to close down, and exit the program
 > mpi.close.Rslaves(dellog = FALSE)
