@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+
+import sys
+import os
+import argparse
+import timeit
+import time
+import numpy as np
+
+import kuramoto as km
+
+def main(N: int, dtype: np.dtype, view=False, parallel=False, **kwargs) -> km.KuramotoSolver:
+	if parallel:
+		print('Multithreading enabled')
+		solver = km.ParallelCppSolver(N=N, dtype=dtype, store_samples=view, **kwargs)
+	else:
+		solver = km.CppSolver(N=N, dtype=dtype, store_samples=view, **kwargs)
+
+	solver.integrate()
+
+	if view:
+		solver.play_video()
+
+if __name__ == '__main__':
+	parser = argparse.ArgumentParser(description='2D lattice Kuramoto model')
+	required = parser.add_argument_group('required arguments')
+	required.add_argument('-N', type=int, help='Size of the problem', required=True)
+	parser.add_argument('-K', type=float, help='Coupling strength')
+	parser.add_argument('-T', type=float, help='Stop time', default=10)
+	parser.add_argument('-v', help='View result', action='store_true', default=False)
+	parser.add_argument('-p', help='Run line profiler', action='store_true', default=False)
+	parser.add_argument('-d', type=str, default='float64', help='Precision')
+	parser.add_argument('-m', help='Enable multithreading', action='store_true', default=False)
+	args = parser.parse_args()
+
+	main(args.N, np.dtype(args.d), view=args.v, parallel=args.m, K=args.K, profile=args.p, T=args.T)
