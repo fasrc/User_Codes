@@ -21,5 +21,15 @@ Systems with different computational configurations are more accessible than bef
 
 ## Problems
 
-- [Working with large data that does not fit into memory]()
+- [Working with large data that does not fit into memory](data_format/NYC_lyft.md)
 - [Processing Single instruction multiple data problem on shared and distributed memory systems]()
+
+## Need help?
+
+If you have any questions, please read the documentation.
+
+- https://docs.rc.fas.harvard.edu/
+
+If you cannot find an answer or you need further help, please submit a ticket.
+
+- https://portal.rc.fas.harvard.edu/login/?next=/rcrt/submit_ticket
