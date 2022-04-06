@@ -22,7 +22,7 @@ Systems with different computational configurations are more accessible than bef
 ## Problems
 
 - [Working with large data that does not fit into memory](data_format/NYC_lyft.md)
-- [Processing Single instruction multiple data problem on shared and distributed memory systems]()
+- [Processing Single instruction multiple data problem on shared and distributed memory systems](parallel_computation/R_embarrassingly_parallel.md)
 
 ## Need help?
 
