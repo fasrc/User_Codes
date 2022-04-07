@@ -219,7 +219,9 @@ In your login node, you can submit the job.
 sbatch run.sh
 ```
 
-The following figure shows scaling the job among different number of cores (4, 8, 16, 32, 64, 128, 256, 512) and wall clock time (30215.443, 12509.134, 5331.597, 2613.654, 1312.239, 636.674, 356.642, 179.275). The results show a perfect linear scaling.   
+The following figure shows scaling the job among different number of cores and corresponding wall clock time. The results show a perfect linear scaling.   
+
+<center>
 
 | #cores (ncore) | Wall Clock Time in s (wc)  |
 |:--------------:|:--------------------------:|
@@ -231,6 +233,8 @@ The following figure shows scaling the job among different number of cores (4, 8
 | 128            |  636.674                   |
 | 256            |  356.642                   |
 | 512            |  179.275                   |
+
+</center>
 
 <p align="center" width="100%">
     <img width="50%" src="figures/png/mpi_run_scaling.png">
