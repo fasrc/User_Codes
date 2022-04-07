@@ -222,7 +222,7 @@ sbatch run.sh
 The following figure shows scaling the job among different number of cores (4, 8, 16, 32, 64, 128, 256, 512) and wall clock time (30215.443, 12509.134, 5331.597, 2613.654, 1312.239, 636.674, 356.642, 179.275). The results show a perfect linear scaling.   
 
 | #cores (ncore) | Wall Clock Time in s (wc)  |
-| -------------- | -------------------------- |
+|:--------------:|:--------------------------:|
 | 4              |  30215.443                 |
 | 8              |  12509.134                 |
 | 16             |  5331.597                  |
@@ -233,7 +233,7 @@ The following figure shows scaling the job among different number of cores (4, 8
 | 512            |  179.275                   |
 
 <p align="center" width="100%">
-    <img width="60%" src="figures/png/mpi_run_scaling.png">
+    <img width="50%" src="figures/png/mpi_run_scaling.png">
 </p>
 
 
