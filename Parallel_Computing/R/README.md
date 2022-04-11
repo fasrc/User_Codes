@@ -10,6 +10,12 @@ This example illustrates using [Rmpi](https://cran.r-project.org/web/packages/Rm
 
 ### Install and set up Rmpi in user environment:
 
+Request an interactive node
+
+````bash
+salloc -p test --time=0:30:00 --mem=1000
+````
+
 Load required software modules.
 
 ```bash
@@ -25,22 +31,41 @@ mkdir -p $HOME/apps/R/3.5.1
 export R_LIBS_USER=$HOME/apps/R/3.5.1:$R_LIBS_USER
 ```
 
-Create a <code>$HOME/.R/Makevars</code> file with the below contents.
-
-```bash
-CC=mpicc
-SHLIB_LD=mpicc
-```
-
-Install <code>Rmpi</code>.
-
+Install <code>Rmpi</code>
+(you must be in an interactive node for the install to be successful).
 
 ```bash
 export RMPI_TYPE="OPENMPI"
-echo 'install.packages("Rmpi", repos="http://cran.us.r-project.org", configure.args=c("--with-Rmpi-include=${MPI_INCLUDE} --with-Rmpi-libpath=${MPI_LIB} --with-Rmpi-type=${RMPI_TYPE}"), configure.vars=c("CPPFLAGS=-I${MPI_INCLUDE} LDFLAGS=-L${MPI_LIB}"))' | R --vanilla
+srun Rscript -e 'install.packages("Rmpi", repos="http://cran.us.r-project.org", configure.args=c("--with-Rmpi-include=${MPI_INCLUDE} --with-Rmpi-libpath=${MPI_LIB} --with-Rmpi-type=${RMPI_TYPE}"), configure.vars=c("CPPFLAGS=-I${MPI_INCLUDE} LDFLAGS=-L${MPI_LIB}"))'
 ```
 
-**Note**: After the installation you may remove/rename the file <code>$HOME/.R/Makevars</code>
+Output
+
+````bash
+Installing package into ‘/n/home05/username/apps/R/3.5.1’
+(as ‘lib’ is unspecified)
+trying URL 'http://cran.us.r-project.org/src/contrib/Rmpi_0.6-9.2.tar.gz'
+Content type 'application/x-gzip' length 106030 bytes (103 KB)
+==================================================
+downloaded 103 KB
+
+* installing *source* package ‘Rmpi’ ...
+** package ‘Rmpi’ successfully unpacked and MD5 sums checked
+
+... omitted output ...
+
+* DONE (Rmpi)
+
+The downloaded source packages are in
+	‘/tmp/RtmpGytOWX/downloaded_packages’
+````
+Exit interactive node
+
+```bash	
+exit
+```
+
+**Note**: If you attempted a previous installation with the file <code>$HOME/.R/Makevars</code>, you must remove/rename the file <code>$HOME/.R/Makevars</code> otherwise it will conflict with future installs.
 
 ### Example Usage:
 
