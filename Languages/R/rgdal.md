@@ -1,4 +1,4 @@
-## Installing *rgdal*, *rgeos*, and *sf*
+## Installing *sp*, *rgdal*, *rgeos*, *sf*, and *INLA*
 
 The below instructions are intended to help you install the R packages [rgdal](https://cran.r-project.org/web/packages/rgdal/index.html), [rgeos](https://cran.r-project.org/web/packages/rgeos/index.html), and [sf](https://r-spatial.github.io/sf) on the FAS cluster.
 
@@ -12,6 +12,7 @@ module load gdal/2.3.0-fasrc01
 module load geos/3.6.2-fasrc01
 module load proj/5.0.1-fasrc01
 module load gcc/9.3.0-fasrc01 udunits/2.2.26-fasrc01
+module load openmpi/4.0.5-fasrc01
 ```
 
 ### Set the required environmental variables:
@@ -29,7 +30,36 @@ export R_LIBS_USER=$HOME/apps/R/4.1.0:$R_LIBS_USER
 To install the packages from within the R shell run:
 
 ```r
+> install.packages("sp")
 > install.packages("rgdal")
 > install.packages("rgeos")
 > install.packages("sf")
+```
+
+### Loading INLA library:
+
+Inside the R shell, run:
+
+```r
+> library("INLA")
+Loading required package: Matrix
+Loading required package: foreach
+Loading required package: parallel
+Loading required package: sp
+This is INLA_22.03.16 built 2022-03-16 13:18:13 UTC.
+ - See www.r-inla.org/contact-us for how to get help.
+Warning message:
+package ‘INLA’ was built under R version 4.1.2
+```
+
+### Troubleshooting:
+
+If while installing `sf` you get an error
+
+```bash
+Error e1071: e1071 is not a valid installed package
+```
+then, install this package in the R shell:
+```r
+> install.packages("e1071")
 ```
