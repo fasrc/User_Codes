@@ -72,7 +72,7 @@ Include: yum
 
   echo "Installing Open MPI ..."
   export OMPI_DIR=/opt/ompi
-  export OMPI_VERSION=4.1.0
+  export OMPI_VERSION=4.1.1
   export OMPI_URL="https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-$OMPI_VERSION.tar.bz2"
   mkdir -p /tmp/ompi
   mkdir -p /opt
@@ -158,13 +158,15 @@ On the FASRC cluster the standard way to execute MPI applications is through a b
 #SBATCH --mem-per-cpu=1000
 
 # --- Set up environment ---
+export UCX_TLS=ib
+export PMIX_MCA_gds=hash
 module load gcc/10.2.0-fasrc01 
-module load openmpi/4.1.0-fasrc01
+module load openmpi/4.1.1-fasrc01
 
 # --- Run the MPI application in the container ---
 srun -n 8 --mpi=pmix singularity exec openmpi_test.simg /home/mpitest.x
 ```
-**Note:** Please notice that the version of the OpenMPI implementation used on the host need to match the one in the Singularity container. In this case this is version 4.1.0.
+**Note:** Please notice that the version of the OpenMPI implementation used on the host need to match the one in the Singularity container. In this case this is version 4.1.1.
 
 If the above script is named <code>run.sbatch.ompi</code>, the MPI Singularity job is submitted as usual with:
 

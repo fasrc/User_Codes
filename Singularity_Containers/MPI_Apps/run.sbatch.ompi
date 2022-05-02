@@ -8,8 +8,10 @@
 #SBATCH --mem-per-cpu=1000
 
 # --- Set up environment ---
+export UCX_TLS=ib
+export PMIX_MCA_gds=hash
 module load gcc/10.2.0-fasrc01 
-module load openmpi/4.1.0-fasrc01
+module load openmpi/4.1.1-fasrc01
 
 # --- Run the MPI application in the container ---
 srun -n 8 --mpi=pmix singularity exec openmpi_test.simg /home/mpitest.x
