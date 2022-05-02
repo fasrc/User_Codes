@@ -1,0 +1,7 @@
+include setup-requirements.txt
+recursive-include cpp *.cpp
+recursive-include cpp *.h
+recursive-include src *.txt
+include *.md
+include LICENSE
+recursive-include tests test*.py
