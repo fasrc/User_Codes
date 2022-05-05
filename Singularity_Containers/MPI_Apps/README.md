@@ -40,7 +40,7 @@ end program mpitest
 
 ### Singularity Definition File
 
-To build Singularity images you need to write a [Definition File](https://sylabs.io/guides/3.1/user-guide/definition_files.html), where the the exact implementation will depend on the available MPI flavor on the host machine.
+To build Singularity images you need to write a [Definition File](https://sylabs.io/guides/3.8/user-guide/definition_files.html), where the the exact implementation will depend on the available MPI flavor on the host machine.
 
 #### OpenMPI
 
@@ -197,7 +197,7 @@ srun -n 8 --mpi=pmi2 singularity exec mpich_test.simg /usr/bin/mpitest.x
 If the above script is named <code>run.sbatch.mpich</code>, the MPI Singularity job is submitted as usual with:
 
 ```bash
-sbatch run.sbatch.mpich
+$ sbatch run.sbatch.mpich
 ``` 
 
 **Note:** Please notice that we don't have Mpich installed as a software module on the FASRC cluster and therefore this example assumes that Mpich is installed in your user, or lab, environment. The easiest way to do this is through a [conda](https://docs.conda.io/en/latest/) environment. You can find more information on how to set up conda environments in our computing environment [here](https://docs.rc.fas.harvard.edu/kb/python/).
@@ -205,7 +205,7 @@ sbatch run.sbatch.mpich
 Provided you have set up and activated a conda environment named, e.g., <code>python3\_env1</code>, Mpich version 3.1.4 can be installed with:
 
 ```bash
-conda install mpich==3.1.4
+$ conda install mpich==3.1.4
 ```
 
 ### Example output
@@ -222,3 +222,30 @@ $ cat mpi_test.out
  Rank           7 out of           8
  End of program.
 ```
+
+### Compiling Code with OpenMPI Inside Singularity Container
+
+To compile inside the Singularity container, we need to request a compute node to run Singularity:
+
+```bash
+$ salloc -p test --time=0:30:00 --mem=1000 -n 1
+```
+
+Using the file `compile_openmpi.sh`, you can compile `mpitest.f90` by executing `bash compile_openmpi.sh` inside the container `openmpi_test.simg` 
+
+```bash
+$ cat compile_openmpi.sh
+#!/bin/bash
+
+export PATH=$OMPI_DIR/bin:$PATH
+export LD_LIBRARY_PATH=$OMPI_DIR/lib:$LD_LIBRARY_PATH
+
+# compile fortran program
+mpif90 -o mpitest.x mpitest.f90 -O2
+
+# compile c program
+mpicc -o mpitest.exe mpitest.c
+
+$ singularity exec openmpi_test.simg bash compile_openmpi.sh
+```
+In `compile_openmpi.sh`, we also included the compilation command for a [c program](https://sylabs.io/guides/3.8/user-guide/mpi.html#test-application).
