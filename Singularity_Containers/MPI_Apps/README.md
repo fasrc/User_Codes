@@ -160,6 +160,7 @@ On the FASRC cluster the standard way to execute MPI applications is through a b
 # --- Set up environment ---
 export UCX_TLS=ib
 export PMIX_MCA_gds=hash
+export OMPI_MCA_btl_tcp_if_include=ib0
 module load gcc/10.2.0-fasrc01 
 module load openmpi/4.1.1-fasrc01
 
