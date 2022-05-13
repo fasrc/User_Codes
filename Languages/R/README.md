@@ -12,7 +12,8 @@ To get started with R on the Harvard University FAS Cannon cluster you can try t
 
 You can also look at the instructions for installing specific R packages:
 
-* [rgdal, rgeos, sf](rgdal.md)
+* [sp, rgdal, rgeos, sf, INLA](rgdal.md)
+* [ENMTools, ecospat, raster, rJava](ENMTools.md)
 * rstan
 
 ### References:
