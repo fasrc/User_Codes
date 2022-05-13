@@ -90,9 +90,19 @@ Save workspace image? [y/n/c]: n
 
 ### Remove `Makevars` file
 
-You need to delete `$HOME/.R/Makevars` so that it will not interfere with future package installations
+You probably need to delete `$HOME/.R/Makevars` so that it will not interfere with future package installations. If you need to keep this file for some reason, then delete the lines that were added for this specific package installation.
 
 ```bash
+# this deletes the file $HOME/.R/Makevars
 rm $HOME/.R/Makevars
+```
+
+Alternatively, open the file `$HOME/.R/Makevars` and delete the following lines:
+
+```bash
+## C++ flags
+CXX14=g++
+CXX14PICFLAGS=-fPIC
+CXX14STD=-std=c++14
 ```
 
