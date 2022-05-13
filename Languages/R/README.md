@@ -14,7 +14,7 @@ You can also look at the instructions for installing specific R packages:
 
 * [sp, rgdal, rgeos, sf, INLA](rgdal.md)
 * [ENMTools, ecospat, raster, rJava](ENMTools.md)
-* rstan
+* [rstan](rstan.md)
 
 ### References:
 
