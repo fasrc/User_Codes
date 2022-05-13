@@ -35,7 +35,13 @@ CXX14STD=-std=c++14
 
 ### Installing:
 
-Install the packages from within the R shell. First, installs the `ENMTools` dependencies: 
+First, request a compute node because this installation takes a long time and requires considerable memory:
+
+```bash
+salloc -p test --time=4:00:00 --mem=8000
+```
+
+Install the packages from within the R shell:
 
 ```r
 # Install ENMTools and its dependencies
