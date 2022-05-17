@@ -72,4 +72,5 @@ Below we provide a summary of R parallel packages that can be used in Cannon. Yo
   * HPC @ Louisiana State University [training materials](http://www.hpc.lsu.edu/training/weekly-materials/2017-Fall/HPC_Parallel_R_Fall2017.pdf)
   * HPC @ Norwegian University of Science and Technology [training materials](https://www.hpc.ntnu.no/parallel-r-for-hpc-system/)
   * [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html#) by Roger D. Peng.
+  * HPC @ University of Maryland, Baltimore County [training materials](https://hpcf.umbc.edu/other-packages/how-to-run-r-programs-on-maya/)
 
