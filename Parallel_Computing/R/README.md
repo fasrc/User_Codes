@@ -40,12 +40,17 @@ Below we provide a summary of R parallel packages that can be used in Cannon. Yo
  
 ### Multi-node, distributed memory
 
-* Rmpi
+* Package `Rmpi`
   * [Rmpi documentation](https://cran.r-project.org/web/packages/Rmpi/index.html)
   * [Install `Rmpi` on Cannon](Rmpi/README.md)
   * [Example](Rmpi/mpi_test.R) and its [submit script](Rmpi/run.sbatch)
 
-* pbdMPI
+* Package `pbdMPI` (programming big data MPI) 
+  * [pbdMPI documentation](https://rdrr.io/cran/pbdMPI/) and [GitHub](https://github.com/RBigData/pbdMPI)
+  * [pbdR website](https://pbdr.org/packages.html)
+  * [Install `pbdMPI` on Cannon]()
+  * [Example]() based on the `pbdMPI` demos
+
 * future
 
 ### Hybrid: Multi-node + shared-memory
