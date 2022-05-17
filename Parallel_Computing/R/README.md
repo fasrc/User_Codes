@@ -16,24 +16,35 @@ Cannon has 1800+ compute nodes with 80,000+ CPU cores. Each compute node is equi
 
 ## Sequential *vs.* multi-core *vs.* multi-node
 
-A sequential (or serial) code uses one single CPU core and each instruction is processed in sequence.
-
-A multi-core (and single-node) code uses one compute node (i.e. one "computer") and it can use any number of cores that comprises a node. In Cannon, depending on the [partition](https://docs.rc.fas.harvard.edu/kb/running-jobs/), the number of cores varies from 32 to 64. In addition, multi-core codes can take advantage of the shared memory between the cores.
-
 <p align="center" width="100%">
     <img width="75%" src="figures/png/HPCschematicTypes.png">
 </p>
 
-Below we provide a summary of R parallel packages that can be used in Cannon.
+A **sequential** (or serial) code uses one single CPU core and each instruction is processed in sequence (indicated by the triangle).
+
+A **multi-core** (and single-node) code uses one compute node (i.e. one "computer") and it can use any number of cores that comprises a node (indicated by the stars). In Cannon, depending on the [partition](https://docs.rc.fas.harvard.edu/kb/running-jobs/), the number of cores varies from 32 to 64. In addition, multi-core codes can take advantage of the shared memory between the cores.
+
+A **multi-node** code uses cores across multiple nodes (indicated by the Xs), which means that we need a special communication between nodes. This communication happens using message passing interface ([MPI](https://www.mpi-forum.org/docs/)), which has a specific standard for exchanging messages between many computers working in parallel. In `R`, we show a few packages that wrap MPI below.
+
+Below we provide a summary of R parallel packages that can be used in Cannon. You can find a complete list of available packages at [CRAN](https://cran.r-project.org/web/packages/available_packages_by_name.html).
 
 ### Single-node, multi-core (shared memory)
 
-* parallel
-* snow
+* Package `parallel`
+  * [parallel documentation](https://rdrr.io/r/parallel/parallel-package.html)
+  * FAS RC embarrassingly parallel [documentation](Large_Data_Processing_R/parallel_computation/R_embarrassingly_parallel.md)
+  * Embarrassingly parallel [example](Large_Data_Processing_R/parallel_computation/R/2_compute_pi_parLapply.R) (using `parLapply`)
+  * Embarrassingly parallel [VDI example](Large_Data_Processing_R/parallel_computation/R_parLapply_vdi.md) (using `parLapply`)
+
+* Package `snow`
  
 ### Multi-node, distributed memory
 
 * Rmpi
+  * [Rmpi documentation](https://cran.r-project.org/web/packages/Rmpi/index.html)
+  * [Install `Rmpi` on Cannon](Rmpi/README.md)
+  * [Example](Rmpi/mpi_test.R) and its [submit script](Rmpi/run.sbatch)
+
 * pbdMPI
 * future
 
@@ -42,7 +53,6 @@ Below we provide a summary of R parallel packages that can be used in Cannon.
 * future(??)
 
 ### Processing large datasets
-
 
 
 ## Resources
