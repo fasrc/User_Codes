@@ -12,7 +12,7 @@
 module load gcc/9.3.0-fasrc01 openmpi/4.0.5-fasrc01 R/4.0.5-fasrc02
 
 # set R lirbary path
-export R_LIBS_USER=$HOME/apps/R/4.0.5_pbd:$R_LIBS_USER
+export R_LIBS_USER=$HOME/apps/R/4.0.5:$R_LIBS_USER
 
 # choose one of the mpirun statements:
 # run R program and keep output and error messages in pbdApply.Rout

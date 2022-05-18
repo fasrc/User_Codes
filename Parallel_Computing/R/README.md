@@ -48,8 +48,8 @@ Below we provide a summary of R parallel packages that can be used in Cannon. Yo
 * Package `pbdMPI` (programming big data MPI) 
   * [pbdMPI documentation](https://rdrr.io/cran/pbdMPI/) and [GitHub](https://github.com/RBigData/pbdMPI)
   * [pbdR website](https://pbdr.org/packages.html)
-  * [Install `pbdMPI` on Cannon]()
-  * [Example]() based on the `pbdMPI` demos
+  * [Install `pbdMPI` on Cannon](pbdMPI/README.md)
+  * [Examples](pbdMPI/README.md) based on the `pbdMPI` demos – after installing `pbdMPI` package, all demos can be found in your R library folder `$HOME/apps/R/4.0.5/pbdMPI/demo`
 
 * future
 
