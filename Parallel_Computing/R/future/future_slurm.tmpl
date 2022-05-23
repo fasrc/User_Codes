@@ -1,0 +1,24 @@
+## Default resources can be set in your .batchtools.conf.R by defining the variable
+## 'default.resources' as a named list.
+
+#!/bin/sh
+#SBATCH --job-name <%= resources$job_name %>       ## Name of the job
+#SBATCH --ntasks-per-node <%= resources$n_cpu %>   ## number of processes per node
+#SBATCH --partition <%= resources$queue %>         ## Job queue
+#SBATCH --time <%= resources$walltime %>           ## walltime in hh:mm:ss
+#SBATCH --mem-per-cpu <%=resources$mem_cpu %>      ## min memory per core
+#SBATCH --nodes <%= resources$nodes %>             ##  if 1 put load on one node
+#SBATCH --output <%= resources$log_file %>         ## Output is sent to logfile, stdout + stderr by default
+
+## Export value of DEBUGME environment var to slave
+export DEBUGME=<%= Sys.getenv("DEBUGME") %>
+
+# Load required software modules
+module load R/4.1.0-fasrc01
+
+# Set up R library
+export R_LIBS_USER=$HOME/apps/R/4.1.0_futureDocs:$R_LIBS_USER
+
+# Run R process
+Rscript -e 'batchtools::doJobCollection("<%= uri %>")'
+
