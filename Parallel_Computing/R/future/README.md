@@ -73,15 +73,10 @@ export R_LIBS_USER=$HOME/apps/R/4.1.0:$R_LIBS_USER
 unset R_LIBS_SITE
 ```
 
-Install `future` inside the R shell
+Install `future` and other packages inside the R shell
 
 ```r
 > install.packages("future")
-```
-
-Output
-
-````bash
 Installing package into ‘/n/home05/username/apps/R/4.1.0’
 (as ‘lib’ is unspecified)
 
@@ -96,11 +91,8 @@ also installing the dependencies ‘globals’, ‘listenv’, ‘parallelly’
 
 The downloaded source packages are in
 	‘/tmp/RtmpB3XhHu/downloaded_packages’
-````
 
-Install packages necessary for examples presented here:
-
-```r
+# Install packages necessary for examples presented here:
 > install.packages("data.table")
 > install.packages("future.apply")
 > install.packages("tictoc")
@@ -119,6 +111,8 @@ Save workspace image? [y/n/c]: n
 `slow_square` example with function `future_lapply`
 
 ### R source code:
+
+File `future_slow_square.R`:
 
 ```r
 # This example was adapted from https://grantmcdermott.com/ds4e/parallel.html
@@ -149,6 +143,8 @@ toc(log = TRUE)
 
 ### Batch-Job Submission Script:
 
+File `run_future.sbatch`:
+
 ```bash
 #!/bin/bash
 #SBATCH --job-name=Rfuture
@@ -172,7 +168,7 @@ Rscript --vanilla future_slow_square.R > future_slow_square.Rout 2>&1
 
 # run R program and keep output in future_slow_square.Rout
 # and error messages in error file
-Rscript --vanilla future_slow_square.R > future_slow_square.Rout
+#Rscript --vanilla future_slow_square.R > future_slow_square.Rout
 ```
 
 Submit a job to run `future_slow_square.R` in a compute node:
@@ -208,6 +204,8 @@ cgroups.cpuset
 `batchtools_slurm` submits jobs that will run `future_lapply` using the `multicore`
 
 ### R source code:
+
+File `future_hybrid.R`:
 
 ```r
 library("data.table")
@@ -264,7 +262,7 @@ results <- foreach(i=1:3) %dopar% {
 
 ### SLURM batch-job submit script template:
 
-This is the file that is populated and submitted by `batchtools_slurm`.
+This is the file `future_slurm.tmpl` that is populated and submitted by `batchtools_slurm`.
 
 ```bash
 ## Default resources can be set in your .batchtools.conf.R by defining the variable
@@ -294,7 +292,7 @@ Rscript -e 'batchtools::doJobCollection("<%= uri %>")'
 
 ### Batch-Job Submission Script:
 
-This is the file that you submit.
+This is the file `run_hybrid.sbatch` that you submit.
 
 ```bash
 #!/bin/bash
@@ -345,7 +343,6 @@ And the output from `batchtools_slurm`:
 
 ```bash
 $ cat Rhybrid.log
-/n/home_rc/paulasan/myDocNotes/R/future/multinode/.future/20220523_121847-7EZ8pY/doFuture-3_759656388/jobs/job4926a5fda534b607e0d66991d6be0b0a.rds
 ### [bt]: This is batchtools v0.9.15
 ### [bt]: Starting calculation of 1 jobs
 ### [bt]: Setting working directory to '/n/home_rc/paulasan/myDocNotes/R/future/multinode'
@@ -376,14 +373,14 @@ JobID           JobName  Partition    Account  AllocCPUS      State ExitCode
 11411804      multinode       test   rc_admin          1    RUNNING      0:0
 11411804.ba+      batch              rc_admin          1    RUNNING      0:0
 11411804.ex+     extern              rc_admin          1    RUNNING      0:0
-11411805        Rhybrid       test   rc_admin          8  COMPLETED      0:0
-11411805.ba+      batch              rc_admin          8  COMPLETED      0:0
-11411805.ex+     extern              rc_admin          8  COMPLETED      0:0
-11411806        Rhybrid       test   rc_admin          8  COMPLETED      0:0
-11411806.ba+      batch              rc_admin          8  COMPLETED      0:0
-11411806.ex+     extern              rc_admin          8  COMPLETED      0:0
-11411807        Rhybrid       test   rc_admin          8  COMPLETED      0:0
-11411807.ba+      batch              rc_admin          8  COMPLETED      0:0
-11411807.ex+     extern              rc_admin          8  COMPLETED      0:0
+11411805        Rhybrid       test   rc_admin          8    RUNNING      0:0
+11411805.ba+      batch              rc_admin          8    RUNNING      0:0
+11411805.ex+     extern              rc_admin          8    RUNNING      0:0
+11411806        Rhybrid       test   rc_admin          8    RUNNING      0:0
+11411806.ba+      batch              rc_admin          8    RUNNING      0:0
+11411806.ex+     extern              rc_admin          8    RUNNING      0:0
+11411807        Rhybrid       test   rc_admin          8    RUNNING      0:0
+11411807.ba+      batch              rc_admin          8    RUNNING      0:0
+11411807.ex+     extern              rc_admin          8    RUNNING      0:0
 ```
 
