@@ -1,0 +1,9 @@
+[1] "Master-worker model"
+  1   2   3   4   5   6   7   8   9  10 
+ 55 155 255 355 455 555 655 755 855 955 
+[1] "Single program multiple data"
+ 1 
+55 
+[1] "Distributed model"
+  1   2   3   4   5   6   7   8   9  10 
+ 55 155 255 355 455 555 655 755 855 955 

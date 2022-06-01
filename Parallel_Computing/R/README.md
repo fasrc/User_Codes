@@ -1,226 +1,88 @@
-### Purpose:
+# R Parallel
 
-This example illustrates using [Rmpi](https://cran.r-project.org/web/packages/Rmpi/index.html) on the Harvard University FASRC cluster.
+## Purpose
 
-### Contents:
+Here, we briefly explain different ways to use R in parallel on the Harvard University FASRC Cannon cluster.
 
-* <code>mpi_test.R</code>: R source code
-* <code>run.sbatch</code>: Example batch-job submission script
-* <code>mpi\_test.Rout</code>: Example output
+Parallel computing may be necessary to speed up a code or to deal with large datasets. It can divide the workload into chunks and each worker (i.e. core) will take one chunk. The goal of using parallel computing is to reduce the total computational time by having each worker process its workload in parallel with other workers.
 
-### Install and set up Rmpi in user environment:
+## Cannon cluster basics
 
-Request an interactive node
+Cannon has 1800+ compute nodes with 80,000+ CPU cores. Each compute node is equivalent to a computer and typically made up of CPU cores, memory, local storage, and sometimes a GPU card.
 
-````bash
-salloc -p test --time=0:30:00 --mem=1000
-````
+<p align="center" width="100%">
+    <img width="70%" src="figures/png/HPCschematic.png">
+</p>
 
-Load required software modules.
+## Sequential *vs.* multi-core *vs.* multi-node
 
-```bash
-# Compiler, MPI, and R libraries
-module load R/3.5.1-fasrc01
-module load gcc/10.2.0-fasrc01 openmpi/4.1.1-fasrc01
-```
+<p align="center" width="100%">
+    <img width="75%" src="figures/png/HPCschematicTypes.png">
+</p>
 
-Create directory for customized R packages and set it up as a local R-library location.
+A **sequential** (or serial) code uses one single CPU core and each instruction is processed in sequence (indicated by the triangle).
 
-```bash
-mkdir -p $HOME/apps/R/3.5.1
-export R_LIBS_USER=$HOME/apps/R/3.5.1:$R_LIBS_USER
-```
+A **multi-core** (and single-node) code uses one compute node (i.e. one "computer") and it can use any number of cores that comprises a node (indicated by the stars). In Cannon, depending on the [partition](https://docs.rc.fas.harvard.edu/kb/running-jobs/), the number of cores varies from 32 to 64. In addition, multi-core codes can take advantage of the shared memory between the cores.
 
-Install <code>Rmpi</code>
-(you must be in an interactive node for the install to be successful).
+A **multi-node** code uses cores across multiple nodes (indicated by the Xs), which means that we need a special communication between nodes. This communication generally happens using message passing interface ([MPI](https://www.mpi-forum.org/docs/)), which has a specific standard for exchanging messages between many computers working in parallel. In `R`, we show below a few packages that wrap MPI.
 
-```bash
-export RMPI_TYPE="OPENMPI"
-srun Rscript -e 'install.packages("Rmpi", repos="http://cran.us.r-project.org", configure.args=c("--with-Rmpi-include=${MPI_INCLUDE} --with-Rmpi-libpath=${MPI_LIB} --with-Rmpi-type=${RMPI_TYPE}"), configure.vars=c("CPPFLAGS=-I${MPI_INCLUDE} LDFLAGS=-L${MPI_LIB}"))'
-```
+In addition to parallel codes, we may also need different strategies to deal with large datasets. 
 
-Output
+Below we provide a summary of R parallel packages that can be used in Cannon. You can find a complete list of available packages at [CRAN](https://cran.r-project.org/web/packages/available_packages_by_name.html). You can also find more examples under [Resources](#resources)
 
-````bash
-Installing package into ‘/n/home05/username/apps/R/3.5.1’
-(as ‘lib’ is unspecified)
-trying URL 'http://cran.us.r-project.org/src/contrib/Rmpi_0.6-9.2.tar.gz'
-Content type 'application/x-gzip' length 106030 bytes (103 KB)
-==================================================
-downloaded 103 KB
+### Processing large datasets
 
-* installing *source* package ‘Rmpi’ ...
-** package ‘Rmpi’ successfully unpacked and MD5 sums checked
+* [Working with large data that does not fit into memory](Large_Data_Processing_R/data_format/NYC_lyft.md)
+* [Processing Single instruction multiple data problem on shared and distributed memory systems](Large_Data_Processing_R/parallel_computation/R_embarrassingly_parallel.md)
 
-... omitted output ...
 
-* DONE (Rmpi)
+### Single-node, multi-core (shared memory)
 
-The downloaded source packages are in
-	‘/tmp/RtmpGytOWX/downloaded_packages’
-````
-Exit interactive node
+* Package `parallel`
+  * FAS RC embarrassingly parallel [documentation](Large_Data_Processing_R/parallel_computation/R_embarrassingly_parallel.md)
+  * FAS RC embarrassingly parallel [Cannon example](Large_Data_Processing_R/parallel_computation/R/2_compute_pi_parLapply.R) (using `parLapply`)
+  * FAS RC Embarrassingly parallel [VDI example](Large_Data_Processing_R/parallel_computation/R_parLapply_vdi.md) (using `parLapply`)
+  * [parallel documentation](https://rdrr.io/r/parallel/parallel-package.html)
 
-```bash	
-exit
-```
-
-**Note**: If you attempted a previous installation with the file <code>$HOME/.R/Makevars</code>, you must remove/rename the file <code>$HOME/.R/Makevars</code> otherwise it will conflict with future installs.
-
-### Example Usage:
-
-```bash	
-sbatch run.sbatch
-```
-
-### R source code:
-
-```r
-# Load the R MPI package if it is not already loaded.
-if (!is.loaded("mpi_initialize")) {
-    library("Rmpi")
-    }
+* Package `future`
+  * [Install future on Cannon](future/README.md)
+  * [Example](future/future_slow_square.R) of `multisession` (not shared memory) and `multicore` (shared memory) and its [submit script](future/run_future.sbatch)
+  * [future documentation](https://future.futureverse.org/)
  
-#
-# In case R exits unexpectedly, have it automatically clean up
-# resources taken up by Rmpi (slaves, memory, etc...)
-.Last <- function(){
-       if (is.loaded("mpi_initialize")){
-           if (mpi.comm.size(1) > 0){
-               print("Please use mpi.close.Rslaves() to close slaves.")
-               mpi.close.Rslaves()
-           }
-           print("Please use mpi.quit() to quit R")
-           .Call("mpi_finalize")
-       }
-}
-# Tell all slaves to return a message identifying themselves
-mpi.bcast.cmd( id <- mpi.comm.rank() )
-mpi.bcast.cmd( ns <- mpi.comm.size() )
-mpi.bcast.cmd( host <- mpi.get.processor.name() )
-mpi.remote.exec(paste("I am",mpi.comm.rank(),"of",mpi.comm.size()))
- 
-# Test computations
-x <- 5
-x <- mpi.remote.exec(rnorm, x)
-length(x)
-print(x)
- 
-# Tell all slaves to close down, and exit the program
-mpi.close.Rslaves(dellog = FALSE)
-mpi.quit()
-```
+### Multi-node, distributed memory
 
-### Batch-Job Submission Script:
+* Package `Rmpi`
+  * [Install Rmpi on Cannon](Rmpi/README.md)
+  * [Example](Rmpi/mpi_test.R) and its [submit script](Rmpi/run.sbatch)
+  * [Rmpi documentation](https://cran.r-project.org/web/packages/Rmpi/index.html)
 
-```bash
-#!/bin/bash
-#SBATCH -J mpi_test
-#SBATCH -o mpi_test.out
-#SBATCH -e mpi_test.err
-#SBATCH -p test
-#SBATCH -n 8
-#SBATCH -t 30
-#SBATCH --mem-per-cpu=4000
+* Package `pbdMPI` (programming big data MPI) 
+  * [Install pbdMPI on Cannon](pbdMPI/README.md)
+  * [Examples](pbdMPI/README.md) based on the `pbdMPI` demos – after installing `pbdMPI` package, all demos can be found in your R library folder `$HOME/apps/R/4.0.5/pbdMPI/demo`
+  * [pbdMPI documentation](https://rdrr.io/cran/pbdMPI/) and [GitHub](https://github.com/RBigData/pbdMPI)
+  * [pbdR website](https://pbdr.org/packages.html)
 
-# Load required software modules 
-module load R/3.5.1-fasrc01
-module load gcc/10.2.0-fasrc01 openmpi/4.1.1-fasrc01
+### Hybrid: Multi-node + shared-memory
 
-# Set up Rmpi package
-export R_LIBS_USER=$HOME/apps/R/3.5.1:$R_LIBS_USER
-export R_PROFILE=$HOME/apps/R/3.5.1/Rmpi/Rprofile
+Using nested futures and package `future.batchtools`, we can perform a multi-node and multi-core job.
 
-# Run program
-export OMPI_MCA_mpi_warn_on_fork=0
-srun -n 8 --mpi=pmix R CMD BATCH --no-save --no-restore mpi_test.R
-```
-**Note:** Please notice the line <code>export R_PROFILE=$HOME/apps/R/3.5.1/Rmpi/Rprofile</code> in the above batch-job submission script. It is very important to set the <code>R\_PROFILE</code> environment variable to point to the correct <code>Rprofile</code> file for <code>Rmpi</code> to work correctly.
+* Package `future` and `future.batchtools`
+  * [Install future and future.batchtools on Cannon](future/README.md)
+  * [Example](future/future_hybrid.R) and its [submit script](future/run_hybrid.sbatch)
+  * [future documentation](https://future.futureverse.org/) and [GitHub](https://github.com/HenrikBengtsson/future)
+  * [future.batchtools documentation](https://future.batchtools.futureverse.org/) and [GitHub](https://github.com/HenrikBengtsson/future.batchtools)
 
-### Example Output:
+## Resources
 
-```r
-$ cat mpi_test.Rout 
+* For R basics, refer to [R-Basics](https://docs.rc.fas.harvard.edu/kb/r-basics/)
+* For R package installations, refer to:
+  * General package installs: [R-Packages](https://docs.rc.fas.harvard.edu/kb/r-packages/)
+  * Packages [sp, rgdal, rgeos, sf, and INLA](https://github.com/fasrc/User_Codes/blob/master/Languages/R/rgdal.md)
+  * Packages [ENMTools, ecospat, raster, rJava](https://github.com/fasrc/User_Codes/blob/master/Languages/R/ENMTools.md)
+  * Package [rstan](https://github.com/fasrc/User_Codes/blob/master/Languages/R/rstan.md)
+* Parallel R:
+  * HPC @ Louisiana State University [training materials](http://www.hpc.lsu.edu/training/weekly-materials/2017-Fall/HPC_Parallel_R_Fall2017.pdf)
+  * HPC @ Norwegian University of Science and Technology [training materials](https://www.hpc.ntnu.no/parallel-r-for-hpc-system/)
+  * [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html#) by Roger D. Peng.
+  * HPC @ University of Maryland, Baltimore County [training materials](https://hpcf.umbc.edu/other-packages/how-to-run-r-programs-on-maya/)
 
-R version 3.5.1 (2018-07-02) -- "Feather Spray"
-Copyright (C) 2018 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
-
-R is free software and comes with ABSOLUTELY NO WARRANTY.
-You are welcome to redistribute it under certain conditions.
-Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
-
-R is a collaborative project with many contributors.
-Type 'contributors()' for more information and
-'citation()' on how to cite R or R packages in publications.
-
-Type 'demo()' for some demos, 'help()' for on-line help, or
-'help.start()' for an HTML browser interface to help.
-Type 'q()' to quit R.
-
-master (rank 0, comm 1) of size 8 is running on: holy7c18312 
-slave1 (rank 1, comm 1) of size 8 is running on: holy7c18312 
-slave2 (rank 2, comm 1) of size 8 is running on: holy7c18312 
-slave3 (rank 3, comm 1) of size 8 is running on: holy7c18312 
-slave4 (rank 4, comm 1) of size 8 is running on: holy7c18312 
-slave5 (rank 5, comm 1) of size 8 is running on: holy7c18312 
-slave6 (rank 6, comm 1) of size 8 is running on: holy7c18312 
-slave7 (rank 7, comm 1) of size 8 is running on: holy7c18312 
-> # Load the R MPI package if it is not already loaded.
-> if (!is.loaded("mpi_initialize")) {
-+     library("Rmpi")
-+     }
->  
-> # Tell all slaves to return a message identifying themselves
-> mpi.bcast.cmd( id <- mpi.comm.rank() )
-> mpi.bcast.cmd( ns <- mpi.comm.size() )
-> mpi.bcast.cmd( host <- mpi.get.processor.name() )
-> mpi.remote.exec(paste("I am",mpi.comm.rank(),"of",mpi.comm.size()))
-$slave1
-[1] "I am 1 of 8"
-
-$slave2
-[1] "I am 2 of 8"
-
-$slave3
-[1] "I am 3 of 8"
-
-$slave4
-[1] "I am 4 of 8"
-
-$slave5
-[1] "I am 5 of 8"
-
-$slave6
-[1] "I am 6 of 8"
-
-$slave7
-[1] "I am 7 of 8"
-
->  
-> # Test computations
-> x <- 5
-> x <- mpi.remote.exec(rnorm, x)
-> length(x)
-[1] 7
-> print(x)
-           X1         X2         X3          X4         X5         X6
-1 -2.29725577 -1.2114942  1.6391021  0.40414602 -0.1129386  1.2655687
-2  1.61999298  0.2420147 -1.2218427 -0.47842102 -2.7758085  0.4352998
-3 -0.04977144  0.1748042 -1.3156919  0.71658806 -1.8217445 -0.4598137
-4 -0.25964969  0.3763296  0.8649287 -0.04017663  0.6134354 -1.4181552
-5  0.54973583  1.1025789  1.9306896  0.79261701 -1.2906490 -0.6792234
-          X7
-1 -0.8693797
-2 -1.0577793
-3  1.1263427
-4  1.1208240
-5  0.8360957
->  
-> # Tell all slaves to close down, and exit the program
-> mpi.close.Rslaves(dellog = FALSE)
-[1] 1
-> mpi.quit()
-```
