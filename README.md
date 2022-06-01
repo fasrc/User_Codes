@@ -45,7 +45,7 @@
 * OpenMP
 * Hybrid (MPI+OpenMP)
 * Python
-* R
+* [R](Parallel_Computing/R)
 * Julia
 * MATLAB
 * Mathematica
