@@ -1,0 +1,47 @@
+Bootstrap: docker
+From: bioconductor/bioconductor_docker:RELEASE_3_14
+
+# environment variables set by rocker/verse
+%environment
+    # CTAN_REPO pinned after subsequent r-ver release
+    # https://github.com/rocker-org/rocker-versioned2/issues/139
+    # https://github.com/rocker-org/rocker-versioned2/blob/master/dockerfiles/verse_4.1.3.Dockerfile#L8-L10
+    export CTAN_REPO=https://www.texlive.info/tlnet-archive/2022/04/21/tlnet
+    export PATH=$PATH:/usr/local/texlive/bin/x86_64-linux
+    export QUARTO_VERSION=latest
+
+%post
+    export CTAN_REPO=https://www.texlive.info/tlnet-archive/2022/04/21/tlnet
+    export PATH=$PATH:/usr/local/texlive/bin/x86_64-linux
+    export QUARTO_VERSION=latest
+
+    # pinned after subsequent r-ver release
+    # https://github.com/rocker-org/rocker-versioned2/blob/master/dockerfiles/r-ver_4.1.3.Dockerfile#L17
+    echo 'options(repos = c(CRAN = "https://packagemanager.rstudio.com/cran/__linux__/focal/2022-04-21"), download.file.method = "libcurl")' >> $(R RHOME)/etc/Rprofile.site
+
+    ######## union rocker/tidyverse
+    /rocker_scripts/install_tidyverse.sh
+
+    ######## union rocker/verse
+    # https://github.com/rocker-org/rocker-versioned2/blob/master/dockerfiles/verse_4.1.3.Dockerfile
+    /rocker_scripts/install_verse.sh
+    /rocker_scripts/install_quarto.sh
+
+    ######## union rocker/geospatial
+    # https://github.com/rocker-org/rocker-versioned2/blob/master/dockerfiles/geospatial_4.1.3.Dockerfile
+    /rocker_scripts/install_geospatial.sh
+
+    # reticulate
+    /rocker_scripts/install_python.sh
+
+    # Install default & yihui TinyTex latex package sets to allow knit-to-PDF
+    # (hopefully in most cases) without installation of additional LaTeX packages,
+    # as /usr/local/texlive is read-only in the Singularity image
+    # v0.38 is broken w/ CTAN 2022/04/21 (https://github.com/rstudio/tinytex/pull/364); need v0.39
+    tlmgr update --self
+    tlmgr install $(curl https://raw.githubusercontent.com/rstudio/tinytex/v0.39/tools/pkgs-custom.txt | tr '\n' ' ')
+    tlmgr install $(curl https://raw.githubusercontent.com/rstudio/tinytex/v0.39/tools/pkgs-yihui.txt | tr '\n' ' ')
+
+%labels
+    Author nweeks@g.harvard.edu
+
