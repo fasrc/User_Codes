@@ -31,17 +31,16 @@ Follow the instructions here: https://globus-sdk-python.readthedocs.io/en/stable
 
 Example:
 >>> Please enter the code you get after login here: *************
->>> Enter source endpoint UUID: 74f4e3e6-dada-11ec-990a-3b4cfda38030
->>> Enter destination endpoint UUID: 1156ed9e-6984-11ea-af52-0201714f6eab
->>> Enter source path: /~/dev/fasrc/test.h5
->>> Enter destination path: /n/holylfs02/LABS/olveczky_lab/Users/asrini/test.h5
+>>> Enter source endpoint UUID: *********
+>>> Enter destination endpoint UUID: ********
+>>> Enter source path: /~/path/to/my/source/file/from/home/directory
+>>> Enter destination path: /path/to/destination/file
 
 '''
 
 # User-specified parameters
 
-CLIENT_ID = 'c7b378a8-486a-46cb-9058-e8daf5c6eb36' # This is not a secure ID. OAuth token will be requested shortly.
-REDIRECT_URL = 'https://auth.globus.org/v2/web/auth-code'
+CLIENT_ID = 'CLIENT_ID_HERE' # Note: this is not a secure ID. OAuth token will be requested shortly.
 
 # Script
 
