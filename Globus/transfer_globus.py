@@ -1,5 +1,5 @@
 '''
-Globus transfer script
+Globus transfer script (requires interaction)
 
 1. Install dependencies (eg. on local workstation, NWL Buffer storage, etc.)
 
@@ -40,7 +40,7 @@ Example:
 
 # User-specified parameters
 
-CLIENT_ID = 'c7b378a8-486a-46cb-9058-e8daf5c6eb36'
+CLIENT_ID = 'c7b378a8-486a-46cb-9058-e8daf5c6eb36' # This is not a secure ID. OAuth token will be requested shortly.
 REDIRECT_URL = 'https://auth.globus.org/v2/web/auth-code'
 
 # Script
