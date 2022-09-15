@@ -13,6 +13,8 @@ Simple 2D CNN with the MNIST dataset. Example also illustrates computing the con
 ```python
 #!/usr/bin/env python
 from __future__ import print_function
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import tensorflow as tf
 import tensorflow.keras as K
 
@@ -140,9 +142,10 @@ print('AUC = %0.3f' % AUC[0])
 
 # --- Set up software environment ---
 module load python/3.8.5-fasrc01 
-module load cuda/11.1.0-fasrc01
-module load cudnn/8.1.0.77_cuda11.2-fasrc01
-source activate tf2.5_cuda11
+module load cuda/11.7.1-fasrc01
+module load cudnn/8.5.0.96_cuda11-fasrc01 
+module load gcc/12.1.0-fasrc01
+source activate tf2.10_cuda11
 
 # --- Run the code ---
 srun -n 1 --gres=gpu:1 python tf_mnist.py 
