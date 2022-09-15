@@ -17,7 +17,7 @@ The specific example illustrates the installation of TF version 2.10.0 with Pyth
 
 The two recommended methods for setting up TF in your user environment is installing TF in a [conda environment](https://www.rc.fas.harvard.edu/resources/documentation/software-on-the-cluster/python/) in your user space, or use a TF [singularity container](https://www.rc.fas.harvard.edu/resources/documentation/software/singularity-on-the-cluster).
 
-**NOTE:** *If you intend to use TF on [NVIDIA A100 Tensor Core GPU](https://www.nvidia.com/en-us/data-center/a100), please make sure to use TF version $\ge$ 2.5, with CUDA version $\ge$ 11.1 and CUDNN version $\ge$ 8.1.0.* 
+**NOTE:** If you intend to use TF on [NVIDIA A100 Tensor Core GPU](https://www.nvidia.com/en-us/data-center/a100), please make sure to use TF version 2.5 or greater, with CUDA version 11.1 or greater and CUDNN version 8.1.0 or greater.
 
 **Installing TF in a Conda Environment**
 
