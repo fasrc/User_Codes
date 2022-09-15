@@ -13,11 +13,11 @@ The below instructions are intended to help you set up TF on the FASRC cluster.
 
 #### GPU Version
 
-The specific example illustrates the installation of TF version 2.5.0 with Python version 3.8, CUDA version 11.1, and CUDNN version 8.1.0. Please refer to our documentation on [running GPU jobs on the FASRC cluster](https://www.rc.fas.harvard.edu/resources/documentation/gpgpu-computing-on-the-cluster/).
+The specific example illustrates the installation of TF version 2.10.0 with Python version 3.8, CUDA version 11.7.1, and CUDNN version 8.5.0.96. Please refer to our documentation on [running GPU jobs on the FASRC cluster](https://www.rc.fas.harvard.edu/resources/documentation/gpgpu-computing-on-the-cluster/).
 
 The two recommended methods for setting up TF in your user environment is installing TF in a [conda environment](https://www.rc.fas.harvard.edu/resources/documentation/software-on-the-cluster/python/) in your user space, or use a TF [singularity container](https://www.rc.fas.harvard.edu/resources/documentation/software/singularity-on-the-cluster).
 
-**NOTE:** *If you intend to use TF on [NVIDIA A100 Tensor Core GPU](https://www.nvidia.com/en-us/data-center/a100), please make sure to use the latest TF version 2.5, with CUDA version 11.1 and CUDNN version 8.1.0.* 
+**NOTE:** *If you intend to use TF on [NVIDIA A100 Tensor Core GPU](https://www.nvidia.com/en-us/data-center/a100), please make sure to use TF version $\ge$ 2.5, with CUDA version $\ge$ 11.1 and CUDNN version $\ge$ 8.1.0.* 
 
 **Installing TF in a Conda Environment**
 
@@ -25,52 +25,57 @@ You can install your own TF instance following these simple steps:
 
 * Load required software modules, e.g.,
 
-<pre>
-$ module load python/3.8.5-fasrc01
-$ module load cuda/11.1.0-fasrc01
-$ module load cudnn/8.1.0.77_cuda11.2-fasrc01
-</pre>
+```bash
+module load python/3.8.5-fasrc01
+module load cuda/11.7.1-fasrc01
+module load cudnn/8.5.0.96_cuda11-fasrc01
+```
 
 * Create a new *conda* environment with Python and some additional packages needed by TensorFlow 
 (**Note:** the specific example includes additional packages, such as <code>scipy</code>, <code>pandas</code>, <code>matplotlib</code>, <code>seaborn</code>, <code>h5py</code> and <code>jupyterlab</code>, required for data analytics and visualization.)
 
-<pre>
-$ conda create -n tf2.5_cuda11 python=3.8 pip numpy six wheel scipy pandas matplotlib seaborn h5py jupyterlab
-</pre>
+```bash
+$ conda create -n tf2.10_cuda11 python=3.10 pip numpy six wheel scipy pandas matplotlib seaborn h5py jupyterlab
+```
 
 * Activate the new *conda* environment, e.g.,
 
-<pre>
-$ source activate tf2.5_cuda11
-(tf2.5_cuda11) $
-</pre>
+```bash
+source activate tf2.10_cuda11
+(tf2.10_cuda11) $
+```
 
 * Install TF with <code>pip</code>, e.g.,
 
-<pre>
-(tf2.5_cuda11) $ pip install --upgrade tensorflow-gpu==2.5
-</pre>
+```bash
+(tf2.10_cuda11) $ pip install --upgrade tensorflow-gpu
+```
+**Note:** This will install the latest TF version. If you need a specific version, use, e.g., <code>pip install --upgrade tensorflow-gpu==2.5</code>
 
 **Pull a TF singularity container**
 
 Alternatively, one can pull and use a TensorFlow [singularity](https://sylabs.io/guides/3.4/user-guide/index.html) container:
 
-<pre>
-$ singularity pull --name tf20_gpu.simg docker://tensorflow/tensorflow:latest-gpu
-</pre>
+```bash
+singularity pull --name tf2.10_gpu.simg docker://tensorflow/tensorflow:latest-gpu
+```
 
-This will result in the image <code>tf20_gpu.simg</code>. The image then can be used with, e.g.,
+This will result in the image <code>tf2.10_gpu.simg</code>. The image then can be used with, e.g.,
 
-<pre>
-$ singularity exec --nv tf25_gpu.simg python
-Python 3.6.9 (default, Jan 26 2021, 15:33:00)
-[GCC 8.4.0] on linux
+```python
+$ singularity exec --nv tf2.10_gpu.simg python3
+Python 3.8.10 (default, Jun 22 2022, 20:18:18) 
+[GCC 9.4.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
+>>> import os; os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 >>> import tensorflow as tf
-2021-05-24 21:03:29.150885: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
 >>> print(tf.__version__)
-2.5.0
-</pre>
+2.10.0
+>>> print(tf.reduce_sum(tf.random.normal([1000, 1000])))
+tf.Tensor(-622.4288, shape=(), dtype=float32)
+>>> print(tf.config.list_physical_devices('GPU'))
+[PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU'), PhysicalDevice(name='/physical_device:GPU:1', device_type='GPU'), PhysicalDevice(name='/physical_device:GPU:2', device_type='GPU'), PhysicalDevice(name='/physical_device:GPU:3', device_type='GPU')]
+```
 
 **Note:** Please notice the use of the <code>--nv</code> option. This is required to make use of the NVIDIA GPU card on the host system.
 
@@ -81,38 +86,38 @@ Similarly to the GPU installation you can either install TF in a *conda* environ
 
 **Installing TF in a Conda Environment**
 
-<pre>
+```bash
 # (1) Load required software modules
-$ module load python/3.8.5-fasrc01
+module load python/3.8.5-fasrc01
 
 # (2) Create conda environment
-$ conda create -n tf2.5_cpu python=3.8 pip numpy six wheel scipy pandas matplotlib seaborn h5py jupyterlab
+conda create -n tf2.10_cpu python=3.10 pip numpy six wheel scipy pandas matplotlib seaborn h5py jupyterlab
 
 # (3) Activate the conda environment
-$ source activate tf2.5_cpu
-(tf2.5_cpu)
+source activate tf2.10_cpu
+(tf2.10_cpu)
 
 # (4) Install TF with pip
-pip install --upgrade tensorflow==2.5 
-</pre>
+pip install --upgrade tensorflow
+```
+**Note:** This will install the latest TF version. 
+If you need a specific version, use, e.g., 
+```bash 
+pip install --upgrade tensorflow-gpu==2.5
+```
 
 **Pull a TF singularity container**
 
-<pre>
-$ singularity pull --name tf25_cpu.simg docker://tensorflow/tensorflow:latest
-</pre>
+```bash
+singularity pull --name tf2.10_cpu.simg docker://tensorflow/tensorflow:latest
+```
 
-This will result in the image <code>tf25_cpu.simg</code>. The image then can be used with, e.g.,
+This will result in the image <code>tf2.10_cpu.simg</code>. The image then can be used with, e.g.,
 
-<pre>
-$ singularity exec --nv tf25_cpu.simg python
-Python 3.6.9 (default, Jan 26 2021, 15:33:00)
-[GCC 8.4.0] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>> import tensorflow as tf
->>> print(tf.__version__)
-2.5.0
-</pre>
+```python
+$ singularity exec --nv tf2.10_cpu.simg python3 -c "import os; os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'; import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
+tf.Tensor(-126.95773, shape=(), dtype=float32)
+```
 
 ### Running TensorFlow:
 
@@ -120,13 +125,13 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 For an **interactive session** to work with the GPUs you can use following:
 
-<pre>
-$ salloc -p gpu_test -t 0-06:00 --mem=8000 --gres=gpu:1
-</pre>
+```bash
+salloc -p gpu_test -t 0-06:00 --mem=8000 --gres=gpu:1
+```
 
 While on GPU node, you can run <code>nvidia-smi</code> to get information about the assigned GPU's.
 
-<pre>
+```
 [username@holygpu2c0701 ~]$ nvidia-smi
 Mon May 24 21:49:01 2021
 +-----------------------------------------------------------------------------+
@@ -148,85 +153,60 @@ Mon May 24 21:49:01 2021
 |=============================================================================|
 |  No running processes found                                                 |
 +-----------------------------------------------------------------------------+ 
-</pre>
+```
 
 Load required modules, and source your TF environment:
 
-<pre>
-[username@holygpu2c0701 ~]$ module load python/3.8.5-fasrc01 cuda/11.1.0-fasrc01 cudnn/8.1.0.77_cuda11.2-fasrc01 && source activate tf2.5_cuda11 
-(tf2.5_cuda11) [username@holygpu2c0701 ~]$ 
-</pre>
+```bash
+[username@holygpu2c0701 ~]$ module load python/3.8.5-fasrc01 cuda/11.7.1-fasrc01 cudnn/8.5.0.96_cuda11-fasrc01 && source activate tf2.10_cuda11 
+(tf2.10_cuda11) [username@holygpu2c0701 ~]$ 
+```
 
 Test TF:
 
 (Example adapted from [here](https://www.tensorflow.org/tutorials/keras/classification/).)
 
-<pre>
-(tf2.5_cuda11) [username@holygpu2c0701 ~]$ python tf_test.py
-2021-05-24 22:10:09.949014: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
-2.5.0
-2021-05-24 22:10:52.158613: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcuda.so.1
-2021-05-24 22:10:52.218295: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1733] Found device 0 with properties:
-pciBusID: 0000:06:00.0 name: NVIDIA Tesla V100-PCIE-32GB computeCapability: 7.0
-coreClock: 1.38GHz coreCount: 80 deviceMemorySize: 31.75GiB deviceMemoryBandwidth: 836.37GiB/s
-2021-05-24 22:10:52.218519: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
-2021-05-24 22:10:52.328370: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcublas.so.11
-2021-05-24 22:10:52.328721: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcublasLt.so.11
-2021-05-24 22:10:52.435103: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcufft.so.10
-2021-05-24 22:10:52.543469: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcurand.so.10
-2021-05-24 22:10:52.791080: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcusolver.so.11
-2021-05-24 22:10:52.931380: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcusparse.so.11
-2021-05-24 22:10:52.945169: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudnn.so.8
-2021-05-24 22:10:52.953235: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1871] Adding visible gpu devices: 0
-2021-05-24 22:10:52.954007: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2021-05-24 22:10:52.959883: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1733] Found device 0 with properties:
-pciBusID: 0000:06:00.0 name: NVIDIA Tesla V100-PCIE-32GB computeCapability: 7.0
-coreClock: 1.38GHz coreCount: 80 deviceMemorySize: 31.75GiB deviceMemoryBandwidth: 836.37GiB/s
-2021-05-24 22:10:52.964002: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1871] Adding visible gpu devices: 0
-2021-05-24 22:10:52.970902: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcudart.so.11.0
-2021-05-24 22:10:56.507572: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1258] Device interconnect StreamExecutor with strength 1 edge matrix:
-2021-05-24 22:10:56.507720: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1264]      0
-2021-05-24 22:10:56.507782: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1277] 0:   N
-2021-05-24 22:10:56.511550: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1418] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30995 MB memory) -> physical GPU (device: 0, name: NVIDIA Tesla V100-PCIE-32GB, pci bus id: 0000:06:00.0, compute capability: 7.0)
-2021-05-24 22:11:01.412251: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:176] None of the MLIR Optimization Passes are enabled (registered 2)
-2021-05-24 22:11:01.413303: I tensorflow/core/platform/profile_utils/cpu_utils.cc:114] CPU Frequency: 2600000000 Hz
+```bash
+(tf2.10cuda11) [username@holygpu2c0701 ~]$ python tf_test.py
+2.10.0
 Epoch 1/10
-2021-05-24 22:11:02.095831: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcublas.so.11
-2021-05-24 22:11:03.831497: I tensorflow/stream_executor/platform/default/dso_loader.cc:53] Successfully opened dynamic library libcublasLt.so.11
-1875/1875 [==============================] - 5s 1ms/step - loss: 0.4943 - accuracy: 0.8282
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.4959 - accuracy: 0.8268
 Epoch 2/10
-1875/1875 [==============================] - 2s 1ms/step - loss: 0.3755 - accuracy: 0.8664
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.3756 - accuracy: 0.8641
 Epoch 3/10
-1875/1875 [==============================] - 2s 1ms/step - loss: 0.3366 - accuracy: 0.8766
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.3351 - accuracy: 0.8760
 Epoch 4/10
-1875/1875 [==============================] - 2s 1ms/step - loss: 0.3132 - accuracy: 0.8841
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.3125 - accuracy: 0.8858
 Epoch 5/10
-1875/1875 [==============================] - 2s 1ms/step - loss: 0.2964 - accuracy: 0.8910
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2949 - accuracy: 0.8914
 Epoch 6/10
-1875/1875 [==============================] - 2s 1ms/step - loss: 0.2806 - accuracy: 0.8962
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2803 - accuracy: 0.8968
 Epoch 7/10
-1875/1875 [==============================] - 2s 1ms/step - loss: 0.2677 - accuracy: 0.9009
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2681 - accuracy: 0.9002
 Epoch 8/10
-1875/1875 [==============================] - 2s 1ms/step - loss: 0.2573 - accuracy: 0.9039
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2579 - accuracy: 0.9047
 Epoch 9/10
-1875/1875 [==============================] - 2s 1ms/step - loss: 0.2458 - accuracy: 0.9069
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2491 - accuracy: 0.9074
 Epoch 10/10
-1875/1875 [==============================] - 2s 1ms/step - loss: 0.2375 - accuracy: 0.9112
-313/313 - 0s - loss: 0.3409 - accuracy: 0.8789
+1875/1875 [==============================] - 4s 2ms/step - loss: 0.2403 - accuracy: 0.9095
+313/313 - 1s - loss: 0.3436 - accuracy: 0.8810 - 669ms/epoch - 2ms/step
 
-Test accuracy: 0.8788999915122986
-[1.3856260e-08 8.9077723e-10 1.6243800e-11 2.3399921e-10 2.4639154e-12
- 1.9129384e-05 1.4301588e-08 2.6651691e-03 7.0685728e-09 9.9731570e-01]
+Test accuracy: 0.8809999823570251
+313/313 [==============================] - 0s 1ms/step
+[3.74406090e-06 1.09852225e-08 1.39905396e-07 2.27860397e-08
+ 4.68494136e-07 2.19243602e-03 3.58837468e-07 9.66198891e-02
+ 1.85329429e-06 9.01181102e-01]
 9
-(tf2.5_cuda11) [username@holygpu2c0701 ~]$
-</pre>
+(tf2.10_cuda11) [username@holygpu2c0701 ~]$
+```
 
 In the above example we used the following test code, <code>tf_test.py</code>:
 
-<pre>
+```python
 #!/usr/bin/env python
 from __future__ import absolute_import, division, print_function, unicode_literals
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
@@ -240,9 +220,9 @@ class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 
 train_images = train_images / 255.0
 test_images = test_images / 255.0
 model = keras.Sequential([
-        keras.layers.Flatten(input_shape=(28, 28)),
-        keras.layers.Dense(128, activation='relu'),
-        keras.layers.Dense(10, activation='softmax')
+	keras.layers.Flatten(input_shape=(28, 28)),
+	keras.layers.Dense(128, activation='relu'),
+	keras.layers.Dense(10, activation='softmax')
    ])
 
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
@@ -254,7 +234,7 @@ print('\nTest accuracy:', test_acc)
 predictions = model.predict(test_images)
 print(predictions[0])
 print(np.argmax(predictions[0]))
-</pre>
+```
 
 
 #### Examples:

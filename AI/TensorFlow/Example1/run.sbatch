@@ -11,9 +11,10 @@
 
 # --- Set up software environment ---
 module load python/3.8.5-fasrc01 
-module load cuda/11.1.0-fasrc01
-module load cudnn/8.1.0.77_cuda11.2-fasrc01
-source activate tf2.5_cuda11
+module load cuda/11.7.1-fasrc01
+module load cudnn/8.5.0.96_cuda11-fasrc01
+module load gcc/12.1.0-fasrc01 
+source activate tf2.10_cuda11
 
 # --- Run the code ---
 srun -n 1 --gres=gpu:1 python tf_mnist.py

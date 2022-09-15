@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import tensorflow as tf
 import tensorflow.keras as K
 
@@ -12,12 +14,12 @@ import numpy as np
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import roc_curve, auc
 from sklearn.preprocessing import label_binarize
-from scipy.interpolate import interp1d
+#from scipy.interpolate import interp1d
 
 def ROC_curves(y_actu, pred, classes):
     """Computes ROC curves for each class"""
     
-    yt = label_binarize(y_actu, np.arange(classes))
+    yt = label_binarize(y_actu, classes=np.arange(classes))
     n_classes = yt.shape[1]
     
     fpr = dict()
