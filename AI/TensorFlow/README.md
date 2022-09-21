@@ -79,6 +79,13 @@ tf.Tensor(-622.4288, shape=(), dtype=float32)
 
 **Note:** Please notice the use of the <code>--nv</code> option. This is required to make use of the NVIDIA GPU card on the host system.
 
+Alternatively, you can pull a container from the [NVIDA NGC Catalog](https://catalog.ngc.nvidia.com), e.g.,
+
+```bash
+singularity pull docker://nvcr.io/nvidia/tensorflow:22.08-tf2-py3
+```
+
+The NGC catalog provides access to optimized containers of many popular apps.
 
 #### CPU Version
 
