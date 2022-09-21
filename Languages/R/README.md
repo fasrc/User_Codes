@@ -17,6 +17,16 @@ You can also look at the instructions for installing specific R packages:
 * [rstan](rstan.md)
 * Some R packages have lots of dependencies and/or require additional software to be installed in the cluster (e.g. protobuf, geojsonio). Properly configuring these installs with R can become problematic. To overcome that, we documented [how to install R packages within a Singularity container](https://docs.rc.fas.harvard.edu/kb/r-packages-with-singularity/).
 
+### Files that may configure R installations
+
+* `~/.Rprofile`
+* `~/.Renviron`
+* `~/.bashrc`
+* ` ~/.bash_profile`
+* `~/.profile`
+* `~/.config/rstudio/rstudio-prefs.json`
+* `~/.R/Makevars`
+
 ### References:
 
 * [Official R website](https://www.r-project.org/)
