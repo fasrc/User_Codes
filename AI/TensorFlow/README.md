@@ -1,17 +1,17 @@
-## TensorFlow
+# TensorFlow
 <img src="Images/tensorflow-logo.png" alt="TF-logo" width="200"/>
 
-### What is TensorFlow?
+## What is TensorFlow?
 
 [TensorFlow](https://www.tensorflow.org) (TF) is an open-source software library for numerical computation using data flow graphs. Nodes in the graph represent mathematical operations, while the graph edges represent the multidimensional data arrays (tensors) that flow between them. This flexible architecture lets you deploy computation to one or more CPUs or GPUs in a desktop, server, or mobile device without rewriting code.
 
 TensorFlow was originally developed by researchers and engineers working on the Google Brain team within Google's Machine Intelligence research organization for the purposes of conducting machine learning and deep neural networks research. The system is general enough to be applicable in a wide variety of other domains, as well.
 
-### Installing TensorFlow:
+## Installing TensorFlow:
 
 The below instructions are intended to help you set up TF on the FASRC cluster.
 
-#### GPU Version
+### GPU Version
 
 The specific example illustrates the installation of TF version 2.10.0 with Python version 3.8, CUDA version 11.7.1, and CUDNN version 8.5.0.96. Please refer to our documentation on [running GPU jobs on the FASRC cluster](https://www.rc.fas.harvard.edu/resources/documentation/gpgpu-computing-on-the-cluster/).
 
@@ -87,7 +87,7 @@ singularity pull docker://nvcr.io/nvidia/tensorflow:22.08-tf2-py3
 
 The NGC catalog provides access to optimized containers of many popular apps.
 
-#### CPU Version
+### CPU Version
 
 Similarly to the GPU installation you can either install TF in a *conda* environment or use a TF singularity container.
 
@@ -122,13 +122,13 @@ singularity pull --name tf2.10_cpu.simg docker://tensorflow/tensorflow:latest
 This will result in the image <code>tf2.10_cpu.simg</code>. The image then can be used with, e.g.,
 
 ```python
-$ singularity exec --nv tf2.10_cpu.simg python3 -c "import os; os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'; import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
+singularity exec tf2.10_cpu.simg python3 -c "import os; os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'; import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
 tf.Tensor(-126.95773, shape=(), dtype=float32)
 ```
 
-### Running TensorFlow:
+## Running TensorFlow:
 
-#### Run TensorFlow interactively
+### Run TensorFlow interactively
 
 For an **interactive session** to work with the GPUs you can use following:
 
@@ -244,11 +244,11 @@ print(np.argmax(predictions[0]))
 ```
 
 
-#### Examples:
+### Examples:
 
 * [Example 1](Example1): Simple 2D CNN with the MNIST dataset
 
-### Suggested Reading:
+### References:
 
 * [TensorFlow Tutorials](https://www.tensorflow.org/tutorials)
 * [TensorFlow API](https://www.tensorflow.org/api_docs/python)

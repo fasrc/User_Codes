@@ -1,16 +1,16 @@
-## MXNet
+# MXNet
 
 <img src="Images/mxnet-logo.png" alt="MXNet-logo" width="200"/>
 
-### What is MXNet?
+## What is MXNet?
 
 [MXNet](https://mxnet.apache.org) is a deep learning framework designed for both efficiency and flexibility. It allows you to mix symbolic and imperative programming to maximize efficiency and productivity. At its core, MXNet contains a dynamic dependency scheduler that automatically parallelizes both symbolic and imperative operations on the fly. A graph optimization layer on top of that makes symbolic execution fast and memory efficient. MXNet is portable and lightweight, scalable to many GPUs and machines.
 
-### Installing MXNet:
+## Installing MXNet:
 
 These instructions are intended to help you install MXNet on the FASRC cluster.
 
-#### GPU Support
+### GPU Support
 
 For general information on running GPU jobs refer to our [user documentation](https://www.rc.fas.harvard.edu/resources/documentation/gpgpu-computing-on-the-cluster).
 
@@ -18,64 +18,105 @@ The specific example illustrates the installation of MXNet version 1.8 with Pyth
 
 (1) Start an interactive job requesting GPUs, e.g.,
 
-<pre>
-$ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 
-</pre>
+```bash
+salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 
+```
 
 (2) Load required software modules, e.g.,
 
-<pre>
-$ module load python/3.8.5-fasrc01
-$ module load cuda/11.1.0-fasrc01
-$ module load cudnn/8.0.4.30_cuda11.1-fasrc01
-</pre>
+```bash
+module load python/3.8.5-fasrc01
+module load cuda/11.7.1-fasrc01
+module load cudnn/8.5.0.96_cuda11-fasrc01
+```
 
 (3) Create a [conda environment](https://conda.io/projects/conda/en/latest/index.html), e.g.,
 
-<pre>
-$ conda create -n mxnet1.8_cuda11 python=3.8 pip numpy wheel matplotlib
-</pre>
+```bash
+conda create -n mxnet1.9.1_cuda11 python=3.10 pip numpy wheel matplotlib seaborn pandas jupyterlab
+```
 
 (4) Activate the new *conda* environment:
 
-<pre>
-$ source activate mxnet1.8_cuda11
-(mxnet1.8_cuda11)
-</pre>
+```bash
+source activate mxnet1.9.1_cuda11
+```
 
 (5) Install [NCCL](https://developer.nvidia.com/nccl) via *conda*
 
-<pre>
-conda install nccl=2.9.9.1 -c conda-forge
-</pre>
+```bash
+conda install -c conda-forge nccl=2.14.3.1
+```
 
 (6) Install MXNet with pip
 
-<pre>
-$ pip install mxnet-cu110
-</pre>
+```bash
+pip install mxnet-cu112
+```
 
-### Running MXNet:
+### Pull a MXNet Singularity container
 
-#### Run MXNet Interactively
+Alternatively, you can pull an optimized MXNet container from the [NVIDA NGC Catalog](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/mxnet), e.g.,
+
+```bash
+singularity pull docker://nvcr.io/nvidia/mxnet:22.08-py3
+```
+
+The NGC catalog provides access to optimized containers of many popular apps.
+This will result in the image <code>mxnet_22.08-py3.sif</code>. The image then can be used with, e.g.,
+
+```bash
+salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 
+```
+
+And then on the compute node:
+
+```python
+$ singularity exec --nv mxnet_22.08-py3.sif python 
+Python 3.8.10 (default, Jun 22 2022, 20:18:18) 
+[GCC 9.4.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import mxnet as mx
+>>> print(mx.__version__)
+1.9.1
+>>> x = mx.nd.ones((3,4), ctx=mx.gpu()) # Create array of ones at GPU 0
+[16:42:54] ../src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for GPU
+>>> print(x)
+
+[[1. 1. 1. 1.]
+ [1. 1. 1. 1.]
+ [1. 1. 1. 1.]]
+<NDArray 3x4 @gpu(0)>
+>>> x.copyto(mx.gpu(1)) # Copy to GPU 1
+[16:47:14] ../src/storage/storage.cc:196: Using Pooled (Naive) StorageManager for GPU
+
+[[1. 1. 1. 1.]
+ [1. 1. 1. 1.]
+ [1. 1. 1. 1.]]
+<NDArray 3x4 @gpu(1)>
+```
+
+## Running MXNet:
+
+### Run MXNet Interactively
 
 For an **interactive session** to work with the GPUs you can use following:
 
-<pre>
-$ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 
-</pre>
+```bash
+salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 
+```
 
 Load required software modules and source your MXNet conda environment.
 
-<pre>
-[username@holygpu2c0716 ~]$ module load python/3.8.5-fasrc01 cuda/11.1.0-fasrc01 cudnn/8.0.4.30_cuda11.1-fasrc01  && source activate mxnet1.8_cuda11
-(mxnet1.8_cuda11)
-</pre>
+```bash
+[username@holygpu2c0716 ~]$ module load python/3.8.5-fasrc01 cuda/11.7.1-fasrc01 cudnn/8.5.0.96_cuda11-fasrc01  && source activate mxnet1.9.1_cuda11
+(mxnet1.9.1_cuda11)
+```
 
 Test MXNet interactively:
 
-<pre>
-(mxnet1.8_cuda11) $ python mxnet_test.py
+```bash
+(mxnet1.9.1_cuda11) $ python mxnet_test.py
 [15:24:16] ../src/operator/nn/./cudnn/./cudnn_algoreg-inl.h:97: Running performance tests to find the best convolution algorithm, this can take a while... (set the environment variable MXNET_CUDNN_AUTOTUNE_DEFAULT to 0 to disable)
 training acc at epoch 0: accuracy=0.945417
 training acc at epoch 1: accuracy=0.982333
@@ -98,9 +139,9 @@ training acc at epoch 17: accuracy=0.997383
 training acc at epoch 18: accuracy=0.997833
 training acc at epoch 19: accuracy=0.998067
 validation acc: accuracy=0.991300
-</pre>
+```
 
-<code>mxnet_test.py</code> performs classification of handwritten digits with the MNIST data-set applying a convolutional algorithm.
+<code>mxnet_test.py</code> performs classification of handwritten digits with the MNIST data-set applying a convolutional algorithm:
 
 ```python
 #!/usr/bin/env python
@@ -212,7 +253,7 @@ print('validation acc: %s=%f'%metric.get())
 assert metric.get()[1] > 0.98
 ```
 
-#### Batch Jobs
+### Batch Jobs
 
 An example batch-job submission script is included below:
 
@@ -229,9 +270,9 @@ An example batch-job submission script is included below:
 
 # Load software modules and source conda environment
 module load python/3.8.5-fasrc01
-module load cuda/11.1.0-fasrc01
-module load cudnn/8.0.4.30_cuda11.1-fasrc01
-source activate mxnet1.8_cuda11
+module load cuda/11.7.1-fasrc01
+module load cudnn/8.5.0.96_cuda11-fasrc01
+source activate mxnet1.9.1_cuda11
 
 # Run program
 srun -c 1 --gres=gpu:1 python mxnet_test.py 
@@ -239,11 +280,11 @@ srun -c 1 --gres=gpu:1 python mxnet_test.py
 
 If you name the above batch-job submission script <code>run.sbatch</code>, for instance, the job is submitted with:
 
-<pre>
-$ sbatch run.sbatch
-</pre>
+```bash
+sbatch run.sbatch
+```
 
-### References:
+## References:
 
 * [Official MXNet website](https://mxnet.apache.org)
 * [MXNet Tutorials](https://mxnet.apache.org/versions/master/api)
