@@ -1,8 +1,8 @@
 
                             < M A T L A B (R) >
-                  Copyright 1984-2021 The MathWorks, Inc.
-                  R2021a (9.10.0.1602886) 64-bit (glnxa64)
-                             February 17, 2021
+                  Copyright 1984-2022 The MathWorks, Inc.
+                  R2022b (9.13.0.2049777) 64-bit (glnxa64)
+                              August 24, 2022
 
  
 To get started, type doc.
@@ -60,8 +60,8 @@ Final optimality error  (abs / rel) =   2.25e-09 / 1.41e-10
 # of CG iterations                  =          0 
 # of function evaluations           =         44
 # of gradient evaluations           =          0
-Total program time (secs)           =       0.30073 (     0.167 CPU time)
-Time spent in evaluations (secs)    =       0.06753
+Total program time (secs)           =       0.34302 (     0.296 CPU time)
+Time spent in evaluations (secs)    =       0.06101
 
 ===============================================================================
 
