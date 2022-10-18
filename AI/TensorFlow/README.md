@@ -247,6 +247,7 @@ print(np.argmax(predictions[0]))
 ### Examples:
 
 * [Example 1](Example1): Simple 2D CNN with the MNIST dataset
+* [Example 2](Example2): TensorBoard application
 
 ### References:
 
