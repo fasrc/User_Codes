@@ -39,7 +39,7 @@ This results in the <code>rar/</code> directory with the above contents. The nex
 
 * ### Examine the unpacked files
 
-At this stage the binaries are usually ready for use. Of you go to the unpacked directory and list its contents, you will see something like the below:
+At this stage the binaries are usually ready for use. If you go to the unpacked directory and list its contents, you will see something like the below:
 
 ```bash
 $ cd rar/
