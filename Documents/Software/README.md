@@ -13,4 +13,4 @@ If you are looking to use a "bleeding edge" version of software or something spe
 * R packages
 * Perl packages
 * Singularity and Docker containers
-* Spack
+* [Spack](Spack.md)
