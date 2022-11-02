@@ -45,7 +45,7 @@ $ spack --version
 0.18.1
 ```
 
-## Spack Packages
+## Available Spack Packages
 
 The <code>spack list</code> displays the available packages, e.g.,
 
@@ -82,7 +82,7 @@ $ spack versions lammps
 ```
 A complete list of all available Spack packages can be found also [here](https://spack.readthedocs.io/en/latest/package_list.html).
 
-## Installing and Uninstalling Packages
+## Installing Packages
 
 Installing packages with Spack is very straightforward. To install a package simply type <code>spack install PACKAGE_NAME</code>, e.g.,
 
@@ -155,10 +155,164 @@ $ spack install zlib@1.2.8
 $ spack install zlib@1.2.8%gcc@4.4.7
 ```
 
-NOTE: Document in progress ...
+## Uninstalling Packages
 
+Spack provides an easy way to uninstall packages with the <code>spack uninstall PACKAGE_NAME</code>, e.g.,
 
+```bash
+$ spack uninstall bzip2@1.0.8%gcc@4.4.7
+==> The following packages will be uninstalled:
 
+    -- linux-centos7-core2 / gcc@4.4.7 ------------------------------
+    33mscor bzip2@1.0.8
 
+==> Do you want to proceed? [y/N] y
+==> Successfully uninstalled bzip2@1.0.8%gcc@4.4.7~debug~pic+shared arch=linux-centos7-core2/33mscor
+```
+> **Note:** The recommended way of uninstalling packages is by specifying the full package name, including the package version and compiler flavor and version used to install the package on the first place.
 
+## Using Installed Packages
 
+There are several different ways to use Spack packages once you have installed them. The easiest way is to use <code>spack load PACKAGE_NAME</code> to load and <code>spack unload PACKAGE_NAME</code> to unload packages, e.g.,
+
+```bash
+$ spack load bzip2
+$ which bzip2
+/home/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/bzip2-1.0.8-uge7nkh65buipgcflh3x5lezlj64viy4/bin/bzip2
+```
+
+The loaded packages can be listed  with <code>spack find --loaded</code>, e.g.,
+
+```bash
+$ spack find --loaded
+==> 3 loaded packages
+-- linux-centos7-haswell / gcc@4.8.5 ----------------------------
+bzip2@1.0.8  diffutils@3.8  libiconv@1.16
+```
+
+## Compiler Configuration
+
+Spack has the ability to build packages with multiple compilers and compiler versions. This can be particularly useful, if a package needs to be built with specific compilers and compiler versions. You can display the available compilers by the <code>spack compilers</code> command, e.g.,
+
+```bash
+$ spack compilers
+==> Available compilers
+-- gcc centos7-x86_64 -------------------------------------------
+gcc@4.8.5  gcc@4.4.7
+```
+
+The listed compilers are system level compilers provided by the OS itself. On the cluster, we support a set of core compilers, such as GNU (GCC) compiler suit, Intel, and PGI provided on the cluster through [software modules](https://docs.rc.fas.harvard.edu/kb/modules-intro).
+
+You can easily add additional compilers to spack by loading the appropriate software modules, running the <code>spack compiler find</code> command, and edit the <code>compilers.yaml</code> configuration file. For instance, if you need GCC version 9.3.0 you need to do the following:
+
+* ### Load the required software module
+
+```bash
+$ which gcc
+/n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/gcc
+```
+* ### Add this GCC compiler version to the spack compilers
+
+```bash
+$ spack compiler find
+==> Added 1 new compiler to /home/.spack/linux/compilers.yaml
+    gcc@9.3.0
+==> Compilers are defined in the following files:
+    /home/.spack/linux/compilers.yaml
+```
+If you run <code>spack compilers</code> again, you will see that the new compiler has been added to the compiler list and made a default (listed first), e.g.,
+
+```bash
+$ spack compilers
+==> Available compilers
+-- gcc centos7-x86_64 -------------------------------------------
+gcc@9.3.0  gcc@4.8.5  gcc@4.4.7
+```
+
+> **Note:** By default, spack does not fill in the <code>modules:</code> field in the <code>compilers.yaml</code> file. If you are using a compiler from a module, then you should add this field manually.
+
+* ### Edit manually the compiler configuration file
+
+Use your favorite text editor, e.g., <code>Vim</code>, <code>Emacs</code>,<code>VSCode</code>, etc., to edit the compiler configuration YAML file <code>~/.spack/linux/compilers.yaml</code>, e.g.,
+
+```bash
+vi ~/.spack/linux/compilers.yaml
+```
+Each <code>-compiler:</code> section in this file is similar to the below:
+
+```bash
+- compiler:
+    spec: gcc@9.3.0
+    paths:
+      cc: /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/gcc
+      cxx: /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/g++
+      f77: /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/gfortran
+      fc: /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/gfortran
+    flags: {}
+    operating_system: centos7
+    target: x86_64
+    modules: []
+    environment: {}
+    extra_rpaths: []
+```
+We have to edit the <code>modules: []</code> line to read
+
+```bash
+    modules: [gcc/9.3.0-fasrc01]
+```
+and save the compiler config. file. If more than one modules are required by the compiler, these need to be separated by semicolon (;).
+
+We can display the configuration of a specific compiler by the <code>spack compiler info</code> command, e.g.,
+
+```bash
+$ spack compiler info gcc@9.3.0
+gcc@9.3.0:
+        paths:
+                cc = /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/gcc
+                cxx = /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/g++
+                f77 = /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/gfortran
+                fc = /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/gfortran
+        modules  = ['gcc/9.3.0-fasrc01']
+        operating system  = centos7
+```
+
+Once the new compiler is configured, it can be used to build packages. The below example shows how to install the GNU Scientific Library (GSL) with <code>gcc@9.3.0</code>.
+
+```bash
+# Check available GSL versions
+$ spack versions gsl
+==> Safe versions (already checksummed):
+  2.7.1  2.7  2.6  2.5  2.4  2.3  2.2.1  2.1  2.0  1.16
+==> Remote versions (not yet checksummed):
+  2.2  1.15  1.14  1.13  1.12  1.11  1.10  1.9  1.8  1.7  1.6  1.5  1.4  1.3  1.2  1.1.1  1.1  1.0
+
+# Install GSL version 2.7.1 with GCC version 9.3.0
+$ spack install gsl@2.7.1%gcc@9.3.0
+==> Installing gsl-2.7.1-7gfqgajfeedn72qbup6rospcweeh7zln
+==> No binary for gsl-2.7.1-7gfqgajfeedn72qbup6rospcweeh7zln found: installing from source
+==> Fetching https://mirror.spack.io/_source-cache/archive/dc/dcb0fbd43048832b757ff9942691a8dd70026d5da0ff85601e52687f6deeb34b.tar.gz
+==> No patches needed for gsl
+==> gsl: Executing phase: 'autoreconf'
+==> gsl: Executing phase: 'configure'
+==> gsl: Executing phase: 'build'
+==> gsl: Executing phase: 'install'
+==> gsl: Successfully installed gsl-2.7.1-7gfqgajfeedn72qbup6rospcweeh7zln
+  Fetch: 1.45s.  Build: 1m 51.07s.  Total: 1m 52.52s.
+[+] /home/spack/opt/spack/linux-centos7-haswell/gcc-9.3.0/gsl-2.7.1-7gfqgajfeedn72qbup6rospcweeh7zln
+
+# Load the installed package
+$ spack load gsl@2.7.1%gcc@9.3.0
+
+# List the loaded package
+$ spack find --loaded
+==> 1 loaded package
+-- linux-centos7-haswell / gcc@9.3.0 ----------------------------
+gsl@2.7.1
+```
+
+## MPI Configuration
+
+## References
+
+* [Spack official documentation](https://spack.readthedocs.io/en/latest/index.html)
+* [Spack official tutorial](https://spack-tutorial.readthedocs.io/en/latest/)
