@@ -44,7 +44,7 @@ $ git clone https://github.com/LANDIS-II-Foundation/Core-Model-v7-LINUX.git
 
 (2) Go to the source directory
 ```bash
-$ cd /<path to>/Core-Model-v7-LINUX/Tool-Console/src
+$ cd <path to>/Core-Model-v7-LINUX/Tool-Console/src
 ```
 
 (3) Build the code
@@ -68,7 +68,7 @@ Time Elapsed 00:00:59.69
 The compiled code will be in:
 
 ```bash
-$ ls -l <path to>Core-Model-v7-LINUX/build/Release
+$ ls -l <path to>/Core-Model-v7-LINUX/build/Release
 total 984
 -rw-r--r-- 1 pkrastev rc_admin 66911 Nov 18 14:46 Landis.Console.deps.json
 -rw-r--r-- 1 pkrastev rc_admin  9728 Nov 18 14:46 Landis.Console.dll
@@ -116,8 +116,9 @@ export LANDIS_CONSOLE=${LANDIS_ROOT}/vol2/Core-Model-v7-LINUX/build/Release/Land
 # Run the program
 srun -c 1 singularity exec ${LANDIS_ROOT}/Container/Singularity.simg dotnet $LANDIS_CONSOLE scenario_s1e1.txt
 ```
+**NOTE:** The environment variables LANDIS_ROOT and LANDIS_CONSOLE need to be set depending on the actual location of the compiled code.
 
-If you this script is named <code>run.sbatch</code>, the job is submitted to the queue with
+If the above script is named <code>run.sbatch</code>, the job is submitted to the queue with:
 
 ```bash
 $ sbatch run.sbatch
