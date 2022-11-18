@@ -1,0 +1,14 @@
+Bootstrap: docker
+From: ubuntu:18.04
+Stage: spython-base
+
+%post
+apt update && apt -y upgrade
+apt -y install sudo wget
+wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && sudo dpkg -i packages-microsoft-prod.deb
+sudo apt-get install -y apt-transport-https && sudo apt-get update && sudo apt-get install -y dotnet-sdk-2.1
+sudo apt-get install libexpat1 libjpeg62 libpng16-16 libxml2
+%runscript
+exec /bin/bash "$@"
+%startscript
+exec /bin/bash "$@"

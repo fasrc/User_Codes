@@ -1,0 +1,42 @@
+LandisData  "Age-only Succession"
+
+
+Timestep  10
+
+SeedingAlgorithm  WardSeedDispersal
+
+>>-----------------------------
+>>SETUP MAPS AND FILES
+>>------------------------------
+
+InitialCommunities      ./age-only-succession_InitialCommunities_s1e1.txt
+InitialCommunitiesMap   ./age-only-succession_InitialCommunities_s1e1.gis
+
+DynamicInputFile	./age-only-succession_DynamicInputs_s1e1.txt
+
+
+>>-------------------------------
+>> SETUP PARAMETERS
+>>-------------------------------
+
+>>EstablishProbabilities
+>> Species        Ecoregions
+>> --------       ------------------
+                  eco1    eco2
+
+>>   abiebals       0.9     0.05
+>>   acerrubr       1.0     0.6
+>>   acersacc       0.82    0.3
+>>   betualle       0.64    0.24
+>>   betupapy       1.0     0.75
+>>   fraxamer       0.18    0.1
+>>   piceglau       0.58    0.5
+>>   pinubank       1.0     0.8
+>>   pinuresi       0.56    0.78
+>>   pinustro       0.72    0.70
+>>   poputrem       1.0     0.8
+>>   querelli       0.96    0.71
+>>   querrubr       0.66    0.43
+>>   thujocci       0.76    0.002
+>>   tiliamer       0.54    0.06
+>>   tsugcana       0.22    0.01

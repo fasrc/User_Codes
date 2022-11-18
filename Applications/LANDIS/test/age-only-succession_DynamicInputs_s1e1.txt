@@ -1,0 +1,36 @@
+LandisData  "Dynamic Input Data"
+
+>> Year Ecoregion Species ProbEst 
+>> -------- -------------
+0 eco1  abiebals       0.9		  
+0 eco1  acerrubr       1.0  		
+0 eco1  acersacc       0.82 		
+0 eco1  betualle       0.64 		
+0 eco1  betupapy       1.0  		
+0 eco1  fraxamer       0.18 		
+0 eco1  piceglau       0.58 		
+0 eco1  pinubank       1.0  		
+0 eco1  pinuresi       0.56 		
+0 eco1  pinustro       0.72 		
+0 eco1  poputrem       1.0  		
+0 eco1  querelli       0.96 		
+0 eco1  querrubr       0.66 		
+0 eco1  thujocci       0.76 		
+0 eco1  tiliamer       0.54 		
+0 eco1  tsugcana       0.22 		
+0 eco2  abiebals       0.05	
+0 eco2  acerrubr       0.6 	
+0 eco2  acersacc       0.3 	
+0 eco2  betualle       0.24 	
+0 eco2  betupapy       0.75 	
+0 eco2  fraxamer       0.1 	
+0 eco2  piceglau       0.5 	
+0 eco2  pinubank       0.8 	
+0 eco2  pinuresi       0.78 	
+0 eco2  pinustro       0.70 	
+0 eco2  poputrem       0.8 	
+0 eco2  querelli       0.71 	
+0 eco2  querrubr       0.43 	
+0 eco2  thujocci       0.002 	
+0 eco2  tiliamer       0.06 	
+0 eco2  tsugcana       0.01 	

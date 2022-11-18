@@ -1,0 +1,71 @@
+LandisData  "Base Fire"
+
+Timestep  5
+
+
+
+
+>> ------------------------------------
+>> FIRE DISTURBANCE REGIME PARAMETERS
+>> ------------------------------------
+
+>> Fire        Map	___ Event Size ___   Ignition  
+>> region      Code	 Mean  Min    Max    Prob.     k
+>> ---------   ------	----   ----   ----   --------  --------
+    eco1       1	 100    4     400    0.001    100
+    eco2       2	 200    6     600    0.001     50
+
+
+>>----------------------
+>> INPUT MAP
+>>----------------------
+
+InitialFireRegionsMap	./ecoregions_s1e1.gis
+
+
+
+>> ---------------------------
+>> FIRE SEVERITY PARAMETERS
+>> ---------------------------
+
+>>  DynamicFireRegionTable		<< Optional (uncomment to select) 
+>> Year		FileName
+>> ----		--------
+>>   20		ecoregions_s1e1.gis		<< Optional (uncomment to select)
+
+
+  FuelCurveTable
+>>             Severities (in increasing order)
+>> Ecoregion   S1   S2   S3   S4   S5
+>> ------------------------------------
+    eco1       10   20   50   70   120
+    eco2        5   15   20   -1    -1
+
+
+
+  WindCurveTable
+>>             Severities (in decreasing order)
+>> Ecoregion   S5   S4   S3   S2   S1
+>> ------------------------------------
+    eco1       -1   -1    1   10   20
+    eco2        1    5   15   20   30
+
+
+
+  FireDamageTable
+>> Cohort Age       FireSeverity - 
+>> % of longevity   FireTolerance
+>> --------------   --------------
+     20%               -2
+     50%               -1
+     85%                0
+    100%                1
+
+
+
+>> ---------------
+>> OUTPUTS
+>> -------------
+MapNames	fire/base-fire-severity-{timestep}.img
+LogFile		fire/base-fire-log.csv
+SummaryLogFile 	fire/base-fire-summary-log.csv

@@ -1,0 +1,62 @@
+LandisData  "Scenario"
+
+Duration  100
+
+Species   	./species_s1e1.txt
+
+Ecoregions      ./ecoregions_s1e1.txt
+EcoregionsMap   ./ecoregions_s1e1.gis
+
+CellLength  100 << meters, 100 x 100 m = 1 ha
+
+
+>> ---------------------------------------------
+>> SCENARIO OPTIONS FOR A SINGLE LANDISII RUN
+>>----------------------------------------------
+
+>>	1. Sekect ONE Succession Extension
+>>	2. Select ONE OR MORE Disturbance Extensions (but only ONE harvest extension)
+>>	3. Select ONE OR MORE (compatible) Output Extensions
+
+>>	Selection is made by uncommenting a line (ie, remove the >> symbols) 
+
+
+>> -----------------------
+>> SUCCESSION EXTENSIONS
+>> -----------------------
+
+>> 	Succession Extension     Initialization File
+>> 	--------------------     -------------------
+   	"Age-only Succession"	age-only-succession_SetUp_s1e1.txt
+
+
+>> --------------------------
+>> DISTURBANCE EXTENSIONS
+>> -------------------------
+
+>> 	Disturbance Extension	Initialization File
+>>	--------------------	-------------------
+	"Base Fire"		base-fire_SetUp_s1e1.txt
+>>	"Base Wind"		base-wind_SetUp_s1e1.txt
+>>	"Base Harvest"		base-harvest_SetUp_s1e1.txt
+>>	"Base BDA"		base-BDA_SetUp_s1e1.txt
+
+
+>>   DisturbancesRandomOrder  yes  	<< optional
+                         		<< Commented (default) is "no"
+
+
+>> ----------------------
+>> OUTPUT EXTENSIONS
+>> ----------------------
+
+>> 	Output Extension		Initialization File
+>> 	----------------		-------------------
+	"Output Max Species Age"	output_MaxSppAge.txt
+>>	"Output Cohort Statistics"	output_CohortStats.txt
+
+
+>> RandomNumberSeed  147  << optional parameter; uncomment for reproducibilty tests
+                          << Commented (default) is a RandomNumberSeed generated using the current time
+
+
