@@ -1,6 +1,6 @@
 # AlphaFold
 
-**Note:** currently this documentation is in testing phase.
+**Note:** currently (Dec/2022) this documentation is in testing phase.
 
 ## What is AlphaFold?
 
@@ -25,7 +25,7 @@ The AlphaFold database is stored in a cluster-wide location, meaning that
 individual users **do not** have to download the AlphaFold database to run their
 simulations. The database is stored in SSD as recommended by the developers.
 
-### Running AlphaFold
+## Running AlphaFold
 
 We recommend running AlphaFold on GPU partitions because it runs much faster
 than solely using CPUs -- due to AlphaFold's GPU optimization. See [slurm
@@ -47,15 +47,15 @@ You will have to edit in the `run_alphafold.sh` script:
 **Note:** AlphaFold screen output goes to the stderr file (`.err`) rather than the
 stdout file (`.out`).
 
-#### Slurm script
+### Slurm script
 
 https://github.com/fasrc/User_Codes/blob/d0114e5ba12c2f201a1781a873420e4155572d93/Applications/AlphaFold/run_alphafold.sh#L1-L35
 
-#### Fasta file
+### Fasta file
 
 https://github.com/fasrc/User_Codes/blob/f15ac0ea89488dc841d703fef33fa12a094779f2/Applications/AlphaFold/5ZE6_1.fasta#L1-L2
 
-#### Submitting a slurm batch job that runs AlphaFold
+### Submitting a slurm batch job that runs AlphaFold
 
 Log in to Cannon (see login
 [instructions](https://docs.rc.fas.harvard.edu/kb/terminal-access/)). Go to the
