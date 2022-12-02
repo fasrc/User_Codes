@@ -32,10 +32,12 @@ than solely using CPUs -- due to AlphaFold's GPU optimization. See [slurm
 partitions](https://docs.rc.fas.harvard.edu/kb/running-jobs/#Slurm_partitions)
 for the specifics of each partition.
 
-Below you will find a slurm script example `run_alphafold.sh` that uses the
-fasta file `5ZE6_1.fasta`. This example assumes that `run_alphafold.sh` and
-`my_fasta` are located in the same directory. If they are located in different
-directories, you will have to edit `my_fasta_path`.
+Below you will find a slurm script example
+[`run_alphafold.sh`](run_alphafold.sh) that uses the fasta file
+[`5ZE6_1.fasta`](5ZE6_1.fasta).
+This example assumes that `run_alphafold.sh` and `my_fasta` are located in the
+same directory. If they are located in different directories, you will have to
+edit `my_fasta_path`.
 
 You will have to edit in the `run_alphafold.sh` script:
 * `SBATCH` directives to suit your needs (e.g. time `-t`, number of cores `-c`, 
@@ -57,8 +59,8 @@ https://github.com/fasrc/User_Codes/blob/f15ac0ea89488dc841d703fef33fa12a094779f
 
 ### Submitting a slurm batch job that runs AlphaFold
 
-Log in to Cannon (see login
-[instructions](https://docs.rc.fas.harvard.edu/kb/terminal-access/)). Go to the
+Log in to Cannon (see [login
+instructions](https://docs.rc.fas.harvard.edu/kb/terminal-access/)). Go to the
 directory where `run_alphafold.sh` is located. Then submit a slurm batch job
 with the command:
 
@@ -66,6 +68,11 @@ with the command:
 sbatch run_alphafold.sh
 ```
 
-This example takes about 1-2 hours to run on Cannon in the `gpu` partition.
+This example takes about 1-2 hours to run on Cannon in the `gpu` partition with
+8 cores (`-c 8`).
 
+## Resources
 
+* [AlphaFold GitHub](https://github.com/deepmind/alphafold)
+* University of Virginia [AlphaFold docs](https://www.rc.virginia.edu/userinfo/rivanna/software/alphafold/)
+* [AlphaFold discussion](https://github.com/deepmind/alphafold/issues/10) about Singularity implementation
