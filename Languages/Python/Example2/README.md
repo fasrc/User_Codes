@@ -19,9 +19,8 @@ import matplotlib.pyplot as plt
 ### Example Usage:
 
 ```	bash
-source new modules.sh
-module load python/2.7.6-fasrc01
-module load dvipng/1.14-fasrc01
+module load python/3.9.12-fasrc01
+module load texlive/2018.06.15-fasrc01
 sbatch run.sbatch
 ```
 	
