@@ -30,10 +30,15 @@ The code generates a PNG figure, tex_demo.png
 
 ![Output image](tex_demo.png)
 
+### Resources:
+
+* [Matplotlib examples](https://matplotlib.org/stable/gallery/text_labels_and_annotations/tex_demo.html)
+* [Customizing Matplotlib plots](https://matplotlib.org/stable/tutorials/introductory/customizing.html)
+* [Matplotlib fonts](https://matplotlib.org/stable/tutorials/text/usetex.html)
+
 ### References:
 
 * [Text rendering with LaTeX](http://matplotlib.org/users/usetex.html)
-
 * [Writing mathematical expressions](http://matplotlib.org/users/mathtext.html#mathtext-tutorial)
 
 
