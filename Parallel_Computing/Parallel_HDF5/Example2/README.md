@@ -19,7 +19,7 @@ sbatch run.sbatch
 
 #### Example Batch-Job Submission Script:
 
-https://github.com/fasrc/User_Codes/blob/278190bce7238f165142f1ef924a96ebcfae2823/Parallel_Computing/Parallel_HDF5/Example2/run.sbatch#L1-15
+https://github.com/fasrc/User_Codes/blob/278190bce7238f165142f1ef924a96ebcfae2823/Parallel_Computing/Parallel_HDF5/Example2/run.sbatch#L1-L15
 
 #### Example Output:
 
