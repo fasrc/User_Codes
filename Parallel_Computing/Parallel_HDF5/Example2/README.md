@@ -7,44 +7,26 @@ Example of using **parallel HDF5** libraries on the cluster. The specific exampl
 
 * <code>parallel_hdf5_2d.f90</code>: Fortran 90 source file
 * <code>Makefile</code>: Makefile to compile the source code 
-* <code>run.sbatch</code>: Btach-job submission script to send the job to the queue
+* <code>run.sbatch</code>: Batch-job submission script to send the job to the queue
 
 #### Example Usage:
+
 ```bash
-source new-modules.sh
-module load intel/15.0.0-fasrc01
-module load openmpi/1.10.0-fasrc01
-module load hdf5/1.8.12-fasrc07
+module load intel/21.2.0-fasrc01 openmpi/4.1.1-fasrc01 hdf5/1.12.1-fasrc01
 make
 sbatch run.sbatch
 ```
 
 #### Example Batch-Job Submission Script:
 
-```bash
-#!/bin/bash
-#SBATCH -J parallel_hdf5_2d
-#SBATCH -o parallel_hdf5_2d.out
-#SBATCH -e parallel_hdf5_2d.err
-#SBATCH -p general
-#SBATCH -t 30
-#SBATCH -n 8
-#SBATCH --mem-per-cpu=4000
-
-# Load required modules
-source new-modules.sh
-module load intel/15.0.0-fasrc01
-module load openmpi/1.10.0-fasrc01
-module load hdf5/1.8.12-fasrc07
-
-# Run program
-srun -n 8 --mpi=pmi2 ./parallel_hdf5_2d.x
-```
+https://github.com/fasrc/User_Codes/blob/278190bce7238f165142f1ef924a96ebcfae2823/Parallel_Computing/Parallel_HDF5/Example2/run.sbatch#L1-15
 
 #### Example Output:
 
-```
-[pkrastev@regal05 Example2]$ h5dump pset_2d.h5 
+HDF5 output:
+
+```bash
+[jharvard@holylogin04 Example2]$ h5dump pset_2d.h5 
 HDF5 "pset_2d.h5" {
 GROUP "/" {
    DATASET "DoubleArray" {
@@ -176,3 +158,17 @@ GROUP "/" {
 }
 }
 ```
+
+Output of `parallel_hdf5_2d.out`
+
+```bash
+Rank    0 out of    8 hostname holy7c24101.rc.fas.harvard.edu
+Rank    4 out of    8 hostname holy7c24102.rc.fas.harvard.edu
+Rank    1 out of    8 hostname holy7c24101.rc.fas.harvard.edu
+Rank    2 out of    8 hostname holy7c24101.rc.fas.harvard.edu
+Rank    3 out of    8 hostname holy7c24101.rc.fas.harvard.edu
+Rank    5 out of    8 hostname holy7c24102.rc.fas.harvard.edu
+Rank    6 out of    8 hostname holy7c24102.rc.fas.harvard.edu
+Rank    7 out of    8 hostname holy7c24102.rc.fas.harvard.edu
+```
+
