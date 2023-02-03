@@ -13,4 +13,3 @@ module load intel/21.2.0-fasrc01 openmpi/4.1.1-fasrc01 hdf5/1.12.1-fasrc01
 
 # Run program
 srun -n $SLURM_NTASKS -N $SLURM_NNODES --mpi=pmix ./parallel_hdf5_3d.x
-#srun -n 8 --mpi=pmi2 ./parallel_hdf5_3d.x
