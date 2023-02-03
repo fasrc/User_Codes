@@ -7,40 +7,21 @@ and writes it to a HDF5 (.h5) file in parallel.
 
 * <code>parallel_hdf5.f90</code>: Fortran 90 source file
 * <code>Makefile</code>: Makefile to compile the source code 
-* <code>run.sbatch</code>: Btach-job submission script to send the job to the queue
+* <code>run.sbatch</code>: Batch-job submission script to send the job to the queue
 
 #### Example Usage:
 
+Commands to load necessary modules (`module load`), compile the code (`make`), and submit the job (`sbatch`):
+
 ```bash
-source new-modules.sh
-module load intel/15.0.0-fasrc01
-module load openmpi/1.10.0-fasrc01
-module load hdf5/1.8.12-fasrc07
+module load intel/21.2.0-fasrc01 openmpi/4.1.1-fasrc01 hdf5/1.12.1-fasrc01
 make
 sbatch run.sbatch
 ```
 
-#### Example Btach-Job Submission Script:
+#### Example Batch-Job Submission Script:
 
-```bash
-#!/bin/bash
-#SBATCH -J parallel_hdf5
-#SBATCH -o parallel_hdf5.out
-#SBATCH -e parallel_hdf5.err
-#SBATCH -p general
-#SBATCH -t 30
-#SBATCH -n 8
-#SBATCH --mem-per-cpu=4000
-
-# Load required modules
-source new-modules.sh
-module load intel/15.0.0-fasrc01
-module load openmpi/1.10.0-fasrc01
-module load hdf5/1.8.12-fasrc07
-
-# Run program
-srun -n 8 --mpi=pmi2 ./parallel_hdf5.x
-```
+https://github.com/fasrc/User_Codes/blob/1d422e7644afb82e299c4c390c832d07fd7c4f3e/Parallel_Computing/Parallel_HDF5/Example1/run.sbatch#L1-L15
 
 #### Example Output:
 
