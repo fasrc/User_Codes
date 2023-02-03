@@ -32,4 +32,4 @@ lb = zeros(3,1);
 ub = [];
 
 % solver call
-x = knitromatlab(obj, x0, A, b, Aeq, beq, lb, ub, nlcon);
+x = knitro_nlp(obj, x0, A, b, Aeq, beq, lb, ub, nlcon);
