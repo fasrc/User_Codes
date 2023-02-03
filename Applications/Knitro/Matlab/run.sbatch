@@ -11,7 +11,7 @@
 
 # --- Load required modules ---
 module load matlab/R2022b-fasrc01
-module load knitro/10.1.2-fasrc01
+module load knitro/13.2.0-fasrc01
 
 # --- Run the program ---
 srun -n 1 -c 1 matlab -nosplash -nodesktop -nodisplay -r "knitro_test;exit"
