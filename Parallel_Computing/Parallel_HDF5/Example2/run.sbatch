@@ -6,7 +6,7 @@
 #SBATCH -t 00:10:00                   # time in HH:MM:SS
 #SBATCH --nodes=2                     # number of nodes
 #SBATCH --ntasks=8                    # number of total tasks
-#SBATCH --mem-per-cpu=4000            # memory
+#SBATCH --mem=4000                    # memory
 
 # Load required modules
 module load intel/21.2.0-fasrc01 openmpi/4.1.1-fasrc01 hdf5/1.12.1-fasrc01
