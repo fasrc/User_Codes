@@ -19,9 +19,8 @@ import matplotlib.pyplot as plt
 ### Example Usage:
 
 ```	bash
-source new modules.sh
-module load python/2.7.6-fasrc01
-module load dvipng/1.14-fasrc01
+module load python/3.9.12-fasrc01
+module load texlive/2018.06.15-fasrc01
 sbatch run.sbatch
 ```
 	
@@ -31,10 +30,15 @@ The code generates a PNG figure, tex_demo.png
 
 ![Output image](tex_demo.png)
 
+### Resources:
+
+* [Matplotlib examples](https://matplotlib.org/stable/gallery/text_labels_and_annotations/tex_demo.html)
+* [Customizing Matplotlib plots](https://matplotlib.org/stable/tutorials/introductory/customizing.html)
+* [Matplotlib fonts](https://matplotlib.org/stable/tutorials/text/usetex.html)
+
 ### References:
 
 * [Text rendering with LaTeX](http://matplotlib.org/users/usetex.html)
-
 * [Writing mathematical expressions](http://matplotlib.org/users/mathtext.html#mathtext-tutorial)
 
 

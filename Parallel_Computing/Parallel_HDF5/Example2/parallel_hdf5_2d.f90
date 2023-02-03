@@ -20,6 +20,8 @@ module nodeinfo
   integer(4) :: iproc
   integer(4) :: nproc
   integer(4) :: icomm
+  integer(4) :: resultlen
+  character(len=36) :: nodename
 end module nodeinfo
 
 ! Main program........................................................
@@ -65,7 +67,17 @@ program main
   call MPI_INIT(ierr)
   call MPI_COMM_SIZE(icomm, nproc, ierr)
   call MPI_COMM_RANK(icomm, iproc, ierr)
+  call mpi_get_processor_name(nodename, resultlen, ierr)
   
+  ! print rank, process, host to see multi-node was used..............
+  do i = 0, nproc-1
+    call MPI_BARRIER(MPI_COMM_WORLD,ierr)
+    if ( iproc == i ) then
+      write (6,100) 'Rank ', iproc, ' out of ', nproc, ' hostname ', nodename
+      100 format(A, I4, A, I4, A, A)
+    end if
+  end do
+
   m = 20
   n = 30
   iseed = -99

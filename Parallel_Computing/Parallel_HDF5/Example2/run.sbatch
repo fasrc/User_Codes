@@ -1,17 +1,15 @@
 #!/bin/bash
-#SBATCH -J parallel_hdf5_2d
-#SBATCH -o parallel_hdf5_2d.out
-#SBATCH -e parallel_hdf5_2d.err
-#SBATCH -p general
-#SBATCH -t 30
-#SBATCH -n 8
-#SBATCH --mem-per-cpu=4000
+#SBATCH -J parallel_hdf5_2d           # job name
+#SBATCH -o parallel_hdf5_2d.out       # name of standard output file
+#SBATCH -e parallel_hdf5_2d.err       # name of standard error file
+#SBATCH -p test                       # partition
+#SBATCH -t 00:10:00                   # time in HH:MM:SS
+#SBATCH --nodes=2                     # number of nodes
+#SBATCH --ntasks=8                    # number of total tasks
+#SBATCH --mem=4000                    # memory
 
 # Load required modules
-source new-modules.sh
-module load intel/15.0.0-fasrc01
-module load openmpi/1.10.0-fasrc01
-module load hdf5/1.8.12-fasrc07
+module load intel/21.2.0-fasrc01 openmpi/4.1.1-fasrc01 hdf5/1.12.1-fasrc01
 
 # Run program
-srun -n 8 --mpi=pmi2 ./parallel_hdf5_2d.x
+srun -n $SLURM_NTASKS -N $SLURM_NNODES --mpi=pmix ./parallel_hdf5_2d.x
