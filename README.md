@@ -50,7 +50,7 @@
 * MATLAB
 * Mathematica
 * STATA
-* Parallel I/O
+* [Parallel HDF5](Parallel_Computing/Parallel_HDF5)
 
 ### Example Recipes
 
