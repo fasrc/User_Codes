@@ -7,3 +7,4 @@
 
 * [Using Knitro with Matlab](Matlab/)
 * [Using Knitro with Python](Python/)
+* [Using Knitro with C](C/)

@@ -1,0 +1,958 @@
+
+# Artelys Knitro 13.2.0 Options file
+# http://www.artelys.com/tools/knitro_doc/
+
+# Which algorithm to use.
+#   auto   = 0 = let Knitro choose the algorithm
+#   direct = 1 = use Interior (barrier) Direct algorithm
+#   cg     = 2 = use Interior (barrier) CG algorithm
+#   active = 3 = use Active Set SLQP algorithm
+#   sqp    = 4 = use Active Set SQP algorithm
+#   multi  = 5 = run multiple algorithms (perhaps in parallel)
+algorithm    auto
+
+# LP algorithm for subproblems in active-set/SQP algorithms.
+#   default    = 0
+#   primal     = 1
+#   dual       = 2
+#   barrier    = 3
+act_lpalg    default
+
+# Dump LP subproblems to MPS files in active-set algorithm.
+#   no         = 0
+#   yes        = 1
+act_lpdumpmps     no
+
+# Feasibility tolerance for LP subproblems in Active or SQP algorithms.
+act_lpfeastol   1e-08
+
+# Constraint penalization for LP subproblems.
+#   auto       = 0
+#   all        = 1
+#   nonlinear  = 2
+#   dynamic    = 3
+act_lppenalty    all
+
+# Controls LP presolve for subproblems in active-set/SQP algorithms.
+#   off        = 0
+#   on         = 1
+act_lppresolve   off
+
+# Which LP solver to use in the Active or SQP algorithm.
+#   internal = 1 = use internal LP solver
+#   cplex    = 2 = CPLEX (if user has a valid license)
+#   xpress   = 3 = XPRESS (if user has a valid license)
+act_lpsolver internal
+
+# Use parametric approach in active-set algorithm.
+#   no         = 0 = never
+#   maybe      = 1 = use selectively
+#   yes        = 2 = always use parametric approach
+act_parametric    maybe
+
+# Which algorithm to use for QP subproblem solves in Active or SQP algorithms.
+#   auto   = 0 = let Knitro choose the algorithm
+#   direct = 1 = use Interior (barrier) Direct algorithm
+#   cg     = 2 = use Interior (barrier) CG algorithm
+#   active = 3 = use Active Set SLQP algorithm
+act_qpalg    auto
+
+# Constraint penalization for QP subproblems.
+#   auto       = -1
+#   none       =  0
+#   all        =  1
+act_qppenalty    auto
+
+# Enable specialized algorithm for conic constraints.
+#   auto       = -1
+#   none       = 0
+#   soc        = 1
+bar_conic_enable  auto
+
+# When using the Interior/Direct algorithm, this parameter
+# controls the maximum number of consecutive CG steps before
+# trying to force the algorithm to take a direct step again.
+# (negative implies auto; only used for alg=1).
+bar_directinterval  -1
+
+# Whether feasibility is given special emphasis.
+#   no       = 0 = no emphasis on feasibility
+#   stay     = 1 = iterates must honor inequalities
+#   get      = 2 = emphasize first getting feasible before optimizing
+#   get_stay = 3 = implement both options 1 and 2 above
+bar_feasible no
+
+# Specifies the tolerance for entering the stay feasible mode
+# (only valid when bar_feasible = stay or bar_feasible = get_stay).
+bar_feasmodetol  0.0001
+
+# Initial value for the barrier parameter (non-positive implies auto).
+bar_initmu   -1
+
+# Initial value for the barrier MPEC penalty parameter.
+bar_initpi_mpec  0
+
+# Strategy for setting initial x, lambda and slacks with barrier algorithms.
+# This option only affects the initial x value when not provided by user.
+#   auto    = 0 = let Knitro choose the strategy
+#   convex  = 1 = initial point strategy 1 (mainly for convex problems)
+#   nearbnd = 2 = initial point strategy staying closer to bounds
+#   central = 3 = more central initial point strategy
+bar_initpt   auto
+
+# Linear system form for barrier algorithms.
+#   auto     = -1 = automatically determine
+#   full     =  0 = full augmented system
+#   slacks   =  1 = eliminate slacks
+#   bounds   =  2 = also eliminate bounds
+#   ineqs    =  3 = also eliminate inequalities
+#
+bar_linsys             auto
+
+# Linear system storage for barrier algorithms.
+#   auto      = -1 = automatically determine
+#   lowmem    =  1 = use one storage location for multiple systems
+#   normal    =  2 = store systems separately
+#
+bar_linsys_storage     auto
+
+# Maximum number of correctors allowed when computing primal-dual barrier step
+# (negative implies auto).
+bar_maxcorrectors  -1
+
+# Maximum number of crossover iterations to allow for barrier algorithms.
+bar_maxcrossit   0
+
+# Maximum number of refactorizations of the KKT system per iteration of the
+# Interior Direct algorithm before reverting to a CG step.
+# (negative implies auto; only used for alg=1).
+bar_maxrefactor  -1
+
+# Barrier heuristic for MPEC models.
+#   no     = 0 = no mpec heuristic enabled
+#   yes    = 1 = mpec heuristic is enabled
+bar_mpec_heuristic     no
+
+# Which barrier parameter update strategy.
+#   auto     = 0 = let Knitro choose the strategy
+#   monotone = 1
+#   adaptive = 2
+#   probing  = 3
+#   dampmpc  = 4
+#   fullmpc  = 5
+#   quality  = 6
+bar_murule   auto
+
+# Whether or not to penalize constraints in the barrier algorithms.
+#   auto       = -1 = let Knitro choose the strategy
+#   none       =  0 = Do not apply penalty approach to any constraints
+#   all        =  2 = Apply a penalty approach to all general constraints
+#   equalities =  3 = Apply a penalty approach to equality constraints only
+bar_penaltycons   auto
+
+# Which penalty parameter update strategy for barrier algorithms.
+#   auto     = 0 = let Knitro choose the strategy
+#   single   = 1 = use single penalty parameter approach
+#   flex     = 2 = use more tolerant flexible strategy
+bar_penaltyrule   auto
+
+# Whether to try to refine the barrier solution for better precision.
+#   no     = 0 = do not refine the barrier solution
+#   yes    = 1 = try to refine the barrier solution
+bar_refinement    no
+
+# Whether to relax the general constraints for barrier algorithms.
+#   none   = 0 = do not relax any constraints
+#   eqs    = 1 = relax only equality constraints
+#   ineqs  = 2 = relax only inequality constraints
+#   all    = 3 = relax all general constraints
+bar_relaxcons     ineqs
+
+# Amount by which barrier slacks are initially pushed interior
+# (non-positive implies auto).
+bar_slackboundpush  -1
+
+# Objective form when switching to feasibility phase.
+#   none       = 0 = no objective
+#   scalarprox = 1 = proximal point objective with scalar weighting
+#   diagprox   = 2 = proximal point objective with diagonal weighting
+bar_switchobj     scalarprox
+
+# Switching rule strategy for barrier algorithms that controls
+# switching between optimality and feasibility phases.
+#   auto       = -1 = let Knitro choose the strategy
+#   never      =  0 = never switch
+#   moderate   =  2 = allow moderate switching
+#   aggressive =  3 = more aggressive switching
+bar_switchrule    auto
+
+# Whether to activate watchdog heuristic for barrier algorithms.
+#   no     = 0 = no watchdog heuristic
+#   yes    = 1 = allow watchdog heuristic to be used
+bar_watchdog      no
+
+# Initial scaling used for BFGS/L-BFGS Hessian.
+#   dynamic   = 0 = dynamically determine
+#   invhess   = 1 = approximate scale of the inverse Hessian
+#   hess      = 2 = approximate the scale of the Hessian
+#
+bfgs_scaling     dynamic
+
+# Number of threads to use in parallel BLAS.
+#   choose any positive integer, or
+#   0 = determine automatically based on numthreads
+blas_numthreads  0
+
+# Which BLAS/LAPACK library to use.  Intel MKL library is only available
+# on some platforms; see the User Manual for details.
+#   knitro  = 0 = use Knitro version of netlib functions
+#   intel   = 1 = use Intel MKL functions
+#   dynamic = 2 = use dynamic library of functions
+#   blis    = 3 = use BLIS functions
+#   apple   = 4 = use Apple Accelerate functions
+blasoption   intel
+
+# Valid range for constraint or variable bounds.
+bndrange     1e+20
+
+# Maximum allowable CG iterations per trial step
+# (-1: auto; 0: max limit based on problem size).
+cg_maxit     -1
+
+# Amount of memory used by incomplete Choleski preconditioner.
+cg_pmem       10
+
+# Whether or not to use incomplete Choleski preconditioner.
+cg_precond    0
+
+# Stopping tolerance for CG subproblems.
+cg_stoptol    0.01
+
+# Whether to allow simultaneous evaluations in parallel.
+#   no   = 0 = only one thread can perform an evaluation at a time
+#   yes  = 1 = allow multi-threaded simultaneous evaluations
+concurrent_evals  yes
+
+# Number of threads to do conic operations in parallel.
+#   choose any positive integer, or
+#   0 = determine automatically based on numthreads
+conic_numthreads  0
+
+# Declare the problem as convex.
+#   auto       = -1
+#   no         = 0
+#   yes        = 1
+convex            auto
+
+# target CPU platform/architecture.
+#   auto       = -1 = determine automatically
+#   compatible =  1 = aim for more compatible performance across architectures
+#   sse2       =  2 = SSE2
+#   avx        =  3 = AVX
+#   avx2       =  4 = AVX-2
+#   avx512     =  5 = AVX-512 (experimental)
+cpuplatform       auto
+
+# Whether to perform extra data checks on the model.
+#   no     = 0 = no extra data checks
+#   yes    = 1 = perform extra data checks
+datacheck    yes
+
+# Specifies debugging level of output.  Debugging output is intended for Artelys
+# developers.  Debugging mode may impact performance and is NOT recommended
+# for production operation.
+#   none      = 0 = no extra debugging
+#   problem   = 1 = help debug solution of the problem
+#   execution = 2 = help debug execution of the solver
+debug        none
+
+# Initial trust region radius scaling factor, used to determine
+# the initial trust region size.
+delta        1
+
+# Whether to perform a derivative check on the model.
+#   none    = 0 = no derivative check
+#   first   = 1 = check first derivatives
+#   second  = 2 = check second derivatives
+#   all     = 3 = check all derivatives
+derivcheck   none
+
+# Termination for derivative check.
+#   error  = 1 = stop when there is an error detected
+#   always = 2 = always stop after the derivative check
+derivcheck_terminate error
+
+# Specifies the relative tolerance used for the derivative check.
+derivcheck_tol 1e-06
+
+# Type of derivative check.
+#   forward = 1 = check using forward finite-differences
+#   central = 2 = check using central finite-differences
+derivcheck_type forward
+
+# Enable evaluating gradients with functions in one callback.
+#   no         = 0
+#   yes        = 1
+eval_fcga         no
+
+# Specifies the final relative stopping tolerance for the feasibility
+# error. Smaller values of feastol result in a higher degree of accuracy
+# in the solution with respect to feasibility.
+feastol      1e-06
+
+# Specifies the final absolute stopping tolerance for the feasibility error.
+# Smaller values of feastol_abs result in a higher degree of accuracy in the
+# solution with respect to feasibility.
+feastol_abs  0.001
+
+# Noise estimation when using finite-difference gradients.
+#   no       = 0 = no estimation of noise performed
+#   yes      = 1 = estimate the noise and perhaps use it to determine a finite-difference steplength
+#   withcurv = 2 = estimate a curvature factor as well as the noise and perhaps use it to determine a finite-difference steplength
+findiff_estnoise  no
+
+# Number of threads to use in finite-differencing.
+#   choose any positive integer, or
+#   0 = determine automatically based on numthreads
+findiff_numthreads 0
+
+# Relative stepsize for finite-difference gradients.
+findiff_relstepsize 0
+
+# Termination method when using finite-difference gradients.
+#   none   = 0 = no special termination
+#   errest = 1 = terminate on gradient error estimates
+findiff_terminate errest
+
+# Value used for objective function value based termination.
+#fstopval     1.79769e+308 #KN_INFINITY
+
+# Tolerance for stopping on small changes to the objective.
+ftol         1e-15
+
+# Consecutive iterations for stopping on small changes to the objective.
+ftol_iters   5
+
+# How to compute/approximate the gradient of the objective
+# and constraint functions.
+#   exact        = 1 = user supplies exact first derivatives
+#   forward      = 2 = gradients computed by internal forward finite differences
+#   central      = 3 = gradients computed by internal central finite differences
+#   user_forward = 4 = gradients computed by user-provided forward finite differences
+#   user_central = 5 = gradients computed by user-provided central finite differences
+gradopt      exact
+
+# Whether to allow computing the Hessian of the Lagrangian without objective component.
+#   forbid       = 0 = not allowed
+#   allow        = 1 = user can provide this version of the Hessian if requested
+hessian_no_f forbid
+
+# How to compute/approximate the Hessian of the Lagrangian.
+#   auto            = 0 = determined automatically by Knitro
+#   exact           = 1 = user supplies exact second derivatives
+#   bfgs            = 2 = Knitro computes a dense quasi-Newton BFGS Hessian
+#   sr1             = 3 = Knitro computes a dense quasi-Newton SR1 Hessian
+#   product_findiff = 4 = Knitro computes Hessian-vector products by finite differences
+#   product         = 5 = user supplies exact Hessian-vector products
+#   lbfgs           = 6 = Knitro computes a limited-memory quasi-Newton BFGS Hessian
+hessopt      auto
+
+# Whether to enforce satisfaction of simple bounds at all iterations.
+#   auto    = -1 = setting determined automatically by Knitro
+#   no      =  0 = allow iterations to violate the bounds
+#   always  =  1 = enforce bounds satisfaction of all iterates
+#   initpt  =  2 = enforce bounds satisfaction of initial point
+honorbnds    auto
+
+# Specifies relative stopping tolerance used to declare infeasibility.
+infeastol    1e-08
+
+# Consecutive iterations for stopping on small changes to the feasibility error.
+infeastol_iters   50
+
+# Initial value for the merit function penalty parameter.
+initpenalty  10
+
+# Which linesearch method to use.
+#   auto        = 0 = let Knitro choose the linesearch method
+#   backtrack   = 1 = backtracking linesearch
+#   interpolate = 2 = interpolation based linesearch
+#   weakwolfe   = 3 = weak Wolfe linesearch
+linesearch   auto
+
+# Maximum allowable number of trial values during the linesearch of the
+# Interior Direct or SQP algorithm.
+linesearch_maxtrials  3
+
+# Which linear system solver to use.
+#   auto       = 0 = let Knitro choose the solver
+#   internal   = 1 = use internal solver provided with Knitro
+#                  (not currently active; reserved for future use)
+#   hybrid     = 2 = use a mixture of linear solvers depending on the linear systems
+#   qr         = 3 = use dense QR solver always (only for small problems)
+#   ma27       = 4 = use sparse HSL solver ma27 always
+#   ma57       = 5 = use sparse HSL solver ma57 always
+#   mklpardiso = 6 = use sparse Intel MKL Pardiso solver always
+#   ma97       = 7 = use parallel, deterministic HSL ma97 solver
+#   ma86       = 8 = use parallel, non-deterministic HSL ma86 solver
+linsolver    auto
+
+# Maximum number of iterative refinement steps for the linear solver.
+linsolver_maxitref 2
+
+# Number of threads to use in parallel linear solver.
+#   choose any positive integer, or
+#   0 = determine automatically based on numthreads
+linsolver_numthreads 0
+
+# Whether to use out-of-core version of linsolver=mklpardiso.
+#   no     = 0 = always use in-core version
+#   maybe  = 1 = will use out-of-core version beyond a certain size
+#   yes    = 2 = always use out-of-core version
+linsolver_ooc no
+
+# Specifies the initial pivot threshold used in the factorization routine.
+# The value must be in the range [0 0.5] with higher values resulting
+# in more pivoting (more stable factorization). Values less than 0 will
+# be set to 0 and values larger than 0.5 will be set to 0.5. If pivot
+# is non-positive initially no pivoting will be performed. Smaller values
+# may improve the speed of the code but higher values are recommended for
+# more stability.
+linsolver_pivottol 1e-08
+
+# Number of limited memory pairs to store when Hessian choice is lbfgs.
+lmsize       10
+
+# Maximum allowable CPU time in seconds for the complete multi algorithm
+# solution when 'alg=multi'.  Use maxtime_cpu to additionally limit time
+# spent per each algorithm.
+ma_maxtime_cpu  1e+08
+
+# Maximum allowable real time in seconds for the complete multi algorithm
+# solution when 'alg=multi'.  Use maxtime_real to additionally limit time
+# spent per each algorithm.
+ma_maxtime_real 1e+08
+
+# Specifies multi algorithm subproblem solve output control.
+#   0 = no output from subproblem solves
+#   1 = Subproblem output enabled, controlled by option 'outlev'.
+#       Output is directed to a file 'knitro_ma_*.log'
+ma_outsub 0
+
+# Specifies conditions for terminating when 'algorithm=multi'.
+#   all       = 0 = terminate after all algorithms complete
+#   optimal   = 1 = terminate at first local optimum
+#   feasible  = 2 = terminate at first feasible solution estimate
+#   any       = 3 = terminate at first completed solve
+ma_terminate optimal
+
+# Maximum number of function evaluations to allow
+# (a negative number implies no limit is imposed).
+maxfevals    -1
+
+# Maximum number of iterations to allow
+# (if 0 then Knitro determines the best value).
+# Default values are 10000 for NLP and 3000 for MIP.
+maxit        0
+
+# Maximum allowable CPU time in seconds for one algorithm solve.
+# If multistart, multi algorithm or MIP is active, this limits time spent
+# on just one subproblem solve.
+maxtime_cpu  1e+08
+
+# Maximum allowable real time in seconds for one algorithm solve.
+# If multistart, multi algorithm or MIP is active, this limits time spent
+# on just one subproblem solve.
+maxtime_real 1e+08
+
+# Specifies the MIP branching rule for choosing a variable.
+#   auto        = 0 = let Knitro choose the rule
+#   most_frac   = 1 = most fractional (most infeasible) variable
+#   pseudocost  = 2 = use pseudo-cost value
+#   strong      = 3 = use strong branching
+mip_branchrule auto
+
+# Specifies rules for adding MIP Clique cuts.
+#   auto      = -1 = determine automatically
+#   none      =  0 = do not add clique cuts
+#   root      =  1 = add clique cuts at root node
+#   tree      =  2 = add clique cuts in the whole tree
+mip_clique   auto
+
+# Limit on the number of cuts added to node NLP; if nonnegative,
+# a maximum of mip_cutfactor times number of constraints cuts is
+# possibly appended.
+mip_cutfactor 1
+
+# MIP objective cutoff value.
+#mip_cutoff 1.79769e+308 #KN_INFINITY
+
+# Specifies where to perform the cutting plane routine.
+#   none      = 0 = do not perform cutting plane
+#   root      = 1 = only perform root-cutting
+mip_cutting_plane   root
+
+# Specifies debugging level for MIP solution.
+#   none = 0 = no MIP debugging info
+#   all  = 1 = write debugging to the file kdbg_mip.log
+mip_debug none
+
+# Specifies rules for adding MIP Gomory cuts.
+#   auto      = -1 = determine automatically
+#   none      =  0 = do not add gomory cuts
+#   root      =  1 = add gomory cuts at root node only
+#   tree      =  2 = add gomory cuts at any tree node
+mip_gomory        auto
+
+# Whether to branch on generalized upper bounds (GUBs).
+#   no   = 0 = do not branch on GUBs
+#   yes  = 1 = branch on GUBs
+mip_gub_branch no
+
+# Controls use of the diving MIP heuristic.
+mip_heuristic_diving -1
+
+# Whether to use the feasibility pump MIP heuristic.
+#       auto  = -1 = determine automatically
+#        off  =  0 = feasibility pump heuristic is turned off
+#         on  =  1 = feasibility pump heuristic is turned on
+mip_heuristic_feaspump auto
+
+# Controls use of the Large Neighborhood Search (LNS) MIP heuristic.
+mip_heuristic_lns -1
+
+# Maximum number of iterations to allow for MIP heuristic.
+mip_heuristic_maxit 100
+
+# Whether to use the MISQP MIP heuristic.
+#       auto  = -1 = determine automatically
+#        off  =  0 = MISQP heuristic is turned off
+#         on  =  1 = MISQP heuristic is turned on
+mip_heuristic_misqp auto
+
+# Whether to use the MPEC MIP heuristic.
+#       auto  = -1 = determine automatically
+#        off  =  0 = MPEC heuristic is turned off
+#         on  =  1 = MPEC heuristic is turned on
+mip_heuristic_mpec auto
+
+# Specifies the strategy used for the MIP heuristics.
+#       auto  = -1 = automatic strategy
+#       none  =  0 = no heuristics are used
+#      basic  =  1 = try basic heuristics
+#   advanced  =  2 = try more advanced heuristics
+#  extensive  =  3 = try most extensive heuristics
+mip_heuristic_strategy auto
+
+# Specifies conditions for terminating the MIP heuristic.
+#   feasible  = 1 = terminate at first feasible point
+#   limit     = 2 = run heuristic until it hits limit
+mip_heuristic_terminate feasible
+
+# Whether to add logical implications deduced from
+# branching decisions at a MIP node.
+#   no   = 0 = do not add logical implications
+#   yes  = 1 = add logical implications
+mip_implications yes
+
+# Threshold for deciding if a variable value is integral.
+mip_integer_tol 1e-08
+
+# How to handle integer variables by default.
+#   none   = 0 = no special treatment
+#   relax  = 1 = relax integer variables
+#   mpec   = 2 = convert to mpec constraints
+mip_intvar_strategy none
+
+# Specifies rules for adding MIP knapsack cuts.
+#   auto      = -1 = determine automatically
+#   none      =  0 = do not add knapsack cuts
+#   root      =  1 = add knapsack cuts derived in the root node
+#   tree      =  2 = add knapsack cuts in the whole tree
+mip_knapsack auto
+
+# Specifies rules for adding MIP Lift and Project cuts.
+#   auto      = -1 = determine automatically
+#   none      =  0 = do not add lift and project cuts
+#   root      =  1 = add lift and project cuts at root node
+mip_liftproject   auto
+
+# Specifies which algorithm to use for LP subproblem solves in MIP.
+#   auto   = 0 = let Knitro choose the algorithm
+#   direct = 1 = use Interior (barrier) Direct algorithm
+#   cg     = 2 = use Interior (barrier) CG algorithm
+#   active = 3 = use Active Set (simplex) algorithm
+mip_lpalg auto
+
+# Maximum number of nodes explored (0 means no limit).
+mip_maxnodes 0
+
+# Maximum number of subproblem solves allowed (0 means no limit).
+mip_maxsolves 0
+
+# Maximum allowable CPU time in seconds for the complete MIP solution.
+# Use maxtime_cpu to additionally limit time spent per subproblem solve.
+mip_maxtime_cpu 1e+08
+
+# Maximum allowable real time in seconds for the complete MIP solution.
+# Use maxtime_real to additionally limit time spent per subproblem solve.
+mip_maxtime_real 1e+08
+
+# Which MIP method to use.
+#   auto  = 0 = let Knitro choose the method
+#   BB    = 1 = standard branch and bound
+#   HQG   = 2 = hybrid Quesada-Grossman
+#   MISQP = 3 = mixed-integer SQP
+mip_method auto
+
+# Specifies rules for adding MIP Mixed Integer Rounding cuts.
+#   auto      = -1 = automatically determine whether to add mir cuts
+#   none      =  0 = do not add mir cuts
+#   root      =  1 = add mir cuts derived in the root node
+#   tree      =  2 = add mir cuts in the whole tree
+mip_mir      auto
+
+# Enables the MIP multistart procedure.
+#        off  =  0 = MIP multistart turned off
+#         on  =  1 = MIP multistart turned on
+mip_multistart    off
+
+# Specifies which algorithm to use for standard node subproblem solves in MIP
+#   auto   = 0 = let Knitro choose the algorithm
+#   direct = 1 = use Interior (barrier) Direct algorithm
+#   cg     = 2 = use Interior (barrier) CG algorithm
+#   active = 3 = use Active Set SLQP algorithm
+#   sqp    = 4 = use Active Set SQP algorithm
+#   multi  = 5 = run multiple algorithms (perhaps in parallel)
+mip_nodealg auto
+
+# Number of threads to use for MIP solvers.
+#   choose any positive integer, or
+#   0 = determine automatically
+mip_numthreads 0
+
+# Specifies absolute stop tolerance for sufficiently small optimality gap.
+mip_opt_gap_abs      1e-06
+
+# Specifies relative stop tolerance for sufficiently small optimality gap.
+mip_opt_gap_rel      0.0001
+
+# Specifies printing interval for mip_outlevel.
+#   1 = print every node
+#   2 = print every 2nd node
+#   N = print every Nth node
+mip_outinterval 0
+
+# How much MIP information to print.
+#   none      = 0 = nothing
+#   iters     = 1 = one line for every node
+#   iterstime = 2 = also print accumulated time every node
+#   root      = 3 = also print output from root node relaxation solve
+mip_outlevel iterstime
+
+# Specifies MIP subproblem solve output control.
+#   0 = no output from subproblem solves
+#   1 = Subproblem output enabled, controlled by option 'outlev'
+#   2 = Subproblem output enabled and print problem characteristics
+mip_outsub 0
+
+# How to initialize pseudo-costs.
+#   auto   = 0 = let Knitro choose the method
+#   ave    = 1 = use average value
+#   strong = 2 = use strong branching
+mip_pseudoinit auto
+
+# Whether integer variables are relaxable.
+#   none   = 0 = integer variables not relaxable
+#   all    = 1 = all integer variables are relaxable
+mip_relaxable  all
+
+# Enables the MIP restart procedure.
+#        off  =  0 = MIP restart turned off
+#         on  =  1 = MIP restart turned on
+mip_restart       on
+
+# Specifies which algorithm to use for the root node solve in MIP
+#   auto   = 0 = let Knitro choose the algorithm
+#   direct = 1 = use Interior (barrier) Direct algorithm
+#   cg     = 2 = use Interior (barrier) CG algorithm
+#   active = 3 = use Active Set SLQP algorithm
+#   sqp    = 4 = use Active Set SQP algorithm
+#   multi  = 5 = run multiple algorithms (perhaps in parallel)
+mip_rootalg auto
+
+# Specifies the MIP rounding rule to apply.
+#   auto          = -1 = let Knitro choose the rule
+#   none          =  0 = do not round if a node is infeasible
+#   heur_only     =  2 = round using heuristic only (fast)
+#   nlp_sometimes =  3 = round and solve NLP if likely to succeed
+#   nlp_always    =  4 = always round and solve NLP
+mip_rounding auto
+
+# Specifies the MIP select direction for choosing a node.
+#   down        = 0 = choose the lesser-than node first
+#   up          = 1 = choose the greater-than node first
+mip_selectdir down
+
+# Specifies the MIP select rule for choosing a node.
+#   auto        = 0 = let Knitro choose the rule
+#   depth_first = 1 = search the tree depth first
+#   best_bound  = 2 = node with the best relaxation bound
+#   combo_1     = 3 = depth first unless pruned, then best bound
+mip_selectrule auto
+
+# Maximum number of candidates to explore for MIP strong branching.
+mip_strong_candlim 128
+
+# Maximum number of levels on which to perform MIP strong branching.
+mip_strong_level 10
+
+# Maximum number of iterations to allow for MIP strong branching solves.
+mip_strong_maxit 1000
+
+# Specifies conditions for terminating the MIP algorithm.
+#   optimal   = 0 = terminate at optimum
+#   feasible  = 1 = terminate at first integer feasible point
+mip_terminate optimal
+
+# Specifies rules for adding MIP zero-half cuts.
+#   auto      = -1 = determine automatically
+#   none      =  0 = do not add zero-half cuts
+#   root      =  1 = add cuts derived in the root node
+#   tree      =  2 = add zero-half cuts in the whole tree
+mip_zerohalf auto
+
+# Whether to use a deterministic version of multistart.
+#   no   = 0 = multithreaded multistart is non-deterministic
+#   yes  = 1 = multithreaded multistart is deterministic
+#              (when ms_terminate=maxsolves)
+ms_deterministic  yes
+
+# Whether to enable multistart to find a better local minimum.
+#   no   = 0 = Knitro solves from a single initial point
+#   yes  = 1 = Knitro solves using multiple start points
+ms_enable    no
+
+# Specifies the maximum range that an unbounded variable can vary over when
+# multistart computes new start points.
+ms_maxbndrange 1000
+
+# How many Knitro solutions to compute if multistart is enabled.
+#   choose any positive integer, or
+#   0 = Knitro sets it to min{200,10*n}
+ms_maxsolves 0
+
+# Maximum allowable CPU time in seconds for the complete multistart
+# solution.  Use maxtime_cpu to additionally limit time spent per start point.
+ms_maxtime_cpu  1e+08
+
+# Maximum allowable real time in seconds for the complete multistart
+# solution.  Use maxtime_real to additionally limit time spent per start point.
+ms_maxtime_real 1e+08
+
+# How many feasible multistart points to save in file knitro_mspoints.log.
+#   choose any positive integer, or
+#   0 = save none
+ms_num_to_save 0
+
+# Number of threads to use in parallel multistart.
+#   choose any positive integer, or
+#   0 = determine automatically based on numthreads
+ms_numthreads 0
+
+# Specifies parallel multistart subproblem solve output control.
+#   0 = no output from subproblem solves
+#   1 = Subproblem output enabled, controlled by option 'outlev'.
+#       Output is directed to a file 'knitro_ms_*.log'
+ms_outsub 0
+
+# Specifies the tolerance for deciding two feasible points are the same.
+ms_savetol 1e-06
+
+# Specifies the seed for random initialization of the multistart procedure.
+# Seed value should an integer >= 0.  Negative values will be reset to 0.
+ms_seed 0
+
+# Specifies the maximum range that any variable can vary over when
+# multistart computes new start points.
+ms_startptrange 1e+20
+
+# Specifies conditions for terminating the multistart procedure.
+#   maxsolves = 0 = terminate after maxsolves
+#   optimal   = 1 = terminate at first local optimum
+#   feasible  = 2 = terminate at first feasible solution estimate
+#   any       = 3 = terminate at first completed solve
+ms_terminate maxsolves
+
+# Initialization strategy for non-convex QCQPs.
+#   auto       = -1
+#   none       =  0
+#   linear     =  1
+#   hybrid     =  2
+#   penalty    =  3
+#   cvxquad    =  4
+ncvx_qcqp_init         auto
+
+# Specifies additional action to take after every iteration.
+# Iterations result in a new solution estimate.
+#   none     = 0 = no additional action
+#   saveone  = 1 = save the latest new point to file knitro_newpoint.log
+#   saveall  = 2 = append the latest new point to file knitro_newpoint.log
+newpoint     none
+
+# Number of threads to use in parallel features.
+#   choose any positive integer, or
+#  -1 = let Knitro automatically choose the number of threads to use
+#   0 = value determined by OMP_NUM_THREADS environment variable
+numthreads -1
+
+# Valid range of obective values.
+objrange     1e+20
+
+# Specifies the final relative stopping tolerance for the KKT (optimality)
+# error. Smaller values of opttol result in a higher degree of accuracy in
+# the solution with respect to optimality.
+opttol       1e-06
+
+# Specifies the final absolute stopping tolerance for the KKT (optimality)
+# error. Smaller values of opttol_abs result in a higher degree of accuracy
+# in the solution with respect to optimality.
+opttol_abs   0.001
+
+# Whether to generate a csv solution file.
+#   no     = 0 = no csv solution file is generated
+#   yes    = 1 = generate a solution file 'knitro_solve.csv'
+out_csvinfo no
+
+# Name for the csv file generated by 'out_csvinfo' (default 'knitro_solve.csv').
+#out_csvname  .
+
+# Enable output printing of hints for setting parameters.
+#   no         = 0
+#   yes        = 1
+out_hints         yes
+
+# Specifies whether to append to output files.
+#   no     = 0 = erase existing files when opening
+#   yes    = 1 = append to existing files
+outappend    no
+
+# Directory for all output files.
+#outdir       .
+
+# Specifies the verbosity of output.
+#   none         = 0 = nothing
+#   summary      = 1 = only final summary information
+#   iter_10      = 2 = information every 10 iterations is printed
+#   iter         = 3 = information at each iteration is printed
+#   iter_verbose = 4 = more verbose information at each iteration is printed
+#   iter_x       = 5 = in addition, values of solution vector (x) are printed
+#   all          = 6 = in addition, constraints (c) and multipliers (lambda)
+outlev       iter_10
+
+# Where to direct the output.
+#   screen  = 0 = directed to stdout
+#   file    = 1 = directed to a file (default name 'knitro.log')
+#   both    = 2 = both stdout and file (default name 'knitro.log')
+outmode      screen
+
+# Name for the standard log file generated by Knitro (default 'knitro.log').
+#outname      .
+
+# Whether to apply any presolve operations to the model.
+#   no     = 0 = no presolve
+#   yes    = 1 = Knitro performs presolve
+presolve     yes
+
+# Presolve handling of user-specified initial point.
+#   auto       = -1 = determine automatically
+#   noshift    =  0 = do not shift initial point in presolve
+#   linshift   =  1 = allow shifting variables in linear constraints
+#   anyshift   =  2 = allow shifting any variable
+presolve_initpt  auto
+
+# Presolve level.
+#   auto       = -1 = determine automatically
+#   level1     =  1 = most basic presolve
+#   level2     =  2 = more advanced presolve
+presolve_level  auto
+
+# Maximum number of presolve passes allowed.
+presolve_passes 10
+
+# Specifies the tolerance used to determine whether or not deduced bounds
+# from the presolve operation are infeasible.
+presolve_tol 1e-06
+
+# Detection/removal degree of redundant constraints
+#   none      = 0 = do not detect redundant constraints
+#   dupcon    = 1 = detect and remove duplicate constraints
+#   depcon    = 2 = detect and remove linearly dependent constraints
+presolveop_redundant   dupcon
+
+# Presolve tightening operations.
+#   auto    = -1 = automatic tightening procedure
+#   none    =  0 = no tightening
+#   varbnd  =  1 = tighten variable bounds
+#   coef    =  2 = tighten coefficients in linear constraints
+#   all     =  3 = variable bounds and coefficients
+presolveop_tighten     auto
+
+# Maximum number of internal restarts to allow.
+restarts       -1
+
+# Maximum number of iterations before invoking restart heuristic.
+restarts_maxit  0
+
+# Whether to perform scaling of the problem.
+# no            = 0 = no scaling done
+# user_internal = 1 = user, if defined, otherwise internal
+# user_none     = 2 = user, if defined, otherwise none
+# internal      = 3 = Knitro performs internal scaling
+scale        user_internal
+
+# Whether to use the Second Order Correction (SOC) option.
+#   no     = 0 = never do second order corrections
+#   maybe  = 1 = SOC steps attempted on some iterations
+#   yes    = 2 = SOC steps always attempted when constraints are nonlinear
+soc          maybe
+
+# Enable a warm-start strategy.
+#   no         = 0
+#   yes        = 1
+strat_warm_start  no
+
+# Whether to use the Knitro Tuner.
+#   off    = 0 = Knitro Tuner turned off
+#   on     = 1 = Knitro Tuner enabled
+tuner        off
+
+# Maximum allowable CPU time in seconds for the complete Tuner procedure
+# when 'tuner=on'.  Use maxtime_cpu to additionally limit time
+# spent per each individual solve.
+tuner_maxtime_cpu  1e+08
+
+# Maximum allowable real time in seconds for the complete Tuner procedure
+# when 'tuner=on'.  Use maxtime_real to additionally limit time
+# spent per each individual solve.
+tuner_maxtime_real  1e+08
+
+# Specifies Tuner subproblem solve output control.
+#   0 = no output from subproblem solves and no subproblem summary file
+#   1 = Subproblem output summary directed to a file 'knitro_tuner_summary.log'
+#   2 = Subproblem output enabled, controlled by option 'outlev'.
+#       Output is directed to a file 'knitro_tuner_*.log'
+tuner_outsub 0
+
+# Specifies conditions for terminating Tuner procedure.
+#   all       = 0 = terminate after all Tuner runs complete
+#   optimal   = 1 = terminate at first local optimum
+#   feasible  = 2 = terminate at first feasible solution estimate
+#   any       = 3 = terminate at first completed solve
+tuner_terminate all
+
+# Step size tolerance used for terminating the optimization.
+xtol         1e-12
+
+# Consecutive iterations for stopping on small changes in the solution estimate.
+xtol_iters   0
