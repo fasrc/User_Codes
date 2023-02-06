@@ -11,6 +11,8 @@ Example of using **parallel HDF5** libraries on the cluster. The specific exampl
 
 #### Example Usage:
 
+Commands to load necessary modules (`module load`), compile the code (`make`), and submit the job (`sbatch`):
+
 ```bash
 module load intel/21.2.0-fasrc01 openmpi/4.1.1-fasrc01 hdf5/1.12.1-fasrc01
 make
