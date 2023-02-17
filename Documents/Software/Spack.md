@@ -1,6 +1,6 @@
 # Spack
 
-<img src="Images/spack-logo.svg" alt="MXNet-logo" width="200"/>
+<img src="Images/spack-logo.svg" alt="spack-logo" width="200"/>
 
 ## What is Spack?
 
@@ -315,7 +315,7 @@ gsl@2.7.1
 
 Many HPC software packages work in parallel using MPI. Although <code>spack</code> has the ability to install MPI libraries from scratch, the recommended way is to configure <code>spack</code> to use  MPI already available on the cluster as software modules, instead of building its own MPI libraries. 
 
-MPI packages are configure through the <code>packages.yaml</code> file. For instance, if we need <code>OpenMPI</code> version 4.1.3 compiled with <code>GCC</code> version 12, we could follow the below steps to add this MPI configuration:
+MPI is configured through the <code>packages.yaml</code> file. For instance, if we need <code>OpenMPI</code> version 4.1.3 compiled with <code>GCC</code> version 12, we could follow the below steps to add this MPI configuration:
 
 ### Determine the MPI location / prefix
 
