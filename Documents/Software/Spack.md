@@ -208,6 +208,7 @@ You can easily add additional compilers to spack by loading the appropriate soft
 * ### Load the required software module
 
 ```bash
+$ module load gcc/9.3.0-fasrc01
 $ which gcc
 /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/gcc
 ```
@@ -311,6 +312,68 @@ gsl@2.7.1
 ```
 
 ## MPI Configuration
+
+Many HPC software packages work in parallel using MPI. Although <code>spack</code> has the ability to install MPI libraries from scratch, the recommended way is to configure <code>spack</code> to use  MPI already available on the cluster as software modules, instead of building its own MPI libraries. 
+
+MPI packages are configure through the <code>packages.yaml</code> file. For instance, if we need <code>OpenMPI</code> version 4.1.3 compiled with <code>GCC</code> version 12, we could follow the below steps to add this MPI configuration:
+
+### Determine the MPI location / prefix
+
+```bash
+$ module load gcc/12.1.0-fasrc01 openmpi/4.1.3-fasrc02
+$ echo $MPI_HOME
+/n/helmod/apps/centos7/Comp/gcc/12.1.0-fasrc01/openmpi/4.1.3-fasrc02
+```
+
+### Edit manually the packages configuration file
+
+Use your favorite text editor, e.g., <code>Vim</code>, <code>Emacs</code>,<code>VSCode</code>, etc., to edit the packages configuration YAML file <code>~/.spack/packages.yaml</code>, e.g.,
+
+```bash
+$ vi ~/.spack/packages.yaml
+```
+> **Note:** If the file <code>~/.spack/packages.yaml</code> does not exist, you will need to create it.
+
+Include the following contents:
+
+```yaml
+packages:
+  openmpi:
+    externals:
+    - spec: openmpi@4.1.3%gcc@12.1.0
+      prefix: /n/helmod/apps/centos7/Comp/gcc/12.1.0-fasrc01/openmpi/4.1.3-fasrc02
+    buildable: False
+```
+The option <code>buildable: False</code> reassures that MPI won't be built from source. Instead, <code>spack</code> will use the MPI provided as a software module in the corresponding prefix.
+
+Once the MPI is configured, it can be used to build packages. The below example shows how to install <code>HDF5</code> version 1.12.2  with <code>openmpi@4.1.3</code> and <code>gcc@12.1.0</code>.
+
+```bash
+$ module purge
+$ spack install hdf5@1.12.2 % gcc@12.1.0 ^ openmpi@4.1.3
+...
+==> Installing hdf5-1.12.2-r6cyc22lecakgm6dwonskqawd5rfcvgu
+==> No binary for hdf5-1.12.2-r6cyc22lecakgm6dwonskqawd5rfcvgu found: installing from source
+==> Using cached archive: /home/spack/var/spack/cache/_source-cache/archive/2a/2a89af03d56ce7502dcae18232c241281ad1773561ec00c0f0e8ee2463910f14.tar.gz
+==> Ran patch() for hdf5
+==> hdf5: Executing phase: 'cmake'
+==> hdf5: Executing phase: 'build'
+==> hdf5: Executing phase: 'install'
+==> hdf5: Successfully installed hdf5-1.12.2-r6cyc22lecakgm6dwonskqawd5rfcvgu
+  Fetch: 0.08s.  Build: 1m 45.05s.  Total: 1m 45.13s.
+[+] /home/spack/opt/spack/linux-centos7-haswell/gcc-12.1.0/hdf5-1.12.2-r6cyc22lecakgm6dwonskqawd5rfcvgu
+
+# Load the installed package
+$ spack load hdf5@1.12.2%gcc@12.1.0
+
+# List the loaded package
+$ spack find --loaded
+==> 14 loaded packages
+-- linux-centos7-haswell / gcc@12.1.0 ---------------------------
+berkeley-db@18.1.40  bzip2@1.0.8  cmake@3.23.1  diffutils@3.8  gdbm@1.19  hdf5@1.12.2  libiconv@1.16  ncurses@6.2  openmpi@4.1.3  openssl@1.1.1o  perl@5.34.1  pkgconf@1.8.0  readline@8.1  zlib@1.2.12
+```
+
+> **Note:** Please note the command <code>module purge</code>. This is required as otherwise the build fails.
 
 ## References
 
