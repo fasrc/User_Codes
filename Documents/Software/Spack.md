@@ -13,28 +13,26 @@ These instructions are intended to guide you on how to use Spack on the FAS RC C
 ## Install and Setup
 
 Spack works out of the box. Simply clone Spack to get going. In this example, we will clone Spack and check out the most recent release, v0.18. 
-> **Note:** Spack can be installed in your home or lab space. For best performance and efficiency, we recommend to install Spack in your lab directory, e.g., <code>/n/holystore01/LABS/<PI_LAB>/Lab/spack</code>
+> **Note:** <code>Spack</code> can be installed in your home or lab space. For best performance and efficiency, we recommend to install Spack in your lab directory, e.g., <code>/n/holylabs/LABS/<PI_LAB>/Users/<USER_NAME></code>/
 
 ```bash
 $ git clone -c feature.manyFiles=true https://github.com/spack/spack.git
 Cloning into 'spack'...
-remote: Enumerating objects: 400786, done.
-remote: Counting objects: 100% (30/30), done.
-remote: Compressing objects: 100% (25/25), done.
-remote: Total 400786 (delta 9), reused 3 (delta 0), pack-reused 400756
-Receiving objects: 100% (400786/400786), 201.93 MiB | 42.75 MiB/s, done.
-Resolving deltas: 100% (160994/160994), done.
-Checking out files: 100% (9971/9971), done.
+remote: Enumerating objects: 439346, done.
+remote: Counting objects: 100% (144/144), done.
+remote: Compressing objects: 100% (99/99), done.
+remote: Total 439346 (delta 46), reused 113 (delta 31), pack-reused 439202
+Receiving objects: 100% (439346/439346), 226.46 MiB | 16.95 MiB/s, done.
+Resolving deltas: 100% (179280/179280), done.
 ```
 
 This will create the <code>spack</code> folder in the current directory. Next, we go to this directory and check out the most recent release.
 
 ```bash
 $ cd spack/
-$ git checkout releases/v0.18
-Checking out files: 100% (7823/7823), done.
-Branch releases/v0.18 set up to track remote branch releases/v0.18 from origin.
-Switched to a new branch 'releases/v0.18'
+$ git checkout releases/v0.19
+Branch 'releases/v0.19' set up to track remote branch 'releases/v0.19' from 'origin'.
+Switched to a new branch 'releases/v0.19'
 ```
 
 Next, add Spack to your path. Spack has some nice command-line integration tools, so instead of simply appending to your <code>PATH</code> variable, source the Spack setup script.
@@ -42,7 +40,7 @@ Next, add Spack to your path. Spack has some nice command-line integration tools
 ```bash
 $ . share/spack/setup-env.sh
 $ spack --version
-0.18.1
+0.19.1 (5e0d2107348eed6cbe6deca43a30f5b06c5e40af)
 ```
 
 ## Available Spack Packages
@@ -51,14 +49,14 @@ The <code>spack list</code> displays the available packages, e.g.,
 
 ```bash
 $ spack list
-==> 6416 packages.
+==> 6752 packages
 <omitted output>
 ```
 The <code>spack list</code> command can also take a query string. Spack automatically adds wildcards to both ends of the string, or you can add your own wildcards. For example, we can view all available <code>Python</code> packages.
 
 ```bash
 $ spack list 'py-*'
-==> 1821 packages.
+==> 1960 packages.
 <omitted output>
 ```
 
@@ -88,63 +86,65 @@ Installing packages with Spack is very straightforward. To install a package sim
 
 ```bash
 $ spack install bzip2@1.0.8
-[+] /home/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/libiconv-1.16-r5qnpa6ilohigvm4tpqlagaq5hlsyqoh
-[+] /home/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/diffutils-3.8-z33r5zkzw4hwz4ew6imoiv5zj3d542bn
-==> Installing bzip2-1.0.8-uge7nkh65buipgcflh3x5lezlj64viy4
-==> No binary for bzip2-1.0.8-uge7nkh65buipgcflh3x5lezlj64viy4 found: installing from source
-==> Fetching https://mirror.spack.io/_source-cache/archive/ab/ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269.tar.gz
-==> Ran patch() for bzip2
-==> bzip2: Executing phase: 'install'
-==> bzip2: Successfully installed bzip2-1.0.8-uge7nkh65buipgcflh3x5lezlj64viy4
-  Fetch: 0.22s.  Build: 2.64s.  Total: 2.85s.
-[+] /home/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/bzip2-1.0.8-uge7nkh65buipgcflh3x5lezlj64viy4
-```
-Here we installed a specific version (1.0.8)  of <code>bzip2</code>. The installed packages can be displayed by the command <code>spack find</code>:
-
-```bash
-$ spack find
-==> 3 installed packages
--- linux-centos7-haswell / gcc@4.8.5 ----------------------------
-bzip2@1.0.8  diffutils@3.8  libiconv@1.16
-```
-
-One can also request that Spack uses a specific compiler flavor / version to install packages, e.g.,
-
-```bash
-$ spack install bzip2@1.0.8%gcc@4.4.7
-==> Installing libiconv-1.16-v34omwnfau3x6hkgcn3sswtagb64myrp
-==> No binary for libiconv-1.16-v34omwnfau3x6hkgcn3sswtagb64myrp found: installing from source
-==> Using cached archive: /home/spack/var/spack/cache/_source-cache/archive/e6/e6a1b1b589654277ee790cce3734f07876ac4ccfaecbee8afa0b649cf529cc04.tar.gz
+==> Bootstrapping clingo from pre-built binaries
+==> Fetching https://mirror.spack.io/bootstrap/github-actions/v0.4/build_cache/linux-centos7-x86_64-gcc-10.2.1-clingo-bootstrap-spack-prqkzynv2nwko5mktitebgkeumuxkveu.spec.json
+==> Fetching https://mirror.spack.io/bootstrap/github-actions/v0.4/build_cache/linux-centos7-x86_64/gcc-10.2.1/clingo-bootstrap-spack/linux-centos7-x86_64-gcc-10.2.1-clingo-bootstrap-spack-prqkzynv2nwko5mktitebgkeumuxkveu.spack
+==> Installing "clingo-bootstrap@spack%gcc@10.2.1~docs~ipo+python+static_libstdcpp build_type=Release arch=linux-centos7-x86_64" from a buildcache
+==> Installing libiconv-1.16-rc3o6ckaij6pgxu5444faznhssp4gcia
+==> No binary for libiconv-1.16-rc3o6ckaij6pgxu5444faznhssp4gcia found: installing from source
+==> Fetching https://mirror.spack.io/_source-cache/archive/e6/e6a1b1b589654277ee790cce3734f07876ac4ccfaecbee8afa0b649cf529cc04.tar.gz
 ==> No patches needed for libiconv
 ==> libiconv: Executing phase: 'autoreconf'
 ==> libiconv: Executing phase: 'configure'
 ==> libiconv: Executing phase: 'build'
 ==> libiconv: Executing phase: 'install'
-==> libiconv: Successfully installed libiconv-1.16-v34omwnfau3x6hkgcn3sswtagb64myrp
-  Fetch: 0.04s.  Build: 33.75s.  Total: 33.78s.
-[+] /home/spack/opt/spack/linux-centos7-core2/gcc-4.4.7/libiconv-1.16-v34omwnfau3x6hkgcn3sswtagb64myrp
-==> Installing diffutils-3.8-aw44y2twgwictbq32lcslokntw3tpjg2
-==> No binary for diffutils-3.8-aw44y2twgwictbq32lcslokntw3tpjg2 found: installing from source
-==> Using cached archive: /home/spack/var/spack/cache/_source-cache/archive/a6/a6bdd7d1b31266d11c4f4de6c1b748d4607ab0231af5188fc2533d0ae2438fec.tar.xz
+==> libiconv: Successfully installed libiconv-1.16-rc3o6ckaij6pgxu5444faznhssp4gcia
+  Fetch: 0.20s.  Build: 32.76s.  Total: 32.96s.
+[+] /home/spack/opt/spack/linux-rocky8-icelake/gcc-8.5.0/libiconv-1.16-rc3o6ckaij6pgxu5444faznhssp4gcia
+==> Installing diffutils-3.8-ejut7cm752b57stai5g6f7nsmte4jvps
+==> No binary for diffutils-3.8-ejut7cm752b57stai5g6f7nsmte4jvps found: installing from source
+==> Fetching https://mirror.spack.io/_source-cache/archive/a6/a6bdd7d1b31266d11c4f4de6c1b748d4607ab0231af5188fc2533d0ae2438fec.tar.xz
 ==> No patches needed for diffutils
 ==> diffutils: Executing phase: 'autoreconf'
 ==> diffutils: Executing phase: 'configure'
 ==> diffutils: Executing phase: 'build'
 ==> diffutils: Executing phase: 'install'
-==> diffutils: Successfully installed diffutils-3.8-aw44y2twgwictbq32lcslokntw3tpjg2
-  Fetch: 0.02s.  Build: 49.43s.  Total: 49.45s.
-[+] /home/spack/opt/spack/linux-centos7-core2/gcc-4.4.7/diffutils-3.8-aw44y2twgwictbq32lcslokntw3tpjg2
-==> Installing bzip2-1.0.8-33mscorpzegrhdoj7mexrayyh2gnwjcl
-==> No binary for bzip2-1.0.8-33mscorpzegrhdoj7mexrayyh2gnwjcl found: installing from source
-==> Using cached archive: /home/spack/var/spack/cache/_source-cache/archive/ab/ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269.tar.gz
+==> diffutils: Successfully installed diffutils-3.8-ejut7cm752b57stai5g6f7nsmte4jvps
+  Fetch: 0.17s.  Build: 46.04s.  Total: 46.21s.
+[+] /home/spack/opt/spack/linux-rocky8-icelake/gcc-8.5.0/diffutils-3.8-ejut7cm752b57stai5g6f7nsmte4jvps
+==> Installing bzip2-1.0.8-aohgpu7zn62kzpanpohuevbkufypbnff
+==> No binary for bzip2-1.0.8-aohgpu7zn62kzpanpohuevbkufypbnff found: installing from source
+==> Fetching https://mirror.spack.io/_source-cache/archive/ab/ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269.tar.gz
 ==> Ran patch() for bzip2
 ==> bzip2: Executing phase: 'install'
-==> bzip2: Successfully installed bzip2-1.0.8-33mscorpzegrhdoj7mexrayyh2gnwjcl
-  Fetch: 0.01s.  Build: 2.35s.  Total: 2.36s.
-[+] /home/spack/opt/spack/linux-centos7-core2/gcc-4.4.7/bzip2-1.0.8-33mscorpzegrhdoj7mexrayyh2gnwjcl
+==> bzip2: Successfully installed bzip2-1.0.8-aohgpu7zn62kzpanpohuevbkufypbnff
+  Fetch: 0.23s.  Build: 2.07s.  Total: 2.30s.
+[+] /home/spack/opt/spack/linux-rocky8-icelake/gcc-8.5.0/bzip2-1.0.8-aohgpu7zn62kzpanpohuevbkufypbnff
+```
+Here we installed a specific version (1.0.8)  of <code>bzip2</code>. The installed packages can be displayed by the command <code>spack find</code>:
+
+```bash
+$ spack find
+-- linux-rocky8-icelake / gcc@8.5.0 -----------------------------
+bzip2@1.0.8  diffutils@3.8  libiconv@1.16
+==> 3 installed packages
 ```
 
-Note that this installation is located separately from the previous one. We will discuss this in more detail later, but this is part of what allows Spack to support arbitrarily versioned software.
+One can also request that Spack uses a specific compiler flavor / version to install packages, e.g.,
+
+```bash
+$ spack install zlib@1.2.13%gcc@8.5.0
+==> Installing zlib-1.2.13-xlt7jpku4zv2d4jhrr3azbz2vnktzfeb
+==> No binary for zlib-1.2.13-xlt7jpku4zv2d4jhrr3azbz2vnktzfeb found: installing from source
+==> Fetching https://mirror.spack.io/_source-cache/archive/b3/b3a24de97a8fdbc835b9833169501030b8977031bcb54b3b3ac13740f846ab30.tar.gz
+==> No patches needed for zlib
+==> zlib: Executing phase: 'edit'
+==> zlib: Executing phase: 'build'
+==> zlib: Executing phase: 'install'
+==> zlib: Successfully installed zlib-1.2.13-xlt7jpku4zv2d4jhrr3azbz2vnktzfeb
+  Fetch: 0.46s.  Build: 1.87s.  Total: 2.33s.
+[+] /home/spack/opt/spack/linux-rocky8-icelake/gcc-8.5.0/zlib-1.2.13-xlt7jpku4zv2d4jhrr3azbz2vnktzfeb
+```
 
 To specify the desired compiler, one uses the <code>%</code> sigil.
 
@@ -152,7 +152,7 @@ The <code>@</code> sigil is used to specify versions, both of packages and of co
 
 ```bash
 $ spack install zlib@1.2.8
-$ spack install zlib@1.2.8%gcc@4.4.7
+$ spack install zlib@1.2.8%gcc@8.5.0
 ```
 
 ## Uninstalling Packages
@@ -160,14 +160,14 @@ $ spack install zlib@1.2.8%gcc@4.4.7
 Spack provides an easy way to uninstall packages with the <code>spack uninstall PACKAGE_NAME</code>, e.g.,
 
 ```bash
-$ spack uninstall bzip2@1.0.8%gcc@4.4.7
+$ spack uninstall zlib@1.2.13%gcc@8.5.0
 ==> The following packages will be uninstalled:
 
-    -- linux-centos7-core2 / gcc@4.4.7 ------------------------------
-    33mscor bzip2@1.0.8
+    -- linux-rocky8-icelake / gcc@8.5.0 -----------------------------
+    xlt7jpk zlib@1.2.13
 
 ==> Do you want to proceed? [y/N] y
-==> Successfully uninstalled bzip2@1.0.8%gcc@4.4.7~debug~pic+shared arch=linux-centos7-core2/33mscor
+==> Successfully uninstalled zlib@1.2.13%gcc@8.5.0+optimize+pic+shared build_system=makefile arch=linux-rocky8-icelake/xlt7jpk
 ```
 > **Note:** The recommended way of uninstalling packages is by specifying the full package name, including the package version and compiler flavor and version used to install the package on the first place.
 
@@ -178,16 +178,24 @@ There are several different ways to use Spack packages once you have installed t
 ```bash
 $ spack load bzip2
 $ which bzip2
-/home/spack/opt/spack/linux-centos7-haswell/gcc-4.8.5/bzip2-1.0.8-uge7nkh65buipgcflh3x5lezlj64viy4/bin/bzip2
+/home/spack/opt/spack/linux-rocky8-icelake/gcc-8.5.0/bzip2-1.0.8-aohgpu7zn62kzpanpohuevbkufypbnff/bin/bzip2
 ```
 
 The loaded packages can be listed  with <code>spack find --loaded</code>, e.g.,
 
 ```bash
 $ spack find --loaded
-==> 3 loaded packages
--- linux-centos7-haswell / gcc@4.8.5 ----------------------------
+-- linux-rocky8-icelake / gcc@8.5.0 -----------------------------
 bzip2@1.0.8  diffutils@3.8  libiconv@1.16
+==> 3 loaded packages
+```
+
+If you no longer need the loaded packages, you can unload them with:
+
+```bash
+$ spack unload 
+[pkrastev@builds01 spack]$ spack find --loaded
+==> 0 loaded packages
 ```
 
 ## Compiler Configuration
@@ -197,8 +205,8 @@ Spack has the ability to build packages with multiple compilers and compiler ver
 ```bash
 $ spack compilers
 ==> Available compilers
--- gcc centos7-x86_64 -------------------------------------------
-gcc@4.8.5  gcc@4.4.7
+-- gcc rocky8-x86_64 --------------------------------------------
+gcc@8.5.0
 ```
 
 The listed compilers are system level compilers provided by the OS itself. On the cluster, we support a set of core compilers, such as GNU (GCC) compiler suit, Intel, and PGI provided on the cluster through [software modules](https://docs.rc.fas.harvard.edu/kb/modules-intro).
@@ -208,26 +216,26 @@ You can easily add additional compilers to spack by loading the appropriate soft
 * ### Load the required software module
 
 ```bash
-$ module load gcc/9.3.0-fasrc01
+$ module load gcc/12.2.0-fasrc01
 $ which gcc
-/n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/gcc
+/n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/gcc
 ```
 * ### Add this GCC compiler version to the spack compilers
 
 ```bash
 $ spack compiler find
-==> Added 1 new compiler to /home/.spack/linux/compilers.yaml
-    gcc@9.3.0
+==> Added 1 new compiler to ~/.spack/linux/compilers.yaml
+    gcc@12.2.0
 ==> Compilers are defined in the following files:
-    /home/.spack/linux/compilers.yaml
+    ~/.spack/linux/compilers.yaml
 ```
 If you run <code>spack compilers</code> again, you will see that the new compiler has been added to the compiler list and made a default (listed first), e.g.,
 
 ```bash
 $ spack compilers
 ==> Available compilers
--- gcc centos7-x86_64 -------------------------------------------
-gcc@9.3.0  gcc@4.8.5  gcc@4.4.7
+-- gcc rocky8-x86_64 --------------------------------------------
+gcc@12.2.0  gcc@8.5.0
 ```
 
 > **Note:** By default, spack does not fill in the <code>modules:</code> field in the <code>compilers.yaml</code> file. If you are using a compiler from a module, then you should add this field manually.
@@ -243,14 +251,14 @@ Each <code>-compiler:</code> section in this file is similar to the below:
 
 ```bash
 - compiler:
-    spec: gcc@9.3.0
+    spec: gcc@12.2.0
     paths:
-      cc: /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/gcc
-      cxx: /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/g++
-      f77: /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/gfortran
-      fc: /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/gfortran
+      cc: /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/gcc
+      cxx: /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/g++
+      f77: /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/gfortran
+      fc: /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/gfortran
     flags: {}
-    operating_system: centos7
+    operating_system: rocky8
     target: x86_64
     modules: []
     environment: {}
@@ -259,22 +267,22 @@ Each <code>-compiler:</code> section in this file is similar to the below:
 We have to edit the <code>modules: []</code> line to read
 
 ```bash
-    modules: [gcc/9.3.0-fasrc01]
+    modules: [gcc/12.2.0-fasrc01]
 ```
 and save the compiler config. file. If more than one modules are required by the compiler, these need to be separated by semicolon (;).
 
 We can display the configuration of a specific compiler by the <code>spack compiler info</code> command, e.g.,
 
 ```bash
-$ spack compiler info gcc@9.3.0
-gcc@9.3.0:
-        paths:
-                cc = /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/gcc
-                cxx = /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/g++
-                f77 = /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/gfortran
-                fc = /n/helmod/apps/centos7/Core/gcc/9.3.0-fasrc01/bin/gfortran
-        modules  = ['gcc/9.3.0-fasrc01']
-        operating system  = centos7
+]$ spack compiler info gcc@12.2.0
+gcc@12.2.0:
+	paths:
+		cc = /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/gcc
+		cxx = /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/g++
+		f77 = /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/gfortran
+		fc = /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/gfortran
+	modules  = ['gcc/12.2.0-fasrc01']
+	operating system  = rocky8
 ```
 
 Once the new compiler is configured, it can be used to build packages. The below example shows how to install the GNU Scientific Library (GSL) with <code>gcc@9.3.0</code>.
@@ -287,28 +295,28 @@ $ spack versions gsl
 ==> Remote versions (not yet checksummed):
   2.2  1.15  1.14  1.13  1.12  1.11  1.10  1.9  1.8  1.7  1.6  1.5  1.4  1.3  1.2  1.1.1  1.1  1.0
 
-# Install GSL version 2.7.1 with GCC version 9.3.0
-$ spack install gsl@2.7.1%gcc@9.3.0
-==> Installing gsl-2.7.1-7gfqgajfeedn72qbup6rospcweeh7zln
-==> No binary for gsl-2.7.1-7gfqgajfeedn72qbup6rospcweeh7zln found: installing from source
+# Install GSL version 2.7.1 with GCC version 12.2.0
+$ spack install gsl@2.7.1%gcc@12.2.0
+==> Installing gsl-2.7.1-uj6i6eqdsymvgupsqulhgewhb7nkr2vc
+==> No binary for gsl-2.7.1-uj6i6eqdsymvgupsqulhgewhb7nkr2vc found: installing from source
 ==> Fetching https://mirror.spack.io/_source-cache/archive/dc/dcb0fbd43048832b757ff9942691a8dd70026d5da0ff85601e52687f6deeb34b.tar.gz
 ==> No patches needed for gsl
 ==> gsl: Executing phase: 'autoreconf'
 ==> gsl: Executing phase: 'configure'
 ==> gsl: Executing phase: 'build'
 ==> gsl: Executing phase: 'install'
-==> gsl: Successfully installed gsl-2.7.1-7gfqgajfeedn72qbup6rospcweeh7zln
-  Fetch: 1.45s.  Build: 1m 51.07s.  Total: 1m 52.52s.
-[+] /home/spack/opt/spack/linux-centos7-haswell/gcc-9.3.0/gsl-2.7.1-7gfqgajfeedn72qbup6rospcweeh7zln
+==> gsl: Successfully installed gsl-2.7.1-uj6i6eqdsymvgupsqulhgewhb7nkr2vc
+  Fetch: 0.93s.  Build: 1m 38.29s.  Total: 1m 39.22s.
+[+] /home/spack/opt/spack/linux-rocky8-icelake/gcc-12.2.0/gsl-2.7.1-uj6i6eqdsymvgupsqulhgewhb7nkr2vc
 
 # Load the installed package
-$ spack load gsl@2.7.1%gcc@9.3.0
+$ spack load gsl@2.7.1%gcc@12.2.0
 
 # List the loaded package
 $ spack find --loaded
-==> 1 loaded package
--- linux-centos7-haswell / gcc@9.3.0 ----------------------------
+-- linux-rocky8-icelake / gcc@12.2.0 ----------------------------
 gsl@2.7.1
+==> 1 loaded package
 ```
 
 ## MPI Configuration
@@ -320,9 +328,9 @@ MPI is configured through the <code>packages.yaml</code> file. For instance, if 
 ### Determine the MPI location / prefix
 
 ```bash
-$ module load gcc/12.1.0-fasrc01 openmpi/4.1.3-fasrc02
+$ module load gcc/12.2.0-fasrc01 openmpi/4.1.4-fasrc01
 $ echo $MPI_HOME
-/n/helmod/apps/centos7/Comp/gcc/12.1.0-fasrc01/openmpi/4.1.3-fasrc02
+/n/sw/helmod-rocky8/apps/Comp/gcc/12.2.0-fasrc01/openmpi/4.1.4-fasrc01
 ```
 
 ### Edit manually the packages configuration file
@@ -340,37 +348,38 @@ Include the following contents:
 packages:
   openmpi:
     externals:
-    - spec: openmpi@4.1.3%gcc@12.1.0
-      prefix: /n/helmod/apps/centos7/Comp/gcc/12.1.0-fasrc01/openmpi/4.1.3-fasrc02
+    - spec: openmpi@4.1.4%gcc@12.2.0
+      prefix: /n/sw/helmod-rocky8/apps/Comp/gcc/12.2.0-fasrc01/openmpi/4.1.4-fasrc01
     buildable: False
 ```
 The option <code>buildable: False</code> reassures that MPI won't be built from source. Instead, <code>spack</code> will use the MPI provided as a software module in the corresponding prefix.
 
-Once the MPI is configured, it can be used to build packages. The below example shows how to install <code>HDF5</code> version 1.12.2  with <code>openmpi@4.1.3</code> and <code>gcc@12.1.0</code>.
+Once the MPI is configured, it can be used to build packages. The below example shows how to install <code>HDF5</code> version 1.12.2  with <code>openmpi@4.1.4</code> and <code>gcc@12.2.0</code>.
 
 ```bash
 $ module purge
-$ spack install hdf5@1.12.2 % gcc@12.1.0 ^ openmpi@4.1.3
+$ spack install hdf5@1.12.2 % gcc@12.2.0 ^ openmpi@4.1.4
 ...
-==> Installing hdf5-1.12.2-r6cyc22lecakgm6dwonskqawd5rfcvgu
-==> No binary for hdf5-1.12.2-r6cyc22lecakgm6dwonskqawd5rfcvgu found: installing from source
-==> Using cached archive: /home/spack/var/spack/cache/_source-cache/archive/2a/2a89af03d56ce7502dcae18232c241281ad1773561ec00c0f0e8ee2463910f14.tar.gz
+==> Installing hdf5-1.12.2-lfmo7dvzrgmu35mt74zqjz2mfcwa2urb
+==> No binary for hdf5-1.12.2-lfmo7dvzrgmu35mt74zqjz2mfcwa2urb found: installing from source
+==> Fetching https://mirror.spack.io/_source-cache/archive/2a/2a89af03d56ce7502dcae18232c241281ad1773561ec00c0f0e8ee2463910f14.tar.gz
 ==> Ran patch() for hdf5
 ==> hdf5: Executing phase: 'cmake'
 ==> hdf5: Executing phase: 'build'
 ==> hdf5: Executing phase: 'install'
-==> hdf5: Successfully installed hdf5-1.12.2-r6cyc22lecakgm6dwonskqawd5rfcvgu
-  Fetch: 0.08s.  Build: 1m 45.05s.  Total: 1m 45.13s.
-[+] /home/spack/opt/spack/linux-centos7-haswell/gcc-12.1.0/hdf5-1.12.2-r6cyc22lecakgm6dwonskqawd5rfcvgu
+==> hdf5: Successfully installed hdf5-1.12.2-lfmo7dvzrgmu35mt74zqjz2mfcwa2urb
+  Fetch: 0.58s.  Build: 1m 21.39s.  Total: 1m 21.98s.
+[+] /home/spack/opt/spack/linux-rocky8-icelake/gcc-12.2.0/hdf5-1.12.2-lfmo7dvzrgmu35mt74zqjz2mfcwa2urb
 
 # Load the installed package
-$ spack load hdf5@1.12.2%gcc@12.1.0
+$ spack load hdf5@1.12.2%gcc@12.2.0
 
 # List the loaded package
 $ spack find --loaded
-==> 14 loaded packages
--- linux-centos7-haswell / gcc@12.1.0 ---------------------------
-berkeley-db@18.1.40  bzip2@1.0.8  cmake@3.23.1  diffutils@3.8  gdbm@1.19  hdf5@1.12.2  libiconv@1.16  ncurses@6.2  openmpi@4.1.3  openssl@1.1.1o  perl@5.34.1  pkgconf@1.8.0  readline@8.1  zlib@1.2.12
+-- linux-rocky8-icelake / gcc@12.2.0 ----------------------------
+berkeley-db@18.1.40  ca-certificates-mozilla@2022-10-11  diffutils@3.8  hdf5@1.12.2    ncurses@6.3    openssl@1.1.1s  pkgconf@1.8.0   zlib@1.2.13
+bzip2@1.0.8          cmake@3.24.3                        gdbm@1.23      libiconv@1.16  openmpi@4.1.4  perl@5.36.0     readline@8.1.2
+==> 15 loaded packages
 ```
 
 > **Note:** Please note the command <code>module purge</code>. This is required as otherwise the build fails.
