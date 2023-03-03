@@ -346,7 +346,7 @@ different users):
 [jharvard@holy2c02302 bin]$ chmod +x ./proot
 ```
 
-**Step 2**: Ensure `~/bin`  is included in
+**Step 2**: Ensure `~/bin` (e.g. `/n/home01/jharvard/bin`) is included in
 your `PATH`.  If not, add it:
 
 ```bash
@@ -422,7 +422,7 @@ read/write access, otherwise it will fail to build your custom image
 
 ```bash
 [jharvard@holy2c02302 ~]$ cd /n/holylabs/LABS/jharvard_lab/Users/jharvard
-[jharvard@holy2c02302 jharvard]$ cp/n/holystore01/SINGULARITY/FAS/centos7/compute-el7-noslurm-2023-02-15.sif . 
+[jharvard@holy2c02302 jharvard]$ cp /n/holystore01/SINGULARITY/FAS/centos7/compute-el7-noslurm-2023-02-15.sif .
 ```
 
 **Step 2**: In definition file `centos7_custom.def`, set `Bootstrap: localimage`
