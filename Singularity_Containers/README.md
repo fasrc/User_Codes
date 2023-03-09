@@ -1,3 +1,19 @@
+# Content
+
+Here you can find:
+
+- An [introduction](#Introduction) to SingularityCE containers
+- How to build SingularityCE containers
+  - [from exising container in SingularityCE Container Library](#download-existing-container-from-a-libraryrepo)
+  - [from exising container in Docker Hub](#download-an-existing-container-from-docker-hub)
+  - [from a SingularityCE definition file on the FASRC clusters](#build-a-singularityce-container-from-a-singularity-definition-file)
+  - [from a SingularityCE definition file on Sylabs cloud](#build-a-singularityce-container-remotely-from-singularity-definition-file-using-option---remote)
+
+In the Working with SingularityCE images documentation, you can find:
+
+- How to run SingularityCE images
+- How to run BioContainers
+
 <!-- 
 TODO: Add training materials relevant to Rocky 8 and SingulartyCE 3.11
       The content below is too old for Rocky 8
@@ -104,6 +120,9 @@ salloc: Nodes holy2c04309 are ready for job
 singularity-ce version 3.11.0-1.el8
 ```
 
+For more details, see [interactive jobs on
+Cannon](https://docs.rc.fas.harvard.edu/kb/running-jobs/#Interactive_jobs_and_salloc).
+
 On FASSE:
 
 Go to [FASSE Open OnDemand](https://fasseood.rc.fas.harvard.edu/) and start a
@@ -116,10 +135,13 @@ In the terminal, type the command:
 singularity-ce version 3.11.0-1.el8
 ```
 
+For more details, see [interactive jobs on
+FASSE](https://docs.rc.fas.harvard.edu/kb/fasse/#Open_OnDemand_OOD_Access).
+
 ## SingularityCE documentation
 
 The [SingularityCE User
-Guide](https://docs.sylabs.io/guides/latest/user-guide/index.html#) has the
+Guide](https://docs.sylabs.io/guides/latest/user-guide/index.html) has the
 latest documentation.
 
 You can also see the most up-to-date help on SingularityCE from
@@ -237,7 +259,11 @@ INFO:    Downloading library image
 28.4MiB / 28.4MiB [=======================================] 100 % 7.0 MiB/s 0s
 ```
 
-## Download an existing container from Docker Hub
+Note that to build images that are pulled from a library, you can either use the
+commands `build` or `pull`.
+
+##[Singularity
+231 on the clusters](#SingularityCE-on-the-clusters Download an existing container from Docker Hub
 
 Build the [laughing cow](https://hub.docker.com/r/sylabsio/lolcow) (`lolcow`)
 image from Docker Hub:
