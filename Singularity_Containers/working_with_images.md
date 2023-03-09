@@ -397,7 +397,7 @@ If you don't use the `--bind` option, the file will not be available in the
 directory `/mnt` inside the container:
 
 ```bash
-[paulasanreg@holygpu7c1309 sylabs_lib]$ singularity shell lolcow_latest.sif
+[jharvard@holygpu7c1309 sylabs_lib]$ singularity shell lolcow_latest.sif
 Singularity> cd /mnt/
 Singularity> ls
 Singularity>
