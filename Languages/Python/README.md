@@ -10,7 +10,7 @@ Python is dynamically typed and garbage-collected. It supports multiple programm
 ### Content:
 
 * [Python on the FASRC Cluster](./Python_FASRC.md)
-* Speeding up Python environment management with Mamba
+* [Speeding up conda environment management with Mamba](./Mamba.md)
 
 ### Examples:
 * [Example 1](Example1/): Monte-Carlo calculation of PI
