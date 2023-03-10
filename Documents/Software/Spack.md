@@ -45,6 +45,7 @@ $ spack --version
 
 ## Available Spack Packages
 
+A complete list of all available Spack packages can be found also [here](https://spack.readthedocs.io/en/latest/package_list.html).
 The <code>spack list</code> displays the available packages, e.g.,
 
 ```bash
@@ -55,6 +56,12 @@ $ spack list
 The <code>spack list</code> command can also take a query string. Spack automatically adds wildcards to both ends of the string, or you can add your own wildcards. For example, we can view all available <code>Python</code> packages.
 
 ```bash
+# with wildcard at both ends of the strings
+$ spack list py
+==> 1979 packages
+<omitted outout>
+
+# add your own wilcard: here, list packages that start with py
 $ spack list 'py-*'
 ==> 1960 packages.
 <omitted output>
@@ -78,11 +85,26 @@ $ spack versions lammps
 ==> Remote versions (not yet checksummed):
   1Sep2017
 ```
-A complete list of all available Spack packages can be found also [here](https://spack.readthedocs.io/en/latest/package_list.html).
+
+**Note**: for the `spack versions` command, the package name needs to match exactly. For example, `spack versions lamm` will not be found:
+
+```bash
+$ spack versions lamm
+==> Error: Package 'lamm' not found.
+You may need to run 'spack clean -m'.
+```
 
 ## Installing Packages
 
-Installing packages with Spack is very straightforward. To install a package simply type <code>spack install PACKAGE_NAME</code>, e.g.,
+Installing packages with Spack is very straightforward. To install a package simply type <code>spack install PACKAGE_NAME</code>.
+
+To install the latest version of a package, type:
+
+```bash
+$ spack install bzip2
+```
+
+To install a specific version (1.0.8) of <code>bzip2</code>, add `@` and the version number you need:
 
 ```bash
 $ spack install bzip2@1.0.8
