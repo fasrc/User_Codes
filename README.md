@@ -23,7 +23,7 @@
 * Mathematica  
 * [MATLAB](Languages/MATLAB)  
 * Perl  
-* Python
+* [Python](Languages/Python)
 * [R](Languages/R)  
 * STATA
 
