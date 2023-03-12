@@ -181,7 +181,7 @@ xz                        5.2.10               h5eee18b_1
 zlib                      1.2.13               h5eee18b_0 
 ```
 
-You van install new packages with:
+You can install new packages with:
 
 ```bash
 $ mamba install -y numpy
@@ -274,3 +274,5 @@ $ conda deactivate
 For additional features, please refer to the [Mamba documentation](https://mamba.readthedocs.io/en/latest/index.html).
 
 ## Conda environments in Lab space
+
+
