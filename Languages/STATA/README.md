@@ -33,7 +33,6 @@ exit
 #SBATCH --mem=4000
 
 # Load required modules
-source new-modules.sh
 module load stata/13.0-fasrc01
 
 # Run program
@@ -43,7 +42,6 @@ srun -n 1 -c 1 stata -b do test.do
 #### Example Usage:
 
 ```bash
-source new-modules.sh
 module load stata/13.0-fasrc01
 sbatch run.sbatch
 ```
