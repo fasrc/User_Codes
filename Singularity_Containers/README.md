@@ -238,7 +238,7 @@ You can build or import a SingularityCE container in different ways. You can:
 on the clusters](#SingularityCE-on-the-clusters) shows how to request an
 interactive job on Cannon and FASSE.
 
-## Download existing container from a library/repo
+## Download existing container from a library or repo
 
 Build the laughing cow (`lolcow`) image from SingularityCE library:
 
@@ -262,8 +262,7 @@ INFO:    Downloading library image
 Note that to build images that are pulled from a library, you can either use the
 commands `build` or `pull`.
 
-##[Singularity
-231 on the clusters](#SingularityCE-on-the-clusters Download an existing container from Docker Hub
+## Download an existing container from Docker Hub
 
 Build the [laughing cow](https://hub.docker.com/r/sylabsio/lolcow) (`lolcow`)
 image from Docker Hub:
@@ -495,7 +494,7 @@ INFO:    Creating SIF file...
 INFO:    Build complete: centos7_custom.sif
 ```
 
-## Build a SingularityCE container remotely from Singularity definition file using option `--remote`. 
+## Build a SingularityCE container remotely from Singularity definition file using option `--remote`
 
 If the unpriveleged `proot` build does not work for you, you can use Sylabs
 cloud free service to build Singularity images.
