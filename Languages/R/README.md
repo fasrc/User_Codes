@@ -17,6 +17,7 @@ You can also look at the instructions for installing specific R packages:
 * [rstan](rstan.md)
 * [glmnet, glmtrans](glmnet_glmtrans.md)
 * Some R packages have lots of dependencies and/or require additional software to be installed in the cluster (e.g. protobuf, geojsonio). Properly configuring these installs with R can become problematic. To overcome that, we documented [how to install R packages within a Singularity container](https://docs.rc.fas.harvard.edu/kb/r-packages-with-singularity/).
+* [R packages with Spack](R_packages_with_spack.md)
 
 ### Files that may configure R installations
 
