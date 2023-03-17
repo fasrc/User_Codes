@@ -1,11 +1,13 @@
 # BioContainers
 
-Cluster nodes automount a CernVM-File System at
+Cluster nodes automount a [CernVM-File
+System](https://cvmfs.readthedocs.io/en/stable/) at
 `/cvmfs/singularity.galaxyproject.org/`. This provides a universal file system
-namespace to Singularity images for the BioContainers project, which comprises
-container images automatically generated from Bioconda software packages. The
-Singularity images are organized into a directory hierarchy following the
-convention:
+namespace to Singularity images for the
+[BioContainers](https://biocontainers.pro/) project, which comprises container
+images automatically generated from [Bioconda](https://bioconda.github.io/)
+software packages. The Singularity images are organized into a directory
+hierarchy following the convention:
 
 ```bash
 /cvmfs/singularity.galaxyproject.org/FIRST_LETTER/SECOND_LETTER/PACKAGE_NAME:VERSION--CONDA_BUILD
@@ -17,16 +19,16 @@ For example:
 singularity exec /cvmfs/singularity.galaxyproject.org/s/a/samtools:1.13--h8c37831_0 samtools --help
 ```
 
-The Bioconda package index lists all software available in
-`/cvmfs/singularity.galaxyproject.org/`, while the BioContainers registry provides
-a searchable interface.
+The [Bioconda package
+index](https://bioconda.github.io/conda-package_index.html) lists all software
+available in `/cvmfs/singularity.galaxyproject.org/`, while the [BioContainers
+registry](https://biocontainers.pro/registry) provides a searchable interface.
 
 **NOTE**: There will be a 10-30 second delay when first accessing
 `/cvmfs/singularity.galaxyproject.org/` on a compute node on which it is not
 currently mounted; in addition, there will be a delay when accessing a
 Singularity image on a compute node where it has not already been accessed and
 cached to node-local storage.
-
 
 ## BioContainers images in Docker Hub
 
@@ -38,10 +40,11 @@ biocontainers organization, and are **not** available on Cannon under
 See [BioContainers GitHub](https://github.com/BioContainers/containers) for a
 complete list of BioContainers images available in DockerHub (note that many of
 the applications listed in that GitHub repository have since been ported to
-Bioconda, but a subset are still only available in DockerHub).
+Bioconda, and are thus available in `/cvmfs/singularity.galaxyproject.org`, but
+a subset are still only available in DockerHub).
 
-These images can
-be fetched and built on Cannon using the `singularity pull` command:
+These images can be fetched and built on Cannon using the `singularity pull`
+command:
 
 ```bash
 singularity docker://biocontainers/<image>:<tag>
