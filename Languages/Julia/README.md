@@ -22,7 +22,7 @@ You can also use Julia in [Jupyter notebooks in our VDI interactive environment]
 ![Gadfly Demo](Images/gadfly-demo.png)
 
 ### Installation
-Julia most easily [installed](https://docs.julialang.org/en/v1/manual/getting-started/) by downloading the precompiled binares from: [https://julialang.org/downloads/](https://julialang.org/downloads/) We recommend the Generic Linux on x86 64 bit glibc version. This avoids any need to build any dependencies. We recommend downloading it to your holylabs directory for use.
+Julia most easily [installed](https://docs.julialang.org/en/v1/manual/getting-started/) by downloading the precompiled [binares](https://github.com/fasrc/User_Codes/blob/master/Documents/Software/Binaries.md) from: [https://julialang.org/downloads/](https://julialang.org/downloads/) We recommend the Generic Linux on x86 64 bit glibc version. This avoids any need to build any dependencies. We recommend downloading it to your holylabs directory for use.
 
 Once you have downloaded Julia you can add Julia to your path by setting the following in your <code>~/.bashrc</code>
 
