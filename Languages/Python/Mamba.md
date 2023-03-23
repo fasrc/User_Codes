@@ -4,12 +4,12 @@
 
 <code>mamba</code> is a drop-in replacement and uses the same commands and configuration options as <code>conda</code>. You can swap almost all commands between conda & mamba.
 
-<code>Mamba</code> is available on the FASRC cluster as a software module:
+<code>Mamba</code> is available on the FASRC cluster as a software module either as <code>Mambaforge</code> or as <code>python/3*</code> which is aliased to Mamba:
 
 ```bash
-$ module load Mamba/4.14.0-0
+$ module load python/3.10.9-fasrc01
 $ python -V
-Python 3.10.6
+Python 3.10.9
 ```
 
 You can create conda environments with mamba in the same way as with conda:
