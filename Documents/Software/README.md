@@ -6,7 +6,7 @@ If you are looking to use a "bleeding edge" version of software or something spe
 
 * [Installing binaries](Binaries.md)
 * [Installing GNU-toolchain-style apps (configure - make - make install)](Gnu.md)
-* Cmake
+* [Cmake](Cmake.md)
 * [Spack](Spack.md)
 
 ## Making Software Available
