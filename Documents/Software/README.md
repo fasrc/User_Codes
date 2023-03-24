@@ -32,5 +32,4 @@ Once you find all of these you can copy these variable definitions to the end of
 source ~/sw/setup.sh
 ```
 
-This is necessary if you want to install multiple incompatible apps, or different versions of the same app, and pick and choose between them at will (you'll have to use a different <code>--prefix</code> for each).
-You may also consider writing your own [lmod modulefiles](https://lmod.readthedocs.io/en/latest/015_writing_modules.html) so that you can [integrate](https://lmod.readthedocs.io/en/latest/020_advanced.html) your own software with our modules system.
+This is necessary if you want to install multiple incompatible apps, or different versions of the same app, and pick and choose between them at will (you'll have to use a different <code>--prefix</code> for each). You may also consider writing your own [lmod modulefiles](https://lmod.readthedocs.io/en/latest/015_writing_modules.html) so that you can [integrate](https://lmod.readthedocs.io/en/latest/020_advanced.html) your own software with our modules system.
