@@ -79,6 +79,9 @@ Table of Contents below is not complete but only includes links to popular libar
 * [TotalView](Applications/TotalView)
 * [Weather Research and Forecasting (WRF) Model](Applications/WRF_Model)
 
-### Singularity Containers
+### [Singularity Containers](Singularity_Containers)
 
+* [Biocontainers](Singularity_Containers/biocontainers.md)
 * [MPI Applications](Singularity_Containers/MPI_Apps)
+* [OpenMPI Applications](Singularity_Containers/OMP_Apps)
+* [Working with Images](Singularity_Containers/working_with_images.md)
