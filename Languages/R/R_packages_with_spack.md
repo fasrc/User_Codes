@@ -49,6 +49,22 @@ We added some examples below. See [Spack
 list](https://spack.readthedocs.io/en/latest/package_list.html) for a full list
 of software offered by Spack.
 
+### `glmnet`
+
+```bash
+# install R packages with spack
+[jharvard@holy2c02302 spack]$ spack install r-glmnet
+
+# load spack packages
+[jharvard@holy2c02302 spack]$ spack load r-glmnet
+
+# launch R and load libraries
+[jharvard@holy2c02302 spack]$ R
+> library(glmnet)
+Loading required package: Matrix
+Loaded glmnet 4.1-4
+```
+
 ### `raster`
 
 ```bash
@@ -122,18 +138,46 @@ plan transition to sf functions using GEOS at your earliest convenience.
 
 ### `rstan`
 
-This software may take ~20 min to install
+This software requires ~12G of memory and may take ~1 hour to install. Make sure
+you request enough memory and time in your interactive job to install the R
+package `rstan`.
 
 ```bash
 # install R packages with spack
 [jharvard@holy2c02302 spack]$ spack install r-rstan
+[jharvard@holy2c02302 spack]$ spack install r-codetools
 
 # load spack packages
 [jharvard@holy2c02302 spack]$ spack load r-rstan
+[jharvard@holy2c02302 spack]$ spack load r-codetools
 
 # launch R and load libraries
 [jharvard@holy2c02302 spack]$ R
 > library(rstan)
+Loading required package: StanHeaders
+Loading required package: ggplot2
+rstan (Version 2.21.7, GitRev: 2e1f913d3ca3)
+For execution on a local, multicore CPU with excess RAM we recommend calling
+options(mc.cores = parallel::detectCores()).
+To avoid recompilation of unchanged Stan programs, we recommend calling
+rstan_options(auto_write = TRUE)
+```
+
+### `seurat`
+
+This software may take ~30 min to install
+
+```bash
+# install R packages with spack
+[jharvard@holy2c02302 spack]$ spack install r-seurat
+
+# load spack packages
+[jharvard@holy2c02302 spack]$ spack load r-seurat
+
+# launch R and load libraries
+[jharvard@holy2c02302 spack]$ R
+> library(Seurat)
+Attaching SeuratObject
 ```
 
 ### `sf`
@@ -153,4 +197,22 @@ This software may take ~20 min to install
 Linking to GEOS 3.9.1, GDAL 3.5.3, PROJ 8.2.1; sf_use_s2() is TRUE
 ```
 
+## Installing specific versions of R
+
+To install a specific version of r, simply add `@` and the version to the `spack install r` command:
+
+```bash
+# install R with spack
+[jharvard@holy2c02302 spack]$ spack install r@3.5.0
+
+# load specific R version
+[jharvard@holy2c02302 spack]$ spack load r@3.5.0
+
+# launch R
+[jharvard@holy2c02302 spack]$ R
+
+R version 3.5.0 (2018-04-23) -- "Joy in Playing"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+```
 
