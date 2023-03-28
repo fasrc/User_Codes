@@ -10,11 +10,12 @@ Table of Contents below is not complete but only includes links to popular libar
 * [GNU Toolchain](Documents/Software/Gnu.md)
 * [Spack](Documents/Software/Spack.md)
 
-### Machine Learning Frameworks
+### [Singularity Containers](Singularity_Containers)
 
-* [TensorFlow](AI/TensorFlow)
-* [PyTorch](AI/PyTorch)
-* [MXNet](AI/MXNet) 
+* [Biocontainers](Singularity_Containers/biocontainers.md)
+* [MPI Applications](Singularity_Containers/MPI_Apps)
+* [OpenMPI Applications](Singularity_Containers/OMP_Apps)
+* [Working with Images](Singularity_Containers/working_with_images.md)
 
 ### Programming Languages and Environments
     
@@ -43,6 +44,12 @@ Table of Contents below is not complete but only includes links to popular libar
 * [NETCDF](Libraries/NETCDF)
 * [OpenBLAS](Libraries/OpenBLAS)
 
+### Machine Learning Frameworks
+
+* [TensorFlow](AI/TensorFlow)
+* [PyTorch](AI/PyTorch)
+* [MXNet](AI/MXNet) 
+
 ### Parallel Computing
 
 * [Embarrassingly Parallel](Parallel_Computing/EP)
@@ -59,15 +66,6 @@ Table of Contents below is not complete but only includes links to popular libar
 * [STATA](Parallel_Computing/STATA)
 * [ScaLAPACK](Parallel_Computing/ScaLAPACK)
 
-### Example Recipes
-
-* [Image processing with MATLAB](Example_Recipes/image_processing_matlab) 
-* [Job Arrays](Example_Recipes/Job_Arrays)
-* [MATLAB MEX files from C++ source code](Example_Recipes/matlab_cpp)
-* [Movie processing and reading data from CSV files](Example_Recipes/movie_processing)
-* [Parallel Job Arrays](Example_Recipes/parallel_job_arrays)
-* [Pytorch Example](Example_Recipes/pytorch)
-
 ### Applications
 
 * [AlphaFold](Applications/AlphaFold)
@@ -79,9 +77,15 @@ Table of Contents below is not complete but only includes links to popular libar
 * [TotalView](Applications/TotalView)
 * [Weather Research and Forecasting (WRF) Model](Applications/WRF_Model)
 
-### [Singularity Containers](Singularity_Containers)
+### Preformance
 
-* [Biocontainers](Singularity_Containers/biocontainers.md)
-* [MPI Applications](Singularity_Containers/MPI_Apps)
-* [OpenMPI Applications](Singularity_Containers/OMP_Apps)
-* [Working with Images](Singularity_Containers/working_with_images.md)
+* [TAU](Performance/TAU)
+
+### Example Recipes
+
+* [Image processing with MATLAB](Example_Recipes/image_processing_matlab) 
+* [Job Arrays](Example_Recipes/Job_Arrays)
+* [MATLAB MEX files from C++ source code](Example_Recipes/matlab_cpp)
+* [Movie processing and reading data from CSV files](Example_Recipes/movie_processing)
+* [Parallel Job Arrays](Example_Recipes/parallel_job_arrays)
+* [Pytorch Example](Example_Recipes/pytorch)
