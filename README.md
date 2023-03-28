@@ -70,9 +70,11 @@ Table of Contents below is not complete but only includes links to popular libar
 
 ### Applications
 
+* [AlphaFold](Applications/AlphaFold)
 * [CryoSPARC](Applications/CryoSPARC)
 * [Dynamite](Applications/Dynamite)
 * [Knitro](Applications/Knitro)
+* [LANDIS](Applications/LANDIS)
 * [Schrodinger](Applications/Schrodinger)
 * [TotalView](Applications/TotalView)
 * [Weather Research and Forecasting (WRF) Model](Applications/WRF_Model)
