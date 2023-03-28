@@ -2,63 +2,64 @@
 
 <img src="Images/rc-logo-text_2017-88.png" alt="PyTorch-logo" width="350"/>
 
+Table of Contents below is not complete but only includes links to popular libaries. Other examples are contained in this repo that are in the directory tree, use search to look through the full repository.
 
 ### Machine Learning Frameworks
 
 * [TensorFlow](AI/TensorFlow)
 * [PyTorch](AI/PyTorch)
-* [MXNet](AI/MXNet)
-* Theano
-* Keras
-* FLUX (Julia)  
+* [MXNet](AI/MXNet) 
 
 ### Programming Languages and Environments
     
 * [BASH](Languages/BASH)
 * [C](Languages/C)  
-* C++  
-* Fortran  
-* IDL  
+* [C++](Languages/Cpp)  
+* [Fortran](Languages/Fortran)  
+* [IDL](Languages/IDL)  
 * [Julia](Languages/Julia)  
-* Mathematica  
+* [Mathematica](Languages/Mathematica)  
 * [MATLAB](Languages/MATLAB)  
-* Perl  
+* [Perl](Languages/Perl)  
 * [Python](Languages/Python)
 * [R](Languages/R)  
-* STATA
+* [STATA](Languages/STATA)
 
 ### Numerical and I/O Libraries
    
-* Armadillo
-* MKL
-* BLAS
-* LAPACK
-* GSL
-* HDF5
-* FFTW
-* NETCDF
-* OpenBLAS
+* [Armadillo](Libraries/Armadillo)
+* [BLAS](Libraries/BLAS)
+* [FFTW](Libraries/FFTW)
+* [GSL](Libraries/GSL)
+* [HDF5](Libraries/HDF5)
+* [LAPACK](Libraries/LAPACK)
+* [MKL](Libraries/MKL)
+* [NETCDF](Libraries/NETCDF)
+* [OpenBLAS](Libraries/OpenBLAS)
 
 ### Parallel Computing
 
+* [Embarrassingly Parallel](Parallel_Computing/EP)
+* [HDF5](Parallel_Computing/Parallel_HDF5)
+* [MATLAB](Parallel_Computing/MATLAB)
 * [MPI](Parallel_Computing/MPI)
-* OpenMP
-* Hybrid (MPI+OpenMP)
-* Python
+* [MPI-IO](Parallel_Computing/MPI_IO)
+* [Mathematica](Parallel_Computing/Mathematica)
+* [NetCDF](Parallel_Computing/Parallel_NetCDF)
+* [OpenMP](Parallel_Computing/OpenMP)
+* [PnetCDF](Parallel_Computing/PnetCDF)
+* [Python](Parallel_Computing/Python)
 * [R](Parallel_Computing/R)
-* Julia
-* MATLAB
-* Mathematica
-* STATA
-* [Parallel HDF5](Parallel_Computing/Parallel_HDF5)
+* [STATA](Parallel_Computing/STATA)
+* [ScaLAPACK](Parallel_Computing/ScaLAPACK)
 
 ### Example Recipes
 
-* Job arrays
-* Movie processing and reading data from CSV files
-* MATLAB MEX files from C++ source code
-* Image processing with MATLAB 
-* Parallel Job Arrays
+* [Image processing with MATLAB](Example_Recipes/image_processing_matlab) 
+* [Job Arrays](Example_Recipes/Job_Arrays)
+* [MATLAB MEX files from C++ source code](Example_Recipes/matlab_cpp)
+* [Movie processing and reading data from CSV files](Example_Recipes/movie_processing)
+* [Parallel Job Arrays](Example_Recipes/parallel_job_arrays)
 * [Pytorch Example](Example_Recipes/pytorch)
 
 ### Applications
@@ -69,12 +70,6 @@
 * [Schrodinger](Applications/Schrodinger)
 * [TotalView](Applications/TotalView)
 * [Weather Research and Forecasting (WRF) Model](Applications/WRF_Model)
-
-### Visualization
-
-* Yt
-* ParaView
-* VisIt
 
 ### Singularity Containers
 
