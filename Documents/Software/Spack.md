@@ -433,7 +433,8 @@ bzip2@1.0.8          cmake@3.24.3                        gdbm@1.23      libiconv
      25    int main()
 
 See build log for details:
-  /tmp/hyerincho/spack-stage/spack-stage-nvhpc-22.7-iepk6vgndc7hmzs3evxqz6qw2vf6qt7s/spack-build-out.txt
+  /tmp/jharvard
+	/spack-stage/spack-stage-nvhpc-22.7-iepk6vgndc7hmzs3evxqz6qw2vf6qt7s/spack-build-out.txt
 ```
 In this error the compiler cannot find a library it is dependent on.  To fix this we will add to the compiler definition in <code>~/.spack/linux/compiler.yaml</code>.
 
