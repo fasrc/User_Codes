@@ -447,7 +447,7 @@ Currently Loaded Modules:
 
 So we will need to grab the location of these libraries to add them. To find that you can do:
 ```bash
-[root@holy7c22501 ~]# module display mpfr/4.1.0-fasrc01
+[jharvard@holy7c22501 ~]# module display mpfr/4.1.0-fasrc01
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
    /n/helmod/modulefiles/centos7/Core/mpfr/4.1.0-fasrc01.lua:
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
