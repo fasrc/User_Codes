@@ -436,7 +436,7 @@ See build log for details:
   /tmp/jharvard
 	/spack-stage/spack-stage-nvhpc-22.7-iepk6vgndc7hmzs3evxqz6qw2vf6qt7s/spack-build-out.txt
 ```
-In this error the compiler cannot find a library it is dependent on <code>mpfr</code>.  To fix this we will need to add the relevant library to the compiler definition in <code>~/.spack/linux/compiler.yaml</code>. In this case we are using <code>gcc/10.2.0-fasrc0</code> which when loaded also loads:
+In this error the compiler cannot find a library it is dependent on <code>mpfr</code>.  To fix this we will need to add the relevant library to the compiler definition in <code>~/.spack/linux/compilers.yaml</code>. In this case we are using <code>gcc/10.2.0-fasrc01</code> which when loaded also loads:
 
 ```bash
 [jharvard@holy7c22501 ~]# module list
@@ -469,7 +469,7 @@ prepend_path("LD_LIBRARY_PATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/l
 prepend_path("LIBRARY_PATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/lib64")
 prepend_path("PKG_CONFIG_PATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/lib64/pkgconfig")
 ```
-And then pull out the <code>LIBRARY_PATH</code>. Once we have the paths for all three of these dependencies we can add them to the <code>~/.spack/linux/compiler.yaml</code> as follows
+And then pull out the <code>LIBRARY_PATH</code>. Once we have the paths for all three of these dependencies we can add them to the <code>~/.spack/linux/compilers.yaml</code> as follows
 
 ```bash
 - compiler:
