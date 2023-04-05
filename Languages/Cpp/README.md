@@ -1,6 +1,6 @@
 ###  Purpose:
 
-Collection of example codes illustrating using C++ on the Odyssey cluster.
+Collection of example codes illustrating using C++ on the FASRC cluster.
 
 ### Contents:
 

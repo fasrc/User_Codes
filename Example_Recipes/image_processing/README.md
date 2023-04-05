@@ -34,7 +34,7 @@ Example output image:
 
 #### REFERENCES:
 
-* [Job arrays on the Odyssey cluster](https://rc.fas.harvard.edu/resources/running-jobs/#Job_arrays)
+* [Job arrays on the FASRC cluster](https://rc.fas.harvard.edu/resources/running-jobs/#Job_arrays)
 
 * [Image processing with MATLAB](http://www.mathworks.com/products/image)
 

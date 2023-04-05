@@ -1,7 +1,7 @@
 #### PURPOSE:
 
 Example workflow illustrating use of job arrays and a "master" Python
-script to perform a parameter sweep on the Odyssey cluster at
+script to perform a parameter sweep on the FASRC cluster at
 Harvard University.
 
 #### CONTENTS:

@@ -1,6 +1,6 @@
 #### Purpose:
 
-Example code to illustrate Perl use on the Odyssey cluster. The specific example generates a random vector of dimension N and sums up its elements.
+Example code to illustrate Perl use on the FASRC cluster. The specific example generates a random vector of dimension N and sums up its elements.
 
 #### Contents:
 

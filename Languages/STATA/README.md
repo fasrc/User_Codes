@@ -1,6 +1,6 @@
 #### Purpose:
 
-This example illustrates using STATA on the Odyssey cluster at Harvard University.
+This example illustrates using STATA on the FASRC cluster at Harvard University.
 
 #### Contents:
 
@@ -69,20 +69,6 @@ ___/   /   /___/   /   /___/   13.1   Copyright 1985-2013 StataCorp LP
 Notes:
       1.  Command line editing disabled
       2.  Stata running in batch mode
-
-
-****** Odyssey Notes ******
-
-Please see this page for great tips on running stata more efficiently:
-
-    http://nber.org/stata/efficient/
-
-and great tips from our Odyssey community here:
-
-    https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/
-> odybot/SSkMrlEbYi4
-
-***************************
 
 . do test.do 
 

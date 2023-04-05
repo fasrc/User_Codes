@@ -1,6 +1,6 @@
 #### Purpose:
 
-This example illustrates using STATA on the Odyssey cluster at Harvard University.
+This example illustrates using STATA on the FASRC cluster at Harvard University.
 
 #### Contents:
 
@@ -73,20 +73,6 @@ Notes:
       1.  (-v# option or -set maxvar-) 5000 maximum variables
       2.  Command line editing disabled
       3.  Stata running in batch mode
-
-
-****** Odyssey Notes ******
-
-Please see this page for great tips on running stata more efficiently:
-
-    http://nber.org/stata/efficient/
-
-and great tips from our Odyssey community here:
-
-    https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!topic/
-> odybot/SSkMrlEbYi4
-
-***************************
 
 . do test.do 
 

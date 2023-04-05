@@ -1,6 +1,6 @@
 #### Purpose:
 
-Example code to illustrate R use on the Odyssey cluster. The specific example prins out integers from 10 down to 1.
+Example code to illustrate R use on the FASRC cluster. The specific example prins out integers from 10 down to 1.
 
 #### Contents:
 

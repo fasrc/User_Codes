@@ -1,6 +1,6 @@
 ### Purpose:
 
-Example codes illustrating using Fortran on the Odyssey cluster.
+Example codes illustrating using Fortran on the FASRC cluster.
 
 ### Contents:
 
