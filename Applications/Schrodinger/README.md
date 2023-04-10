@@ -2,7 +2,7 @@
 
 Schrodinger is a scientific leader in computational chemistry, providing software solutions and services for life sciences and materials research.
 
-This example illustrates using Schrodinger in a batch mode on the Odyssey cluster at Harvard University. The specific example computes properties of
+This example illustrates using Schrodinger in a batch mode on the FASRC cluster at Harvard University. The specific example computes properties of
 water molecule using Jaguar.
 
 #### CONTENTS:

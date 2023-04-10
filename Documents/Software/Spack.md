@@ -406,6 +406,91 @@ bzip2@1.0.8          cmake@3.24.3                        gdbm@1.23      libiconv
 
 > **Note:** Please note the command <code>module purge</code>. This is required as otherwise the build fails.
 
+## Troubleshooting
+
+### Cannot open shared object file: No such file or directory
+```bash
+2 errors found in build log:
+     10    Configured with: ./configure --prefix=/n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01 --program-prefix= --exec-prefix=/n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01 --bindir=/n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/bin 
+           --sbindir=/n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/sbin --sysconfdir=/n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/etc --datadir=/n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/share --includedir=/n/helmod/apps/centos7
+           /Core/gcc/10.2.0-fasrc01/include --libdir=/n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/lib64 --libexecdir=/n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/libexec --localstatedir=/n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc0
+           1/var --sharedstatedir=/n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/var/lib --mandir=/n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/share/man --infodir=/n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/share/info
+     11    Thread model: posix
+     12    Supported LTO compression algorithms: zlib
+     13    gcc version 10.2.0 (GCC)
+     14    COLLECT_GCC_OPTIONS='-o' '/tmp/tmp.LkhfoOt8fH/a.out' '-v' '-mtune=generic' '-march=x86-64'
+     15     /n/sw/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/bin/../libexec/gcc/x86_64-pc-linux-gnu/10.2.0/cc1 -quiet -v -iprefix /n/sw/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/bin/../lib64/gcc/x86_64-pc-linux-gnu/10.2.0/ /tmp/tmp.
+           LkhfoOt8fH/hello-49015.c -quiet -dumpbase hello-49015.c -mtune=generic -march=x86-64 -auxbase hello-49015 -version -o /tmp/ccVvRxDx.s
+  >> 16    /n/sw/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/bin/../libexec/gcc/x86_64-pc-linux-gnu/10.2.0/cc1: error while loading shared libraries: libmpfr.so.6: cannot open shared object file: No such file or directory
+     17    
+     18    ERROR: Linker : not found
+  >> 19     ** makelocalrc step has FAILED.  Linker not found **
+     20     ** See gcc output above **
+     21    Command used:
+     22    /n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/bin/gcc -o /tmp/tmp.LkhfoOt8fH/a.out -v /tmp/tmp.LkhfoOt8fH/hello-49015.c
+     23    cat /tmp/tmp.LkhfoOt8fH/hello-49015.c:
+     24    #include <stdio.h>
+     25    int main()
+
+See build log for details:
+  /tmp/jharvard
+	/spack-stage/spack-stage-nvhpc-22.7-iepk6vgndc7hmzs3evxqz6qw2vf6qt7s/spack-build-out.txt
+```
+In this error the compiler cannot find a library it is dependent on <code>mpfr</code>.  To fix this we will need to add the relevant library to the compiler definition in <code>~/.spack/linux/compilers.yaml</code>. In this case we are using <code>gcc/10.2.0-fasrc01</code> which when loaded also loads:
+
+```bash
+[jharvard@holy7c22501 ~]# module list
+
+Currently Loaded Modules:
+  1) gmp/6.2.1-fasrc01   2) mpfr/4.1.0-fasrc01   3) mpc/1.2.1-fasrc01   4) gcc/10.2.0-fasrc01
+```
+
+So we will need to grab the location of these libraries to add them. To find that you can do:
+```bash
+[jharvard@holy7c22501 ~]# module display mpfr/4.1.0-fasrc01
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   /n/helmod/modulefiles/centos7/Core/mpfr/4.1.0-fasrc01.lua:
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+help([[mpfr-4.1.0-fasrc01
+The MPFR library is a C library for multiple-precision floating-point computations with correct rounding.
+
+]], [[
+]])
+whatis("Name: mpfr")
+whatis("Version: 4.1.0-fasrc01")
+whatis("Description: The MPFR library is a C library for multiple-precision floating-point computations with correct rounding.")
+setenv("MPFR_HOME","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01")
+setenv("MPFR_INCLUDE","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/include")
+setenv("MPFR_LIB","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/lib64")
+prepend_path("CPATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/include")
+prepend_path("FPATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/include")
+prepend_path("INFOPATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/share/info")
+prepend_path("LD_LIBRARY_PATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/lib64")
+prepend_path("LIBRARY_PATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/lib64")
+prepend_path("PKG_CONFIG_PATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/lib64/pkgconfig")
+```
+And then pull out the <code>LIBRARY_PATH</code>. Once we have the paths for all three of these dependencies we can add them to the <code>~/.spack/linux/compilers.yaml</code> as follows
+
+```bash
+- compiler:
+    spec: gcc@10.2.0
+    paths:
+      cc: /n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/bin/gcc
+      cxx: /n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/bin/g++
+      f77: /n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/bin/gfortran
+      fc: /n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/bin/gfortran
+    flags: {}
+    operating_system: centos7
+    target: x86_64
+    modules: []
+    environment:
+      prepend_path:
+        LIBRARY_PATH: /n/helmod/apps/centos7/Core/mpc/1.2.1-fasrc01/lib64:/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/lib64:/n/helmod/apps/centos7/Core/gmp/6.2.1-fasrc01/lib64
+        LD_LIBRARY_PATH: /n/helmod/apps/centos7/Core/mpc/1.2.1-fasrc01/lib64:/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/lib64:/n/helmod/apps/centos7/Core/gmp/6.2.1-fasrc01/lib64
+    extra_rpaths: []
+```
+Namely we needed to add the <code>prepend_path</code> to the <code>environment</code>.  With those additional paths defined the compiler will now work because it can find its dependencies.
+
 ## References
 
 * [Spack official documentation](https://spack.readthedocs.io/en/latest/index.html)

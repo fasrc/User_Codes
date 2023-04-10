@@ -1,6 +1,6 @@
 #### Purpose:
 
-Example code to illustrate IDL use on the Odyssey cluster. The specific example computes PI via Monte-Carlo method.
+Example code to illustrate IDL use on the FASRC cluster. The specific example computes PI via Monte-Carlo method.
 
 #### Contents:
 

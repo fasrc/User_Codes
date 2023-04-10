@@ -4,12 +4,12 @@
 
 <code>mamba</code> is a drop-in replacement and uses the same commands and configuration options as <code>conda</code>. You can swap almost all commands between conda & mamba.
 
-<code>Mamba</code> is available on the FASRC cluster as a software module:
+<code>Mamba</code> is available on the FASRC cluster as a software module either as <code>Mambaforge</code> or as <code>python/3*</code> which is aliased to Mamba:
 
 ```bash
-$ module load Mamba/4.14.0-0
+$ module load python/3.10.9-fasrc01
 $ python -V
-Python 3.10.6
+Python 3.10.9
 ```
 
 You can create conda environments with mamba in the same way as with conda:
@@ -153,5 +153,14 @@ $ conda deactivate
 For additional features, please refer to the [Mamba documentation](https://mamba.readthedocs.io/en/latest/index.html).
 
 ## Conda environments in Lab space
+By default conda/mamba install your packages in your home directory under <code>~/.conda</code>. While a safe place to keep this data it is also very low performance due to filesystem latency. It also makes it hard to share your conda environments with other people on the cluster.
 
+You can tell conda to install to a different location by [setting](https://conda.io/projects/conda/en/latest/user-guide/configuration/use-condarc.html#specify-env-directories) up your <code>~/.condarc</code>.  We recommend using your <code>holylabs</code> directory space as it should have low latency.  Before setting up your <code>.condarc</code> you will need to make the directory you want to put the environments into (ex. <code>/n/holylabs/LABS/jharvard_lab/Lab/envs</code>). Then in <code>~/.condarc</code> set:
+
+```bash
+envs_dirs:
+  - /n/holylabs/LABS/jharvard_lab/Lab/envs
+```
+
+For more on <code>.condarc</code> see the [official documentation](https://conda.io/projects/conda/en/latest/user-guide/configuration/use-condarc.html#).
 
