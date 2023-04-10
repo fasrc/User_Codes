@@ -1,0 +1,16 @@
+#!/bin/bash
+#SBATCH -p gpu_test
+#SBATCH -n 1
+#SBATCH -c 1
+#SBATCH --gres=gpu:1
+#SBATCH --mem=12000
+#SBATCH -J saxpy_example
+#SBATCH -o saxpy_example.out
+#SBATCH -e saxpy_example.err
+#SBATCH -t 30
+
+# Load required modules
+module load gcc/12.1.0-fasrc01 cuda/11.7.1-fasrc01
+
+# Run the executable
+./saxpy_cublas.x
