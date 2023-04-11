@@ -1,6 +1,6 @@
 # Using OpenACC on the FASRC Cluster
 
-<img src="openacc-logo.jpeg" alt="gpu-libs-logo" width="200"/>
+<img src="openacc-logo.jpeg" alt="openacc-logo" width="200"/>
 
 [OpenACC](https://www.openacc.org/) is an open standard for parallel computing that enables developers to accelerate their applications across a range of hardware platforms, including GPUs and multicore CPUs. OpenACC provides a high-level, directive-based programming model that allows programmers to specify which parts of their code should be parallelized and how they should be parallelized, without having to write low-level, platform-specific code. This makes it much easier for developers to take advantage of the parallel processing capabilities of modern hardware architectures, without having to become experts in low-level parallel programming.
 
@@ -8,7 +8,7 @@ One of the key benefits of OpenACC is that it allows programmers to write code t
 
 ## **Example:** SAXPY in Fortran and OpenACC
 
-Here we us OpenACC to perform a SAXPY operation in Fortran.
+Here we use OpenACC to perform a SAXPY operation in Fortran.
 
 ```fortran
 module mod_saxpy
