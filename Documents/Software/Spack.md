@@ -12,7 +12,7 @@ These instructions are intended to guide you on how to use Spack on the FAS RC C
 
 ## Install and Setup
 
-Spack works out of the box. Simply clone Spack to get going. In this example, we will clone Spack and check out the most recent release, v0.18. 
+Spack works out of the box. Simply clone Spack to get going. In this example, we will clone Spack and check out the one of the releases, v0.19. 
 > **Note:** <code>Spack</code> can be installed in your home or lab space. For best performance and efficiency, we recommend to install Spack in your lab directory, e.g., <code>/n/holylabs/LABS/<PI_LAB>/Users/<USER_NAME></code>/
 
 ```bash
@@ -26,7 +26,7 @@ Receiving objects: 100% (439346/439346), 226.46 MiB | 16.95 MiB/s, done.
 Resolving deltas: 100% (179280/179280), done.
 ```
 
-This will create the <code>spack</code> folder in the current directory. Next, we go to this directory and check out the most recent release.
+This will create the <code>spack</code> folder in the current directory. Next, we go to this directory and check out the v0.19 release.
 
 ```bash
 $ cd spack/
