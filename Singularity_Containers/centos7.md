@@ -180,7 +180,7 @@ the FASRC CentOS 7 compute node image, and you can add your own
 software/library/packages under the `%post` header in the Singularity definition
 file.
 
-**Step 1**: Follow steps 1 and 2 in [setup proot](READ.md#build-a-singularityCE-container-from-a-singularity-definition-file)
+**Step 1**: Follow steps 1 and 2 in [setup proot](README.md#build-a-singularityCE-container-from-a-singularity-definition-file)
 
 **Step 2**: Copy the CentOS 7 compute image to your holylabs (or home
 directory). The base image file needs to be copied to a directory that you have
