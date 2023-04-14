@@ -177,6 +177,18 @@ $ spack install zlib@1.2.8
 $ spack install zlib@1.2.8%gcc@8.5.0
 ```
 
+### Finding External Packages
+Spack will normally built its own package stack, even if there are libaries available as part of the operating system. If you want Spack to build against system libraries instead of building its own you will need to have it discover what libraries available natively on the system. You can do this using the <code>spack external find</code>.
+
+```bash
+$ spack external find
+==> The following specs have been detected on this system and added to /n/home/jharvard/.spack/packages.yaml
+autoconf@2.69    binutils@2.30.117  curl@7.61.1    findutils@4.6.0  git@2.31.1   groff@1.22.3   m4@1.4.18      openssl@1.1.1k  tar@1.30
+automake@1.16.1  coreutils@8.30     diffutils@3.6  gawk@4.2.1       gmake@4.2.1  libtool@2.4.6  openssh@8.0p1  pkgconf@1.4.2   texinfo@6.5
+```
+
+This even works with modules loaded from other package managers.  You simply have to have those loaded prior to running the find command. After these have been added to Spack, Spack will try to use them if it can in future builds rather than installing its own versions.
+
 ## Uninstalling Packages
 
 Spack provides an easy way to uninstall packages with the <code>spack uninstall PACKAGE_NAME</code>, e.g.,
