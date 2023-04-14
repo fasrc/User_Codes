@@ -72,11 +72,105 @@ setenv("ZIENA_LICENSE_NETWORK_ADDR","10.242.113.134:8349")
 
 ## Submit slurm jobs
 
-If you need to submit a job rather than getting to a shell, you can add 
+If you need to submit a job rather than getting to a shell, you have to do the
+following steps in the appropriate order:
 
+1. launch the singularity image
+2. load modules
+3. (optional) compile code
+4. execute code
+
+If you try to load modules before launching the image, it will try to load
+modules from the Rocky 8 host system.
+
+To ensure that steps 2-4 are run within the singularity container, they are
+place between `END` (see slurm batch script below).
 
 **NOTE**: You cannot submit slurm jobs from **inside** the container, but you
 can submit a slurm job that will execute the container.
+
+Example with a simple `hello_world.f90` fortran code:
+
+```bash
+program hello
+  print *, 'Hello, World!'
+end program hello
+```
+
+Slurm batch script `run_singularity_centos7.sh`:
+
+```bash
+#!/bin/bash
+#SBATCH -J sing_hello           # Job name
+#SBATCH -p rocky                # Partition(s) (separate with commas if using multiple)
+#SBATCH -c 1                    # Number of cores
+#SBATCH -t 0-00:10:00           # Time (D-HH:MM:SS)
+#SBATCH --mem=500M              # Memory
+#SBATCH -o sing_hello_%j.out    # Name of standard output file
+#SBATCH -e sing_hello_%j.err    # Name of standard error file
+
+# start a bash shell inside singularity image
+singularity run /n/singularity_images/FAS/centos7/compute-el7-noslurm-2023-03-29.sif <<END
+
+# load modules
+module load gcc/12.1.0-fasrc01
+module list
+
+# compile code
+gfortran hello_world.f90 -o hello.exe
+
+# execute code
+./hello.exe
+END
+```
+
+To ensure that the commands are run within the singularity container, they are
+place between `END`.
+
+To submit the slurm batch script:
+
+```bash
+sbatch run_singularity_centos7.sh
+```
+
+Another option have a bash script with steps 2-4 and then use `singularity run`
+to execute the script. For example, `script_inside_container.sh`:
+
+```bash
+#!/bin/bash
+
+# load modules
+module load gcc/12.1.0-fasrc01
+module list
+
+# compile code
+gfortran hello_world.f90 -o hello.exe
+
+# execute code
+./hello.exe
+```
+
+And the slurm batch script `run_singularity_centos7_script.sh` becomes:
+
+```bash
+#!/bin/bash
+#SBATCH -J sing_hello           # Job name
+#SBATCH -p rocky                # Partition(s) (separate with commas if using multiple)
+#SBATCH -c 1                    # Number of cores
+#SBATCH -t 0-00:10:00           # Time (D-HH:MM:SS)
+#SBATCH --mem=500M              # Memory
+#SBATCH -o sing_hello_%j.out    # Name of standard output file
+#SBATCH -e sing_hello_%j.err	# Name of standard error file
+
+# start a bash shell inside singularity image
+singularity run /n/singularity_images/FAS/centos7/compute-el7-noslurm-2023-03-29.sif script_inside_container.sh
+```
+
+You can submit a batch job with:
+
+```bash
+sbatch run_singularity_centos7_script.sh
+```
 
 ## Modify SingularityCE image with CentOS 7
 
