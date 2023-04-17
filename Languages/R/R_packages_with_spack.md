@@ -199,7 +199,8 @@ Linking to GEOS 3.9.1, GDAL 3.5.3, PROJ 8.2.1; sf_use_s2() is TRUE
 
 ## Installing specific versions of R
 
-To install a specific version of r, simply add `@` and the version to the `spack install r` command:
+To install a specific version of r, simply add `@` and the version to the `spack
+install r` command:
 
 ```bash
 # install R with spack
@@ -216,3 +217,40 @@ Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 ```
 
+## Submitting a slurm job
+
+When you submit a slurm job and you need to use an R package that was installed
+with Spack, you need to:
+
+1. Source Spack within the slurm submission script
+
+```bash
+. /n/holylabs/LABS/jharvard_lab/Users/jharvard/spack/share/spack/setup-env.sh
+```
+
+2. Load necessary R packages
+
+```bash
+spack load r-codetools
+spack load r-raster
+```
+
+3. Run the program with either `Rscript` or `R CMD BATCH`
+
+```bash
+Rscript --vanilla r_spack_load_libs.R > r_spack_load_libs.Rout
+```
+
+Putting items 1-3 together in `runscript_r_spack.sh`, the slurm batch script becomes:
+
+https://github.com/fasrc/User_Codes/blob/c9b0e1d6bb45750252ad2fb42639618142d8d3c3/Languages/R/runscript_r_spack.sh#L1-L30
+
+To load R packages installed with Spack in an R script, it works as usual:
+
+https://github.com/fasrc/User_Codes/blob/d4e6c06b8160b2df44601397700f1caec05260b6/Languages/R/r_spack_load_libs.R#L1-L15
+
+Finally, submit the job that executes the R script `r_spack_load_libs.R`, submit a slurm job with:
+
+```bash
+sbatch runscript_r_spack.sh
+```

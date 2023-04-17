@@ -132,7 +132,7 @@ Provided you have root access to a Linux system, you can use the below commands 
 
 ```bash
 # --- Building the OpenMPI based image ---
-$ sudo singularity build openmpi_test.simg openmpi_test.def
+$ sudo singularity build openmpi_test.simg openmpi_test_centos7.def
 # --- Building the based Mpich image ---
 $ sudo singularity build mpich_test.simg mpich_test.def
 ```

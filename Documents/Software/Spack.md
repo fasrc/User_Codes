@@ -12,8 +12,8 @@ These instructions are intended to guide you on how to use Spack on the FAS RC C
 
 ## Install and Setup
 
-Spack works out of the box. Simply clone Spack to get going. In this example, we will clone Spack and check out the most recent release, v0.18. 
-> **Note:** <code>Spack</code> can be installed in your home or lab space. For best performance and efficiency, we recommend to install Spack in your lab directory, e.g., <code>/n/holylabs/LABS/<PI_LAB>/Users/<USER_NAME></code>/
+Spack works out of the box. Simply clone Spack to get going. In this example, we will clone Spack and check out the one of the releases, v0.19. 
+> **Note:** <code>Spack</code> can be installed in your home or lab space. For best performance and efficiency, we recommend to install Spack in your lab directory, e.g., <code>/n/holylabs/LABS/<PI_LAB>/Lab/software</code>/
 
 ```bash
 $ git clone -c feature.manyFiles=true https://github.com/spack/spack.git
@@ -26,7 +26,7 @@ Receiving objects: 100% (439346/439346), 226.46 MiB | 16.95 MiB/s, done.
 Resolving deltas: 100% (179280/179280), done.
 ```
 
-This will create the <code>spack</code> folder in the current directory. Next, we go to this directory and check out the most recent release.
+This will create the <code>spack</code> folder in the current directory. Next, we go to this directory and check out the v0.19 release.
 
 ```bash
 $ cd spack/
@@ -96,7 +96,7 @@ You may need to run 'spack clean -m'.
 
 ## Installing Packages
 
-Installing packages with Spack is very straightforward. To install a package simply type <code>spack install PACKAGE_NAME</code>.
+Installing packages with Spack is very straightforward. To install a package simply type <code>spack install PACKAGE_NAME</code>. Large packages with multiple dependencies can take significant time to install, thus we recommend doing this in a screen/tmux session or a Open Ondemand Remote Desktop session.
 
 To install the latest version of a package, type:
 
@@ -176,6 +176,18 @@ The <code>@</code> sigil is used to specify versions, both of packages and of co
 $ spack install zlib@1.2.8
 $ spack install zlib@1.2.8%gcc@8.5.0
 ```
+
+### Finding External Packages
+Spack will normally built its own package stack, even if there are libaries available as part of the operating system. If you want Spack to build against system libraries instead of building its own you will need to have it [discover](https://www.amd.com/en/developer/spack/build-customization.html) what libraries available natively on the system. You can do this using the <code>spack external find</code>.
+
+```bash
+$ spack external find
+==> The following specs have been detected on this system and added to /n/home/jharvard/.spack/packages.yaml
+autoconf@2.69    binutils@2.30.117  curl@7.61.1    findutils@4.6.0  git@2.31.1   groff@1.22.3   m4@1.4.18      openssl@1.1.1k  tar@1.30
+automake@1.16.1  coreutils@8.30     diffutils@3.6  gawk@4.2.1       gmake@4.2.1  libtool@2.4.6  openssh@8.0p1  pkgconf@1.4.2   texinfo@6.5
+```
+
+This even works with modules loaded from other package managers.  You simply have to have those loaded prior to running the [find](https://spack.readthedocs.io/en/latest/build_settings.html#automatically-find-external-packages) command. After these have been added to Spack, Spack will try to use them if it can in future builds rather than installing its own versions.
 
 ## Uninstalling Packages
 

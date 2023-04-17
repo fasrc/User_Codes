@@ -434,66 +434,6 @@ INFO:    Creating SIF file...
 INFO:    Build complete: lolcow.sif
 ```
 
-### Build a custom SingularityCE image with `proot` based on the FASRC CentOS 7 compute node
-
-If you need to run your codes in the former operating system (pre June 2023)
-CentOS 7, you can use the SingularityCE image of a CentOS7 compute node. In
-addition, you can add your own software/library/packages under the `%post`
-header
-
-**Step 1**: Copy the CentOS 7 compute image to your holylabs (or home
-directory). The base image file needs to be copied to a directory that you have
-read/write access, otherwise it will fail to build your custom image
-
-```bash
-[jharvard@holy2c02302 ~]$ cd /n/holylabs/LABS/jharvard_lab/Users/jharvard
-[jharvard@holy2c02302 jharvard]$ cp /n/holystore01/SINGULARITY/FAS/centos7/compute-el7-noslurm-2023-02-15.sif .
-```
-
-**Step 2**: In definition file `centos7_custom.def`, set `Bootstrap: localimage`
-and put the path of the existing image that you copied for the `From:` field.
-Then, add your packages/software/libraries that you need.  Here, we add
-`cowsay`:
-
-```bash
-Bootstrap: localimage
-From: compute-el7-noslurm-2023-02-15.sif
-
-%help
-    This is CentOS 7 Singularity container based on the Cannon compute node with my added programs.
-
-%post
-    yum -y update
-    yum -y install cowsay
-```
-
-**Step 3**: Build the SingularityCE image
-
-```bash
-[jharvard@holy2c02302 jharvard]$ singularity build centos7_custom.sif centos7_custom.def
-INFO:    Using proot to build unprivileged. Not all builds are supported. If build fails, use --remote or --fakeroot.
-INFO:    Starting build...
-INFO:    Verifying bootstrap image compute-el7-noslurm-2023-02-15.sif
-WARNING: integrity: signature not found for object group 1
-WARNING: Bootstrap image could not be verified, but build will continue.
-INFO:    Running post scriptlet
-+ yum -y update
-
-... omitted output ...
-
-Running transaction
-  Installing : cowsay-3.04-4.el7.noarch                   1/1
-  Verifying  : cowsay-3.04-4.el7.noarch                   1/1
-
-Installed:
-  cowsay.noarch 0:3.04-4.el7
-
-Complete!
-INFO:    Adding help info
-INFO:    Creating SIF file...
-INFO:    Build complete: centos7_custom.sif
-```
-
 ## Build a SingularityCE container remotely from Singularity definition file using option `--remote`
 
 If the unpriveleged `proot` build does not work for you, you can use Sylabs
