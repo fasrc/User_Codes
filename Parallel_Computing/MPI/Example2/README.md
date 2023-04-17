@@ -1,6 +1,6 @@
 ## Purpose:
 
-Parallel implementation of the trapezoidal rule for integration. Uses "cyclic" distribution of loop iterations. Currently set up to compute integral \int_0^4 x**2 with 80 integration points.
+Parallel implementation of the trapezoidal rule for integration. Uses "cyclic" distribution of loop iterations. Currently set up to compute integral $\int_0^4 x^2 dx$ with 80 integration points.
 
 ### Contents:
 
@@ -58,6 +58,26 @@ double precision function func(x)
   return
 end function func
 ```
+### Example <code>Makefile</code>:
+
+```bash
+#==========================================================
+# Make file for pi_monte_carlo.f90
+#==========================================================
+F90CFLAGS   = -c -O2
+F90COMPILER = mpif90
+PRO         = ptrap
+OBJECTS     = $(PRO).o
+
+${PRO}.x : $(OBJECTS)
+	$(F90COMPILER) -o ${PRO}.x $(OBJECTS)
+
+%.o : %.f90
+	$(F90COMPILER) $(F90CFLAGS) $(<F)
+
+clean : 
+	rm *.o *.x *.mod
+```
 
 ### Example Batch-Job Submission Script:
 
@@ -66,14 +86,13 @@ end function func
 #SBATCH -J ptrap
 #SBATCH -o ptrap.out
 #SBATCH -e ptrap.err
-#SBATCH -p test
+#SBATCH -p rocky
 #SBATCH -t 30
 #SBATCH -n 8
 #SBATCH --mem-per-cpu=4000
 
 # Load required modules
-module load intel/21.2.0-fasrc01
-module load openmpi/4.1.1-fasrc01
+module load intel/23.0.0-fasrc01 openmpi/4.1.4-fasrc01
 
 # Run program
 srun -n 8 --mpi=pmix ./ptrap.x
@@ -82,8 +101,7 @@ srun -n 8 --mpi=pmix ./ptrap.x
 ### Example Usage:
 
 ```bash
-module load intel/21.2.0-fasrc01
-module load openmpi/4.1.1-fasrc01
+module load intel/23.0.0-fasrc01 openmpi/4.1.4-fasrc01
 make
 sbatch run.sbatch
 ```

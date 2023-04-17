@@ -11,6 +11,28 @@ Uses MPI-IO to write and read Lanczos vectors to disk at each iteration.
 * <code>run.sbatch</code>: Btach-job submission script to send the job to the queue.
 
 
+### Example Makefile:
+
+```bash
+#==========================================================
+# Make file
+#==========================================================
+F90CFLAGS   = -c -O2
+F90COMPILER = mpif90
+PRO         = planczos
+OBJECTS     = planczos2.o \
+              external_libs.o
+
+${PRO}.x : $(OBJECTS)
+	$(F90COMPILER) -o ${PRO}.x $(OBJECTS)
+
+%.o : %.f90
+	$(F90COMPILER) $(F90CFLAGS) $(<F)
+
+clean : 
+	rm -f *.o *.x *.mod *.lvec *.out *.err
+```
+
 ### Example Batch-Job Submission Script:
 
 ```bash
@@ -18,19 +40,26 @@ Uses MPI-IO to write and read Lanczos vectors to disk at each iteration.
 #SBATCH -J planczos
 #SBATCH -o planczos.out
 #SBATCH -e planczos.err
-#SBATCH -p test
+#SBATCH -p rocky
 #SBATCH -t 30
 #SBATCH -n 8
 #SBATCH --mem-per-cpu=4000
 
 # Load required modules
-module load intel/21.2.0-fasrc01
-module load openmpi/4.1.1-fasrc01
+module load intel/23.0.0-fasrc01 openmpi/4.1.4-fasrc01
 
 # Run program
 srun -n 8 --mpi=pmix ./planczos.x
 ```
-    
+
+### Example usage:
+
+```bash
+module load intel/23.0.0-fasrc01 openmpi/4.1.4-fasrc01
+make
+sbatch
+```
+
 ### Example Output:
 
 ```bash
