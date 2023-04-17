@@ -236,9 +236,9 @@ $ cat mpitest.out
 
 Below are some further MPI examples.
 
-* **[Example 1](/Example1/):** Monte-Carlo calculation of $\pi$
-* **[Example 2](/Example2/):** Integration of $x^2$ in interval [0, 4] with 80 integration points and the trapezoidal rule
-* **[Example 3](/Example3/):** Parallel Lanczos diagonalization with reorthogonalization and MPI I/O
+* **[Example 1](./Example1/):** Monte-Carlo calculation of $\pi$
+* **[Example 2](./Example2/):** Integration of $x^2$ in interval [0, 4] with 80 integration points and the trapezoidal rule
+* **[Example 3](./Example3/):** Parallel Lanczos diagonalization with reorthogonalization and MPI I/O
 
 ## References
 
