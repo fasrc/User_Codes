@@ -419,6 +419,7 @@ bzip2@1.0.8          cmake@3.24.3                        gdbm@1.23      libiconv
 > **Note:** Please note the command <code>module purge</code>. This is required as otherwise the build fails.
 
 ## Troubleshooting
+When spack builds it uses a <code>stage</code> directory located in <code>/tmp</code>. Spack also cleans up this space once it is done building, regardless of if the build succeeds or fails. This can make troubleshooting failed builds difficult as the logs from those builds are stored in <code>stage</code>. To preserve these files for debugging you will first want to set the <code>$TMP</code> environmental variable to a location that you want to dump files in <code>stage</code> to. Then you will want to add the <code>--keep-stage</code> flag to spack (ex. <code>spack install --keep-stage <package></code>), which tells spack to keep the staging files rather than remove them.
 
 ### Cannot open shared object file: No such file or directory
 ```bash
