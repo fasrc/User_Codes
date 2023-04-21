@@ -503,6 +503,9 @@ And then pull out the <code>LIBRARY_PATH</code>. Once we have the paths for all 
 ```
 Namely we needed to add the <code>prepend_path</code> to the <code>environment</code>.  With those additional paths defined the compiler will now work because it can find its dependencies.
 
+### C compiler cannont create executables
+This is the same type of error as the <code>Cannot open shared object file: No such file or directory</code>. Namely the compiler cannot find the libraries it is dependent on. See the troubleshooting section for the [shared objects error](#cannot-open-shared-object-file-no-such-file-or-directory) for how to resolve.
+
 ## References
 
 * [Spack official documentation](https://spack.readthedocs.io/en/latest/index.html)
