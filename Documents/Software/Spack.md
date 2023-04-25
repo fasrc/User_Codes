@@ -559,8 +559,56 @@ And then pull out the <code>LIBRARY_PATH</code>. Once we have the paths for all 
 ```
 Namely we needed to add the <code>prepend_path</code> to the <code>environment</code>.  With those additional paths defined the compiler will now work because it can find its dependencies.
 
-### C compiler cannont create executables
+### C compiler cannot create executables
 This is the same type of error as the <code>Cannot open shared object file: No such file or directory</code>. Namely the compiler cannot find the libraries it is dependent on. See the troubleshooting section for the [shared objects error](#cannot-open-shared-object-file-no-such-file-or-directory) for how to resolve.
+
+### Only supported on macOS
+
+If you are trying to install a package and get an error about only macOS
+
+```bash
+$ spack install r@3.4.2
+==> Error: Only supported on macOS
+```
+
+You need to update your compilers. For example, here you can see only Ubuntu compilers are available, which do not work on Rocky 8
+
+```bash
+$ spack compiler list
+==> Available compilers
+-- clang ubuntu18.04-x86_64 -------------------------------------
+clang@7.0.0
+
+-- gcc ubuntu18.04-x86_64 ---------------------------------------
+gcc@7.5.0  gcc@6.5.0
+```
+
+Then, run `compiler find` to update compilers
+
+```bash
+$ spack compiler find
+==> Added 1 new compiler to /n/home01/jharvard/.spack/linux/compilers.yaml
+    gcc@8.5.0
+==> Compilers are defined in the following files:
+    /n/home01/jharvard/.spack/linux/compilers.yaml
+```
+
+Now, you can see a Rocky 8 compiler is also available
+
+```bash
+$ spack compiler list
+==> Available compilers
+-- clang ubuntu18.04-x86_64 -------------------------------------
+clang@7.0.0
+
+-- gcc rocky8-x86_64 --------------------------------------------
+gcc@8.5.0
+
+-- gcc ubuntu18.04-x86_64 ---------------------------------------
+gcc@7.5.0  gcc@6.5.0
+```
+
+And you can proceed with the spack package installs.
 
 ## References
 
