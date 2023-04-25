@@ -5,7 +5,7 @@ you can use it with SingularityCE. For more information on SingularityCE, see
 our [Singularity documentation](README.md).
 
 We have a Singularity image with CentOS7 and the same environment of compute
-nodes (as of March 15th, 2023). In addition, you can access CentOS 7 modules
+nodes (as of March 29th, 2023). In addition, you can access CentOS 7 modules
 from within the Singularity container. The image is stored at:
 
 ```bash
