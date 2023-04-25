@@ -4,7 +4,7 @@ Here you can find:
 
 - An [introduction](#Introduction) to SingularityCE containers
 - How to build SingularityCE containers
-  - [from exising container in SingularityCE Container Library](#download-existing-container-from-a-libraryrepo)
+  - [from exising container in SingularityCE Container Library](#download-existing-container-from-a-library-or-repo)
   - [from exising container in Docker Hub](#download-an-existing-container-from-docker-hub)
   - [from a SingularityCE definition file on the FASRC clusters](#build-a-singularityce-container-from-a-singularity-definition-file)
   - [from a SingularityCE definition file on Sylabs cloud](#build-a-singularityce-container-remotely-from-singularity-definition-file-using-option---remote)
