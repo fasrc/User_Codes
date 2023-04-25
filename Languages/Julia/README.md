@@ -22,7 +22,7 @@ You can also use Julia in [Jupyter notebooks in our VDI interactive environment]
 ![Gadfly Demo](Images/gadfly-demo.png)
 
 ### Installation
-Julia most easily [installed](https://docs.julialang.org/en/v1/manual/getting-started/) by downloading the precompiled [binares](https://github.com/fasrc/User_Codes/blob/master/Documents/Software/Binaries.md) from: [https://julialang.org/downloads/](https://julialang.org/downloads/) We recommend the Generic Linux on x86 64 bit glibc version. This avoids any need to build any dependencies. We recommend downloading it to your holylabs directory for use.
+Julia most easily [installed](https://docs.julialang.org/en/v1/manual/getting-started/) by downloading the precompiled [binaries](https://github.com/fasrc/User_Codes/blob/master/Documents/Software/Binaries.md) from: [https://julialang.org/downloads/](https://julialang.org/downloads/) We recommend the Generic Linux on x86 64 bit glibc version. This avoids any need to build any dependencies. We recommend downloading it to your holylabs directory for use.
 
 Once you have downloaded Julia you can add Julia to your path by setting the following in your <code>~/.bashrc</code>
 
@@ -32,6 +32,33 @@ export PATH=$PATH:/n/holylabs/LABS/jharvard_lab/Lab/software/julia-1.8.5/bin
 
 Subbing in whereever you extracted Julia to. Once that is set the next time you login Julia will be in your path and ready to use.
 
+#### Example
+
+This is an example for Julia 1.8.5. Check [Julia downloads](https://julialang.org/downloads/) for other versions.
+
+```bash
+# use lab storage
+[jharvard@holy7c12104 ~]$ cd /n/holylabs/LABS/jharvard_lab/Users/jharvard/software/
+
+# download julia and extract
+[jharvard@holy7c12104 software]$ wget  https://julialang-s3.julialang.org/bin/linux/x64/1.8/julia-1.8.5-linux-x86_64.tar.gz
+[jharvard@holy7c12104 software]$ tar xvfz julia-1.8.5-linux-x86_64.tar.gz
+
+# add julia to path
+[jharvard@holy7c12104 julia-1.8.5]$ export PATH=$PATH:/n/holylabs/LABS/jharvard_lab/Users/jharvard/software/julia-1.8.5/bin
+
+[jharvard@holy7c12104 julia-1.8.5]$ julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.8.5 (2023-01-08)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia>
+```
 
 
 #### References:
