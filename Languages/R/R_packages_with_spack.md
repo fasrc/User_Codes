@@ -22,7 +22,7 @@ packages. Instead, we will be using Spack to install these R packages.
 ## Requirements
 
 First, to install spack, follow our [Spack Install and
-Setup](User_Codes/Documents/Software/Spack.md) instructions.
+Setup](../../Documents/Software/Spack.md) instructions.
 
 Once Spack is installed, then you can install the R packages with Spack from
 the command line.
