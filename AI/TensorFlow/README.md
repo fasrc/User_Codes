@@ -42,7 +42,7 @@ $ conda create -n tf2.10_cuda11 python=3.10 pip numpy six wheel scipy pandas mat
 
 ```bash
 source activate tf2.10_cuda11
-(tf2.10_cuda11) $
+(tf2.10_cuda11) $ pip install tensorflow==2.10
 ```
 
 * Install TF with <code>pip</code>, e.g.,
