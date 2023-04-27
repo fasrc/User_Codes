@@ -48,9 +48,9 @@ source activate tf2.10_cuda11
 * Install TF with <code>pip</code>, e.g.,
 
 ```bash
-(tf2.10_cuda11) $ pip install --upgrade tensorflow-gpu
+(tf2.10_cuda11) $ pip install --upgrade tensorflow-gpu==2.10
 ```
-**Note:** This will install the latest TF version. If you need a specific version, use, e.g., <code>pip install --upgrade tensorflow-gpu==2.5</code>
+**Note:** This will install the TF version 2.10. TensorFlow version 2.12 does not work on the cluster as it needs a newer CUDA driver and cudnn 8.6 so you will need to use TF 2.10. Create a rchelp ticket if you need newer version.  
 
 **Pull a TF singularity container**
 
