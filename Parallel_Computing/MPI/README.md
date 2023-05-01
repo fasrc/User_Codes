@@ -6,7 +6,7 @@ This web-page is intended to help you compile and run MPI applications on the cl
 
 The Message Passing Interface (MPI) library allows processes in your parallel application to communicate with one another by sending and receiving messages. There is no default MPI library in your environment when you log in to the cluster. You need to choose the desired MPI implementation for your applications. This is done by loading an appropriate MPI module. Currently the available MPI implementations on our cluster are [OpenMPI](https://www.open-mpi.org/) and [Mpich](https://www.mpich.org/). For both implementations the MPI libraries are compiled and built with either the [Intel compiler suite](https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html) or the [GNU compiler suite](https://www.gnu.org/software/gcc/). These are organized in [software modules](https://docs.rc.fas.harvard.edu/kb/modules-intro/).
 
-For instance, if you want to use OpenMPI compiled with the GNU compiler you need to load appropriate compiler and MPI modules. The following combinations are possible:
+For instance, if you want to use OpenMPI compiled with the GNU compiler you need to load appropriate compiler and MPI modules. Below are some possible combinations, check <code>module spider <module name></code> to get a full listing of possibilities.
 
 ```bash
 # GCC + OpenMPI, e.g.,
