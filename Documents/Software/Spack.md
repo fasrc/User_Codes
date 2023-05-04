@@ -245,7 +245,7 @@ gcc@8.5.0
 
 The listed compilers are system level compilers provided by the OS itself. On the cluster, we support a set of core compilers, such as GNU (GCC) compiler suit, Intel, and PGI provided on the cluster through [software modules](https://docs.rc.fas.harvard.edu/kb/modules-intro).
 
-You can easily add additional compilers to spack by loading the appropriate software modules, running the <code>spack compiler find</code> command, and edit the <code>compilers.yaml</code> configuration file. For instance, if you need GCC version 9.3.0 you need to do the following:
+You can easily add additional compilers to spack by loading the appropriate software modules, running the <code>spack compiler find</code> command, and edit the <code>compilers.yaml</code> configuration file. For instance, if you need GCC version 12.2.3 you need to do the following:
 
 * ### Load the required software module
 
@@ -308,7 +308,7 @@ and save the compiler config. file. If more than one modules are required by the
 We can display the configuration of a specific compiler by the <code>spack compiler info</code> command, e.g.,
 
 ```bash
-]$ spack compiler info gcc@12.2.0
+$ spack compiler info gcc@12.2.0
 gcc@12.2.0:
 	paths:
 		cc = /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/gcc
