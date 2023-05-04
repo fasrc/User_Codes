@@ -319,7 +319,7 @@ gcc@12.2.0:
 	operating system  = rocky8
 ```
 
-Once the new compiler is configured, it can be used to build packages. The below example shows how to install the GNU Scientific Library (GSL) with <code>gcc@9.3.0</code>.
+Once the new compiler is configured, it can be used to build packages. The below example shows how to install the GNU Scientific Library (GSL) with <code>gcc@12.2.0</code>.
 
 ```bash
 # Check available GSL versions
