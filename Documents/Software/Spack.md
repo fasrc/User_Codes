@@ -560,7 +560,8 @@ And you can proceed with the spack package installs.
 
 ## Advanced Topics
 
-* [Spack Environments](Spack_env.md)
+* [Intel MPI Library Configuration](Spack_Intel-MPI.md)
+* Spack Environments
 
 ## References
 
