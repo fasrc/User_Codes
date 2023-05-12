@@ -2,7 +2,7 @@
 
 <img src="Images/spack-logo.svg" alt="spack-logo" width="100"/>
 
-Here we provide instructions to set up spack to build applications with [Intel-MPI](https://www.intel.com/content/www/us/en/developer/tools/oneapi/mpi-library.html) on the FASRC Cannon cluster. Intel MPI Library is now included in the [Intel oneAPI HPC Toolkit](https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html#hpc-kit). 
+Here we provide instructions on how to set up spack to build applications with [Intel-MPI](https://www.intel.com/content/www/us/en/developer/tools/oneapi/mpi-library.html) on the FASRC Cannon cluster. Intel MPI Library is now included in the [Intel oneAPI HPC Toolkit](https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html#hpc-kit). 
 
 ## Intel Compiler Configuration
 
