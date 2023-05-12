@@ -40,7 +40,7 @@ Next, add Spack to your path. Spack has some nice command-line integration tools
 ```bash
 $ . share/spack/setup-env.sh
 $ spack --version
-0.19.1 (5e0d2107348eed6cbe6deca43a30f5b06c5e40af)
+0.19.2 (45accfac1584ca9c303b61a1f7e9097a3693a73e)
 ```
 
 ## Available Spack Packages
@@ -53,6 +53,8 @@ $ spack list
 ==> 6752 packages
 <omitted output>
 ```
+> **NOTE:** You can also look for available `spack` packages at [https://packages.spack.io](https://packages.spack.io)
+
 The <code>spack list</code> command can also take a query string. Spack automatically adds wildcards to both ends of the string, or you can add your own wildcards. For example, we can view all available <code>Python</code> packages.
 
 ```bash
@@ -352,61 +354,7 @@ $ spack find --loaded
 gsl@2.7.1
 ==> 1 loaded package
 ```
-### Adding gcc compiler library dependencies
-At FASRC we build our gcc compilers against the latest versions of gmp, mpc, and mpfr. If you link against a gcc version we provide you will also want to point Spack at the dependent libraries. In this example we are using <code>gcc/10.2.0-fasrc01</code> which when loaded also loads:
-
-```bash
-[jharvard@holy7c22501 ~]# module list
-
-Currently Loaded Modules:
-  1) gmp/6.2.1-fasrc01   2) mpfr/4.1.0-fasrc01   3) mpc/1.2.1-fasrc01   4) gcc/10.2.0-fasrc01
-```
-
-So we will need to grab the location of these libraries to add them. To find that you can do:
-```bash
-[jharvard@holy7c22501 ~]# module display mpfr/4.1.0-fasrc01
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-   /n/helmod/modulefiles/centos7/Core/mpfr/4.1.0-fasrc01.lua:
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-help([[mpfr-4.1.0-fasrc01
-The MPFR library is a C library for multiple-precision floating-point computations with correct rounding.
-
-]], [[
-]])
-whatis("Name: mpfr")
-whatis("Version: 4.1.0-fasrc01")
-whatis("Description: The MPFR library is a C library for multiple-precision floating-point computations with correct rounding.")
-setenv("MPFR_HOME","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01")
-setenv("MPFR_INCLUDE","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/include")
-setenv("MPFR_LIB","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/lib64")
-prepend_path("CPATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/include")
-prepend_path("FPATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/include")
-prepend_path("INFOPATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/share/info")
-prepend_path("LD_LIBRARY_PATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/lib64")
-prepend_path("LIBRARY_PATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/lib64")
-prepend_path("PKG_CONFIG_PATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/lib64/pkgconfig")
-```
-And then pull out the <code>LIBRARY_PATH</code>. Once we have the paths for all three of these dependencies we can add them to the <code>~/.spack/linux/compilers.yaml</code> as follows
-
-```bash
-- compiler:
-    spec: gcc@10.2.0
-    paths:
-      cc: /n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/bin/gcc
-      cxx: /n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/bin/g++
-      f77: /n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/bin/gfortran
-      fc: /n/helmod/apps/centos7/Core/gcc/10.2.0-fasrc01/bin/gfortran
-    flags: {}
-    operating_system: centos7
-    target: x86_64
-    modules: []
-    environment:
-      prepend_path:
-        LIBRARY_PATH: /n/helmod/apps/centos7/Core/mpc/1.2.1-fasrc01/lib64:/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/lib64:/n/helmod/apps/centos7/Core/gmp/6.2.1-fasrc01/lib64
-        LD_LIBRARY_PATH: /n/helmod/apps/centos7/Core/mpc/1.2.1-fasrc01/lib64:/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/lib64:/n/helmod/apps/centos7/Core/gmp/6.2.1-fasrc01/lib64
-    extra_rpaths: []
-```
-Namely we needed to add the <code>prepend_path</code> to the <code>environment</code>.  With those additional paths defined the compiler will now work because it can find its dependencies.
+> **NOTE:** Please, note that you first need to do `module purge` to make sure that all modules are unloaded for this to work.
 
 ## MPI Configuration
 
@@ -609,6 +557,10 @@ gcc@7.5.0  gcc@6.5.0
 ```
 
 And you can proceed with the spack package installs.
+
+## Advanced Topics
+
+* [Spack Environments](Spack_env.md)
 
 ## References
 
