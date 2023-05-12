@@ -8,14 +8,14 @@ Here we provide instructions to set up spack to build applications with [Intel-M
 
 The first step involves setting spack to use the Intel compiler, which is provided as a software module. This follows similar procedure to that of [adding the GCC compiler](https://github.com/fasrc/User_Codes/blob/master/Documents/Software/Spack.md#compiler-configuration). 
 
-### * Load the required software module
+* ### Load the required software module
 
 ```bash
 $ module load intel/23.0.0-fasrc01
 $ which icc
 /n/sw/intel-oneapi-2023/compiler/2023.0.0/linux/bin/intel64/icc
 ```
-### * Add this Intel compiler version to the spack compilers
+* ### Add this Intel compiler version to the spack compilers
 
 ```bash
 $ spack compiler add
@@ -35,7 +35,7 @@ intel@2021.8.0
 -- oneapi rocky8-x86_64 -----------------------------------------
 oneapi@2023.0.0
 ```
-### * Edit manually the compiler configuration file
+* ### Edit manually the compiler configuration file
 
 Use your favorite text editor, e.g., `Vim`, `Emacs`, `VSCode`, etc., to edit the compiler configuration YAML file `~/.spack/linux/compilers.yaml`, e.g.,
 
@@ -105,7 +105,7 @@ packages:
 ```
 ## Example
 
-Once `spack` is configured to use Intel MPI, it can be used to build packages with it. The below example shows how to install HDF5 version 1.12.2 with `intel@2021.8.0` and `intel-oneapi-mpi@2021.8.0`.
+Once `spack` is configured to use Intel MPI, it can be used to build packages with it. The below example shows how to install HDF5 version 1.13.2 with `intel@2021.8.0` and `intel-oneapi-mpi@2021.8.0`.
 
 You can first test this using the `spack spec` command to show how the spec is concretized:
 
@@ -164,3 +164,8 @@ $ spack install hdf5@1.13.2%intel@2021.8.0+mpi+fortran+cxx+hl+threadsafe ^ intel
   Fetch: 1.49s.  Build: 1m 58.82s.  Total: 2m 0.32s.
 [+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-icelake/intel-2021.8.0/hdf5-1.13.2-2yyrm7ssqifdsgwjthxbmp3az3pitkxj
 ```
+
+## References
+
+* [Intel oneAPI Packages in spack](https://spack.readthedocs.io/en/latest/build_systems/inteloneapipackage.html)
+* [Intel Packages in spack (an earlier version of Intel software development tools)](https://spack.readthedocs.io/en/latest/build_systems/intelpackage.html)

@@ -561,7 +561,8 @@ And you can proceed with the spack package installs.
 ## Advanced Topics
 
 * [Intel MPI Library Configuration](Spack_Intel-MPI.md)
-* Spack Environments
+* Spack Environments 
+* Installing WRF with spack
 
 ## References
 
