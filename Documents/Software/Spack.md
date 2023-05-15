@@ -563,7 +563,7 @@ And you can proceed with the spack package installs.
 * [Intel MPI Library Configuration](Spack_Intel-MPI.md)
 * Spack Environments 
 * Spack Recipes: instructions for installing various software packages through spack
-  - WRF
+  - [WRF](Spack_wrf.md)
 
 ## References
 
