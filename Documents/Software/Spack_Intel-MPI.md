@@ -64,10 +64,10 @@ Each `-compiler:` section in this file is similar to the below:
 We have to edit the `modules: []` line to read
 
 ```yaml
-    modules: [gcc/10.2.0-fasrc01; intel/23.0.0-fasrc01]
+    modules: [intel/23.0.0-fasrc01]
 ```
 
-and save the `compilers.yaml` file. Please, notice that we also added a gcc module to the list, as the Intel compiler requires gcc for certain functionality. 
+and save the `compilers.yaml` file. 
 
 We can display the configuration of a specific compiler by the spack compiler info command, e.g.,
 
@@ -79,7 +79,7 @@ intel@2021.8.0:
                 cxx = /n/sw/intel-oneapi-2023/compiler/2023.0.0/linux/bin/intel64/icpc
                 f77 = /n/sw/intel-oneapi-2023/compiler/2023.0.0/linux/bin/intel64/ifort
                 fc = /n/sw/intel-oneapi-2023/compiler/2023.0.0/linux/bin/intel64/ifort
-        modules  = ['gcc/10.2.0-fasrc01', 'intel/23.0.0-fasrc01']
+        modules  = ['intel/23.0.0-fasrc01']
         operating system  = rocky8
 ```
 
