@@ -7,6 +7,8 @@
 
 TensorFlow was originally developed by researchers and engineers working on the Google Brain team within Google's Machine Intelligence research organization for the purposes of conducting machine learning and deep neural networks research. The system is general enough to be applicable in a wide variety of other domains, as well.
 
+> **NOTE:** The below instructions are for installing TF version 2.10.0. The latest version 2.12.0 does not work on the Centos 7 cluster as it requires a newer `CUDA` driver and `cuDNN` version 8.6. If you need to use TensorFlow version 2.12.0 right away, please follow the instructions at the end of this document.
+
 ## Installing TensorFlow:
 
 The below instructions are intended to help you set up TF on the FASRC cluster.
@@ -49,15 +51,14 @@ source activate tf2.10_cuda11
 
 ```bash
 (tf2.10_cuda11) $ pip install --upgrade tensorflow-gpu==2.10
-```
-**Note:** This will install the TF version 2.10. TensorFlow version 2.12 does not work on the cluster as it needs a newer CUDA driver and cudnn 8.6 so you will need to use TF 2.10. Create a rchelp ticket if you need newer version.  
+```  
 
 **Pull a TF singularity container**
 
 Alternatively, one can pull and use a TensorFlow [singularity](https://sylabs.io/guides/3.4/user-guide/index.html) container:
 
 ```bash
-singularity pull --name tf2.10_gpu.simg docker://tensorflow/tensorflow:latest-gpu
+singularity pull --name tf2.10_gpu.simg docker://tensorflow/tensorflow:2.10.0-gpu
 ```
 
 This will result in the image <code>tf2.10_gpu.simg</code>. The image then can be used with, e.g.,
@@ -116,7 +117,7 @@ pip install --upgrade tensorflow-gpu==2.5
 **Pull a TF singularity container**
 
 ```bash
-singularity pull --name tf2.10_cpu.simg docker://tensorflow/tensorflow:latest
+singularity pull --name tf2.10_cpu.simg docker://tensorflow/tensorflow:2.10.0
 ```
 
 This will result in the image <code>tf2.10_cpu.simg</code>. The image then can be used with, e.g.,
@@ -243,13 +244,38 @@ print(predictions[0])
 print(np.argmax(predictions[0]))
 ```
 
+## TensorFlow version 2.12.0
 
-### Examples:
+If you need to use TensorFlow version 2.12.0 you should pull a singularity container:
+
+```bash
+# Pull a singularity container with version 2.12.0
+singularity pull --name tf2.12_gpu.simg docker://tensorflow/tensorflow:2.12.0-gpu
+```
+This image comes with a number of basic Python packages. If you need additional packages, you could use the example singularity definition file `tf-2.12.def` to build the singularity image:
+
+```
+Bootstrap: docker
+From: tensorflow/tensorflow:2.12.0-gpu
+
+%post
+    pip install --upgrade pip
+    pip install matplotlib
+    pip install seaborn
+    pip install scipy
+    pip install scikit-learn
+    pip install jupyterlab
+    pip install notebook
+```
+
+You could install additional packages directly in the image with `pip` by adding them in the `%post` section of the definition file as illustrated above. Please, refer to our documentation on how to [build singularity images from definition files](https://docs.rc.fas.harvard.edu/kb/singularity-on-the-cluster/#articleTOC_15).
+
+## Examples:
 
 * [Example 1](Example1): Simple 2D CNN with the MNIST dataset
 * [Example 2](Example2): TensorBoard application
 
-### References:
+## References:
 
 * [TensorFlow Tutorials](https://www.tensorflow.org/tutorials)
 * [TensorFlow API](https://www.tensorflow.org/api_docs/python)

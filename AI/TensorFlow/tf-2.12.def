@@ -1,0 +1,12 @@
+Bootstrap: docker
+From: tensorflow/tensorflow:2.12.0-gpu
+
+%post
+    pip install --upgrade pip
+    pip install matplotlib
+    pip install seaborn
+    pip install scipy
+    pip install scikit-learn
+    pip install jupyterlab
+    pip install notebook
+
