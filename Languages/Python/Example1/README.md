@@ -1,6 +1,6 @@
 ### Purpose:
 
-Calculate PI via Monte-Carlao method.
+Calculate PI via Monte-Carlo method.
 
 ### Contents:
 
@@ -11,8 +11,7 @@ Calculate PI via Monte-Carlao method.
 ### Example Usage:
 
 ```bash
-source new modules.sh
-module load python/3.6.0-fasrc01
+module load python/3.10.9-fasrc01
 sbatch run.sbatch
 ```
 	
