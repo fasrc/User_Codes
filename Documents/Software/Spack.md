@@ -42,6 +42,16 @@ $ . share/spack/setup-env.sh
 $ spack --version
 0.19.2 (45accfac1584ca9c303b61a1f7e9097a3693a73e)
 ```
+### Group Permissions
+By default Spack will match your usual file permissions which typically are set up without group write permission. For lab wide installs of Spack though you will want to ensure that it has [group write enforced](https://spack.readthedocs.io/en/latest/build_settings.html#package-permissions). You can set this by going to the <code>etc/spack</code> directory in your Spack installation and adding a file called <code>packages.yaml</code> (or editing the exiting one) with the following contents:
+
+```yaml
+packages:
+  all:
+    permissions:
+      write: group
+      group: jharvard_lab
+```
 
 ## Available Spack Packages
 
