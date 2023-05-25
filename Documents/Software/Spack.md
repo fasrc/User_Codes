@@ -52,6 +52,14 @@ packages:
       write: group
       group: jharvard_lab
 ```
+### Default Architecture
+By default Spack will autodetect which architecture your underlying hardware is and build software to match that. However in cases where you are running on heterogeneous hardware it is best to use a more [generic flag](https://spack.readthedocs.io/en/latest/build_settings.html#package-preferences). You can set this by going to the <code>etc/spack</code> directory in your Spack installation and adding a file called <code>packages.yaml</code> (or editing the exiting one) with the following contents:
+
+```yaml
+packages:
+  all:
+    target: [x86_64]
+```
 
 ## Available Spack Packages
 
