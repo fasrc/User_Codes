@@ -42,7 +42,7 @@ spack add ncl@6.6.2%intel@2021.8.0
 Once all required packages are added to the environment, it can be installed with:
 
 ```bash
-spack build
+spack install
 ```
 For example,
 
