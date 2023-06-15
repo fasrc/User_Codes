@@ -134,7 +134,7 @@ An example batch-job submission script is included below:
 
 # Load software modules and source conda environment
 module load python/3.10.9-fasrc01
-source activate pt2.0.1_cuda11.8
+mamba activate pt2.0.1_cuda11.8
 
 # Run program
 srun -c 1 --gres=gpu:1 python check_gpu.py 
