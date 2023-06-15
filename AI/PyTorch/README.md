@@ -23,7 +23,7 @@ To set up PyTorch with GPU support in your user environment, please follow the b
 (1) Start an interactive job requesting GPUs, e.g.,
 
 ```bash
-salloc -p gpu_test -t 0-06:00 --mem=8000 --gres=gpu:1 
+salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 
 ```
 
 (2) Load required software modules, e.g.,
@@ -75,9 +75,9 @@ salloc -p gpu_test -t 0-06:00 --mem=8000 --gres=gpu:1
 Load required software modules and source your PyTorch conda environment.
 
 ```bash
-[username@holygpu2c0705 ~]$ module load python/3.10.9-fasrc01
-[username@holygpu2c0705 ~]$ mamba activate pt2.0.1_cuda11.8
-(pt2.0.1_cuda11.8) [username@holygpu2c0705 ~]$
+[username@holygpu7c26103 ~]$ module load python/3.10.9-fasrc01
+[username@holygpu7c26103 ~]$ mamba activate pt2.0.1_cuda11.8
+(pt2.0.1_cuda11.8) [username@holygpu7c26103 ~]$
 ```
 
 Test PyTorch interactively:
@@ -85,12 +85,12 @@ Test PyTorch interactively:
 ```bash
 Using device: cuda
 
-Tesla V100-PCIE-32GB
+NVIDIA A100-SXM4-40GB
 Memory Usage:
 Allocated: 0.0 GB
 Reserved:  0.0 GB
 
-tensor([[ 0.3324, -0.1004,  0.0644,  0.2308]], device='cuda:0')
+tensor([[-2.3792, -1.2330, -0.5143,  0.5844]], device='cuda:0')
 ```
 
 <code>check_gpu.py</code> checks if GPUs are available and if available sets up the device to use them.
@@ -126,7 +126,7 @@ An example batch-job submission script is included below:
 #SBATCH -c 1
 #SBATCH -N 1
 #SBATCH -t 0-00:30
-#SBATCH -p gpu_test
+#SBATCH -p gpu
 #SBATCH --gres=gpu:1
 #SBATCH --mem=4G
 #SBATCH -o pytorch_%j.out 
@@ -152,7 +152,7 @@ After you create the conda environment `pt2.0.1_cuda11.8` and activated it, you 
 in your environment with the command:
 
 ```bash
-(pt2.0.1_cuda11.8) [username@holygpu2c0705 ~]$ mamba install pyg -c pyg
+(pt2.0.1_cuda11.8) [username@holygpu7c26103 ~]$ mamba install pyg -c pyg
 ```
 
 ## PyTorch and Jupyter Notebook on Open OnDemand
@@ -160,7 +160,7 @@ in your environment with the command:
 If you would like to use the PyTorch environment on [Open OnDemand/VDI](https://vdi.rc.fas.harvard.edu/), you will also need to install packages `ipykernel` and `ipywidgets` with the following commands:
 
 ```bash
-(pt2.0.1_cuda11.8) [username@holygpu2c0705 ~]$ mamba install ipykernel ipywidgets
+(pt2.0.1_cuda11.8) [username@holygpu7c26103 ~]$ mamba install ipykernel ipywidgets
 ```
 
 ## Pull a PyTorch Singularity container
