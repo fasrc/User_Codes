@@ -69,7 +69,7 @@ To install other versions, refer to the PyTorch [compatibility chart](https://py
 For an **interactive session** to work with the GPUs you can use following:
 
 ```bash
-salloc -p gpu_test -t 0-06:00 --mem=8000 --gres=gpu:1 
+salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 
 ```
 
 Load required software modules and source your PyTorch conda environment.
