@@ -26,7 +26,7 @@ Receiving objects: 100% (19108/19108), 12.63 MiB | 25.17 MiB/s, done.
 Resolving deltas: 100% (2000/2000), done.
 ```
 
-This will create the <code>spack</code> folder in the current directory. Next, we go to this directory анд add Spack to the `PATH`. Spack has some nice command-line integration tools, so instead of simply appending to your <code>PATH</code> variable, source the Spack setup script.
+This will create the <code>spack</code> folder in the current directory. Next, go to this directory and add Spack to your path. Spack has some nice command-line integration tools, so instead of simply appending to your <code>PATH</code> variable, source the Spack setup script.
 
 ```bash
 $ cd spack/
