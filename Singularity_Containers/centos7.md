@@ -87,7 +87,9 @@ To ensure that steps 2-4 are run within the singularity container, they are
 place between `END` (see slurm batch script below).
 
 **NOTE**: You cannot submit slurm jobs from **inside** the container, but you
-can submit a slurm job that will execute the container.
+can submit a slurm job that will execute the container. If you would like to
+submit jobs within the container see [submitting jobs within a
+container](working_with_images.md#Submitting-jobs-within-a-container). 
 
 Example with a simple `hello_world.f90` fortran code:
 

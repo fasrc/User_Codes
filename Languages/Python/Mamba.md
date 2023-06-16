@@ -164,3 +164,16 @@ envs_dirs:
 
 For more on <code>.condarc</code> see the [official documentation](https://conda.io/projects/conda/en/latest/user-guide/configuration/use-condarc.html#).
 
+## Troubleshooting
+
+### Interactive vs. batch jobs
+
+If your code works in an interactive job, but fails in a slurm batch job,
+
+1. You are submitting your jobs from within a mamba/conda environment.  
+ **Solution 1:** Deactivate your environment with the command `mamba deactivate` and submit the job or 
+ **Solution 2:** Open another terminal and submit the job from outside the environment.
+
+2. Check if your `~/.bashrc` or `~/.bash_profile` files have a section of `conda initialize` or a `source activate` command. The `conda initialize` section is known to create issues on the FASRC clusters.  
+  **Solution:** Delete the section between the two `conda initialize` statements. If you have `source activate` in those files, delete it or comment it out.  
+ For more information on `~/.bashrc` files, see https://docs.rc.fas.harvard.edu/kb/editing-your-bashrc/

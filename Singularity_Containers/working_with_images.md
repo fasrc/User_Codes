@@ -403,3 +403,38 @@ Singularity> ls
 Singularity>
 ```
 
+## Submitting jobs within a container
+
+If you would like to submit slurm jobs from inside the container, you can bind
+the directories where the slurm executables are. The environmental varibale
+`SINGULARITY_BIND` stores the directories of the host system that are accessible
+from inside the container. Thus, slurm commands can be accessible by adding the
+following code to you slurm batch script before the `singularity` execution:
+
+```bash
+export SINGULARITY_BIND=$(tr '\n' ',' <<END
+/etc/nsswitch.conf
+/etc/slurm
+/etc/sssd/
+/lib64/libnss_sss.so.2:/lib/libnss_sss.so.2
+/slurm
+/usr/bin/sacct
+/usr/bin/salloc
+/usr/bin/sbatch
+/usr/bin/scancel
+/usr/bin/scontrol
+/usr/bin/scrontab
+/usr/bin/seff
+/usr/bin/sinfo
+/usr/bin/squeue
+/usr/bin/srun
+/usr/bin/sshare
+/usr/bin/sstat
+/usr/bin/strace
+/usr/lib64/libmunge.so.2
+/usr/lib64/slurm
+/var/lib/sss
+/var/run/munge:/run/munge
+END
+)
+
