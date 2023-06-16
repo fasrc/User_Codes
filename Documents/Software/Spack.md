@@ -12,35 +12,27 @@ These instructions are intended to guide you on how to use Spack on the FAS RC C
 
 ## Install and Setup
 
-Spack works out of the box. Simply clone Spack to get going. In this example, we will clone Spack and check out the one of the releases, v0.19. 
+Spack works out of the box. Simply clone Spack to get going. In this example, we will clone Spack and check out the most recent release, v0.20.
 > **Note:** <code>Spack</code> can be installed in your home or lab space. For best performance and efficiency, we recommend to install Spack in your lab directory, e.g., <code>/n/holylabs/LABS/<PI_LAB>/Lab/software</code> or other lab storage if holylabs is not available.
 
 ```bash
-$ git clone -c feature.manyFiles=true https://github.com/spack/spack.git
+$ git clone --depth=100 --branch=releases/v0.20 https://github.com/spack/spack.git
 Cloning into 'spack'...
-remote: Enumerating objects: 439346, done.
-remote: Counting objects: 100% (144/144), done.
-remote: Compressing objects: 100% (99/99), done.
-remote: Total 439346 (delta 46), reused 113 (delta 31), pack-reused 439202
-Receiving objects: 100% (439346/439346), 226.46 MiB | 16.95 MiB/s, done.
-Resolving deltas: 100% (179280/179280), done.
+remote: Enumerating objects: 19108, done.
+remote: Counting objects: 100% (19108/19108), done.
+remote: Compressing objects: 100% (10461/10461), done.
+remote: Total 19108 (delta 2000), reused 13700 (delta 1592), pack-reused 0
+Receiving objects: 100% (19108/19108), 12.63 MiB | 25.17 MiB/s, done.
+Resolving deltas: 100% (2000/2000), done.
 ```
 
-This will create the <code>spack</code> folder in the current directory. Next, we go to this directory and check out the v0.19 release.
+This will create the <code>spack</code> folder in the current directory. Next, we go to this directory анд add Spack to the `PATH`. Spack has some nice command-line integration tools, so instead of simply appending to your <code>PATH</code> variable, source the Spack setup script.
 
 ```bash
 $ cd spack/
-$ git checkout releases/v0.19
-Branch 'releases/v0.19' set up to track remote branch 'releases/v0.19' from 'origin'.
-Switched to a new branch 'releases/v0.19'
-```
-
-Next, add Spack to your path. Spack has some nice command-line integration tools, so instead of simply appending to your <code>PATH</code> variable, source the Spack setup script.
-
-```bash
 $ . share/spack/setup-env.sh
 $ spack --version
-0.19.2 (45accfac1584ca9c303b61a1f7e9097a3693a73e)
+0.20.0 (456db45c4a84ccbdb1277874b31b677141641078)
 ```
 ### Group Permissions
 By default Spack will match your usual file permissions which typically are set up without group write permission. For lab wide installs of Spack though you will want to ensure that it has [group write enforced](https://spack.readthedocs.io/en/latest/build_settings.html#package-permissions). You can set this by going to the <code>etc/spack</code> directory in your Spack installation and adding a file called <code>packages.yaml</code> (or editing the exiting one) with the following contents:
