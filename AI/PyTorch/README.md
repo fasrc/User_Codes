@@ -10,10 +10,6 @@
 
 These instructions are intended to help you install PyTorch on the FASRC cluster.
 
-### PyTorch on Rocky 8 test cluster
-
-Note that the `rocky_gpu` partition on Rocky 8 test cluster is setup with [Multi-instance GPU (MIG)](https://www.nvidia.com/en-us/technologies/multi-instance-gpu/) feature of Nvidia A100s. Due to MIG, PyTorch may not work. If you would like to test PyTorch on `rocky_gpu`, please [send us a ticket](https://docs.rc.fas.harvard.edu/kb/support/).
-
 ### GPU Support
 
 For general information on running GPU jobs refer to our [user documentation](https://www.rc.fas.harvard.edu/resources/documentation/gpgpu-computing-on-the-cluster).
@@ -193,6 +189,10 @@ Alternatively, you can also pull a PyTorch singularity image from the [NVIDIA NG
 singularity pull docker://nvcr.io/nvidia/pytorch:23.05-py3
 ```
 This will result in the image `pytorch_23.05-py3.sif`. Then you can use the image as usual.
+
+## PyTorch on Multi-Instance GPU (MIG)
+
+The `gpu_mig` partition is setup with [Multi-instance GPU (MIG)](https://www.nvidia.com/en-us/technologies/multi-instance-gpu/) feature of Nvidia A100s. If you would like to use PyTorch on `gpu_mig`, please [send us a ticket](https://docs.rc.fas.harvard.edu/kb/support/).
 
 
 ## References:
