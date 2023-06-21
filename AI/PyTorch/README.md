@@ -37,7 +37,7 @@ mamba create -n pt2.0.1_cuda11.8 python=3.10 pip wheel
 (4) Activate the new *conda* environment:
 
 ```bash
-mamba activate pt2.0.1_cuda11.8
+source activate pt2.0.1_cuda11.8
 ```
 
 (5) Install `cuda-toolkit` version 11.8.0 with `mamba`
@@ -72,7 +72,7 @@ Load required software modules and source your PyTorch conda environment.
 
 ```bash
 [username@holygpu7c26103 ~]$ module load python/3.10.9-fasrc01
-[username@holygpu7c26103 ~]$ mamba activate pt2.0.1_cuda11.8
+[username@holygpu7c26103 ~]$ source activate pt2.0.1_cuda11.8
 (pt2.0.1_cuda11.8) [username@holygpu7c26103 ~]$
 ```
 
@@ -130,7 +130,7 @@ An example batch-job submission script is included below:
 
 # Load software modules and source conda environment
 module load python/3.10.9-fasrc01
-mamba activate pt2.0.1_cuda11.8
+source activate pt2.0.1_cuda11.8
 
 # Run program
 srun -c 1 --gres=gpu:1 python check_gpu.py 
