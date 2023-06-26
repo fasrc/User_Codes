@@ -5,14 +5,26 @@
 
 ## Configure and compile WRF on the FASRC cluster
 
-The below instructions are for building WRF/WPS with the Intel compiler suite and Intel MPI Library.
+The below instructions are for building WRF/WPS with the Intel compiler and Intel MPI Library, and Intel compiler and MPICH MPI Library.
 
-* ### Load required software modules (the specific example uses Intel compiler and MPI libraries) 
+* ### Load required software modules
+
+**Intel Compiler and Intel MPI**
 
 ```bash
 module load intel/23.0.0-fasrc01
 module load intelmpi/2021.8.0-fasrc01
 module load netcdf-fortran/4.6.0-fasrc03
+module load libpng/1.6.25-fasrc01
+module load jasper/1.900.1-fasrc02 
+```
+
+**Intel Compiler and MPICH**
+
+```bash
+module load intel/23.0.0-fasrc01
+module load mpich/4.1-fasrc01
+module load netcdf-fortran/4.6.0-fasrc02
 module load libpng/1.6.25-fasrc01
 module load jasper/1.900.1-fasrc02 
 ```
@@ -103,10 +115,20 @@ Copy landread.c.dist to landread.c in share directory to bypass compile error.
 ```
 * ### Modify the file `configure.wrf` (around lines 154-155) to read the following:
 
+**Intel Compiler and Intel MPI**
+
 ```bash
 DM_FC  =  mpiifort -f90=$(SFC)
 DM_CC  =  mpiicc -cc=$(SCC) -DMPI2_SUPPORT
 ```
+
+**Intel Compiler and MPICH**
+
+```bash
+DM_FC  =  mpif90 -f90=$(SFC)
+DM_CC  =  mpicc -cc=$(SCC) -DMPI2_SUPPORT
+```
+
 Note that you have to do this each time you run ./configure, because the `configure.wrf` script is overwritten each time.
 
 * ### Compile WRF before WPS!! Compilation will take a while (~20 - 30 min). If you're on an interactive shell, remove the "&" to avoid timing out:
@@ -195,9 +217,17 @@ Configuration successful. To build the WPS, type: compile
 
 * ### Modify the `configure.wps` around lines 65-66 to read the following:
 
+**Intel Compiler and Intel MPI**
+
 ```bash
 DM_FC               = mpiifort
 DM_CC               = mpiicc
+```
+**Intel Compiler and MPICH**
+
+```bash
+DM_FC               = mpif90
+DM_CC               = mpicc
 ```
 
 (4) Compile WPS. If you're on an interactive shell, remove the "&" to avoid timing out:
