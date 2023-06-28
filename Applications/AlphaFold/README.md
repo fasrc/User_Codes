@@ -1,11 +1,8 @@
 # AlphaFold
 
-**Note:** currently (Jun/2023) this documentation works for monomer simulations.
-We will soon include a multimer example.
-
 ## What is AlphaFold?
 
-[AlphaFold](https://github.com/deepmind/alphafold)
+See [AlphaFold](https://github.com/deepmind/alphafold).
 
 ## AlphaFold in the FASRC Cannon cluster
 
@@ -52,6 +49,9 @@ stdout file (`.out`).
 
 ### Monomer batch job
 
+This example takes about 1 hour to run on Cannon in the `gpu` partition with
+8 cores (`-c 8`).
+
 Slurm script
 
 https://github.com/fasrc/User_Codes/blob/e87e731049e121395be476064058570ed69b9f6c/Applications/AlphaFold/run_alphafold.sh#L1-L59
@@ -59,6 +59,19 @@ https://github.com/fasrc/User_Codes/blob/e87e731049e121395be476064058570ed69b9f6
 Fasta file
 
 https://github.com/fasrc/User_Codes/blob/f15ac0ea89488dc841d703fef33fa12a094779f2/Applications/AlphaFold/5ZE6_1.fasta#L1-L2
+
+### Multimer batch job
+
+This example takes about 1-2 hours to run on Cannon in the `gpu` partition with
+8 cores (`-c 8`).
+
+Slurm script
+
+https://github.com/fasrc/User_Codes/blob/1f69e32f23063f144c532cd892f8d5af648ad915/Applications/AlphaFold/run_alphafold_multi.sh#L1-L60
+
+Fasta file
+
+https://github.com/fasrc/User_Codes/blob/1f69e32f23063f144c532cd892f8d5af648ad915/Applications/AlphaFold/T1083_T1084.fasta#L1-L4
 
 ### Submitting a slurm batch job that runs AlphaFold
 
@@ -70,10 +83,11 @@ with the command:
 ```bash
 # monomer job
 sbatch run_alphafold.sh
+
+# multimer job
+sbatch run_alphafold_multi.sh
 ```
 
-This example takes about 1-2 hours to run on Cannon in the `gpu` partition with
-8 cores (`-c 8`).
 
 ## Resources
 
