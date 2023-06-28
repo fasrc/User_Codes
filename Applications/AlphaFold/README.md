@@ -1,6 +1,7 @@
 # AlphaFold
 
-**Note:** currently (Dec/2022) this documentation is in testing phase.
+**Note:** currently (Jun/2023) this documentation works for monomer simulations.
+We will soon include a multimer example.
 
 ## What is AlphaFold?
 
