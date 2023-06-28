@@ -50,11 +50,13 @@ You will have to edit in the `run_alphafold.sh` script:
 **Note:** AlphaFold screen output goes to the stderr file (`.err`) rather than the
 stdout file (`.out`).
 
-### Slurm script
+### Monomer batch job
 
-https://github.com/fasrc/User_Codes/blob/d0114e5ba12c2f201a1781a873420e4155572d93/Applications/AlphaFold/run_alphafold.sh#L1-L35
+Slurm script
 
-### Fasta file
+https://github.com/fasrc/User_Codes/blob/e87e731049e121395be476064058570ed69b9f6c/Applications/AlphaFold/run_alphafold.sh#L1-L59
+
+Fasta file
 
 https://github.com/fasrc/User_Codes/blob/f15ac0ea89488dc841d703fef33fa12a094779f2/Applications/AlphaFold/5ZE6_1.fasta#L1-L2
 
@@ -66,6 +68,7 @@ directory where `run_alphafold.sh` is located. Then submit a slurm batch job
 with the command:
 
 ```bash
+# monomer job
 sbatch run_alphafold.sh
 ```
 
