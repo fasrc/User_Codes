@@ -13,13 +13,16 @@ For instance, if you want to use OpenMPI compiled with the GNU compiler you need
 module load gcc/12.2.0-fasrc01 openmpi/4.1.4-fasrc01
 
 # GCC + Mpich, e.g.,
-module gcc/12.2.0-fasrc01 load mpich/4.1-fasrc01
+module load gcc/12.2.0-fasrc01 mpich/4.1-fasrc01
 
 # Intel + OpenMPI, e.g.,
 module load intel/23.0.0-fasrc01 openmpi/4.1.4-fasrc01
 
 # Intel + Mpich, e.g.,
 module load intel/23.0.0-fasrc01 mpich/4.1-fasrc01
+
+# Intel + IntelMPI (IntelMPI runs mpich underneath), e.g.
+module load intel/23.0.0-fasrc01 intelmpi/2021.8.0-fasrc01
 ```
 
 For reproducibility and consistency it is recommended to use the complete module name with the module load command, as illustrated above. Modules on the cluster get updated often so check if there are more recent ones. The modules are set up so that you can only have one MPI module loaded at a time. If you try loading a second one it will automatically unload the first. This is done to avoid dependencies collisions.
@@ -161,6 +164,9 @@ mpif77 -o mpitest.x mpitest.f
 # Fortran 90
 mpif90 -o mpitest.x mpitest.f90
 
+# Fortran 90 with IntelMPI
+mpiifort -o mpitest.x mpitest.f90
+
 # C          
 mpicc -o mpitest.x mpitest.c
 
@@ -170,28 +176,53 @@ mpicxx -o mpitest.x mpitest.cpp
 
 ### Create a batch-jobs submission script
 
-With a text editor like emacs or vi open a new file named <code>run.sbatch</code> and paste in the contents below:
+The batch script is used to instruct the cluster to reserve computational resources for your job and how your application should be launched on the compute nodes reserved for the job.
+
+With a text editor like emacs or vi open a new file named <code>run.sbatch</code> and paste in the contents of **one** of the examples below:
+
+#### OpenMPI example
 
 ```bash
 #!/bin/bash
-#SBATCH -J mpitest
-#SBATCH -o mpitest.out
-#SBATCH -e mpitest.err
-#SBATCH -p shared
-#SBATCH -n 8
-#SBATCH -t 30
-#SBATCH --mem-per-cpu=40000
+#SBATCH -J mpitest            # job name
+#SBATCH -o mpitest.out        # standard output file
+#SBATCH -e mpitest.err        # standard error file
+#SBATCH -p shared             # partition
+#SBATCH -n 8                  # ntasks
+#SBATCH -t 00:30:00           # time in HH:MM:SS
+#SBATCH --mem-per-cpu=500     # memory in megabytes
 
 # --- Load the required software modules., e.g., ---
 module load gcc/12.2.0-fasrc01 openmpi/4.1.4-fasrc01
 
 # --- Run the executable ---
-srun -n 8 --mpi=pmix ./mpitest.x
+srun -n $SLURM_NTASKS --mpi=pmix ./mpitest.x
 ```
 
 > **NOTE:** Notice, in the above example we use GCC and OpenMPI, <code>module load gcc/12.2.0-fasrc01 openmpi/4.1.4-fasrc01</code>. As a rule, you **must** load exactly the same modules you used to compile your code.
 
-The batch script is used to instruct the cluster to reserve computational resources for your job and how your application should be launched on the compute nodes reserved for the job.
+#### IntelMPI example
+
+```bash
+#!/bin/bash
+#SBATCH -J mpitest            # job name
+#SBATCH -o mpitest.out        # standard output file
+#SBATCH -e mpitest.err        # standard error file
+#SBATCH -p shared             # partition
+#SBATCH -n 8                  # ntasks
+#SBATCH -t 00:30:00           # time in HH:MM:SS
+#SBATCH --mem-per-cpu=500     # memory in megabytes
+
+# --- Load the required software modules., e.g., ---
+module load intel/23.0.0-fasrc01 intelmpi/2021.8.0-fasrc01
+
+# --- Run the executable ---
+# with intelmpi, you need to ensure it uses pmi2 instead of pmix
+srun -n $SLURM_NTASKS --mpi=pmi2 ./mpitest.x
+```
+
+> **NOTE:** Notice, in the above example we use Intel and IntelMPI, <code>module load intel/23.0.0-fasrc01 intelmpi/2021.8.0-fasrc01</code>. As a rule, you **must** load exactly the same modules you used to compile your code.
+
 
 ### Submit the jobs to the queue
 
