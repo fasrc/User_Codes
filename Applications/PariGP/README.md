@@ -200,3 +200,11 @@ Then, you can submit the job with the command:
 sbatch runscript_par.sh
 ```
 
+## Resources
+
+- [PARI/GP documentation](https://pari.math.u-bordeaux.fr/doc.html)
+- [Intro to GP programming
+    tutorial](https://pari.math.u-bordeaux.fr/Events/PARI2019b/talks/prog.pdf)
+- [Parallel GP
+    tutorial](https://pari.math.u-bordeaux.fr/Events/PARI2019/talks/parallel.pdf)
+
