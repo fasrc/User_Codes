@@ -216,6 +216,12 @@ srun -n $SLURM_NTASKS --mpi=pmix ./mpitest.x
 # --- Load the required software modules., e.g., ---
 module load intel/23.0.0-fasrc01 intelmpi/2021.8.0-fasrc01
 
+# --- Source intel environment ---
+source /n/sw/intel-oneapi-2023/mpi/2021.8.0/env/vars.sh
+
+# --- Tell intelmpi where pmi2 is located ---
+export I_MPI_PMI_LIBRARY=/usr/lib64/libpmi2.so
+
 # --- Run the executable ---
 # with intelmpi, you need to ensure it uses pmi2 instead of pmix
 srun -n $SLURM_NTASKS --mpi=pmi2 ./mpitest.x
