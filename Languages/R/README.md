@@ -12,12 +12,17 @@ To get started with R on the Harvard University FAS Cannon cluster you can try t
 
 You can also look at the instructions for installing specific R packages:
 
-* [sp, rgdal, rgeos, sf](rgdal.md)
-* [ENMTools, ecospat, raster, rJava](ENMTools.md)
-* [rstan](rstan.md)
 * [glmnet, glmtrans](glmnet_glmtrans.md)
 * Some R packages have lots of dependencies and/or require additional software to be installed in the cluster (e.g. protobuf, geojsonio). Properly configuring these installs with R can become problematic. To overcome that, we documented [how to install R packages within a Singularity container](https://docs.rc.fas.harvard.edu/kb/r-packages-with-singularity/).
-* [R packages with Spack](R_packages_with_spack.md)
+* [R packages with Spack](R_packages_with_spack.md) with specifc examples of:
+  * `glmnet`
+  * `raster`
+  * `rgdal`
+  * `rgeos`
+  * `rstan`
+  * `seurat`
+  * `sf`
+  * Old R versions
 
 ### Files that may configure R installations
 
