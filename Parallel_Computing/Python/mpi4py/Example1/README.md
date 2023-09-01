@@ -1,13 +1,13 @@
-### Purpose:
+## Purpose:
 
 Program illustrates using MPI for Python (mpi4py) on the FAS cluster at Harvard University.
 
-### Contents:
+## Contents:
 
 * <code>mpi4py_test.py</code>: Python MPI source code.
 * <code>run.sbatch</code>: Batch-job submission script to send the job to the queue.
 
-### Python Source Code:
+## Python Source Code:
 
 ```python
 #!/usr/bin/env python3
@@ -30,7 +30,7 @@ for i in range(0,nproc):
 MPI.Finalize()
 ```
 
-### Example Batch-Job Submission Script:
+## Example Batch-Job Submission Script:
 
 If you have installed <code>mpi4py</code> with <code>conda</code> and use the default MPICH instance in the conda environment you could use the below batch-job submission script to send your job to the queue: 
 
@@ -45,7 +45,7 @@ If you have installed <code>mpi4py</code> with <code>conda</code> and use the de
 #SBATCH --mem-per-cpu=4000
 
 # Set up environment
-module load python/3.8.5-fasrc01
+module load python/3.10.9-fasrc01
 source activate python3_env1
 
 # Run the program
@@ -56,9 +56,9 @@ If you opted out for installing mpi4py with your MPI flavor and/or version of ch
 
 ```bash
 # Set up environment
-module load python/3.8.5-fasrc01
-module load gcc/10.2.0-fasrc01
-module load openmpi/4.1.1-fasrc01
+module load python/3.10.9-fasrc01
+module load gcc/12.2.0-fasrc01
+module load openmpi/4.1.5-fasrc01
 source activate python3_env2
 ```
 and the "Run the program" section as follows:
@@ -69,13 +69,13 @@ srun -n 16 --mpi=pmix python mpi4py_test.py
 
 **Note:** You can use as an example the included <code>run_ompi.sbatch</code> batch-job submission script for running with **OpenMPI**. Please, notice that you need to replace <code>--mpi=pmi2</code> with <code>--mpi=pmix</code> in this case.
 
-### Example Usage:
+## Example Usage:
 
-```
+```bash
 sbatch run.sbatch
 ```
 
-### Example Output:
+## Example Output:
 
 ```
 > cat mpi4py_test.out

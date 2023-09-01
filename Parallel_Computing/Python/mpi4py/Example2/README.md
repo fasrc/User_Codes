@@ -1,8 +1,8 @@
-### Purpose:
+## Purpose:
 
-This example illustrates how to minimize a target function in parallel using the mpi4py package. The specific example first distributes a set of initial function values to all MPI processes, and then each MPI process minimizes an instance of the objective function for a given (local) initial value. At the end, results are gathered at the root MPI process.
+This example illustrates how to minimize a target function in parallel using the `mpi4py` package. The specific example first distributes a set of initial function values to all MPI processes, and then each MPI process minimizes an instance of the objective function for a given (local) initial value. At the end, results are gathered at the root MPI process.
 
-### Contents:
+## Contents:
 
 * <code>optimize_mpi.py</code>: Python MPI source code.
 * <code>run.sbatch</code>: Btach-job submission script to send the job to the queue.
@@ -59,7 +59,7 @@ if __name__ == '__main__':
 #SBATCH --mem-per-cpu=4000
 
 # Set up environment
-module load python/3.8.5-fasrc01
+module load python/3.10.9-fasrc01
 source activate python3_env1
 
 # Run the program
@@ -70,9 +70,9 @@ If you opted out for installing mpi4py with your MPI flavor and/or version of ch
 
 ```bash
 # Set up environment
-module load python/3.8.5-fasrc01
-module load gcc/10.2.0-fasrc01
-module load openmpi/4.1.1-fasrc01
+module load python/3.10.9-fasrc01
+module load gcc/12.2.0-fasrc01
+module load openmpi/4.1.5-fasrc01
 source activate python3_env2
 ```
 and the "Run the program" section as follows:
