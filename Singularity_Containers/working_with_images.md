@@ -8,7 +8,19 @@ When working with images you can:
 For more examples and details, see [SingularityCE quick start
 guide](https://docs.sylabs.io/guides/latest/user-guide/quick_start.html#interact-with-images)
 
-## Running SingularityCE images interactively 
+## Working with SingularityCE images interactively
+
+Singularity syntax
+
+```bash
+singularity <command> [options] <container_image.sif>
+```
+
+Commands
+
+- `shell`: run an interactive bash shell inside the container
+- `exec`: execute a command
+- `run`: launch the runscript
 
 For this example, we will use the laughing cow SingularityCE image from
 [Sylabs library](https://cloud.sylabs.io/library/).
@@ -30,7 +42,7 @@ INFO:    Downloading library image
 90.4MiB / 90.4MiB [=====================================] 100 % 7.6 MiB/s 0s
 ```
 
-### Shell
+### `shell`
 
 With the `shell` command, you can start a new shell within the container image
 and interact with it as if it were a small virtual machine. 
@@ -69,7 +81,7 @@ Singularity> exit
 [jharvard@holy2c02302 sylabs_lib]$
 ```
 
-### Executing commands
+### `exec`
 
 The `exec` command allows you to execute a custom command within a container by
 specifying the image file. For instance, to execute the `cowsay` program within
@@ -96,7 +108,7 @@ the `lolcow_latest.sif` container:
                 ||     ||
 ```
 
-### Run scripts within a container
+### `run`
 
 SingularityCE containers may contain
 [runscripts](https://docs.sylabs.io/guides/latest/user-guide/definition_files.html#runscript).

@@ -112,7 +112,7 @@ Check SingularityCE version:
 On Cannon:
 
 ```bash
-[jharvard@boslogin01 ~]$ salloc -p rc-testing --mem 4g -t 0-01:00 -c 1
+[jharvard@boslogin01 ~]$ salloc -p test --mem 4g -t 0-01:00 -c 1
 salloc: Granted job allocation 1451
 salloc: Waiting for resource configuration
 salloc: Nodes holy2c04309 are ready for job
@@ -243,7 +243,7 @@ interactive job on Cannon and FASSE.
 Build the laughing cow (`lolcow`) image from SingularityCE library:
 
 ```bash
-[jharvard@holy2c02302 ~]$ singularity build lolcow.sif library://lolcow
+[jharvard@holy2c02302 ~]$ singularity pull lolcow.sif library://lolcow
 INFO:    Starting build...
 INFO:    Using cached image
 INFO:    Verifying bootstrap image /n/home05/jharvard/.singularity/cache/library/sha256.cef378b9a9274c20e03989909930e87b411d0c08cf4d40ae3b674070b899cb5b
@@ -268,7 +268,7 @@ Build the [laughing cow](https://hub.docker.com/r/sylabsio/lolcow) (`lolcow`)
 image from Docker Hub:
 
 ```bash
-[jharvard@holy2c02302 ~]$ singularity build lolcow.sif docker://sylabsio/lolcow
+[jharvard@holy2c02302 ~]$ singularity pull lolcow.sif docker://sylabsio/lolcow
 INFO:    Starting build...
 Getting image source signatures
 Copying blob 5ca731fc36c2 done
@@ -286,7 +286,7 @@ Build [hello world](https://hub.docker.com/_/hello-world) image from Docker
 Hub:
 
 ```bash
-[jharvard@holy2c02302 ~]$ singularity build hello_world.sif docker://hello-world
+[jharvard@holy2c02302 ~]$ singularity pull hello_world.sif docker://hello-world
 INFO:    Starting build...
 Getting image source signatures
 Copying blob 2db29710123e done
