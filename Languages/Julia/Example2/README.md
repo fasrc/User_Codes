@@ -1,9 +1,9 @@
-#### Purpose:
+### Purpose:
 
 This example illustrates solving differential equations numerically in Julia. Specifically, it solves an ODE after an example taken from [this](http://sam-dolan.staff.shef.ac.uk/mas212/notebooks/ODE_Example.html) Python notebook, using [DifferentialEquations.jl](http://docs.juliadiffeq.org/stable/index.html)
 
 
-#### Contents:
+### Contents:
 
 * <code>ode\_test.jl</code>: Julia source code
 * <code>run.sbatch</code>: Batch-job submission script
@@ -11,7 +11,7 @@ This example illustrates solving differential equations numerically in Julia. Sp
 * <code>figure.png</code>: Figure of ODE's solution
 * <code>figure.py</code>: Python script for generating the figure
 
-#### Julia code:
+### Julia code:
 
 ```julia
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -54,31 +54,31 @@ end
 close(fo)
 ```
 
-#### Example Batch-Job Submission Script:
+### Example Batch-Job Submission Script:
 
 ```bash
 #!/bin/bash
 #SBATCH -J ode_test
 #SBATCH -o ode_test.out
 #SBATCH -e ode_test.err
-#SBATCH -p shared
+#SBATCH -p test
 #SBATCH -N 1
 #SBATCH -c 1
 #SBATCH -t 0-00:30
 #SBATCH --mem=4G
 
-# Load required software modules
-module load Julia/1.6.1-linux-x86_64
+# Set up Julia and run the program
+export PATH=$PATH:/n/holylabs/LABS/jharvard_lab/Users/jharvard/software/julia-1.9.3/bin
 srun -n 1 -c 1 julia ode_test.jl
 ```
 
-#### Example Usage:
+### Example Usage:
 
 ```bash
 sbatch run.sbatch
 ```
 
-#### Example Output:
+### Example Output:
 
 ```bash
 $ cat results.dat 
@@ -112,11 +112,11 @@ $ cat results.dat
   5.0000   4.013510   4.013476
 ```
 
-#### Figure of Solution:
+### Figure of Solution:
 
 <img src="figure.png" alt="solution" width="500"/>
 
-#### Python script for generating the figure:
+### Python script for generating the figure:
 
 ```python
 """
@@ -185,8 +185,8 @@ plt.legend(fontsize=15, loc="upper left", shadow=True, fancybox=True)
 plt.savefig(fig_path, format='png', dpi=100, bbox_inches='tight')
 ```
 
-#### References:
+### References:
 
-* [Official **DifferentialEquations.jl** Documentation](http://docs.juliadiffeq.org/stable/index.html)
+* [Official **DifferentialEquations.jl** Documentation](https://docs.sciml.ai/DiffEqDocs/stable/)
 * [Ordinary Differential Equations with Julia](http://docs.juliadiffeq.org/stable/tutorials/ode_example.html)
 * [ODE Solvers](http://docs.juliadiffeq.org/stable/solvers/ode_solve.html)

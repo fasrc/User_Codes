@@ -12,12 +12,6 @@ Julia is actively developed by teams
 [in industry,](https://juliacomputing.com/) along with 
 [hundreds of domain-expert scientists and programmers from around the world](https://github.com/JuliaLang/julia/graphs/contributors).
 
-To get started with Julia on the FAS cluster you can try the below examples:
-
-* [Example 1](Example1): Monte-Carlo calculation of PI
-* [Example 2](Example2): Ordinary Differential Equations (ODEs)
-
-You can also use Julia in [Jupyter notebooks in our VDI interactive environment](Notebook.md).
 
 ![Gadfly Demo](Images/gadfly-demo.png)
 
@@ -27,39 +21,45 @@ Julia most easily [installed](https://docs.julialang.org/en/v1/manual/getting-st
 Once you have downloaded Julia you can add Julia to your path by setting the following in your <code>~/.bashrc</code>
 
 ```bash
-export PATH=$PATH:/n/holylabs/LABS/jharvard_lab/Lab/software/julia-1.8.5/bin
+export PATH=$PATH:/n/holylabs/LABS/jharvard_lab/Lab/software/julia-1.9.3/bin
 ```
 
 Subbing in whereever you extracted Julia to. Once that is set the next time you login Julia will be in your path and ready to use.
 
-#### Example
+#### Example Installation
 
-This is an example for Julia 1.8.5. Check [Julia downloads](https://julialang.org/downloads/) for other versions.
+This is an example for Julia 1.9.3. Check [Julia downloads](https://julialang.org/downloads/) for other versions.
 
 ```bash
 # use lab storage
 [jharvard@holy7c12104 ~]$ cd /n/holylabs/LABS/jharvard_lab/Users/jharvard/software/
 
 # download julia and extract
-[jharvard@holy7c12104 software]$ wget  https://julialang-s3.julialang.org/bin/linux/x64/1.8/julia-1.8.5-linux-x86_64.tar.gz
-[jharvard@holy7c12104 software]$ tar xvfz julia-1.8.5-linux-x86_64.tar.gz
+[jharvard@holy7c12104 software]$ wget  https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.3-linux-x86_64.tar.gz
+[jharvard@holy7c12104 software]$ tar xvfz julia-1.9.3-linux-x86_64.tar.gz
 
 # add julia to path
-[jharvard@holy7c12104 julia-1.8.5]$ export PATH=$PATH:/n/holylabs/LABS/jharvard_lab/Users/jharvard/software/julia-1.8.5/bin
+[jharvard@holy7c12104 julia-1.9.3]$ export PATH=$PATH:/n/holylabs/LABS/jharvard_lab/Users/jharvard/software/julia-1.9.3/bin
 
-[jharvard@holy7c12104 julia-1.8.5]$ julia
+[jharvard@holy7c12104 julia-1.9.3]$ julia
                _
    _       _ _(_)_     |  Documentation: https://docs.julialang.org
   (_)     | (_) (_)    |
    _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
   | | | | | | |/ _` |  |
-  | | |_| | | | (_| |  |  Version 1.8.5 (2023-01-08)
+  | | |_| | | | (_| |  |  Version 1.9.3 (2023-08-24)
  _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
 |__/                   |
 
 julia>
 ```
 
+To get started with Julia on the FAS cluster you can try the below examples:
+
+* [Example 1](Example1): Monte-Carlo calculation of PI
+* [Example 2](Example2): Ordinary Differential Equations (ODEs)
+
+You can also use Julia in [Jupyter notebooks in our VDI interactive environment](Notebook.md).
 
 #### References:
 
