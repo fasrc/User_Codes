@@ -23,8 +23,8 @@ salloc: Nodes holy7c26601 are ready for job
 After your interactive session has started, you need to load the required software modules - a Julia module and a Python module. Please refer to the [RC user portal](https://portal.rc.fas.harvard.edu/p3/build-reports/) for searching software modules.
 
 ```bash
-[user@holy7c26601 ~]$ module load Julia/1.6.1-linux-x86_64
-[user@holy7c26601 ~]$ module load python/3.8.5-fasrc01
+[user@holy7c26601 ~]$ export PATH=$PATH:/n/holylabs/LABS/jharvard_lab/Users/jharvard/software/julia-1.9.3/bin
+[user@holy7c26601 ~]$ module load python/3.10.12-fasrc01
 ```
 The next step is to start Julia and install the [IJulia](https://github.com/JuliaLang/IJulia.jl) package, which binds the Julia kernel with Jupyter.
 
@@ -42,7 +42,7 @@ From the the <code>Interactive Apps</code> dropdown menu in the VDI portal selec
 
 ![Julia VDI kernels](Images/julia-vdi-1.png)
 
-**Note:** The available Notebook kernels may differ in your environment depending on the actual <code>conda</code> environments installed in your user space. When you select the desired Julia kernel, the Julia notebook will open in a new tab in your browser.
+> **NOTE:** The available Notebook kernels may differ in your environment depending on the actual <code>conda</code> environments and Julia versions installed in your user space. When you select the desired Julia kernel, the Julia notebook will open in a new tab in your browser.
 
 ![Julia VDI](Images/julia-vdi-2.png)
 

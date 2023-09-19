@@ -1,6 +1,6 @@
 ### Purpose:
 
-This example illustrates solving differential equations numerically in Julia. Specifically, it solves an ODE after an example taken from [this](http://sam-dolan.staff.shef.ac.uk/mas212/notebooks/ODE_Example.html) Python notebook, using [DifferentialEquations.jl](http://docs.juliadiffeq.org/stable/index.html)
+This example illustrates solving differential equations numerically in Julia. Specifically, it solves an ODE after an example taken from [this](https://sam-dolan.sites.sheffield.ac.uk/mas212-course/sample-notebooks/ode_example) Python notebook, using [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/)
 
 
 ### Contents:
@@ -54,6 +54,15 @@ end
 close(fo)
 ```
 
+> **Note:** You may need to install the `DifferentialEquations`, `SimpleDiffEq` and `Plots` packages. Use the following command inside the Julia REPL:
+
+```julia
+julia> using Pkg
+julia> Pkg.add("DifferentialEquations")
+julia> Pkg.add("SimpleDiffEq")
+julia> Pkg.add("Plots")
+```
+
 ### Example Batch-Job Submission Script:
 
 ```bash
@@ -71,6 +80,7 @@ close(fo)
 export PATH=$PATH:/n/holylabs/LABS/jharvard_lab/Users/jharvard/software/julia-1.9.3/bin
 srun -n 1 -c 1 julia ode_test.jl
 ```
+**NOTE:** Please remember to point the `PATH` environmental variable to the actual location of your Julia installation.
 
 ### Example Usage:
 
@@ -188,5 +198,3 @@ plt.savefig(fig_path, format='png', dpi=100, bbox_inches='tight')
 ### References:
 
 * [Official **DifferentialEquations.jl** Documentation](https://docs.sciml.ai/DiffEqDocs/stable/)
-* [Ordinary Differential Equations with Julia](http://docs.juliadiffeq.org/stable/tutorials/ode_example.html)
-* [ODE Solvers](http://docs.juliadiffeq.org/stable/solvers/ode_solve.html)
