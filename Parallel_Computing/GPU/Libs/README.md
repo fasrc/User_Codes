@@ -130,7 +130,7 @@ Below is an example batch-job submission script, <code>run.sbatch</code>:
 #SBATCH -t 30
 
 # Load required modules
-module load gcc/12.1.0-fasrc01 cuda/11.7.1-fasrc01
+module load gcc/13.2.0-fasrc01 cuda/12.2.0-fasrc01
 
 # Run the executable
 ./saxpy_cublas.x
