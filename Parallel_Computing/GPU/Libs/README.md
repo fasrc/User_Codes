@@ -48,7 +48,7 @@ If the above code is named, e.g., <code>saxpy_blas.c</code>, it can be compiled 
 
 ```bash
 # Load the required modules
-module load gcc/12.1.0-fasrc01
+module load gcc/13.2.0-fasrc01
 # Compile the code
 gcc -o saxpy_blas.x saxpy_blas.c -lgslcblas
 ```
@@ -109,7 +109,7 @@ int main(){
 If the above code is named, e.g., <code>saxpy_cublas.c</code>, it can be compiled with:
 
 ```bash
-module load cuda/11.7.1-fasrc01 gcc/12.1.0-fasrc01
+module load cuda/12.2.0-fasrc01 gcc/13.2.0-fasrc01
 gcc -o saxpy_cublas.x saxpy_cublas.c -lcudart -lcublas 
 ```
 
