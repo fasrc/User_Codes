@@ -10,7 +10,7 @@
 #SBATCH -t 30
 
 # Load required modules
-cuda/11.7.1-fasrc01
+module load cuda/12.2.0-fasrc01
 
 # Run the executable
 ./saxpy.x

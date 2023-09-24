@@ -66,11 +66,11 @@ end program main
 
 ## Compile the code
 
-The code can be compiled by the PGI fortran compiler, which is now a part of the NVIDIA HPC KIT. E.g., you can use the below commands to load the PGI software module and build the code:
+The code can be compiled with the NVIDIA Fortran compiler, which is included in the NVIDIA HPC SDK. You can use the below commands to load the NVIDIA HPC SDK software module and compile the code:
 
 ```bash
-module load pgi/21.2-fasrc01
-pgf90 -o example_acc.x example_acc.f90 -acc
+module load nvhpc/23.7-fasrc01
+nvfortran -o example_acc.x example_acc.f90 -acc
 ```
 
 ## Example batch-job submission script
@@ -88,7 +88,7 @@ pgf90 -o example_acc.x example_acc.f90 -acc
 #SBATCH -t 30
 
 # Load required modules
-module load pgi/21.2-fasrc01
+module load nvhpc/23.7-fasrc01
 
 # Run the executable
 ./example_acc.x 
@@ -110,4 +110,4 @@ cat openacc_test.out
 
 * [OpenACC tutorial from Western Virginia University](https://wvuhpc.github.io/Modern-Fortran/30-OpenACC/index.html)
 * [Official OpenACC Website](https://www.openacc.org)
-* [PGI NVIDIA Website](https://developer.nvidia.com/openacc-toolkit)
+* [NVIDIA OpenACC Website](https://developer.nvidia.com/openacc)

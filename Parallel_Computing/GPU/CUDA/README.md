@@ -10,9 +10,9 @@ CUDA has been widely adopted in scientific and engineering applications where th
 
 In addition to its programming interface and libraries, NVIDIA also provides a variety of tools to aid in CUDA development, including profilers and debuggers. These tools can help developers optimize their code and identify performance bottlenecks, which can be critical in achieving the best performance from a GPU-accelerated application. 
 
-## **Example:** SAXPY in CUDA C
+## **Example 1:** SAXPY in CUDA C
 
-Here we use OpenACC C to perform a SAXPY operation.
+### CUDA C Source Code
 
 ```c
 #include <stdio.h>
@@ -73,16 +73,16 @@ int main()
 }
 ```
 
-## Compile the code
+### Compile the code
 
 If the above code is named <code>saxpy.cu</code> it can be compiled as, e.g.,
 
 ```bash
-module load cuda/11.7.1-fasrc01
+module load nvhpc/23.7-fasrc01
 nvcc -o saxpy.x saxpy.cu
 ```
 
-## Example batch-job submission script
+### Example batch-job submission script
 
 ```bash
 #!/bin/bash
@@ -97,7 +97,7 @@ nvcc -o saxpy.x saxpy.cu
 #SBATCH -t 30
 
 # Load required modules
-cuda/11.7.1-fasrc01
+module load nvhpc/23.7-fasrc01
 
 # Run the executable
 ./saxpy.x
@@ -107,12 +107,106 @@ Assuming the batch-job submission script is named <code>run.sbatch</code>, the j
 ```bash
 sbatch run.sbatch
 ```
-## Example Output
+### Example Output
 
 ```bash
-cat cuda_test.out 
+$ cat cuda_test.out 
 Result: y[0] = 4.000000
 ```
+
+## **Example 2:** SAXPY in CUDA Fortran
+
+### CUDA Fortran Source Code
+
+```fortran
+module mathOps
+contains
+  attributes(global) subroutine saxpy(x, y, a)
+    implicit none
+    real :: x(:), y(:)
+    real, value :: a
+    integer :: i, n
+    n = size(x)
+    i = blockDim%x * (blockIdx%x - 1) + threadIdx%x
+    if (i <= n) y(i) = y(i) + a*x(i)
+  end subroutine saxpy
+end module mathOps
+
+program testSaxpy
+  use mathOps
+  use cudafor
+  implicit none
+  integer, parameter :: N = 1024000
+  real :: x(N), y(N), a
+  real, device :: x_d(N), y_d(N)
+  type(dim3) :: grid, tBlock
+
+  tBlock = dim3(256,1,1)
+  grid = dim3(ceiling(real(N)/tBlock%x),1,1)
+
+  call random_number(x)
+  call random_number(y)
+  call random_number(a)
+
+  !x = 1.0; y = 2.0; a = 2.0
+  x_d = x
+  y_d = y
+  call saxpy<<<grid, tBlock>>>(x_d, y_d, a)
+  y = y_d
+
+  print *, "Size of arrays: ", N
+  print *, 'Grid             : ', grid
+  print *, 'Threads per block: ', tBlock
+
+  print *, "Constant a:", a
+  print *, 'Average values ', sum(abs(x))/N, sum(abs(y))/N
+end program testSaxpy
+```
+### Compile the code
+
+If the above code is named <code>saxpy.cuf</code> it can be compiled as, e.g.,
+
+```bash
+module load nvhpc/23.7-fasrc01
+nvfortran -o saxpy.x saxpy.cuf
+```
+
+### Example batch-job submission script
+
+```bash
+#!/bin/bash
+#SBATCH -p gpu_test
+#SBATCH -n 1
+#SBATCH -c 1
+#SBATCH --gres=gpu:1
+#SBATCH --mem=12000
+#SBATCH -J cuda_test
+#SBATCH -o cuda_test.out
+#SBATCH -e cuda_test.err
+#SBATCH -t 30
+
+# Load required modules
+module load nvhpc/23.7-fasrc01
+
+# Run the executable
+./saxpy.x
+```
+Assuming the batch-job submission script is named <code>run.sbatch</code>, the jobs is sent to the queue, as usual, with:
+
+```bash
+sbatch run.sbatch
+```
+### Example Output
+
+```bash
+$ cat cuda_test.out 
+ Size of arrays:       1024000
+ Grid             :          4000            1            1
+ Threads per block:           256            1            1
+ Constant a:   0.1387444    
+ Average values    0.4998179       0.5694433 
+```
+
 ## References
 
 * [About CUDA](https://developer.nvidia.com/about-cuda)
