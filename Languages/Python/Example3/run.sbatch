@@ -1,4 +1,4 @@
-##!/bin/bash
+#!/bin/bash
 #SBATCH -J np_pandas        # job name
 #SBATCH -o np_pandas.out    # standard output file
 #SBATCH -e np_pandas.err    # standard error file
