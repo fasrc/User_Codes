@@ -152,6 +152,24 @@ $ conda deactivate
 
 For additional features, please refer to the [Mamba documentation](https://mamba.readthedocs.io/en/latest/index.html).
 
+## Use conda environment in Jupyter Notebooks
+
+If you would like to use a conda environment as a kernel in a Jupyter Notebook on Open OnDemand ([Cannon OOD](https://rcood.rc.fas.harvard.edu) or [FASSE OOD](fasseood.rc.fas.harvard.edu)), you have to install packages, `ipykernel` and `nb_conda_kernels`. These packages will allow Jupyter to detect conda environments that you created from the command line.
+
+For example, if your environment name is `python_env1`:
+
+```bash
+module load python
+source activate python_env1
+mamba install ipykernel
+mamba install nb_conda_kernels
+```
+
+**After** these packages are installed, launch a new Jupyter Notebook job (existing Jupyter Notebook jobs will fail to "see" this environment). Then
+
+1. Open a Jupyter Notebook (a `.ipynb` file)
+2. On the top menu, click Kernel -> Change kernel -> select the conda environment
+
 ## Conda environments in Lab space
 By default conda/mamba install your packages in your home directory under <code>~/.conda</code>. While a safe place to keep this data it is also very low performance due to filesystem latency. It also makes it hard to share your conda environments with other people on the cluster.
 
