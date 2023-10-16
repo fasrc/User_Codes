@@ -71,4 +71,22 @@ df.describe()
 
 ### Example Output:
 
+Content of output file `np_pandas.out`:
 
+```bash
+        0      1       2
+0   Spark  20000  30days
+1  pandas  20000  40days
+  Courses    Fee Duration
+a   Spark  20000   30days
+b  pandas  20000   40days
+    Courses      Fee Duration  Discount
+r0    Spark  22000.0    30day      1000
+r1  PySpark  25000.0   50days      2300
+r2   Hadoop  23000.0   55days      1000
+r3   Python  24000.0   40days      1200
+r4   Pandas      NaN   60days      2500
+r5     None  25000.0    35day      1300
+r6    Spark  25000.0               1400
+r7   Python  22000.0   50days      1600
+```
