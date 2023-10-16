@@ -1,16 +1,15 @@
-#!/usr/bin/env bash
-#SBATCH -J mc_pi
-#SBATCH -o mc_pi.out
-#SBATCH -e mc_pi.err
-#SBATCH -N 1
-#SBATCH -c 1
-#SBATCH -p serial_requeue
-#SBATCH -t 0-00:30
-#SBATCH --mem=4000
+#!/bin/bash
+#SBATCH -J mc_pi              # job name
+#SBATCH -o mc_pi.out          # standard output file
+#SBATCH -e mc_pi.err          # standard error file
+#SBATCH -N 1                  # number of nodes
+#SBATCH -c 1                  # number of cores
+#SBATCH -p serial_requeue     # partition
+#SBATCH -t 0-00:30            # time in D-HH:MM
+#SBATCH --mem=4000            # memory in MB
 
 # Load required modules
-source new-modules.sh
-module load python/3.6.0-fasrc01
+module load python
 
 # Run program
 python mc_pi.py
