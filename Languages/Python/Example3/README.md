@@ -69,6 +69,12 @@ print(df)
 df.describe()
 ```
 
+Submit batch job:
+
+```bash
+sbatch run.sbatch
+```
+
 ### Example Output:
 
 Content of output file `np_pandas.out`:
