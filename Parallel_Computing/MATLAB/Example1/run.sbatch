@@ -1,16 +1,14 @@
 #!/bin/bash
-#SBATCH -J parallel_monte_carlo
-#SBATCH -o parallel_monte_carlo.out
-#SBATCH -e parallel_monte_carlo.err
-#SBATCH -N 1
-#SBATCH -c 8
-#SBATCH -t 30
-#SBATCH -p test
-#SBATCH --mem=12GB
+#SBATCH -J parallel_monte_carlo        # job name
+#SBATCH -o parallel_monte_carlo.out    # standard output file
+#SBATCH -e parallel_monte_carlo.err    # standard error file
+#SBATCH -c 8                           # number of cores (SLURM_CPUS_PER_TASK)
+#SBATCH -t 00:30:00                    # time in HH:MM:SS
+#SBATCH -p serial_requeue              # partition
+#SBATCH --mem=14GB                     # memory in GB
 
 # Load required software modules
-module load matlab/R2022a-fasrc01
+module load matlab
 
 # Run program
-srun -n 1 -c $SLURM_CPUS_PER_TASK matlab -nosplash -nodesktop -r "parallel_monte_carlo($SLURM_CPUS_PER_TASK);exit"
-
+srun -c $SLURM_CPUS_PER_TASK matlab -nosplash -nodesktop -r parallel_monte_carlo
