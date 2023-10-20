@@ -240,7 +240,7 @@ end subroutine applyh
 !=====================================================================
 subroutine dnormvec(n,dvec,dnorm)
   implicit none
-  integer(8) :: n
+  integer(4) :: n
   real(8)    :: dvec(n)
   real(8)    :: dnorm
   real(8)    :: d  

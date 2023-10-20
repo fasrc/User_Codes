@@ -1,26 +1,24 @@
-### Purpose:
+## Purpose:
 
 Program illustrates standard [Lanczos algorithm](https://en.wikipedia.org/wiki/Lanczos_algorithm). The specific example generates a random symmetric matrix of dimension 100X100 and diagonalizes it. Computed eigenvalues are compared with exact results (from [Householder diagonalization](https://en.wikipedia.org/wiki/Householder_transformation)). 
 
-### Compile:
+### Compiling
 
-GNU compilers, e.g.,
+**GNU compilers**, e.g.,
 
 ```bash
-source new-modules.sh
-module load gcc/6.3.0-fasrc01
+module load gcc/12.2.0-fasrc01
 gfortran -o lanczos.x lanczos.f90 -O2
 ``` 
 
-Intel compilers, e.g.,
+**Intel compilers**, e.g.,
 
 ```bash
-source new-modules.sh
-module load intel/17.0.2-fasrc01
+module load intel/23.2.0-fasrc01
 ifort -o lanczos.x lanczos.f90 -O2
 ``` 
 
-### Example batch-job submission script:
+## Example batch-job submission script
 
 ```bash
 #!/usr/bin/env bash
@@ -29,12 +27,12 @@ ifort -o lanczos.x lanczos.f90 -O2
 #SBATCH -e lanczos_job.err
 #SBATCH -N 1
 #SBATCH -c 1
+#SBATCH -p test
 #SBATCH -t 0-00:30
-#SBATCH --mem=4000
+#SBATCH --mem=4G
 
 # Load required software modules
-source new-modules.sh
-module load intel/17.0.2-fasrc01
+module load intel/23.2.0-fasrc01
 
 # Run the program
 ./lanczos.x <<EOF
@@ -44,13 +42,13 @@ module load intel/17.0.2-fasrc01
 EOF
 ```
 
-### Submit job:
+### Submit job
 
 ```bash
 sbatch run.sbatch
 ```
 
-### Example output:
+### Example output
 
 ```
 cat lanczos_job.out 
