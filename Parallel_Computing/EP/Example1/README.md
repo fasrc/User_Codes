@@ -39,7 +39,7 @@ print(res)
 ```bash
 #!/bin/bash
 #SBATCH -J array_test
-#SBATCH -p shared
+#SBATCH -p test
 #SBATCH -c 1
 #SBATCH -t 00:10:00
 #SBATCH --mem=4G
@@ -48,7 +48,7 @@ print(res)
 #SBATCH --array=100,200,300
 
 # Load software environment
-module load R/3.5.1-fasrc01
+module load R/4.3.1-fasrc01
 
 input=serial_sum.R
 
@@ -67,8 +67,8 @@ sbatch run.sbatch
 ```
 $ cat serial_sum.R.100.out
 
-R version 3.5.1 (2018-07-02) -- "Feather Spray"
-Copyright (C) 2018 The R Foundation for Statistical Computing
+R version 4.3.1 (2023-06-16) -- "Beagle Scouts"
+Copyright (C) 2023 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
