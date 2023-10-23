@@ -1,8 +1,8 @@
-#=======================================================================
+#======================================================================
 # Make file for omp_diag.f90
 #=======================================================================
-F90CFLAGS   = -c -O2 -openmp
-F90COMPILER = ifort
+F90CFLAGS   = -c -O2 -qopenmp
+F90COMPILER = ifx
 PRO         = omp_diag
 OBJECTS     = omp_diag.o
 
@@ -13,10 +13,10 @@ LIBMKL = -L $(MKLROOT)/lib/intel64/ -lmkl_blas95_lp64 -lmkl_lapack95_lp64 \
 LINK_MKL = $(LIBMKL)
 
 ${PRO}.x : $(OBJECTS)
-	$(F90COMPILER) -o ${PRO}.x $(OBJECTS) $(LINK_MKL) -openmp
+	$(F90COMPILER) -o ${PRO}.x $(OBJECTS) $(LINK_MKL) -qopenmp
 
 %.o : %.f90
 	$(F90COMPILER) $(F90CFLAGS) $(<F)
 
 clean :
-	rm *.o *.x
+	rm -f *.o *.x

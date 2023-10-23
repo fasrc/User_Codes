@@ -1,3 +1,3 @@
 ### Contents:
-* Example1: Parallel DOT product of 2 random vectors
-* Example2: Parallel diagonalization of a symmetric matrix
+* Example1: OpenMP parallel region (C)
+* Example2: OpenMP diagonalization of a symmetric matrix (Fortran)

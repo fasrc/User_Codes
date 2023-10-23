@@ -1,18 +1,16 @@
-#==========================================================
-# Make file for omp_dot.cpp
-#==========================================================
-F90CFLAGS   = -c -O2 -fopenmp
-F90COMPILER = g++
-PRO         = omp_dot
-OBJECTS     = $(PRO).o
-
-LIBS        = -fopenmp
+#=================================================
+# Makefile
+#=================================================
+CFLAGS   = -c -O2 -qopenmp
+COMPILER = icx
+PRO         = omp_hello
+OBJECTS     = ${PRO}.o
 
 ${PRO}.x : $(OBJECTS)
-	$(F90COMPILER) -o ${PRO}.x $(OBJECTS) $(LIBS)
+	$(COMPILER) -o ${PRO}.x $(OBJECTS) -qopenmp
 
-%.o : %.cpp
-	$(F90COMPILER) $(F90CFLAGS) $(<F)
+%.o : %.c
+	$(COMPILER) $(CFLAGS) $(<F)
 
-clean : 
-	rm *.o *.x
+clean :
+	rm -fr *.o *.x *.out *.err *.dat

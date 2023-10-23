@@ -10,7 +10,7 @@ program omp_diag
   integer(4) :: j
   integer(4), parameter :: n = 1000    ! Matrix dimension ( n x n )
   integer(4), parameter :: m = 10      ! Number of eigen values to print out
-  integer(4), parameter :: iseed = 546 ! Seed for random number generator
+  integer(4), parameter :: iseed = -99 ! Seed for random number generator
   real(8), allocatable :: h(:,:)       ! Matrix to diagonalize
   real(8), allocatable :: eig(:)       ! Array with eigen values of h
 ! OpenMP variables....................................................
@@ -28,7 +28,7 @@ program omp_diag
 
 
 !$OMP PARALLEL PRIVATE(TID, i, j) &
-!$OMP          SHARED(NTHREADS, h, t1, t2, tt1)
+!$OMP          SHARED(NTHREADS, h)
   TID = OMP_GET_THREAD_NUM()
   NTHREADS = OMP_GET_NUM_THREADS()
   if ( TID == 0 ) write(6,*) 'Number of threads:', NTHREADS
