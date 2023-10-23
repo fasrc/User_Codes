@@ -77,6 +77,27 @@ int main (int argc, char *argv[]) {
 
 ```
 
+### Makefile:
+
+```makefile
+#=================================================
+# Makefile
+#=================================================
+CFLAGS   = -c -O2 -qopenmp
+COMPILER = icx
+PRO         = omp_pi
+OBJECTS     = ${PRO}.o
+
+${PRO}.x : $(OBJECTS)
+	$(COMPILER) -o ${PRO}.x $(OBJECTS) -qopenmp
+
+%.o : %.c
+	$(COMPILER) $(CFLAGS) $(<F)
+
+clean :
+	rm -fr *.o *.x *.out *.err *.dat scaling_results.txt
+```
+
 ### Batch-Job Submission Script:
 
 ```bash
@@ -85,6 +106,7 @@ int main (int argc, char *argv[]) {
 #SBATCH -o omp_pi.out
 #SBATCH -e omp_pi.err
 #SBATCH -t 0-00:30
+#SBATCH -p test
 #SBATCH -N 1
 #SBATCH -c 8
 #SBATCH --mem=4000
@@ -93,19 +115,35 @@ PRO=omp_pi
 rm -rf ${PRO}.dat speedup.png
 touch ${PRO}.dat
 
-# Load required software modules
+# --- Load required software modules ---
 module load intel/23.2.0-fasrc01
 unset OMP_NUM_THREADS
-# Run program with 1, 2, 4, and 8 OpenMP threads
-for i in 1 2 4 8
+# --- Run program with 1, 2, 4, and 8 OpenMP threads ---
+for i in 1 2 4 8 
 do
     echo "Number of threads: ${i}"
-    ./${PRO}.x 100000000 ${i} >> ${PRO}.dat
+    ./${PRO}.x 250000000 ${i} >> ${PRO}.dat
     echo " "
 done
 
+# --- Generate "scaling_results.txt" data file ---
+cat omp_pi.dat  | grep -e Time  -e Number | awk -F ":" '{if ($1 ~ "Time" ) {print $2}else{printf "%d ",$2}}' | awk '{print $1,$2}' > scaling_results.txt
+
+#  --- Generate speedup figure ---
+sleep 2
+module load python/3.10.12-fasrc01
+source activate python-3.10_env
+python speedup.py
 ```
 
+> **NOTE:** To generate the scaling figure, you will need to load a Python module and activate a `conda` environment, e.g., `python-3.10_env`, (see below) containing the `numpy` and `matplotlib` packages.
+
+## Example conda env:
+
+```bash
+module load python/3.10.12-fasrc01
+mamba create -n python-3.10_env python=3.10 pip wheel numpy scipy matplotlib pandas seaborn h5py
+```
 ### Example Output:
 
 ```bash
@@ -113,22 +151,22 @@ done
 Number of threads:  1
 Exact value of PI: 3.14159
 Estimate of PI:    3.14154
-Time:    2.50 sec.
+Time:    2.56 sec.
 
 Number of threads:  2
 Exact value of PI: 3.14159
 Estimate of PI:    3.14151
-Time:    1.26 sec.
+Time:    1.28 sec.
 
 Number of threads:  4
 Exact value of PI: 3.14159
 Estimate of PI:    3.14163
-Time:    0.65 sec.
+Time:    0.64 sec.
 
 Number of threads:  8
 Exact value of PI: 3.14159
 Estimate of PI:    3.14158
-Time:    0.34 sec.
+Time:    0.32 sec.
 ```
 
 ### Speedup:

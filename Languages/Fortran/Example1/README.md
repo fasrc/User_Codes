@@ -15,7 +15,7 @@ gfortran -o lanczos.x lanczos.f90 -O2
 
 ```bash
 module load intel/23.2.0-fasrc01
-ifort -o lanczos.x lanczos.f90 -O2
+ifx -o lanczos.x lanczos.f90 -O2
 ``` 
 
 ## Example batch-job submission script

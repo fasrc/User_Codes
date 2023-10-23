@@ -15,7 +15,7 @@ Intel compilers, e.g.,
 
 ```bash
 module load intel/23.2.0-fasrc01
-ifort -o sum.x sum.f90 -O2
+ifx -o sum.x sum.f90 -O2
 ``` 
 
 ### Example batch-job submission script
