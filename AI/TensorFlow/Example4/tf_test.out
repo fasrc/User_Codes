@@ -1,0 +1,29 @@
+2.14.0
+Number of devices: 4
+Epoch 1/10
+1875/1875 - 13s - loss: 0.5010 - accuracy: 0.8232 - 13s/epoch - 7ms/step
+Epoch 2/10
+1875/1875 - 7s - loss: 0.3747 - accuracy: 0.8646 - 7s/epoch - 4ms/step
+Epoch 3/10
+1875/1875 - 7s - loss: 0.3367 - accuracy: 0.8768 - 7s/epoch - 4ms/step
+Epoch 4/10
+1875/1875 - 7s - loss: 0.3129 - accuracy: 0.8856 - 7s/epoch - 4ms/step
+Epoch 5/10
+1875/1875 - 7s - loss: 0.2960 - accuracy: 0.8910 - 7s/epoch - 4ms/step
+Epoch 6/10
+1875/1875 - 7s - loss: 0.2799 - accuracy: 0.8973 - 7s/epoch - 4ms/step
+Epoch 7/10
+1875/1875 - 7s - loss: 0.2685 - accuracy: 0.9000 - 7s/epoch - 4ms/step
+Epoch 8/10
+1875/1875 - 7s - loss: 0.2580 - accuracy: 0.9036 - 7s/epoch - 4ms/step
+Epoch 9/10
+1875/1875 - 7s - loss: 0.2480 - accuracy: 0.9083 - 7s/epoch - 4ms/step
+Epoch 10/10
+1875/1875 - 7s - loss: 0.2383 - accuracy: 0.9110 - 7s/epoch - 4ms/step
+313/313 - 1s - loss: 0.3294 - accuracy: 0.8843 - 1s/epoch - 5ms/step
+
+Test accuracy: 0.8842999935150146
+313/313 - 1s - 1s/epoch - 4ms/step
+[4.0451411e-07 4.3211493e-12 1.8949876e-10 1.1165977e-12 3.1353355e-08
+ 1.5895354e-03 4.6215266e-08 5.1007383e-03 7.3685516e-07 9.9330854e-01]
+9
