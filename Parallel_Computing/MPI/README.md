@@ -10,19 +10,19 @@ For instance, if you want to use OpenMPI compiled with the GNU compiler you need
 
 ```bash
 # GCC + OpenMPI, e.g.,
-module load gcc/12.2.0-fasrc01 openmpi/4.1.4-fasrc01
+module load gcc/13.2.0-fasrc01 openmpi/4.1.5-fasrc03
 
 # GCC + Mpich, e.g.,
-module load gcc/12.2.0-fasrc01 mpich/4.1-fasrc01
+module load gcc/13.2.0-fasrc01 mpich/4.1.2-fasrc01
 
 # Intel + OpenMPI, e.g.,
-module load intel/23.0.0-fasrc01 openmpi/4.1.4-fasrc01
+module load intel/23.2.0-fasrc01 openmpi/4.1.5-fasrc03
 
 # Intel + Mpich, e.g.,
-module load intel/23.0.0-fasrc01 mpich/4.1-fasrc01
+module load intel/23.2.0-fasrc01 mpich/4.1.2-fasrc01
 
 # Intel + IntelMPI (IntelMPI runs mpich underneath), e.g.
-module load intel/23.0.0-fasrc01 intelmpi/2021.8.0-fasrc01
+module load intel/23.2.0-fasrc01 intelmpi/2021.10.0-fasrc01
 ```
 
 For reproducibility and consistency it is recommended to use the complete module name with the module load command, as illustrated above. Modules on the cluster get updated often so check if there are more recent ones. The modules are set up so that you can only have one MPI module loaded at a time. If you try loading a second one it will automatically unload the first. This is done to avoid dependencies collisions.
@@ -155,23 +155,29 @@ int main(int argc, char** argv){
 
 ### Compile the program
 
-Depending the language you used to implement your code (Fortran 77, Fortran 90, C, C++), use one of the following:
+Depending the language you used to implement your code (Fortran 77, Fortran 90, C, C++), and the MPI implementation (OpenMPI, Mpich, Intel-MPI) use one of the following:
 
 ```bash
-# Fortran 77 
+# Fortran 77 with OpenMPI or Mpich
 mpif77 -o mpitest.x mpitest.f
 
-# Fortran 90
+# Fortran 90 with OpenMPI or Mpich
 mpif90 -o mpitest.x mpitest.f90
 
-# Fortran 90 with IntelMPI
-mpiifort -o mpitest.x mpitest.f90
+# Fortran 90 with Intel-MPI
+mpiifx -o mpitest.x mpitest.f90
 
-# C          
+# C with OpenMPI or Mpich
 mpicc -o mpitest.x mpitest.c
 
-# C++        
+# C with Intel-MPI       
+mpiicx -o mpitest.x mpitest.c
+
+# C++ with OpenMPI or Mpich
 mpicxx -o mpitest.x mpitest.cpp
+
+# C++ with Intel-MPI
+mpiicpx -o mpitest.x mpitest.cpp
 ```
 
 ### Create a batch-jobs submission script
@@ -193,15 +199,15 @@ With a text editor like emacs or vi open a new file named <code>run.sbatch</code
 #SBATCH --mem-per-cpu=500     # memory in megabytes
 
 # --- Load the required software modules., e.g., ---
-module load gcc/12.2.0-fasrc01 openmpi/4.1.4-fasrc01
+module load gcc/13.2.0-fasrc01 openmpi/4.1.5-fasrc03
 
 # --- Run the executable ---
 srun -n $SLURM_NTASKS --mpi=pmix ./mpitest.x
 ```
 
-> **NOTE:** Notice, in the above example we use GCC and OpenMPI, <code>module load gcc/12.2.0-fasrc01 openmpi/4.1.4-fasrc01</code>. As a rule, you **must** load exactly the same modules you used to compile your code.
+> **NOTE:** Notice, in the above example we use GCC and OpenMPI, <code>module load gcc/13.2.0-fasrc01 openmpi/4.1.5-fasrc03</code>. As a rule, you **must** load exactly the same modules you used to compile your code.
 
-#### IntelMPI example
+#### Intel-MPI example
 
 ```bash
 #!/bin/bash
@@ -214,14 +220,14 @@ srun -n $SLURM_NTASKS --mpi=pmix ./mpitest.x
 #SBATCH --mem-per-cpu=500     # memory in megabytes
 
 # --- Load the required software modules., e.g., ---
-module load intel/23.0.0-fasrc01 intelmpi/2021.8.0-fasrc01
+module load intel/23.2.0-fasrc01 intelmpi/2021.10.0-fasrc01
 
 # --- Run the executable ---
 # with intelmpi, you need to ensure it uses pmi2 instead of pmix
 srun -n $SLURM_NTASKS --mpi=pmi2 ./mpitest.x
 ```
 
-> **NOTE:** Notice, in the above example we use Intel and IntelMPI, <code>module load intel/23.0.0-fasrc01 intelmpi/2021.8.0-fasrc01</code>. As a rule, you **must** load exactly the same modules you used to compile your code.
+> **NOTE:** Notice, in the above example we use Intel and IntelMPI, <code>module load intel/23.2.0-fasrc01 intelmpi/2021.10.0-fasrc01</code>. As a rule, you **must** load exactly the same modules you used to compile your code.
 
 
 ### Submit the jobs to the queue
@@ -267,9 +273,9 @@ $ cat mpitest.out
 
 Below are some further MPI examples.
 
-* **[Example 1](./Example1/):** Monte-Carlo calculation of $\pi$
-* **[Example 2](./Example2/):** Integration of $x^2$ in interval [0, 4] with 80 integration points and the trapezoidal rule
-* **[Example 3](./Example3/):** Parallel Lanczos diagonalization with reorthogonalization and MPI I/O
+* **[Example 1](https://github.com/fasrc/User_Codes/tree/master/Parallel_Computing/MPI/Example1):** Monte-Carlo calculation of $\pi$
+* **[Example 2](https://github.com/fasrc/User_Codes/tree/master/Parallel_Computing/MPI/Example2):** Integration of $x^2$ in interval [0, 4] with 80 integration points and the trapezoidal rule
+* **[Example 3](https://github.com/fasrc/User_Codes/tree/master/Parallel_Computing/MPI/Example3):** Parallel Lanczos diagonalization with reorthogonalization and MPI I/O
 
 ## References
 
