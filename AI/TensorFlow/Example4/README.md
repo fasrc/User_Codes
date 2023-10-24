@@ -1,6 +1,6 @@
 ## Purpose
 
-Show how to use multiple GPUs with Tensorflow
+Show how to use multiple GPUs with Tensorflow by modifying the example [`tf_test.py`](../tf_test.py)
 
 ## Contents
 
