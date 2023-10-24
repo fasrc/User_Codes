@@ -1,6 +1,13 @@
 # TensorFlow
 <img src="Images/tensorflow-logo.png" alt="TF-logo" width="200"/>
 
+## Examples:
+
+* [Example 1](Example1): Simple 2D CNN with the MNIST dataset
+* [Example 2](Example2): TensorBoard application
+* [Example 3](Example3): Multi-gpu example from [TensorFlow documentation](https://www.tensorflow.org/guide/keras/distributed_training)
+* [Example 3](Example3): Multi-gpu example -- modified [`tf_test.py`](tf_test.py)
+
 ## What is TensorFlow?
 
 [TensorFlow](https://www.tensorflow.org) (TF) is an open-source software library for numerical computation using data flow graphs. Nodes in the graph represent mathematical operations, while the graph edges represent the multidimensional data arrays (tensors) that flow between them. This flexible architecture lets you deploy computation to one or more CPUs or GPUs in a desktop, server, or mobile device without rewriting code.
@@ -308,11 +315,6 @@ From: tensorflow/tensorflow:2.12.0-gpu
 ```
 
 You could install additional packages directly in the image with `pip` by adding them in the `%post` section of the definition file as illustrated above. Please, refer to our documentation on how to [build singularity images from definition files](https://docs.rc.fas.harvard.edu/kb/singularity-on-the-cluster/#articleTOC_15).
-
-## Examples:
-
-* [Example 1](Example1): Simple 2D CNN with the MNIST dataset
-* [Example 2](Example2): TensorBoard application
 
 ## References:
 

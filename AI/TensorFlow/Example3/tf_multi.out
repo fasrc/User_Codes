@@ -1,0 +1,6 @@
+Number of devices: 4
+Epoch 1/2
+1563/1563 - 13s - loss: 0.2268 - sparse_categorical_accuracy: 0.9312 - val_loss: 0.1302 - val_sparse_categorical_accuracy: 0.9592 - 13s/epoch - 8ms/step
+Epoch 2/2
+1563/1563 - 8s - loss: 0.0948 - sparse_categorical_accuracy: 0.9713 - val_loss: 0.1051 - val_sparse_categorical_accuracy: 0.9678 - 8s/epoch - 5ms/step
+313/313 - 1s - loss: 0.1106 - sparse_categorical_accuracy: 0.9659 - 1s/epoch - 4ms/step
