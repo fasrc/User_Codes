@@ -6,7 +6,7 @@ Show how to use multiple GPUs with Tensorflow
 
 - `tf_multi_gpu.py`: Simple example from [TensforFlow docs](https://www.tensorflow.org/guide/keras/distributed_training)
 - `run.sbatch`: Slurm batch-job submission script to pull singularity image and run `tf_multi_gpu.py`
-- `tf_multi.err`: Output file
+- `tf_multi.out`: Output file
 
 ## Important notes
 

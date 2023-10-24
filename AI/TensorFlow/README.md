@@ -6,7 +6,7 @@
 * [Example 1](Example1): Simple 2D CNN with the MNIST dataset
 * [Example 2](Example2): TensorBoard application
 * [Example 3](Example3): Multi-gpu example from [TensorFlow documentation](https://www.tensorflow.org/guide/keras/distributed_training)
-* [Example 3](Example3): Multi-gpu example -- modified [`tf_test.py`](tf_test.py)
+* [Example 4](Example4): Multi-gpu example -- modified [`tf_test.py`](tf_test.py)
 
 ## What is TensorFlow?
 
