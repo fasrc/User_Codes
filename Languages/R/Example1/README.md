@@ -49,7 +49,7 @@ CountDown( 10 )
 module load R
 
 # Run program
-srun -c 1 R --vanilla < count_down.R
+R CMD BATCH --no-save --no-restore count_down.R
 ```
 
 #### Example Usage:
