@@ -31,40 +31,39 @@ CountDown <- function(x)
 
 # Call CountDown............................................
 CountDown( 10 )
-
 ```
 
 #### Example Batch-Job Submission Script:
 
 ```bash
 #!/bin/bash
-#SBATCH -J count_down
-#SBATCH -o count_down.out
-#SBATCH -e count_down.err
-#SBATCH -p shared
-#SBATCH -N 1
-#SBATCH -c 1
-#SBATCH -t 0-00:30
-#SBATCH --mem=4000
+#SBATCH -J count_down         # job name
+#SBATCH -o count_down.out     # standard output file
+#SBATCH -e count_down.err     # standard error file
+#SBATCH -p shared             # partition
+#SBATCH -c 1                  # number of cores
+#SBATCH -t 0-00:30            # time in D-HH:MM
+#SBATCH --mem=4000            # memory in MB
 
 # Load required software modules
-module load R/3.5.1-fasrc01
+module load R
 
 # Run program
-srun -n 1 -c 1 R --vanilla < count_down.R 
+R CMD BATCH --no-save --no-restore count_down.R
 ```
 
 #### Example Usage:
 
 ```bash
-module load R/3.5.1-fasrc01
 sbatch run.sbatch
 ```
 #### Example Output:
 
+Content of file `count_down.Rout`:
+
 ```
-R version 3.5.1 (2018-07-02) -- "Feather Spray"
-Copyright (C) 2018 The R Foundation for Statistical Computing
+R version 4.3.1 (2023-06-16) -- "Beagle Scouts"
+Copyright (C) 2023 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -115,5 +114,5 @@ Type 'q()' to quit R.
 > 
 > proc.time()
    user  system elapsed 
-  0.264   0.093  12.301 
+  0.138   0.038  10.386
 ```
