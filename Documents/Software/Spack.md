@@ -32,7 +32,7 @@ This will create the <code>spack</code> folder in the current directory. Next, g
 $ cd spack/
 $ . share/spack/setup-env.sh
 $ spack --version
-0.20.0 (456db45c4a84ccbdb1277874b31b677141641078)
+0.21.0.dev0 (89fc9a9d47108c5d34f3f5180eb10d5253689c29)
 ```
 ### Group Permissions
 By default Spack will match your usual file permissions which typically are set up without group write permission. For lab wide installs of Spack though you will want to ensure that it has [group write enforced](https://spack.readthedocs.io/en/latest/build_settings.html#package-permissions). You can set this by going to the <code>etc/spack</code> directory in your Spack installation and adding a file called <code>packages.yaml</code> (or editing the exiting one) with the following contents:
@@ -257,7 +257,7 @@ gcc@8.5.0
 
 The listed compilers are system level compilers provided by the OS itself. On the cluster, we support a set of core compilers, such as GNU (GCC) compiler suit, Intel, and PGI provided on the cluster through [software modules](https://docs.rc.fas.harvard.edu/kb/modules-intro).
 
-You can easily add additional compilers to spack by loading the appropriate software modules, running the <code>spack compiler find</code> command, and edit the <code>compilers.yaml</code> configuration file. For instance, if you need GCC version 12.2.3 you need to do the following:
+You can easily add additional compilers to spack by loading the appropriate software modules, running the <code>spack compiler find</code> command, and edit the <code>compilers.yaml</code> configuration file. For instance, if you need GCC version 12.2.0 you need to do the following:
 
 * ### Load the required software module
 
@@ -375,9 +375,9 @@ MPI is configured through the <code>packages.yaml</code> file. For instance, if 
 ### Determine the MPI location / prefix
 
 ```bash
-$ module load gcc/12.2.0-fasrc01 openmpi/4.1.4-fasrc01
+$ module load gcc/12.2.0-fasrc01 openmpi/4.1.5-fasrc03
 $ echo $MPI_HOME
-/n/sw/helmod-rocky8/apps/Comp/gcc/12.2.0-fasrc01/openmpi/4.1.4-fasrc01
+/n/sw/helmod-rocky8/apps/Comp/gcc/12.2.0-fasrc01/openmpi/4.1.5-fasrc03
 ```
 
 ### Edit manually the packages configuration file
@@ -395,8 +395,8 @@ Include the following contents:
 packages:
   openmpi:
     externals:
-    - spec: openmpi@4.1.4%gcc@12.2.0
-      prefix: /n/sw/helmod-rocky8/apps/Comp/gcc/12.2.0-fasrc01/openmpi/4.1.4-fasrc01
+    - spec: openmpi@4.1.5%gcc@12.2.0
+      prefix: /n/sw/helmod-rocky8/apps/Comp/gcc/12.2.0-fasrc01/openmpi/4.1.5-fasrc03
     buildable: False
 ```
 The option <code>buildable: False</code> reassures that MPI won't be built from source. Instead, <code>spack</code> will use the MPI provided as a software module in the corresponding prefix.
@@ -405,7 +405,7 @@ Once the MPI is configured, it can be used to build packages. The below example 
 
 ```bash
 $ module purge
-$ spack install hdf5@1.12.2 % gcc@12.2.0 ^ openmpi@4.1.4
+$ spack install hdf5@1.12.2 % gcc@12.2.0 ^ openmpi@4.1.5
 ...
 ==> Installing hdf5-1.12.2-lfmo7dvzrgmu35mt74zqjz2mfcwa2urb
 ==> No binary for hdf5-1.12.2-lfmo7dvzrgmu35mt74zqjz2mfcwa2urb found: installing from source
