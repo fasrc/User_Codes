@@ -574,6 +574,7 @@ And you can proceed with the spack package installs.
 * Spack Environments 
 * Spack Recipes: instructions for installing various software packages through spack
   - [WRF](Spack_wrf.md)
+  - [LAMMPS](Spack_lammps_mpi.md)
 
 ## References
 
