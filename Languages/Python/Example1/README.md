@@ -11,7 +11,7 @@ Calculate PI via Monte-Carlo method.
 ### Example Usage:
 
 ```bash
-module load python/3.10.9-fasrc01
+module load python/3.10.12-fasrc01
 sbatch run.sbatch
 ```
 	

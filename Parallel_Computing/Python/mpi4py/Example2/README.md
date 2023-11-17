@@ -59,7 +59,7 @@ if __name__ == '__main__':
 #SBATCH --mem-per-cpu=4000
 
 # Set up environment
-module load python/3.10.9-fasrc01
+module load python/3.10.12-fasrc01
 source activate python3_env1
 
 # Run the program
@@ -70,9 +70,9 @@ If you opted out for installing mpi4py with your MPI flavor and/or version of ch
 
 ```bash
 # Set up environment
-module load python/3.10.9-fasrc01
+module load python/3.10.12-fasrc01
 module load gcc/12.2.0-fasrc01
-module load openmpi/4.1.5-fasrc01
+module load openmpi/4.1.5-fasrc03
 source activate python3_env2
 ```
 and the "Run the program" section as follows:

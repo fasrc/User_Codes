@@ -8,8 +8,8 @@
 #SBATCH --mem=4000
 
 # Load required modules
-module load python/3.9.12-fasrc01
+module load python/3.10.12-fasrc01
 module load texlive/2018.06.15-fasrc01
 
 # Run program
-python tex_demo.py
+srun -c 1python tex_demo.py

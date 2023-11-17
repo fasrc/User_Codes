@@ -12,4 +12,4 @@
 module load python
 
 # Run program
-python mc_pi.py
+srun -c 1  python mc_pi.py
