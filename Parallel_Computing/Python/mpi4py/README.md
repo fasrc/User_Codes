@@ -9,7 +9,7 @@ We recommend the [Mambaforge](https://github.com/conda-forge/miniforge#mambaforg
 The most straightforward way to install <code>mpi4py</code> in your user space is to create a new [conda environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) with the <code>mpi4py</code> package. For instance, you can do something like the below:
 
 ```bash
-module load python/3.10.9-fasrc01
+module load python/3.10.12-fasrc01 
 mamba create -n python3_env1 python numpy pip wheel mpi4py
 source activate python3_env1  
 ```
@@ -21,7 +21,7 @@ For most of the cases the above installation procedure should work well. However
 * Load compiler and MPI software modules:
 ```bash
 module load gcc/12.2.0-fasrc01
-module load openmpi/4.1.5-fasrc01
+module load openmpi/4.1.5-fasrc03
 ```
 
 This will load [OpenMPI](https://www.open-mpi.org) in your user environment. You can also look at our [user documentation](https://docs.rc.fas.harvard.edu/kb/modules-intro) to learn more about software modules on the FAS cluster.
@@ -29,13 +29,13 @@ This will load [OpenMPI](https://www.open-mpi.org) in your user environment. You
 * Load a Python module:
 
 ```bash
-module load python/3.10.9-fasrc01
+module load python/3.10.12-fasrc01
 ```
 
 * Create a conda environment:
 
 ```bash
-conda create -n python3_env2 python numpy pip wheel
+mamba create -n python3_env2 python numpy pip wheel
 ```
 
 * Install <code>mpi4py</code> with <code>pip</code>:
