@@ -17,19 +17,9 @@
 # they still require different _names_ though
 my_fasta=5ZE6_1.fasta
 
-# set fasta-specific subfolder and filepath
-# handling different possible .fasta suffixes
-fasta_name="${my_fasta//.fasta}"
-fasta_name="${fasta_name//.faa}"
-fasta_name="${fasta_name//.fa}"
-mkdir -p $fasta_name
-cp $my_fasta $PWD/$fasta_name
-my_fasta_path=$PWD/$fasta_name/$my_fasta
-
 # create and set path of output directory
 my_output_dir=output
-mkdir -p $PWD/$fasta_name/$my_output_dir
-my_output_dir_path=$PWD/$fasta_name/$my_output_dir
+mkdir -p $my_output_dir
 
 # set model type (monomer, multimer, monomer_casp14, monomer_ptm)
 # see notes under fasta file if running multimer
@@ -41,16 +31,16 @@ my_model_type=monomer
 my_max_date="2100-01-01"
 
 # run AlphaFold monomer using Singularity
-singularity run --nv --env TF_FORCE_UNIFIED_MEMORY=1,XLA_PYTHON_CLIENT_MEM_FRACTION=4.0,OPENMM_CPU_THREADS=$SLURM_CPUS_PER_TASK,LD_LIBRARY_PATH=/usr/local/cuda-11.1/targets/x86_64-linux/lib/ --bind /n/holylfs04-ssd2/LABS/FAS/alphafold_database:/data -B .:/etc --pwd /app/alphafold /n/singularity_images/FAS/alphafold/alphafold_2.3.1.sif \
+singularity run --nv --env TF_FORCE_UNIFIED_MEMORY=1,XLA_PYTHON_CLIENT_MEM_FRACTION=4.0,OPENMM_CPU_THREADS=$SLURM_CPUS_PER_TASK,LD_LIBRARY_PATH=/usr/local/cuda-11.1/targets/x86_64-linux/lib/ --bind /n/holylfs04-ssd2/LABS/FAS/alphafold_database:/data /n/singularity_images/FAS/alphafold/alphafold_2.3.1.sif \
 --data_dir=/data/ \
 --bfd_database_path=/data/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt \
 --db_preset=full_dbs \
---fasta_paths=$my_fasta_path \
+--fasta_paths=$my_fasta \
 --max_template_date=$my_max_date \
 --mgnify_database_path=/data/mgnify/mgy_clusters_2022_05.fa \
 --model_preset=$my_model_type \
 --obsolete_pdbs_path=/data/pdb_mmcif/obsolete.dat \
---output_dir=$my_output_dir_path \
+--output_dir=$my_output_dir \
 --pdb70_database_path=/data/pdb70/pdb70 \
 --template_mmcif_dir=/data/pdb_mmcif/mmcif_files \
 --uniref30_database_path=/data/uniref30/UniRef30_2021_03 \

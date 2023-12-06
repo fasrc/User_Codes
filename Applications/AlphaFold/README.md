@@ -86,7 +86,7 @@ This example takes about 1 hour to run on Cannon in the `gpu` partition with
 
 Slurm script
 
-https://github.com/fasrc/User_Codes/blob/e87e731049e121395be476064058570ed69b9f6c/Applications/AlphaFold/run_alphafold.sh#L1-L59
+https://github.com/fasrc/User_Codes/blob/d9c3f2f785a5a633617662cc84eb44788c47516f/Applications/AlphaFold/run_alphafold.sh#L1-L48
 
 Fasta file
 
