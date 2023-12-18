@@ -26,13 +26,13 @@ install.packages("IRkernel")
 IRkernel::installspec()
 ```
 
-* Copy the `IRkernel` directory to your `Jupyter` data directory. for example, if your `IRkernel` directory is in `$HOME/apps/R/4.3.1/IRkernel`, do:
+* Copy the `IRkernel` directory to your `Jupyter` data directory. For example, if your `IRkernel` directory is in `$HOME/apps/R/4.3.1/IRkernel`, do:
 
 ```bash
 cp -R $HOME/apps/R/4.3.1/IRkernel $HOME/.local/share/jupyter/
 ```
 
-* Change the R path (the first "R") in the `$HOME/.local/share/jupyter/IRkernel/kernelspec /kernel.json` file to. e.g., 
+* Change the R path (the first "R") in the `$HOME/.local/share/jupyter/IRkernel/kernelspec /kernel.json` file to, e.g., 
 
 ```bash
 /n/sw/helmod-rocky8/apps/Core/R/4.3.1-fasrc01/bin/R
