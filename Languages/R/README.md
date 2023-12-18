@@ -34,6 +34,11 @@ You can also look at the instructions for installing specific R packages:
 * `~/.config/rstudio/rstudio-prefs.json`
 * `~/.R/Makevars`
 
+### Using R in Jupyter Notebooks
+
+You can use R in Jupyter notebooks following [these instructions](R_in_Jupyter.md).
+
+
 ### References:
 
 * [Official R website](https://www.r-project.org/)
