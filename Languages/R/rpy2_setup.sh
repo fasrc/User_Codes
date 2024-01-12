@@ -13,11 +13,17 @@ fi
 
 echo "R Version is $RVERSION"
 
-DIRNAME="$HOME/apps/R/4.3.1"
+DIRNAME="$HOME/apps/R_$RVERSION"
 echo "Directory name is $DIRNAME"
 
-if [ ! -d "$DIRNAME" ]; then
-  mkdir $DIRNAME
+if [ ! -d "$HOME/apps" ]; then
+    mkdir $HOME/apps
 fi
 
-export R_LIBS_USER=${HOME}/apps/R/${RVERSION}
+if [ ! -d "$DIRNAME" ]; then
+    mkdir $DIRNAME
+else
+    echo "$DIRNAME already exists"
+fi
+
+export R_LIBS_USER=${HOME}/apps/R_${RVERSION}
