@@ -54,60 +54,36 @@ conda install r-ggplot2
   instructions.
 
 You will need to set up R to point to your local R library and load
-the R software module along with cmake. One can prepare a setup script
-to point to the local R library that can be executed prior to
-launching the Jupyter app. For instance, you can prepare a script,
-`rpy2_setup.sh`, with the contents
+the R software module along with cmake.
 
-```bash
-#!/bin/bash
+* Prepare a setup script to point to the local R library that can be
+executed prior to launching the Jupyter app. A sample script,
+`rpy2_setup.sh`, has been provided here as part of the installation
+process. It takes the version of the R module being loaded as its
+command line argument. You can put this script in your working
+directory. Then, in the Jupyter Lab app menu, under the `Full path of
+script to be executed before launching jupyter (Optional)` option,
+enter the full path to your setup script along with the command line
+argument as illustrated below:
 
-export R_LIBS_USER=${HOME}/apps/R/4.3.1
-```
-and put it in the `$HOME/apps/R` directory. Then, in the Jupyter Lab app menu, under the `Full path of script to be executed before launching jupyter (Optional)` option, enter the full path to your setup script as illustrated below:
-
-<img src="Images/R_setup_script.png" alt="R-setup-script" width="600"/>
+<img src="Images/rpy2-R_setup_script.png" alt="rpy2-R-setup-script" width="600"/>
 
 
+* Load the conda environment by selecting the corresponding kernel:
 
-and load the conda environment by selecting
-  the corresponding kernel:
+Once you open your Jupyter notebook, you can load your conda
+environment by clicking the top right corner of the notebook to select
+the kernel, as shown below:
 
-* Set up a local R library, e.g.,
-```bash
-mkdir $HOME/apps/R/4.3.1
-export R_LIBS_USER=$HOME/apps/R/4.3.1
-```
+<img src="Images/rpy2-kernel.png" alt="rpy2-kernel" width="600"/>
 
-## Use the R kernel in Jupyter Lab
-
-* Pick up the Jupyter Lab app in the OpenOnDemand portal. Refer to [these](https://docs.rc.fas.harvard.edu/kb/virtual-desktop/) instructions.
-
-* Set up OpenOnDemand to use the IRkernel
-
-You will need to set up R to point to the you local R library, and also load an appropriate R software module. This can be done by preparing and executing a setup script prior launching the Jupyter app. For instance, you can prepare a script, e.g., `R_setup.sh`, with the below contents
-
-```bash
-#!/bin/bash
-module load R/4.3.1-fasrc01
-export R_LIBS_USER=${HOME}/apps/R/4.3.1
-```
-and put it in the `$HOME/apps/R` directory. Then, in the Jupyter Lab app menu, under the `Full path of script to be executed before launching jupyter (Optional)` option, enter the full path to your setup script as illustrated below:
-
-<img src="Images/R_setup_script.png" alt="R-setup-script" width="600"/>
-
-* Launch the Jupyter Lab app
-
-Upon launching the Jupyter Lab app, you should see the R kernel among the available options, e.g.,
-
-<img src="Images/R-kernel.png" alt="R-kernel" width="600"/>
-
-* Use R in a Jupyter notebook, e.g.,
-
-<img src="Images/R-notebook.png" alt="R-notebook" width="400"/>
+Once you open the kernel's drop-down menu, you should be able to see
+the rpy2 conda environment you just created prior to launching the
+Jupyter app. Select that as the kernel and the rpy2 conda environment
+will now be available to use from within the notebook.
 
 ## Install R Packages in Jupyter
 
-You can also install R packages directly in a Jupyter notebook, e.g.,
-
-<img src="Images/R-packages.png" alt="R-packages" width="600"/>
+One can install R packages directly in a Jupyter notebook using rpy2's
+*utile* feature. A sample notebook, rpy2-test.ipynb, has been provided
+here to demonstrate package installation using the util feature.
