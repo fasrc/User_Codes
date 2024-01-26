@@ -1,0 +1,5 @@
+WARN: config file does not exist, ignoring: --config /var/lib/heavyai/heavy.conf
+2024-01-26T17:51:16.278402 E 1181079 0 0 RenderError.h:69 Error creating Vulkan instance: Vulkan Error: VK_ERROR_INCOMPATIBLE_DRIVER - /home/jenkins-slave/workspace/parameterized_multi_build/heavyai-multi/GfxDriver/Drivers/Vulkan/VulkanPlatform.cpp:305 (VulkanResult.cpp:22)
+2024-01-26T17:51:16.316480 E 1181079 0 0 DBHandler.cpp:672 Backend rendering disabled: Error creating Vulkan instance: Vulkan Error: VK_ERROR_INCOMPATIBLE_DRIVER - /home/jenkins-slave/workspace/parameterized_multi_build/heavyai-multi/GfxDriver/Drivers/Vulkan/VulkanPlatform.cpp:305
+2024-01-26T17:52:27.991437 E 1181079 10 2 Licensing.cpp:205 An error occurred when attempting to open file. File id: 1
+slurmstepd: error: *** JOB 17258166 ON holygpu7c26105 CANCELLED AT 2024-01-26T12:52:57 ***
