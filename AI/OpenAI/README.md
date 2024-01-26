@@ -7,6 +7,10 @@ In this document, you will find how to install and run a simple OpenAI example.
 See OpenAI [website](https://openai.com/) and
 [documentation](https://platform.openai.com/docs/introduction).
 
+## Security
+
+Please, ensure that you carefuly read [Harvard's guidelines](https://huit.harvard.edu/ai/guidelines) on AI.
+
 ## Installation
 
 You can install OpenAI in a conda/mamba environment:
