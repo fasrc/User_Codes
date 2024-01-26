@@ -89,4 +89,81 @@ You may request specific GPU cards on the FASRC clusters using the
 Contrainst](https://docs.rc.fas.harvard.edu/kb/running-jobs/#Job_Constraints)
 documentation for more details. 
 
-### Submit batch job
+**Step 1:** Submit batch job
+
+```bash
+[jharvard@holylogin01 heavyAI]$ sbatch run_heavyAI.sh
+Submitted batch job 17242795
+```
+
+**Step 2:** Get contents of `heavyAI.out`
+
+Once the job is running (note that your job may be in queue for a while until it
+gets started), it will generate an output file `heavyAI.out`. The content of
+`heavyAI.out` will have the `ssh` command for tunneling and the `localhost`
+link. For example:
+
+```bash
+[jharvard@holylogin01 heavyAI]$ cat heavyAI.out
+HEAVYAIBASE:  /scratch/jharvard/17242795
+
+=====================================================================
+execute ssh command from local computer:
+ssh -NL 10495:holygpu8a22202:10495 jharvard@login.rc.fas.harvard.edu
+=====================================================================
+
+startheavy 1410071 running
+Backend TCP:  localhost:10160
+Backend HTTP: localhost:10782
+Frontend Web: localhost:10495
+Calcite TCP:  localhost:10720
+- heavydb 1410256 started
+- heavy_web_server 1410257 started
+Rebrand migration: Added symlink from "/var/lib/heavyai/storage/mapd_catalogs" to "catalogs"
+Rebrand migration: Added symlink from "/var/lib/heavyai/storage/mapd_data" to "data"
+Rebrand migration: Added symlink from "/var/lib/heavyai/storage/mapd_export" to "export"
+Rebrand migration: Added symlink from "/var/lib/heavyai/storage/mapd_log" to "log"
+Rebrand migration: Added symlink from "/var/lib/heavyai/storage/catalogs/omnisci_system_catalog" to "system_catalog"
+Rebrand migration completed
+⇨ http server started on [::]:10495
+Navigate to: http://localhost:10495
+```
+
+**Step 3:** Copy this line
+
+```bash
+ssh -NL 10495:holygpu8a22202:10495 jharvard@login.rc.fas.harvard.edu
+```
+
+**Step 4:** On your local machine, paste the `ssh` command. Type in your
+password and two-factor authentication. It will look likes it hangs, but that's
+ok. It should look similar to this:
+
+```bash
+[paula@mac ~]$ ssh -NL 10495:holygpu8a22202:10495 jharvard@login.rc.fas.harvard.edu
+(jharvard@login.rc.fas.harvard.edu) Password:
+(jharvard@login.rc.fas.harvard.edu) VerificationCode:
+
+```
+
+**Step 5:** Copy the url in the last line of `heavyAI.out`:
+
+```bash
+http://localhost:10495
+```
+
+**Step 6:** Paste the url on your browser. You will be able to connect to
+HeavyAI.
+
+**Note:** You will need to provide your own license key to use HeavyAI. FASRC
+does not provide a license. You can request a free version on HeavyAI [downloads
+page](https://www.heavy.ai/product/downloads). Note that the free license only
+allows limited computational resources.
+
+## Resources
+
+* [HeavyAI Immerse documentation](https://docs.heavy.ai/immerse/introduction-to-immerse)
+* [HeavyAI harware
+    specs](https://docs.heavy.ai/installation-and-configuration/system-requirements/hardware)
+
+
