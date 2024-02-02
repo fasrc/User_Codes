@@ -2,7 +2,7 @@
 
 This example illustrates using STATA in batch mode on the FASRC cluster at Harvard University.
 
-For how to use STATA interactivly, see this other [Stata documentation](https://docs.rc.fas.harvard.edu/kb/stata-on-cluster/).
+For how to use STATA interactively, see this other [Stata documentation](https://docs.rc.fas.harvard.edu/kb/stata-on-cluster/).
 
 ## Contents
 
@@ -17,7 +17,7 @@ For how to use STATA interactivly, see this other [Stata documentation](https://
 
 These examples show how to run a Stata do file in serial (i.e., sequential, single core).
 
-### `hello_se.do` example
+### Example `hello_se.do`
 
 STATA do file
 
@@ -54,7 +54,7 @@ sbatch run_hello_se.sbatch
 
 Example output
 
-### `test.do` example
+### Example `test.do`
 
 STATA do file
 
@@ -207,7 +207,7 @@ end of do-file
 This example shows how to run a Stata do file in multi-core mode (or
 multiprocessor, mp).
 
-### Example STATA do file
+Example STATA do file
 
 Note that you will have to change the number of processor in thei first line of
 do file to match how many cores you request on the `run_mp.sbatch` file.
@@ -217,7 +217,7 @@ set processors 4
 display "Hello, World!"
 ```
 
-### Batch-Job Submission Script
+Batch-job submission script
 
 ```bash
 #!/bin/bash
@@ -237,13 +237,13 @@ module load stata/17.0-fasrc01
 stata-mp -b hello_mp.do
 ```
 
-### Example Usage
+Example usage
 
 ```bash
 sbatch run_mp.sbatch
 ```
 
-### Example Output
+Example output
 
 ```
 [jharvard@holylogin02 STATA]$ cat hello_mp.log
