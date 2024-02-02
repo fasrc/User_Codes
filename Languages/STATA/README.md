@@ -4,8 +4,8 @@ This example illustrates using STATA on the FASRC cluster at Harvard University.
 
 #### Contents:
 
-* test.do: Input file (STATA "do" file)
-* run.sbatch: Batch job submission script for sending the job to the queue.
+* `test.do`: Input file (STATA "do" file)
+* `run.sbatch`: Batch job submission script for sending the job to the queue.
  
 #### Example STATA do file:
 
@@ -22,27 +22,25 @@ exit
 
 ```bash
 #!/bin/bash
-#SBATCH -J my_stata_job
-#SBATCH -o my_stata_job.out
-#SBATCH -e my_stata_job.err
-#SBATCH -p serial_requeue
-#SBATCH -t 0-00:30
-#SBATCH -N 1
-#SBATCH -n 1
-#SBATCH -c 1
-#SBATCH --mem=4000
+#SBATCH -J my_stata_job       # job name
+#SBATCH -o my_stata_job.out   # standard output file
+#SBATCH -e my_stata_job.err   # standard error file
+#SBATCH -p serial_requeue     # partition
+#SBATCH -t 0-00:30            # time in D-HH:MM
+#SBATCH -N 1                  # number of nodes
+#SBATCH -c 1                  # number of cores
+#SBATCH --mem=4000            # total memory in MB
 
 # Load required modules
-module load stata/13.0-fasrc01
+module load stata/17.0-fasrc01
 
 # Run program
-srun -n 1 -c 1 stata -b do test.do
+stata-se -b test.do
 ```
 
 #### Example Usage:
 
 ```bash
-module load stata/13.0-fasrc01
 sbatch run.sbatch
 ```
 

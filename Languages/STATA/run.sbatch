@@ -12,5 +12,4 @@
 module load stata/17.0-fasrc01
 
 # Run program
-#srun -n 1 -c 1 stata-se -b do test.do
 stata-se -b test.do
