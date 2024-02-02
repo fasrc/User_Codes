@@ -234,7 +234,7 @@ Batch-job submission script
 module load stata/17.0-fasrc01
 
 # Run program
-stata-mp -b hello_mp.do
+srun -c $SLURM_CPUS_PER_TASK stata-mp -b hello_mp.do
 ```
 
 Example usage
