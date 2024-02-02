@@ -1,10 +1,10 @@
-## Purpose:
+## Purpose
 
 This example illustrates using STATA in batch mode on the FASRC cluster at Harvard University.
 
 For how to use STATA interactivly, see this other [Stata documentation](https://docs.rc.fas.harvard.edu/kb/stata-on-cluster/).
 
-## Contents:
+## Contents
 
 * `test.do`: STATA do file
 * `run.sbatch`: Batch job submission script for sending the single-core job to the queue.
@@ -15,7 +15,7 @@ For how to use STATA interactivly, see this other [Stata documentation](https://
 
 This example shows how to run a Stata do file in serial (i.e., sequential, single core).
  
-### Example STATA do file:
+### Example STATA do file
 
 ```
 sysuse auto
@@ -26,7 +26,7 @@ describe
 exit
 ``` 
                        
-### Batch-Job Submission Script:
+### Batch-Job Submission Script
 
 ```bash
 #!/bin/bash
@@ -46,13 +46,13 @@ module load stata/17.0-fasrc01
 stata-se -b test.do
 ```
 
-### Example Usage:
+### Example Usage
 
 ```bash
 sbatch run.sbatch
 ```
 
-### Example Output:
+### Example Output
 
 ```
 [jharvard@holylogin02 STATA]$ cat test.log
@@ -166,7 +166,7 @@ end of do-file
 This example shows how to run a Stata do file in multi-core mode (or
 multiprocessor, mp).
 
-### Example STATA do file:
+### Example STATA do file
 
 Note that you will have to change the number of processor in thei first line of
 do file to match how many cores you request on the `run_mp.sbatch` file.
@@ -176,7 +176,7 @@ set processors 4
 display "Hello, World!"
 ```
 
-### Batch-Job Submission Script:
+### Batch-Job Submission Script
 
 ```bash
 #!/bin/bash
@@ -196,13 +196,13 @@ module load stata/17.0-fasrc01
 stata-mp -b hello_mp.do
 ```
 
-### Example Usage:
+### Example Usage
 
 ```bash
 sbatch run_mp.sbatch
 ```
 
-### Example Output:
+### Example Output
 
 ```
 [jharvard@holylogin02 STATA]$ cat hello_mp.log
@@ -242,7 +242,7 @@ Hello, World!
 end of do-file
 ```
 
-## REFERENCES:
+## References
 
 * [STATA website](http://www.stata.com)
 * [STATA documentation (release 2014-3)](https://www.stata.com/features/documentation)
