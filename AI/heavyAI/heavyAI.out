@@ -1,0 +1,22 @@
+HEAVYAIBASE:  /scratch/paulasan/17258166
+
+===================================================================== 
+execute ssh command from local computer:
+ssh -NL 10671:holygpu7c26105:10671 paulasan@login.rc.fas.harvard.edu
+===================================================================== 
+
+startheavy 1180878 running
+Backend TCP:  localhost:7637
+Backend HTTP: localhost:9673
+Frontend Web: localhost:10671
+Calcite TCP:  localhost:10958
+- heavydb 1181079 started
+- heavy_web_server 1181080 started
+Rebrand migration: Added symlink from "/var/lib/heavyai/storage/mapd_catalogs" to "catalogs"
+Rebrand migration: Added symlink from "/var/lib/heavyai/storage/mapd_data" to "data"
+Rebrand migration: Added symlink from "/var/lib/heavyai/storage/mapd_export" to "export"
+Rebrand migration: Added symlink from "/var/lib/heavyai/storage/mapd_log" to "log"
+Rebrand migration: Added symlink from "/var/lib/heavyai/storage/catalogs/omnisci_system_catalog" to "system_catalog"
+Rebrand migration completed
+⇨ http server started on [::]:10671
+Navigate to: http://localhost:10671
