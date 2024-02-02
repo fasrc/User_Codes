@@ -6,16 +6,57 @@ For how to use STATA interactivly, see this other [Stata documentation](https://
 
 ## Contents
 
+* `hello_se.do`: "Hello World" STATA do file
+* `run_hello_se.sbatch`: Batch job submission script for sending `hello_se.do` single-core job to the queue.
 * `test.do`: STATA do file
-* `run.sbatch`: Batch job submission script for sending the single-core job to the queue.
-* `hello_mp.do`: STATA multiprocessor (mp) do file
-* `run_mp.sbatch`: Batch job submission script for sending the multi-core job to the queue.
+* `run.sbatch`: Batch job submission script for sending `test.do` single-core job to the queue.
+* `hello_mp.do`: "Hello World" STATA multiprocessor (mp) do file
+* `run_hello_mp.sbatch`: Batch job submission script for sending `hello_mp.do` multi-core job to the queue.
 
 ## Single-core job
 
-This example shows how to run a Stata do file in serial (i.e., sequential, single core).
- 
-### Example STATA do file
+These examples show how to run a Stata do file in serial (i.e., sequential, single core).
+
+### `hello_se.do` example
+
+STATA do file
+
+```
+* Stata <https://www.stata.com>
+display "Hello World"
+```
+
+Batch-job submission script
+
+```bash
+#!/bin/bash
+#SBATCH -J stata_hello        # job name
+#SBATCH -o stata_hello.out    # standard output file
+#SBATCH -e stata_hello.err    # standard error file
+#SBATCH -p serial_requeue     # partition
+#SBATCH -t 0-00:30            # time in D-HH:MM
+#SBATCH -N 1                  # number of nodes
+#SBATCH -c 1                  # number of cores
+#SBATCH --mem=4000            # total memory in MB
+
+# Load required modules
+module load stata/17.0-fasrc01
+
+# Run program
+stata-se -b hello_se.do
+```
+
+Example usage
+
+```bash
+sbatch run_hello_se.sbatch
+```
+
+Example output
+
+### `test.do` example
+
+STATA do file
 
 ```
 sysuse auto
@@ -26,7 +67,7 @@ describe
 exit
 ``` 
                        
-### Batch-Job Submission Script
+Batch-Job submission script
 
 ```bash
 #!/bin/bash
@@ -46,13 +87,13 @@ module load stata/17.0-fasrc01
 stata-se -b test.do
 ```
 
-### Example Usage
+Example usage
 
 ```bash
 sbatch run.sbatch
 ```
 
-### Example Output
+Example output
 
 ```
 [jharvard@holylogin02 STATA]$ cat test.log
