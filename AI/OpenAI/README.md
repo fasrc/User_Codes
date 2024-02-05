@@ -9,7 +9,7 @@ See OpenAI [website](https://openai.com/) and
 
 ## Security
 
-Please, ensure that you carefuly read [Harvard's guidelines](https://huit.harvard.edu/ai/guidelines) on AI.
+Please, **carefully** read Harvard's [AI guidelines](https://huit.harvard.edu/ai/guidelines) and [Generative AI tool comparision](https://huit.harvard.edu/ai/tools).
 
 ## Installation
 
@@ -34,7 +34,7 @@ You will need to provide an OpenAI key. You can generate one from
 # Source conda environment
 [jharvard@holy8a24301 ~]$ mamba activate openai_env
 
-# set OpenAI key
+# replace my_key with the key that you generated on OpenAI's website
 [jharvard@holy8a24301 ~]$ export OPENAI_API_KEY='my_key'
 
 # set SSL_CERT_FILE with system's certificate
