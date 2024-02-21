@@ -16,7 +16,7 @@ For general information on running GPU jobs refer to our [user documentation](ht
 
 To set up PyTorch with GPU support in your user environment, please follow the below steps:
 
-(1) Start an interactive job requesting GPUs, e.g.,
+(1) Start an interactive job requesting GPUs, e.g., (Note: you will want to start a session on the same type of hardware as what you will run on)
 
 ```bash
 salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 
