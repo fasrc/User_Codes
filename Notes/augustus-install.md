@@ -1,4 +1,4 @@
-# Notes
+# Augustus installation using Spack
 
 * Go to a compute node. For example:
 ```bash
