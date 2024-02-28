@@ -65,15 +65,15 @@ OnDemand .
 1. Go to the OOD dashboard ([Cannon OOD](https://rcood.rc.fas.harvard.edu/), [FASSE
 OOD](https://fasseood.rc.fas.harvard.edu/))
 2. Click on "Jupyter Notebook"
-3. Before launching a Jupyter Notebook job, in the `Extra Modules` field, type
-   `gurobi/11.0.0-fasrc01` or `gurobi/9.5.2-fasrc01`
+3. Before launching a Jupyter Notebook job, in the "Extra Modules" field, type `gurobi/11.0.0-fasrc01` or `gurobi/9.5.2-fasrc01`, for example: 
+<img src="ExtraModules.png" alt="extra modules" width="75%"/>
 4. Click on the "Launch" button
 5. Click on "Connect to Jupyter"
 6. Open a Jupyter Notebook
-7. On the top menu, click Kernel -> Change Kernel -> Select gurobi_env
+7. On the top menu, click Kernel -> Change Kernel -> Select gurobi_env 
+<img src="gurobi_env_kernel.png" alt="extra modules" width="40%"/>
 
-Gurobi provides a [Colab
-curve_fitting](https://colab.research.google.com/github/Gurobi/modeling-examples/blob/master/curve_fitting/curve_fitting.ipynb) Jupyter notebook example.
+Gurobi provides a [Colab curve_fitting](https://colab.research.google.com/github/Gurobi/modeling-examples/blob/master/curve_fitting/curve_fitting.ipynb) Jupyter notebook example.
 
 ## Batch job
 
