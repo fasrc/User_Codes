@@ -1,17 +1,16 @@
 #!/bin/bash
-#SBATCH -J test
-#SBATCH -o test.out
-#SBATCH -e test.err
-#SBATCH -p test
-#SBATCH -N 1
-#SBATCH -c 1
-#SBATCH -t 0-00:30
-#SBATCH --mem=4000
+#SBATCH -J gurobitest    # job name
+#SBATCH -o test.out      # standard output file
+#SBATCH -e test.err      # standard error file
+#SBATCH -p test          # partition
+#SBATCH -c 1             # number of cores
+#SBATCH -t 0-00:30       # time in D-HH:MM
+#SBATCH --mem=4000       # memory in MB
 
 # Set up software environment
-module load python/3.7.7-fasrc01
-module load gurobi/9.0.2-fasrc01
-export PYTHONPATH=/n/sw/gurobi902/linux64/lib/python3.7
+module load python
+module load gurobi
+source activate gurobi_env
 
 # Run program
-srun -n 1 -c 1 python gurobi_test.py
+srun -c $SLURM_CPUS_PER_TASK python gurobi_test.py
