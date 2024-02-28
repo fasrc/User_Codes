@@ -1,15 +1,86 @@
-#### Purpose:
+# Gurobi
 
-Example of using the [GUROBI](https://www.gurobi.com/) optimization solver with a Python interface. The specific example illustrates curve fitting and is adopted from [here](https://gurobi.github.io/modeling-examples/curve_fitting/curve_fitting.html). 
+[Gurobi](https://www.gurobi.com/) is an optimization library.
 
-#### Contents:
+## Purpose
+
+1. How to access Gurobi shell
+
+2. Example of using the [GUROBI](https://www.gurobi.com/) optimization solver
+   with a Python interface from a batch job and from a Jupyter Notebook. 
+
+For other Gurobi applications, see [Gurobi
+documentation](https://www.gurobi.com/documentation/).
+
+## Access Gurobi shell
+
+```bash
+[jharvard@holylogin01 ~]$ salloc --partition test --time 01:00:00 --mem 8G -c 4
+[jharvard@holy8a24402 ~]$ module load gurobi
+[jharvard@holy8a24402 ~]$ gurobi.sh
+Python 3.11.4 (main, Aug 11 2023, 09:26:19) [GCC 8.5.0 20210514 (Red Hat 8.5.0-18)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+Set parameter TokenServer to value "rclic.rc.fas.harvard.edu"
+Set parameter LogFile to value "gurobi.log"
+
+Gurobi Interactive Shell (linux64), Version 11.0.0
+Copyright (c) 2023, Gurobi Optimization, LLC
+Type "help()" for help
+
+gurobi>
+```
+
+## Gurobi in Python
+
+### Content
 
 * <code>gurobi_test.py</code>: Python source code
-* <code>run.sbatch</code>: Batch-job submission script
+* <code>runscript.sh</code>: Batch-job submission script
 * <code>CurveFitting.lp</code>: Model formulation file
 * <code>test.out</code>: Output file
 
-#### Python source code:
+### Install Gurobi as a Python package
+
+Create a conda/mamba environment and install Gurobi inside the conda
+environment:
+
+```bash
+# request interactive job
+[jharvard@holylogin01 ~]$ salloc --partition test --time 01:00:00 --mem 8G -c 4
+
+# load modules and set environmental variables
+[jharvard@holy8a24401 ~]$ module load python
+[jharvard@holy8a24401 ~]$ export PYTHONNOUSERSITE=yes
+
+# create conda/mamba environment
+# note that ipykernel is only needed for Jupyter Notebooks
+[jharvard@holy8a24401 ~]$ mamba create -n gurobi_env -c gurobi gurobi=11.0.0 ipykernel -y
+```
+
+## Use Gurobi in Jupyter Notebooks
+
+You can use the conda environment `gurobi_env` on a Jupyter Notebook on Open
+OnDemand .
+
+1. Go to the OOD dashboard ([Cannon OOD](https://rcood.rc.fas.harvard.edu/), [FASSE
+OOD](https://fasseood.rc.fas.harvard.edu/))
+2. Click on "Jupyter Notebook"
+3. Before launching a Jupyter Notebook job, in the `Extra Modules` field, type
+   `gurobi/11.0.0-fasrc01` or `gurobi/9.5.2-fasrc01`
+4. Click on the "Launch" button
+5. Click on "Connect to Jupyter"
+6. Open a Jupyter Notebook
+7. On the top menu, click Kernel -> Change Kernel -> Select gurobi_env
+
+Gurobi provides a [Colab
+curve_fitting](https://colab.research.google.com/github/Gurobi/modeling-examples/blob/master/curve_fitting/curve_fitting.ipynb) Jupyter notebook example.
+
+## Batch job
+
+This specific example illustrates curve fitting and is adopted from [Gurobi
+docs](https://www.gurobi.com/jupyter_models/curve-fitting/).
+
+Python code
 
 ```python
 import gurobipy as gp
@@ -80,7 +151,7 @@ print(f"The best straight line that minimizes the absolute value of the deviatio
 print("_________________________________________________________________________________")
 ```
 
-#### Model formulation file: <code>CurveFitting.lp</code>
+Model formulation file: <code>CurveFitting.lp</code>
 
 ```
 \ Model CurveFitting
@@ -117,51 +188,59 @@ Bounds
 End
 ```
 
-#### Example batch-job submission script:
+Example batch-job submission script:
 
 ```bash
 #!/bin/bash
-#SBATCH -J test
-#SBATCH -o test.out
-#SBATCH -e test.err
-#SBATCH -p test
-#SBATCH -N 1
-#SBATCH -c 1
-#SBATCH -t 0-00:30
-#SBATCH --mem=4000
+#SBATCH -J gurobitest    # job name
+#SBATCH -o test.out      # standard output file
+#SBATCH -e test.err      # standard error file
+#SBATCH -p test          # partition
+#SBATCH -c 1             # number of cores
+#SBATCH -t 0-00:30       # time in D-HH:MM
+#SBATCH --mem=4000       # memory in MB
 
 # Set up software environment
-module load python/3.7.7-fasrc01
-module load gurobi/9.0.2-fasrc01
-export PYTHONPATH=/n/sw/gurobi902/linux64/lib/python3.7
+module load python
+module load gurobi
+source activate gurobi_env
 
 # Run program
-srun -n 1 -c 1 python gurobi_test.py
+srun -c $SLURM_CPUS_PER_TASK python gurobi_test.py
 ```
 
-#### Example Output:
+Submit job
+
+```bash
+[jharvard@holylogin01 Libraries]$ sbatch runscript.sh
+```
+
+Example Output:
 
 ```
-$ cat test.out
-Using license file /opt/gurobi/gurobi.lic
-Set parameter TokenServer to value rclic1.rc.fas.harvard.edu
-Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+[jharvard@holylogin01 Gurobi]$ cat test.out
+Set parameter TokenServer to value "rclic.rc.fas.harvard.edu"
+Gurobi Optimizer version 11.0.0 build v11.0.0rc2 (linux64 - "Rocky Linux 8.7 (Green Obsidian)")
+
+CPU model: Intel(R) Xeon(R) Platinum 8480CL, instruction set [SSE2|AVX|AVX2|AVX512]
+Thread count: 112 physical cores, 112 logical processors, using up to 32 threads
+
 Optimize a model with 19 rows, 41 columns and 75 nonzeros
-Model fingerprint: 0x8e06b20f
+Model fingerprint: 0x0bec2f7b
 Coefficient statistics:
   Matrix range     [5e-01, 1e+01]
   Objective range  [1e+00, 1e+00]
   Bounds range     [0e+00, 0e+00]
   RHS range        [7e-01, 7e+00]
 Presolve removed 0 rows and 1 columns
-Presolve time: 0.04s
+Presolve time: 0.00s
 Presolved: 19 rows, 40 columns, 75 nonzeros
 
 Iteration    Objective       Primal Inf.    Dual Inf.      Time
        0      handle free variables                          0s
       20    1.1466250e+01   0.000000e+00   0.000000e+00      0s
 
-Solved in 20 iterations and 0.04 seconds
+Solved in 20 iterations and 0.00 seconds (0.00 work units)
 Optimal objective  1.146625000e+01
 
 
@@ -169,5 +248,5 @@ ________________________________________________________________________________
 The best straight line that minimizes the absolute value of the deviations is:
 _________________________________________________________________________________
 y = 0.6375x + (0.5813)
-
 ```
+
