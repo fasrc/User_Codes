@@ -1,22 +1,25 @@
-Using license file /opt/gurobi/gurobi.lic
-Set parameter TokenServer to value rclic1.rc.fas.harvard.edu
-Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+Set parameter TokenServer to value "rclic.rc.fas.harvard.edu"
+Gurobi Optimizer version 11.0.0 build v11.0.0rc2 (linux64 - "Rocky Linux 8.7 (Green Obsidian)")
+
+CPU model: Intel(R) Xeon(R) Platinum 8480CL, instruction set [SSE2|AVX|AVX2|AVX512]
+Thread count: 112 physical cores, 112 logical processors, using up to 32 threads
+
 Optimize a model with 19 rows, 41 columns and 75 nonzeros
-Model fingerprint: 0x8e06b20f
+Model fingerprint: 0x0bec2f7b
 Coefficient statistics:
   Matrix range     [5e-01, 1e+01]
   Objective range  [1e+00, 1e+00]
   Bounds range     [0e+00, 0e+00]
   RHS range        [7e-01, 7e+00]
 Presolve removed 0 rows and 1 columns
-Presolve time: 0.04s
+Presolve time: 0.00s
 Presolved: 19 rows, 40 columns, 75 nonzeros
 
 Iteration    Objective       Primal Inf.    Dual Inf.      Time
        0      handle free variables                          0s
       20    1.1466250e+01   0.000000e+00   0.000000e+00      0s
 
-Solved in 20 iterations and 0.04 seconds
+Solved in 20 iterations and 0.00 seconds (0.00 work units)
 Optimal objective  1.146625000e+01
 
 
