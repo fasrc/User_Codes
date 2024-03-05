@@ -48,8 +48,10 @@ environment:
 # request interactive job
 [jharvard@holylogin01 ~]$ salloc --partition test --time 01:00:00 --mem 8G -c 4
 
-# load modules and set environmental variables
+# load module
 [jharvard@holy8a24401 ~]$ module load python
+
+# ensure Python does NOT use ~/.local/
 [jharvard@holy8a24401 ~]$ export PYTHONNOUSERSITE=yes
 
 # create conda/mamba environment
@@ -72,6 +74,10 @@ OOD](https://fasseood.rc.fas.harvard.edu/))
 6. Open a Jupyter Notebook
 7. On the top menu, click Kernel -> Change Kernel -> Select gurobi_env 
 <img src="Images/gurobi_env_kernel.png" alt="extra modules" width="40%"/>
+
+**Note:** if you launch Jupyter without loading the gurobi module, `gurobipy`
+would still work but you will get the message "Restricted license - for
+non-production use only - expires <some_date>"
 
 Gurobi provides a [Colab curve_fitting](https://colab.research.google.com/github/Gurobi/modeling-examples/blob/master/curve_fitting/curve_fitting.ipynb) Jupyter notebook example.
 
