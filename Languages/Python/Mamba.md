@@ -7,9 +7,9 @@
 <code>Mamba</code> is available on the FASRC cluster as a software module either as <code>Mambaforge</code> or as <code>python/3*</code> which is aliased to Mamba:
 
 ```bash
-$ module load python/3.10.12-fasrc01
+$ module load python/3.10.13-fasrc01
 $ python -V
-Python 3.10.12
+Python 3.10.13
 ```
 
 You can create conda environments with mamba in the same way as with conda:
