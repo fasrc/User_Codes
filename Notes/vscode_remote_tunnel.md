@@ -7,7 +7,8 @@
 2. Execute the following two commands:
 
 ```bash
-[jharvard@boslogin02 ~]$ curl -Lk 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' --output vscode_cli.tar.gz
+[jharvard@boslogin02 ~]$ curl -Lk 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64\
+		     --output vscode_cli.tar.gz
 [jharvard@boslogin02 ~]$ tar -xf vscode_cli.tar.gz
 
 ```
@@ -59,11 +60,9 @@ LABS folder, e.g.,
 15. Enjoy your work using your local VSCode on a Cannon's compute node
 
 
-==Note==
-
-	Every time you access a compute node, the executable, `code`,
-	will be in your path. However, you will have to repeat step#9
-	before executing step#14 above.
+**_Note:_** Every time you access a compute node, the executable,
+	`code`, will be in your path. However, you will have to repeat
+	step#9 before executing step#14 above.
 
 
 ## Resource(s)
