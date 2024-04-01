@@ -60,7 +60,9 @@ LABS folder, e.g.,
 15. Enjoy your work using your local VSCode on a Cannon's compute node
 
 
-==**Note:**== Every time you access a compute node, the executable,
+==**Note:**==
+
+	Every time you access a compute node, the executable,
 	`code`, will be in your path. However, you will have to repeat
 	step#9 before executing step#14 above.
 
