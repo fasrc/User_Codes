@@ -26,7 +26,6 @@ idl -e pi_monte_carlo
 #### Example Usage:
 
 ```bash
-source new-modules.sh
 module load IDL/8.5.1-fasrc01
 sbatch run.sbatch
 ```
