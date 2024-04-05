@@ -5,18 +5,19 @@ Local install following instructions from https://github.com/NVIDIA/cutlass#buil
 Request a gpu node as you will need a gpu to run cutlass tests
 
 ```bash
-salloc 
+salloc --partition gpu --time 04:00:00 -c 8 --mem-per-cpu 4G --gres=gpu:1
 ```
 
-Go to a directory where you would like to install cutlass. We recommend that software is installed lab shares rather than home directoris for better perfomance. Then clone cutlass repository
+Go to a directory where you would like to install cutlass. We recommend that software is installed lab shares rather than home directories for better perfomance. Then clone cutlass repository
 
 ```bash
-git clone https://github.com/NVIDIA/cutlass.git cutlass_gpu
+[paulasan@holygpu8a22105 software]$ git clone https://github.com/NVIDIA/cutlass.git cutlass_gpu
+[paulasan@holygpu8a22105 cutlass_gpu]$ cd cutlass_gpu
 ```
 
 Load modules according to dependencies listed in https://github.com/NVIDIA/cutlass/blob/main/media/docs/quickstart.md#prerequisites
 
-```
+```bash
 [paulasan@holygpu8a22105 cutlass_gpu]$ module load cuda/12.2.0-fasrc01
 [paulasan@holygpu8a22105 cutlass_gpu]$ module load cmake/3.28.3-fasrc01
 [paulasan@holygpu8a22105 cutlass_gpu]$ module load gcc/12.2.0-fasrc01
