@@ -20,7 +20,7 @@ The below instructions are intended to help you set up TF on the FASRC cluster.
 
 ### GPU Version
 
-The specific example illustrates the installation of TF version 2.12.0 with Python version 3.10, CUDA version 11.8.0, and CUDNN version 8.6.0.163. Please refer to our documentation on [running GPU jobs on the FASRC cluster](https://www.rc.fas.harvard.edu/resources/documentation/gpgpu-computing-on-the-cluster/).
+The specific example illustrates the installation of TF version 2.16.1 with Python version 3.10, CUDA version 12.1.0, and CUDNN version 9.0.0.312. Please refer to our documentation on [running GPU jobs on the FASRC cluster](https://www.rc.fas.harvard.edu/resources/documentation/gpgpu-computing-on-the-cluster/).
 
 The two recommended methods for setting up TF in your user environment is installing TF in a [conda environment](https://www.rc.fas.harvard.edu/resources/documentation/software-on-the-cluster/python/) in your user space, or use a TF [singularity container](https://www.rc.fas.harvard.edu/resources/documentation/software/singularity-on-the-cluster).
 
@@ -31,28 +31,26 @@ You can install your own TF instance following these simple steps:
 * Load required software modules, e.g.,
 
 ```bash
-module load python/3.10.9-fasrc01
+module load python/3.10.13-fasrc01
 ```
 
-* Create a new *conda* environment with Python and some additional packages needed by TensorFlow 
-(**Note:** the specific example includes additional packages, such as <code>scipy</code>, <code>pandas</code>, <code>matplotlib</code>, <code>seaborn</code>, <code>h5py</code> and <code>jupyterlab</code>, required for data analytics and visualization.)
+* Create a new `conda` environment with Python: 
 
 ```bash
-mamba create -n tf2.12_cuda11 python=3.10 pip numpy six wheel scipy pandas matplotlib seaborn h5py jupyter jupyterlab
+mamba create -n tf2.16.1_cuda12.1 python=3.10 pip wheel
 ```
 
-* Activate the new *conda* environment, e.g.,
+* Activate the new `conda` environment, e.g.,
 
 ```bash
-source activate tf2.12_cuda11
-(tf2.12_cuda11) $ 
+source activate tf2.16.1_cuda12.1
 ```
 
-*  Install CUDA and cuDNN with conda/mamba and pip
+*  Install CUDA and cuDNN with conda/mamba and pip:
 
 ```bash
-(tf2.12_cuda11) $ mamba install -c conda-forge cudatoolkit=11.8.0
-(tf2.12_cuda11) $ pip install nvidia-cudnn-cu11==8.6.0.163
+mamba install -c  "nvidia/label/cuda-12.1.0" cuda-toolkit=12.1.0
+pip install nvidia-cudnn-cu12==9.0.0.312
 ```
 
 Configure the system paths. You can do it with the following command every time you start a new terminal after activating your `conda` environment:
@@ -70,94 +68,86 @@ echo 'CUDNN_PATH=$(dirname $(python -c "import nvidia.cudnn;print(nvidia.cudnn._
 echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CONDA_PREFIX/lib/:$CUDNN_PATH/lib' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
 ```
 
-* Install TF with pip, e.g.,
+* Install extra packages required for data analytics, e.g.,
 
 ```bash
-(tf2.12_cuda11) $ pip install --upgrade tensorflow==2.12.*
+mamba install -c conda-forge numpy scipy pandas matplotlib seaborn h5py jupyterlab jupyterlab-spellchecker scikit-learn
+```
+
+* Install TF plus required GPU libraries with pip, e.g.,
+
+```bash
+pip install --upgrade tensorflow[and-cuda]==2.16.*
 ```  
 
-> **Note:** Starting with [TF version 2.12](https://github.com/tensorflow/tensorflow/releases/tag/v2.12.0), the redundant packages `tensorflow-gpu` and `tf-nightly-gpu` have been removed. These packages were removed and replaced with packages that direct users to switch to `tensorflow` or `tf-nightly` respectively. 
-
-> **Important:** In Rocky 8, you may encounter the following error:
+* Set up the `KERAS` backend (required for `KERAS` version 3.0 and above)
 
 ```bash
-Can't find libdevice directory ${CUDA_DIR}/nvvm/libdevice.
-...
-Couldn't invoke ptxas --version
-...
-InternalError: libdevice not found at ./libdevice.10.bc [Op:__some_op]
+export KERAS_BACKEND="tensorflow"
 ```
 
-To fix this error, you will need to run the following commands once:
-
-```bash
-# Install NVCC
-mamba install -c nvidia cuda-nvcc=11.3.58
-# Configure the XLA cuda directory
-mkdir -p $CONDA_PREFIX/etc/conda/activate.d
-printf 'export XLA_FLAGS=--xla_gpu_cuda_data_dir=$CONDA_PREFIX/lib/\n' >> $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-source $CONDA_PREFIX/etc/conda/activate.d/env_vars.sh
-# Copy libdevice file to the required path
-mkdir -p $CONDA_PREFIX/lib/nvvm/libdevice
-cp $CONDA_PREFIX/lib/libdevice.10.bc $CONDA_PREFIX/lib/nvvm/libdevice/
-```
+**NOTE:** Starting with version 2.16.1, TF includes [KERAS version 3.0](https://keras.io/). Please, refer to the [TensorFlow 2.16.1 release notes](https://github.com/tensorflow/tensorflow/releases/tag/v2.16.1) for important changes.
 
 **Pull a TF singularity container**
 
 Alternatively, one can pull and use a TensorFlow [singularity](https://sylabs.io/guides/3.4/user-guide/index.html) container:
 
 ```bash
-singularity pull --name tf2.12_gpu.simg docker://tensorflow/tensorflow:2.12.0-gpu
+singularity pull --name tf2.16.1_gpu.simg docker://tensorflow/tensorflow:2.16.1-gpu
 ```
 
-This will result in the image `tf2.12_gpu.simg`. The image then can be used with, e.g.,
+This will result in the image `tf2.16.1_gpu.simg`. The image then can be used with, e.g.,
 
 ```python
-$ singularity exec --nv tf2.12_gpu.simg python3
-Python 3.8.10 (default, Mar 13 2023, 10:26:41) 
-[GCC 9.4.0] on linux
+$ KERAS_BACKEND="tensorflow" singularity exec --nv tf2.16.1_gpu.simg python3
+Python 3.11.0rc1 (main, Aug 12 2022, 10:02:14) [GCC 11.2.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>> import os; os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 >>> import tensorflow as tf
 >>> print(tf.__version__)
-2.12.0
+2.16.1
 >>> print(tf.reduce_sum(tf.random.normal([1000, 1000])))
-tf.Tensor(2061.4414, shape=(), dtype=float32)
+tf.Tensor(1365.5554, shape=(), dtype=float32)
 >>> print(tf.config.list_physical_devices('GPU'))
 [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU'), PhysicalDevice(name='/physical_device:GPU:1', device_type='GPU'), PhysicalDevice(name='/physical_device:GPU:2', device_type='GPU'), PhysicalDevice(name='/physical_device:GPU:3', device_type='GPU')]
 ```
 
-**Note:** Please notice the use of the <code>--nv</code> option. This is required to make use of the NVIDIA GPU card on the host system.
+**Note:** Please notice the use of the <code>--nv</code> option. This is required to make use of the NVIDIA GPU card on the host system. Please also notice the use of `KERAS_BACKEND="tensorflow"` environment variable, which is required to set the KERAS backend to TF.
 
 Alternatively, you can pull a container from the [NVIDA NGC Catalog](https://catalog.ngc.nvidia.com), e.g.,
 
 ```bash
-singularity pull docker://nvcr.io/nvidia/tensorflow:23.02-tf2-py3
+singularity pull docker://nvcr.io/nvidia/tensorflow:24.03-tf2-py3
 ```
 
-This will result in the image `tensorflow_23.02-tf2-py3.sif`, which has TF version `2.11.0`.
+This will result in the image `tensorflow_24.03-tf2-py3.sif`, which has TF version `2.15.0`.
 
 The NGC catalog provides access to optimized containers of many popular apps.
 
 ### CPU Version
 
-Similarly to the GPU installation you can either install TF in a *conda* environment or use a TF singularity container.
+Similarly to the GPU installation you can either install TF in a `conda` environment or use a TF singularity container.
 
 **Installing TF in a Conda Environment**
 
 ```bash
 # (1) Load required software modules
-module load python/3.10.9-fasrc01
+module load python/3.10.13-fasrc01
 
 # (2) Create conda environment
-mamba create -n tf2.12_cpu python=3.10 pip numpy six wheel scipy pandas matplotlib seaborn h5py jupyterlab
+mamba create -n tf2.16.1_cpu python=3.10 pip wheel
 
 # (3) Activate the conda environment
-source activate tf2.12_cpu
-(tf2.12_cpu)
+source activate tf2.16.1_cpu
 
-# (4) Install TF with pip
-pip install --upgrade tensorflow==2.12.*
+# (4) Install required packages for data analytics, e.g.,
+mamba install -c conda-forge numpy scipy pandas matplotlib seaborn h5py jupyterlab jupyterlab-spellchecker scikit-learn
+
+# (5) Install a CPU version TF with pip
+pip install --upgrade tensorflow-cpu==2.16.*
+
+# (6) Set up KERAS backend to use TF
+export KERAS_BACKEND="tensorflow"
 ```
 
 **Pull a TF singularity container**
@@ -169,8 +159,8 @@ singularity pull --name tf2.12_cpu.simg docker://tensorflow/tensorflow:2.12.0
 This will result in the image <code>tf2.12_cpu.simg</code>. The image then can be used with, e.g.,
 
 ```python
-singularity exec tf2.12_cpu.simg python3 -c "import os; os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'; import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
-tf.Tensor(-727.81104, shape=(), dtype=float32)
+KERAS_BACKEND="tensorflow" singularity exec tf2.16.1_cpu.simg python3 -c "import os; os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'; import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
+tf.Tensor(2878.413, shape=(), dtype=float32)
 ```
 
 ## Running TensorFlow:
@@ -186,20 +176,30 @@ salloc -p gpu_test -t 0-06:00 --mem=8000 --gres=gpu:1
 While on GPU node, you can run <code>nvidia-smi</code> to get information about the assigned GPU's.
 
 ```
-[username@holygpu2c0701 ~]$ nvidia-smi
-$ nvidia-smi
-Wed Jun 21 11:07:21 2023       
+[username@holygpu7c26306 ~]$ nvidia-smi
+Fri Apr  5 16:00:55 2024       
 +---------------------------------------------------------------------------------------+
-| NVIDIA-SMI 530.30.02              Driver Version: 530.30.02    CUDA Version: 12.1     |
+| NVIDIA-SMI 535.104.12             Driver Version: 535.104.12   CUDA Version: 12.2     |
 |-----------------------------------------+----------------------+----------------------+
-| GPU  Name                  Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-| Fan  Temp  Perf            Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
 |                                         |                      |               MIG M. |
 |=========================================+======================+======================|
-|   0  Tesla V100-PCIE-32GB            On | 00000000:D8:00.0 Off |                    0 |
-| N/A   35C    P0               26W / 250W|      0MiB / 32768MiB |      0%      Default |
-|                                         |                      |                  N/A |
+|   0  NVIDIA A100-SXM4-40GB          On  | 00000000:E3:00.0 Off |                   On |
+| N/A   25C    P0              46W / 400W |    259MiB / 40960MiB |     N/A      Default |
+|                                         |                      |              Enabled |
 +-----------------------------------------+----------------------+----------------------+
+
++---------------------------------------------------------------------------------------+
+| MIG devices:                                                                          |
++------------------+--------------------------------+-----------+-----------------------+
+| GPU  GI  CI  MIG |                   Memory-Usage |        Vol|      Shared           |
+|      ID  ID  Dev |                     BAR1-Usage | SM     Unc| CE ENC DEC OFA JPG    |
+|                  |                                |        ECC|                       |
+|==================+================================+===========+=======================|
+|  0    2   0   0  |              37MiB / 19968MiB  | 42      0 |  3   0    2    0    0 |
+|                  |               0MiB / 32767MiB  |           |                       |
++------------------+--------------------------------+-----------+-----------------------+
                                                                                          
 +---------------------------------------------------------------------------------------+
 | Processes:                                                                            |
@@ -213,8 +213,8 @@ Wed Jun 21 11:07:21 2023
 Load required modules, and source your TF environment:
 
 ```bash
-[username@holygpu2c0701 ~]$ module load python/3.10.9-fasrc01  && source activate tf2.12_cuda11 
-(tf2.12_cuda11) [username@holygpu2c0701 ~]$ 
+[username@holygpu7c26306 ~]$ module load python/3.10.13-fasrc01  && source activate tf2.16.1_cuda12.1 
+(tf2.16.1_cuda12.1) [username@holygpu7c26306 ~]$ 
 ```
 
 Test TF:
@@ -222,36 +222,35 @@ Test TF:
 (Example adapted from [here](https://www.tensorflow.org/tutorials/keras/classification/).)
 
 ```bash
-(tf2.12cuda11) [username@holygpu2c0701 ~]$ python tf_test.py
-2.12.0
+(tf2.16.1_cuda12.1) [username@holygpu7c26306 ~]$ python tf_test.py
+2.16.1
 Epoch 1/10
-1875/1875 [==============================] - 11s 5ms/step - loss: 0.5003 - accuracy: 0.8250
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 839us/step - accuracy: 0.7867 - loss: 0.6247  
 Epoch 2/10
-1875/1875 [==============================] - 8s 5ms/step - loss: 0.3771 - accuracy: 0.8648
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 2s 829us/step - accuracy: 0.8600 - loss: 0.3855
 Epoch 3/10
-1875/1875 [==============================] - 9s 5ms/step - loss: 0.3399 - accuracy: 0.8773
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 3s 827us/step - accuracy: 0.8788 - loss: 0.3373   
 Epoch 4/10
-1875/1875 [==============================] - 9s 5ms/step - loss: 0.3159 - accuracy: 0.8849
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 2s 831us/step - accuracy: 0.8852 - loss: 0.3124
 Epoch 5/10
-1875/1875 [==============================] - 9s 5ms/step - loss: 0.2945 - accuracy: 0.8919
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 2s 828us/step - accuracy: 0.8912 - loss: 0.2915
 Epoch 6/10
-1875/1875 [==============================] - 9s 5ms/step - loss: 0.2820 - accuracy: 0.8963
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 3s 830us/step - accuracy: 0.8961 - loss: 0.2773   
 Epoch 7/10
-1875/1875 [==============================] - 9s 5ms/step - loss: 0.2697 - accuracy: 0.8999
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 2s 828us/step - accuracy: 0.9025 - loss: 0.2625
 Epoch 8/10
-1875/1875 [==============================] - 9s 5ms/step - loss: 0.2586 - accuracy: 0.9029
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 2s 830us/step - accuracy: 0.9044 - loss: 0.2606
 Epoch 9/10
-1875/1875 [==============================] - 9s 5ms/step - loss: 0.2488 - accuracy: 0.9077
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 2s 828us/step - accuracy: 0.9081 - loss: 0.2489
 Epoch 10/10
-1875/1875 [==============================] - 9s 5ms/step - loss: 0.2400 - accuracy: 0.9109
-313/313 - 1s - loss: 0.3402 - accuracy: 0.8834 - 1s/epoch - 4ms/step
+1875/1875 ━━━━━━━━━━━━━━━━━━━━ 2s 829us/step - accuracy: 0.9109 - loss: 0.2405
+313/313 - 2s - 6ms/step - accuracy: 0.8804 - loss: 0.3411
 
-Test accuracy: 0.883400022983551
-313/313 [==============================] - 1s 2ms/step
-[1.6947217e-06 6.1797940e-09 2.0763697e-09 1.8757864e-09 1.4044283e-08
- 3.3252352e-04 1.2653798e-05 1.1238558e-02 3.1918006e-07 9.8841417e-01]
+Test accuracy: 0.8804000020027161
+313/313 ━━━━━━━━━━━━━━━━━━━━ 1s 1ms/step   
+[1.0222636e-07 7.9844620e-09 4.7857565e-11 5.2755653e-09 2.7131367e-10
+ 2.1757800e-04 5.9717085e-09 6.6847289e-03 4.5007189e-07 9.9309713e-01]
 9
-(tf2.12_cuda11) [username@holygpu2c0701 ~]$
 ```
 
 In the above example we used the following test code, <code>tf_test.py</code>:
