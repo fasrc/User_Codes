@@ -52,6 +52,8 @@ packages:
   all:
     target: [x86_64]
 ```
+### Relocating Spack
+Once your Spack environment has been installed it cannot be easily moved. Some of the packages in Spack hardcode the absolute paths into themselves and thus cannot be changed with out rebuilding them.
 
 ## Available Spack Packages
 
