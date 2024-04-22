@@ -1,0 +1,13 @@
+Number of threads: 1
+ 
+Number of threads: 2
+ 
+Number of threads: 4
+ 
+Number of threads: 8
+ 
+    Nthreads  Walltime  Speedup  Efficiency (%)
+       1        2.54     1.00      100.00
+       2        1.27     2.00      100.00
+       4        0.64     3.97       99.22
+       8        0.32     7.94       99.22

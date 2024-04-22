@@ -9,14 +9,14 @@ The master thread only prints the total number of threads.
 * <code>omp_hello.c</code>: C source code
 * <code>omp_hello.dat</code>: Output file
 * <code>Makefile</code>: Makefile to compile the code
-* <code>sbatch.run</code>: Batch-job submission script
+* <code>run.sbatch</code>: Batch-job submission script
 
 ### Example Usage:
 
 ```bash
-module intel/23.2.0-fasrc01	   	        # Load required software modules
+module gcc/13.2.0-fasrc01	   	        # Load required software modules
 make             				# Compile
-sbatch sbatch.run 				# Send the job to the queue
+sbatch run.sbatch 				# Send the job to the queue
 ```
 
 ### Source Code:
@@ -70,7 +70,7 @@ int main (int argc, char *argv[]) {
 PRO=omp_hello
 
 # Load required software modules
-module load intel/23.2.0-fasrc01
+module load gcc/13.2.0-fasrc01
 
 # Run program
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK

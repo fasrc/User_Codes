@@ -96,8 +96,8 @@ end program omp_diag
 ### Example Usage:
 
 ```bash
-module load intel/23.2.0-fasrc01
-module load intel-mkl/23.2.0-fasrc01
+module load intel/24.0.1-fasrc01
+module load intel-mkl/24.0.1-fasrc01
 make
 sbatch run.sbatch
 ```

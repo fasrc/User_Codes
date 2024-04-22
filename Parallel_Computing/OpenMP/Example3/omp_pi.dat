@@ -1,12 +1,12 @@
 Number of threads:  1
 Exact value of PI: 3.14159
 Estimate of PI:    3.14154
-Time:    2.56 sec.
+Time:    2.54 sec.
 
 Number of threads:  2
 Exact value of PI: 3.14159
 Estimate of PI:    3.14151
-Time:    1.28 sec.
+Time:    1.27 sec.
 
 Number of threads:  4
 Exact value of PI: 3.14159

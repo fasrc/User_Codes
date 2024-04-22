@@ -7,14 +7,14 @@
 * <code>omp_pi.c</code>: C source code
 * <code>omp_pi.dat</code>: Output file
 * <code>Makefile</code>: Makefile to compile the code
-* <code>sbatch.run</code>: Batch-job submission script
+* <code>run.sbatch</code>: Batch-job submission script
 * <code>speedup.py</code>: Python code to generate speedup figure
 * <code>speedup.png</code>: Speedup figure
 
 ### Example Usage:
 
 ```bash
-module load intel/23.2.0-fasrc01	# Load required software modules
+module load intel/24.0.1-fasrc01	# Load required software modules
 make             			# Compile
 sbatch sbatch.run 			# Send the job to the queue
 ```
@@ -116,7 +116,7 @@ rm -rf ${PRO}.dat speedup.png
 touch ${PRO}.dat
 
 # --- Load required software modules ---
-module load intel/23.2.0-fasrc01
+module load intel/24.0.1-fasrc01
 unset OMP_NUM_THREADS
 # --- Run program with 1, 2, 4, and 8 OpenMP threads ---
 for i in 1 2 4 8 
@@ -131,7 +131,7 @@ cat omp_pi.dat  | grep -e Time  -e Number | awk -F ":" '{if ($1 ~ "Time" ) {prin
 
 #  --- Generate speedup figure ---
 sleep 2
-module load python/3.10.12-fasrc01
+module load python/3.10.13-fasrc01
 source activate python-3.10_env
 python speedup.py
 ```
@@ -141,7 +141,7 @@ python speedup.py
 ## Example conda env:
 
 ```bash
-module load python/3.10.12-fasrc01
+module load python/3.10.13-fasrc01
 mamba create -n python-3.10_env python=3.10 pip wheel numpy scipy matplotlib pandas seaborn h5py
 ```
 ### Example Output:

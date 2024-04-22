@@ -3,17 +3,17 @@
 #SBATCH -o omp_pi.out
 #SBATCH -e omp_pi.err
 #SBATCH -t 0-00:30
-#SBATCH -p test
+#SBATCH -p rc-testing
 #SBATCH -N 1
 #SBATCH -c 8
-#SBATCH --mem=4000
+#SBATCH --mem=4G
 
 PRO=omp_pi
 rm -rf ${PRO}.dat speedup.png
 touch ${PRO}.dat
 
 # --- Load required software modules ---
-module load intel/23.2.0-fasrc01
+module load intel/24.0.1-fasrc01
 unset OMP_NUM_THREADS
 # --- Run program with 1, 2, 4, and 8 OpenMP threads ---
 for i in 1 2 4 8 
@@ -28,6 +28,6 @@ cat omp_pi.dat  | grep -e Time  -e Number | awk -F ":" '{if ($1 ~ "Time" ) {prin
 
 #  --- Generate speedup figure ---
 sleep 2
-module load python/3.10.12-fasrc01
+module load python/3.10.13-fasrc01
 source activate /n/home06/pkrastev/holystore01/conda/python-3.10_env
 python speedup.py

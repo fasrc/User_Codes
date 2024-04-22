@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -J test_job
-#SBATCH -p testg
+#SBATCH -p test
 #SBATCH -c 1
 #SBATCH -t 00:20:00
 #SBATCH --mem=4G
