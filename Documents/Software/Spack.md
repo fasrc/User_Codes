@@ -52,6 +52,10 @@ packages:
   all:
     target: [x86_64]
 ```
+### Relocating Spack
+Once your Spack environment has been installed it cannot be easily moved. Some of the packages in Spack hardcode the absolute paths into themselves and thus cannot be changed with out rebuilding them. As such simply copying the Spack installation will not actually move the Spack installation.
+
+The easiest way to move a space install if you need to keep the exact same stack of software is to first create a [spack environment](https://spack-tutorial.readthedocs.io/en/latest/tutorial_environments.html) with all the software you need. Once you have that you can export the [environment](https://spack-tutorial.readthedocs.io/en/latest/tutorial_environments.html#reproducing-builds) similar to how you would for conda environments. After that you can then use that environment file export to rebuild in the new location.
 
 ## Available Spack Packages
 
