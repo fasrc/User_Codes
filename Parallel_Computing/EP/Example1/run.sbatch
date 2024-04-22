@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -J array_test
-#SBATCH -p rc-testing
+#SBATCH -p test
 #SBATCH -c 1
 #SBATCH -t 00:20:00
 #SBATCH --mem=4G
