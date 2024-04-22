@@ -1,17 +1,15 @@
 #!/bin/bash
 #SBATCH -J array_test
-#SBATCH -p test
+#SBATCH -p rc-testing
 #SBATCH -c 1
-#SBATCH -t 00:10:00
+#SBATCH -t 00:20:00
 #SBATCH --mem=4G
 #SBATCH -o %A-%a.o
 #SBATCH -e %A-%a.e
 #SBATCH --array=100,200,300
 
 # Load software environment
-module load R/4.3.1-fasrc01
-
-input=serial_sum.R
+module load python/3.10.13-fasrc01
 
 # Execute code
-srun -n 1 -c 1 R CMD BATCH $input $input.$SLURM_ARRAY_TASK_ID.out 
+srun -c 1 python serial_sum.py > output_${SLURM_ARRAY_TASK_ID}.out

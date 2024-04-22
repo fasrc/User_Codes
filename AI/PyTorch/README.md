@@ -25,22 +25,22 @@ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1
 (2) Load required software modules, e.g.,
 
 ```bash
-module load python/3.10.12-fasrc01
+module load python/3.10.13-fasrc01
 ```
 
 (3) Create a [conda environment](https://conda.io/projects/conda/en/latest/index.html), e.g.,
 
 ```bash
-mamba create -n pt2.1.0_cuda12.1 python=3.10 pip wheel
+mamba create -n pt2.2.1_cuda12.1 python=3.10 pip wheel
 ```
 
-(4) Activate the new *conda* environment:
+(4) Activate the new `conda` environment:
 
 ```bash
-source activate pt2.1.0_cuda12.1
+source activate pt2.2.1_cuda12.1
 ```
 
-(5) Install `cuda-toolkit` version 11.8.0 with `mamba`
+(5) Install `cuda-toolkit` version 12.1.0 with `mamba`
 
 ```bash
 mamba install -c "nvidia/label/cuda-12.1.0" cuda-toolkit
@@ -50,6 +50,12 @@ mamba install -c "nvidia/label/cuda-12.1.0" cuda-toolkit
 
 ```bash
 mamba install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
+```
+
+(7) Install additional Python packages, if needed, e.g.,
+
+```bash
+mamba install -c conda-forge numpy scipy pandas matplotlib seaborn h5py jupyterlab jupyterlab-spellchecker scikit-learn
 ```
 
 ### Other PyTorch/cuda versions
