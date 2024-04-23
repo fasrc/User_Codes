@@ -64,6 +64,8 @@ g++ -o sum.x sum.cpp -O2
 
 ### Run interactive code
 
+On a compute node:
+
 ```bash
 ./sum.x
 ```
