@@ -24,7 +24,7 @@ production run on the cluster as a batch-job.
 
 Request a compute node on the `test` partition, e.g.:
 ```bash
-salloc -p test --nodes=1 --cpus-per-task=2 --mem=4GB --time=00:01:00
+salloc -p test --nodes=1 --cpus-per-task=2 --mem=4GB --time=0-01:00:00
 ```
 
 **GNU gcc compiler**
@@ -99,6 +99,10 @@ command in the `sbatch` script, which will recompile the program every
 time the job is submitted. If any changes are made to the source code,
 then compile the source code separately, and then submit the
 production run as a batch-job.
+
+In this example, we will use the GNU compiler with the same version
+used at the time of compilation to run the executable and execute the
+production run.
 
 
 ```bash
