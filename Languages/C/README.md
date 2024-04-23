@@ -51,7 +51,7 @@ To get a list of currently available Intel compilers on the cluster,
 execute:
 ```bash
 module spider intel
-
+```
 To compile using a specific version of the Intel compiler, execute:
 ```bash
 module load intel/23.0.0-fasrc01
