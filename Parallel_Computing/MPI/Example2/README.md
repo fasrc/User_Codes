@@ -86,22 +86,22 @@ clean :
 #SBATCH -J ptrap
 #SBATCH -o ptrap.out
 #SBATCH -e ptrap.err
-#SBATCH -p rocky
+#SBATCH -p test
 #SBATCH -t 30
 #SBATCH -n 8
 #SBATCH --mem-per-cpu=4000
 
 # Load required modules
-module load intel/23.0.0-fasrc01 openmpi/4.1.4-fasrc01
+module load intel/24.0.1-fasrc01 openmpi/5.0.2-fasrc01
 
 # Run program
-srun -n 8 --mpi=pmix ./ptrap.x
+srun -n $SLURM_NTASKS --mpi=pmix ./ptrap.x
 ```
 
 ### Example Usage:
 
 ```bash
-module load intel/23.0.0-fasrc01 openmpi/4.1.4-fasrc01
+module load intel/24.0.1-fasrc01 openmpi/5.0.2-fasrc01
 make
 sbatch run.sbatch
 ```
@@ -109,5 +109,6 @@ sbatch run.sbatch
 ### Example Output:
 
 ```
+> cat ptrap.out 
 Integral from  0.0  to  4.0  is  21.3350
 ```

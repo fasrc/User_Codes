@@ -10,19 +10,19 @@ For instance, if you want to use OpenMPI compiled with the GNU compiler you need
 
 ```bash
 # GCC + OpenMPI, e.g.,
-module load gcc/13.2.0-fasrc01 openmpi/4.1.5-fasrc03
+module load gcc/13.2.0-fasrc01 openmpi/5.0.2-fasrc01
 
 # GCC + Mpich, e.g.,
-module load gcc/13.2.0-fasrc01 mpich/4.1.2-fasrc01
+module load gcc/13.2.0-fasrc01 mpich/4.2.0-fasrc01
 
 # Intel + OpenMPI, e.g.,
-module load intel/23.2.0-fasrc01 openmpi/4.1.5-fasrc03
+module load intel/24.0.1-fasrc01 openmpi/5.0.2-fasrc01
 
 # Intel + Mpich, e.g.,
-module load intel/23.2.0-fasrc01 mpich/4.1.2-fasrc01
+module load intel/24.0.1-fasrc01 mpich/4.2.0-fasrc01
 
 # Intel + IntelMPI (IntelMPI runs mpich underneath), e.g.
-module load intel/23.2.0-fasrc01 intelmpi/2021.10.0-fasrc01
+module load intel/24.0.1-fasrc01 intelmpi/2021.11-fasrc01
 ```
 
 For reproducibility and consistency it is recommended to use the complete module name with the module load command, as illustrated above. Modules on the cluster get updated often so check if there are more recent ones. The modules are set up so that you can only have one MPI module loaded at a time. If you try loading a second one it will automatically unload the first. This is done to avoid dependencies collisions.

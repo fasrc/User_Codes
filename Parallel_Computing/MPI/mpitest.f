@@ -19,5 +19,5 @@ c=====================================================
       end do
       call MPI_FINALIZE(ierr)
       if ( iproc == 0 ) write(6,*)'End of program.'
-      stop
+c      stop
       end
