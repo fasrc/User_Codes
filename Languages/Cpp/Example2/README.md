@@ -1,6 +1,6 @@
 ###  Purpose
 
-C++ code illustrating using C++ on the FASRC cluster. `sum2.cpp` is a variation of [`sum.cpp`](../Example1/sum.cpp). It computes integer sum from 1 to N (N is read from command line).
+C++ code example on the FASRC cluster. `sum2.cpp` is a variation of [`sum.cpp`](../Example1/sum.cpp). It computes integer sum from 1 to N (N is read from command line).
 
 Since this code reads an input from the command line, it cannot be run as a batch job and only as an interactive job.
 
