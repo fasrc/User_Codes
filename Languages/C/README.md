@@ -20,36 +20,11 @@ Request a compute node on the `test` partition, e.g.:
 salloc -p test --nodes=1 --cpus-per-task=2 --mem=4GB --time=0-01:00:00
 ```
 
-**GNU gcc compiler**
-
-To get a list of currently available GNU compilers on the cluster,
-execute:
-```bash
-module spider gcc
-```
-
-The default GNU compiler is typically the latest compiler version on
-the cluster and can be loaded using `module load gcc`
-
-For this example, we will load a specific version of the GNU compiler
-and will compile the code using the `O2` optimization flag, e.g.,
+Compile the code. In this example, we will use the GNU compiler, e.g:
 ```bash
 module load gcc/9.5.0-fasrc01
 gcc -O2 -o sum.x sum.c
-``` 
-
-**Intel icc compiler**
-
-To get a list of currently available Intel compilers on the cluster,
-execute:
-```bash
-module spider intel
 ```
-To compile using a specific version of the Intel compiler, execute:
-```bash
-module load intel/23.0.0-fasrc01
-icc -O2 -o sum.x sum.c
-``` 
 
 ### C source code:
 
@@ -85,9 +60,8 @@ int main(int argc, char *argv[] ){
 
 ### Example batch-job submission script:
 
-In this example, we will use the GNU compiler with the same version
-used at the time of compilation to run the executable and execute the
-production run.
+In this example, we will use the same GNU compiler version used at the
+time of compilation for launching our production run.
 
 
 ```bash
