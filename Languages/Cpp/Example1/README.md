@@ -64,8 +64,15 @@ g++ -o sum.x sum.cpp -O2
 
 ### Run interactive code
 
-On a compute node:
+On a compute node
 
 ```bash
 ./sum.x
+```
+
+Example output
+
+```bash
+Enter an integer: 7
+Sum of integers from 1 to 7 is 28
 ```

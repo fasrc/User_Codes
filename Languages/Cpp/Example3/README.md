@@ -86,8 +86,15 @@ g++ -O2 -o allocate.x allocate.cpp
 
 ### Run interactive code
 
-On a compute node:
+On a compute node
 
 ```bash
 ./allocate.x
+```
+
+Example output
+
+```bash
+Enter vector dimension: 12
+0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, End of array.
 ```

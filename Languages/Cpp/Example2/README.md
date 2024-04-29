@@ -82,8 +82,25 @@ g++ -o sum2.x sum2.cpp -O2
 
 ### Run interactive code
 
-On a compute node:
+On a compute node
 
 ```bash
 ./sum2.x
+```
+
+Example output
+
+```bash
+
+*********************************************
+* This program computes the sum of integers *
+* from 1 to N, where N is an integer of our *
+* choice.                                   *
+*********************************************
+
+Please, enter an integer: 9
+
+You have entered 9.
+Sum of integers from 1 to 9 is 45.
+
 ```

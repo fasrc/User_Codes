@@ -222,8 +222,21 @@ g++ -O2 -o matvec.x matvec.cpp
 
 ### Run interactive code
 
-On a compute node:
+On a compute node
 
 ```bash
 ./matvec.x
+```
+
+Example output
+
+```bash
+Problem dimension: 6
+Final vector:
+             1.04177
+             1.46457
+             1.93228
+             1.96858
+             1.68452
+             1.42282
 ```
