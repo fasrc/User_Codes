@@ -30,7 +30,7 @@ int main(){
   ss >> n;
   for ( i = 1 ; i <= n; i++ ){
     r = factorial(i);
-    cout << n << XTAB << r << endl;
+    cout << i << XTAB << r << endl;
   }
   return 0;
 }
