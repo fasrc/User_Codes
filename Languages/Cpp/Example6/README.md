@@ -1,6 +1,6 @@
 ###  Purpose
 
-C++ code example on the FASRC cluster. `arrays_and_pointers.cpp` computes dot product of 2 random vectors.
+C++ code example on the FASRC cluster. `arrays_and_pointers.cpp` illustrates arrays and pointers.
 
 ### Contents
 
