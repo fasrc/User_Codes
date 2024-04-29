@@ -1,6 +1,6 @@
 ###  Purpose
 
-C++ code example on the FASRC cluster. `void_point.cpp` illustrates arrays and pointers.
+C++ code example on the FASRC cluster. `void_point.cpp` illustrates how to void pointers.
 
 ### Contents
 
