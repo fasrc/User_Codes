@@ -126,8 +126,8 @@ g++ -O2 -o dot_prod.x dot_prod.cpp
 
 ### Run job
 
-On a compute node:
+Submit job
 
 ```bash
-./dot_prod.x
+sbatch runscript.sh
 ```
