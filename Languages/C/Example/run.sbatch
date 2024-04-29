@@ -9,7 +9,7 @@
 #SBATCH --mem=2G
 
 # Load required software modules
-module load gcc/8.2.0-fasrc01
+module load gcc/9.5.0-fasrc01
 
 # Run program
 ./sum.x 100
