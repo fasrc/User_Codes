@@ -1,6 +1,6 @@
 ###  Purpose
 
-C++ code illustrating using C++ on the FASRC cluster. `allocate.cpp` illustrates using dynamic memory.
+C++ code example on the FASRC cluster. `allocate.cpp` illustrates using dynamic memory.
 
 Since this code reads an input from the command line, it cannot be run as a batch job and only as an interactive job.
 
@@ -73,15 +73,15 @@ salloc --partition test --time 00:30:00 -c 2 --mem-per-cpu 2G
 
 ```bash
 module load intel
-icpc -o allocate.x allocate.cpp -O2  # for intel version < 24, use `icpc`
-icpx -o allocate.x allocate.cpp -O2  # for intel version >= 24, use `icpx`.
+icpc -O2 -o allocate.x allocate.cpp -O2  # for intel version < 23.2, use `icpc`
+icpx -O2 -o allocate.x allocate.cpp -O2  # for intel version >= 23.2, use `icpx`.
 ```
 
 * GNU compilers, e.g.,
 
 ```bash
 module load gcc
-g++ -o allocate.x allocate.cpp -O2
+g++ -O2 -o allocate.x allocate.cpp
 ```
 
 ### Run interactive code
