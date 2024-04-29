@@ -3,7 +3,7 @@
 //          Computes integer sum from 1 to N where N is an integer
 //          read from the command line
 //
-// Compile: gcc -o sum.x sum.c -O2
+// Compile: gcc -O2 -o sum.x sum.c
 //
 // Usage:   ./sum.x N
 //====================================================================
