@@ -73,8 +73,8 @@ salloc --partition test --time 00:30:00 -c 2 --mem-per-cpu 2G
 
 ```bash
 module load intel
-icpc -O2 -o allocate.x allocate.cpp -O2  # for intel version < 23.2, use `icpc`
-icpx -O2 -o allocate.x allocate.cpp -O2  # for intel version >= 23.2, use `icpx`.
+icpc -O2 -o allocate.x allocate.cpp   # for intel version < 23.2, use `icpc`
+icpx -O2 -o allocate.x allocate.cpp   # for intel version >= 23.2, use `icpx`.
 ```
 
 * GNU compilers, e.g.,

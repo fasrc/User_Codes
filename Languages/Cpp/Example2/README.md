@@ -16,8 +16,6 @@ Since this code reads an input from the command line, it cannot be run as a batc
 
 	   Computes sum of integers from 1 to N
 	   ( N is read from command line )
-
-  Compile: g++ -o sum2.x sum2.cpp
  */
 #include <iostream>
 #include <string>
@@ -69,15 +67,15 @@ salloc --partition test --time 00:30:00 -c 2 --mem-per-cpu 2G
 
 ```bash
 module load intel
-icpc -o sum2.x sum2.cpp -O2  # for intel version < 24, use `icpc`
-icpx -o sum2.x sum2.cpp -O2  # for intel version >= 24, use `icpx`.
+icpc -O2 -o sum2.x sum2.cpp  # for intel version < 23.2, use `icpc`
+icpx -O2 -o sum2.x sum2.cpp  # for intel version >= 23.2, use `icpx`.
 ```
 
 * GNU compilers, e.g.,
 
 ```bash
 module load gcc
-g++ -o sum2.x sum2.cpp -O2
+g++ -O2 -o sum2.x sum2.cpp
 ```
 
 ### Run interactive code
