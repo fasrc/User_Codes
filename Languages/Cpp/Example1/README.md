@@ -13,7 +13,6 @@ C++ code illustrating using C++ on the FASRC cluster. `sum.cpp` computes integer
 // Program: sum.cpp
 //          Computes integer sum from 1 to N where N
 //          is a number read from the command line
-// Compile: g++ -o sum.x sum.cpp
 //==========================================================
 #include <iostream>
 #include <string>
@@ -51,15 +50,15 @@ salloc --partition test --time 00:30:00 -c 2 --mem-per-cpu 2G
 
 ```bash
 module load intel
-icpc -o sum.x sum.cpp -O2  # for intel version < 24, use `icpc`
-icpx -o sum.x sum.cpp -O2  # for intel version >= 24, use `icpx`.
+icpc -O2 -o sum.x sum.cpp  # for intel version < 23.2, use `icpc`
+icpx -O2 -o sum.x sum.cpp  # for intel version >= 23.2, use `icpx`.
 ```
 
 * GNU compilers, e.g.,
 
 ```bash
 module load gcc
-g++ -o sum.x sum.cpp -O2
+g++ -O2 -o sum.x sum.cpp
 ```
 
 ### Run interactive code
