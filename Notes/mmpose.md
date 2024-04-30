@@ -36,7 +36,7 @@ export CUDA_VISIBLE_DEVICES=MIG-5b36b802-0ab0-5f37-af2d-ac23f40ef62d
 Step 3: Create conda/mamba environment and install PyTorch
 
 ```bash
-mamba create pt2.3.0_cuda12.1_v0 python=3.10 pip wheel -y
+mamba create -n pt2.3.0_cuda12.1_v0 python=3.10 pip wheel -y
 source activate pt2.3.0_cuda12.1_v0
 mamba install -c  "nvidia/label/cuda-12.1.0" cuda-toolkit=12.1.0 -y
 mamba install pytorch=2.3.0 torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia -y
