@@ -2,6 +2,8 @@
 
 Collection of example codes illustrating using C++ on the FASRC cluster.
 
+See [FASRC C++ documentation](https://docs.rc.fas.harvard.edu/kb/cpp-programming-language/)
+
 ### Contents:
 
 #### Source codes
@@ -18,5 +20,6 @@ Collection of example codes illustrating using C++ on the FASRC cluster.
 
 ### Resources:
 
+* [FASRC C++ documentation](https://docs.rc.fas.harvard.edu/kb/cpp-programming-language/)
 * [cplusplus.com](http://www.cplusplus.com)
 * [C++ Language Tutorial](http://www.cplusplus.com/doc/tutorial)
