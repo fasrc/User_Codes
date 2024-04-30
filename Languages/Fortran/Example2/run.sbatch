@@ -9,7 +9,7 @@
 #SBATCH --mem=4G
 
 # Load required software modules
-module load intel/23.2.0-fasrc01
+module load gcc/13.2.0-fasrc01
 
 # Run the program
 ./sum.x

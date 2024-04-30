@@ -1,57 +1,3 @@
-## Purpose:
-
-Program illustrates standard [Lanczos algorithm](https://en.wikipedia.org/wiki/Lanczos_algorithm). The specific example generates a random symmetric matrix of dimension 100X100 and diagonalizes it. Computed eigenvalues are compared with exact results (from [Householder diagonalization](https://en.wikipedia.org/wiki/Householder_transformation)). 
-
-### Compiling
-
-**GNU compilers**, e.g.,
-
-```bash
-module load gcc/13.2.0-fasrc01
-gfortran -o lanczos.x lanczos.f90 -O2
-``` 
-
-**Intel compilers**, e.g.,
-
-```bash
-module load intel/24.0.1-fasrc01
-ifx -o lanczos.x lanczos.f90 -O2
-``` 
-
-## Example batch-job submission script
-
-```bash
-#!/usr/bin/env bash
-#SBATCH -J lanczos_job
-#SBATCH -o lanczos_job.out
-#SBATCH -e lanczos_job.err
-#SBATCH -N 1
-#SBATCH -c 1
-#SBATCH -p test
-#SBATCH -t 0-00:30
-#SBATCH --mem=4G
-
-# Load required software modules
-module load gcc/13.2.0-fasrc01
-
-# Run the program
-./lanczos.x <<EOF
-100
-5
-100
-EOF
-```
-
-### Submit job
-
-```bash
-sbatch run.sbatch
-```
-
-### Example output
-
-```
-cat lanczos_job.out 
  Enter matrix dimension:
  Enter number of eigen-values to compute:
  Enter MAX number of iterations ( typically 100 - 300, but <= matrix dim.)
@@ -754,5 +700,4 @@ cat lanczos_job.out
            2   5.1987505309260538        5.1987505309260547     
            3   5.1856783411659926        5.1856783411660166     
            4   5.0014143250821697        5.0014143250821714     
-           5   4.8032831650372074        4.8032831650372225 
-```
+           5   4.8032831650372074        4.8032831650372225     

@@ -21,7 +21,7 @@
 !  +++ COMPILING THE PROGRAM +++
 !
 !      GFORTRAN: gfortran -o lanczos.x lanczos.f90 -O2 
-!      INTEL:    ifort -o lanczos.x lanczos.f90 -O2
+!      INTEL:    ifx -o lanczos.x lanczos.f90 -O2
 !
 !  +++ RUNNING THE PROGRAM +++
 !
@@ -208,7 +208,7 @@ program lanczos
   if ( allocated (e) )     deallocate ( e )
   if ( allocated (z) )     deallocate ( z )
 
-  stop 'End of program.'
+!  stop 'End of program.'
 
 end program lanczos
 
