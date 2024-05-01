@@ -162,7 +162,7 @@ mim install "mmdet==3.2.0"
 Step 9: Install `mmposei`
 
 ```bash
-mim install "mmpose=1.3.1"
+mim install "mmpose==1.3.1"
 ```
 
 Check `mmpose` installation
@@ -171,6 +171,7 @@ Check `mmpose` installation
 # Download example from mmpose repo
 git clone https://github.com/open-mmlab/mmpose.git
 cd mmpose
+mim download mmpose --config td-hm_hrnet-w48_8xb32-210e_coco-256x192  --dest .
 python demo/image_demo.py \
     tests/data/coco/000000000785.jpg \
     td-hm_hrnet-w48_8xb32-210e_coco-256x192.py \
