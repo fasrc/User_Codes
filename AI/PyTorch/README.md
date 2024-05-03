@@ -66,6 +66,8 @@ To install other versions, refer to the PyTorch [compatibility chart](https://py
 
 ## Running PyTorch:
 
+If you are running PyTorch on GPU with multi-instance GPU (MIG) mode on (e.g. `gpu_test` partition), see [PyTorch on MIG mode](#pytorch-on-mig-mode)
+
 ### Run PyTorch Interactively
 
 For an **interactive session** to work with the GPUs you can use following:
@@ -197,10 +199,25 @@ singularity pull docker://nvcr.io/nvidia/pytorch:23.09-py3
 ```
 This will result in the image `pytorch_23.09-py3.sif`. Then you can use the image as usual.
 
-## PyTorch on Multi-Instance GPU (MIG)
+## PyTorch on MIG mode
 
-The `gpu_mig` partition is setup with [Multi-instance GPU (MIG)](https://www.nvidia.com/en-us/technologies/multi-instance-gpu/) feature of Nvidia A100s. If you would like to use PyTorch on `gpu_mig`, please [send us a ticket](https://docs.rc.fas.harvard.edu/kb/support/).
+> **Note**: currently only `gpu_test` partition has MIG mode on
 
+To use PyTorch on [Multi-instance GPU (MIG)](https://www.nvidia.com/en-us/technologies/multi-instance-gpu/) mode, you need to set `CUDA_VISIBLE_DEVICES` with the MIG instance. For example:
+
+```bash
+# run this command to get the gpu card name
+nvidia-smi -L
+
+# set CUDA_VISIBLE_DEVICES
+export CUDA_VISIBLE_DEVICES=MIG-5b36b802-0ab0-5f37-af2d-ac23f40ef62d
+```
+
+Alternatively, you can automate this process with this one liner
+
+```bash
+export CUDA_VISIBLE_DEVICES=$(nvidia-smi -L | awk '/MIG/ {gsub(/[()]/,"");print $NF}')
+```
 
 ## References:
 
