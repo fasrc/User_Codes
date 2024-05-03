@@ -66,6 +66,7 @@ True
 (pt2.3.0_cuda12.1_v0) [jharvard@holygpu7c26106 ~]$ python -c 'import torch;print(torch.cuda.device(0))'
 <torch.cuda.device object at 0x14942e6579d0>
 (pt2.3.0_cuda12.1_v0) [jharvard@holygpu7c26106 ~]$ python -c 'import torch;print(torch.cuda.get_device_name(0))'
+NVIDIA A100-SXM4-40GB MIG 3g.20gb
 ```
 
 Step 5: Install `mim`
