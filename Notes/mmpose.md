@@ -19,10 +19,9 @@ module load python
 export PYTHONNOUSERSITE=yes
 ```
 
-`gpu_test` partition and MIG mode
-
 If you are on `gpu_test` partition, the GPUs are on MIG mode. PyTorch requires
-that you set the `CUDA_VISIBLE_DEVICES`
+that you set the `CUDA_VISIBLE_DEVICES` (this is not necessary on `gpu`
+partition)
 
 ```bash
 # run this command to get the gpu card name
@@ -30,6 +29,12 @@ nvidia-smi -L
 
 # set CUDA_VISIBLE_DEVICES
 export CUDA_VISIBLE_DEVICES=MIG-5b36b802-0ab0-5f37-af2d-ac23f40ef62d
+```
+
+Alternatively you can automate this process with this one liner
+
+```bash
+export CUDA_VISIBLE_DEVICES=$(nvidia-smi -L | awk '/MIG/ {gsub(/[()]/,"");print $NF}')
 ```
 
 
