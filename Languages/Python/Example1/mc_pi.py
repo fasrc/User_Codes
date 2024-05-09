@@ -7,7 +7,7 @@ import random
 
 N = 100000
 
-pi = 3.1415926535897
+pi = 3.1415926535897932
 
 count = 0
 for i in range(N):
