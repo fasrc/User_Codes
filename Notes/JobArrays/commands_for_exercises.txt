@@ -1,0 +1,35 @@
+## Login to Cannon:
+ssh -Y <yourusername>@login.rc.fas.harvard.edu
+
+## ## Login to FASSE:
+ssh -Y <yourusername>@fasselogin.rc.fas.harvard.edu
+
+## Exercise Sequential Basic:
+sbatch sample_array_job.bash
+
+
+## Exercise Sequential Fastqc:
+sbatch fastqc_arrayjob.slurm.sh
+
+
+## Exercise Sequential Python
+sbatch submit.bash
+sbatch submit_inputfile.bash
+
+
+## Exercise Recursive
+sbatch recursive-array.sh <multiplier-initial-value> <jobs-max-limit>
+
+
+## Exercise Nonsequential
+./main.sh
+ 
+
+## Monitor jobs
+squeue –u <username>
+squeue –u $USER --all
+scontrol show jobid -d <job_id>
+seff <job_id>
+
+## Cancel a job
+scancel <job_id>
