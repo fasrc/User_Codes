@@ -31,19 +31,19 @@ module load python/3.10.13-fasrc01
 (3) Create a [conda environment](https://conda.io/projects/conda/en/latest/index.html), e.g.,
 
 ```bash
-mamba create -n pt2.2.1_cuda12.1 python=3.10 pip wheel
+mamba create -n pt2.3.0_cuda12.1 python=3.10 pip wheel
 ```
 
 (4) Activate the new `conda` environment:
 
 ```bash
-source activate pt2.2.1_cuda12.1
+source activate pt2.3.0_cuda12.1
 ```
 
 (5) Install `cuda-toolkit` version 12.1.0 with `mamba`
 
 ```bash
-mamba install -c "nvidia/label/cuda-12.1.0" cuda-toolkit
+mamba install -c  "nvidia/label/cuda-12.1.0" cuda-toolkit=12.1.0
 ```
 
 (6) Install PyTorch with `mamba`
@@ -66,6 +66,27 @@ To install other versions, refer to the PyTorch [compatibility chart](https://py
 
 ## Running PyTorch:
 
+If you are running PyTorch on GPU with multi-instance GPU (MIG) mode on (e.g. `gpu_test` partition), see [PyTorch on MIG mode](#pytorch-on-mig-mode)
+
+### PyTorch checks
+
+You can run the following tests to ensure that PyTorch was installed properly and can find the GPU card. Example output of PyTorch checks:
+
+```bash
+(pt2.3.0_cuda12.1_v0) [jharvard@holygpu7c26106 ~]$ python -c 'import torch;print(torch.__version__)'
+2.3.0
+(pt2.3.0_cuda12.1_v0) [jharvard@holygpu7c26106 ~]$ python -c 'import torch;print(torch.cuda.is_available())'
+True
+(pt2.3.0_cuda12.1_v0) [jharvard@holygpu7c26106 ~]$ python -c 'import torch;print(torch.cuda.device_count())'
+1
+(pt2.3.0_cuda12.1_v0) [jharvard@holygpu7c26106 ~]$ python -c 'import torch;print(torch.cuda.current_device())'
+0
+(pt2.3.0_cuda12.1_v0) [jharvard@holygpu7c26106 ~]$ python -c 'import torch;print(torch.cuda.device(0))'
+<torch.cuda.device object at 0x14942e6579d0>
+(pt2.3.0_cuda12.1_v0) [jharvard@holygpu7c26106 ~]$ python -c 'import torch;print(torch.cuda.get_device_name(0))'
+NVIDIA A100-SXM4-40GB MIG 3g.20gb
+```
+
 ### Run PyTorch Interactively
 
 For an **interactive session** to work with the GPUs you can use following:
@@ -78,14 +99,14 @@ Load required software modules and source your PyTorch conda environment.
 
 ```bash
 [username@holygpu7c26103 ~]$ module load python/3.10.12-fasrc01
-[username@holygpu7c26103 ~]$ source activate pt2.1.0_cuda12.1
-(pt2.1.0_cuda12.1) [username@holygpu7c26103 ~]$
+[username@holygpu7c26103 ~]$ source activate pt2.3.0_cuda12.1
+(pt2.3.0_cuda12.1) [username@holygpu7c26103 ~]$
 ```
 
 Test PyTorch interactively:
 
 ```bash
-(pt2.1.0_cuda12.1) [username@holygpu7c26103 ~]$ python check_gpu.py
+(pt2.3.0_cuda12.1) [username@holygpu7c26103 ~]$ python check_gpu.py
 Using device: cuda
 
 NVIDIA A100-SXM4-40GB
@@ -137,7 +158,7 @@ An example batch-job submission script is included below:
 
 # Load software modules and source conda environment
 module load python/3.10.12-fasrc01
-source activate pt2.1.0_cuda12.1
+source activate pt2.3.0_cuda12.1
 
 # Run program
 srun -c 1 --gres=gpu:1 python check_gpu.py 
@@ -151,11 +172,11 @@ sbatch run.sbatch
 
 ## Installing PyG (torch geometry)
 
-After you create the conda environment `pt2.1.0_cuda12.1` and activated it, you can install [PyG](https://pytorch-geometric.readthedocs.io/en/latest/install/installation.html)
+After you create the conda environment `pt2.3.0_cuda12.1` and activated it, you can install [PyG](https://pytorch-geometric.readthedocs.io/en/latest/install/installation.html)
 in your environment with the command:
 
 ```bash
-(pt2.1.0_cuda12.1) [username@holygpu7c26103 ~]$ mamba install pyg -c pyg
+(pt2.3.0_cuda12.1) [username@holygpu7c26103 ~]$ mamba install pyg -c pyg
 ```
 
 ## PyTorch and Jupyter Notebook on Open OnDemand
@@ -163,7 +184,7 @@ in your environment with the command:
 If you would like to use the PyTorch environment on [Open OnDemand/VDI](https://vdi.rc.fas.harvard.edu/), you will also need to install packages `ipykernel` and `ipywidgets` with the following commands:
 
 ```bash
-(pt2.1.0_cuda12.1) [username@holygpu7c26103 ~]$ mamba install ipykernel ipywidgets
+(pt2.3.0_cuda12.1) [username@holygpu7c26103 ~]$ mamba install ipykernel ipywidgets
 ```
 
 ## Pull a PyTorch Singularity container
@@ -197,10 +218,25 @@ singularity pull docker://nvcr.io/nvidia/pytorch:23.09-py3
 ```
 This will result in the image `pytorch_23.09-py3.sif`. Then you can use the image as usual.
 
-## PyTorch on Multi-Instance GPU (MIG)
+## PyTorch on MIG mode
 
-The `gpu_mig` partition is setup with [Multi-instance GPU (MIG)](https://www.nvidia.com/en-us/technologies/multi-instance-gpu/) feature of Nvidia A100s. If you would like to use PyTorch on `gpu_mig`, please [send us a ticket](https://docs.rc.fas.harvard.edu/kb/support/).
+> **Note**: currently only `gpu_test` partition has MIG mode on
 
+To use PyTorch on [Multi-instance GPU (MIG)](https://www.nvidia.com/en-us/technologies/multi-instance-gpu/) mode, you need to set `CUDA_VISIBLE_DEVICES` with the MIG instance. For example:
+
+```bash
+# run this command to get the gpu card name
+nvidia-smi -L
+
+# set CUDA_VISIBLE_DEVICES
+export CUDA_VISIBLE_DEVICES=MIG-5b36b802-0ab0-5f37-af2d-ac23f40ef62d
+```
+
+Alternatively, you can automate this process with this one liner
+
+```bash
+export CUDA_VISIBLE_DEVICES=$(nvidia-smi -L | awk '/MIG/ {gsub(/[()]/,"");print $NF}')
+```
 
 ## References:
 
