@@ -12,50 +12,75 @@ These instructions are intended to help you install PyTorch on the FASRC cluster
 
 ### GPU Support
 
-For general information on running GPU jobs refer to our [user documentation](https://www.rc.fas.harvard.edu/resources/documentation/gpgpu-computing-on-the-cluster).
+For general information on running GPU jobs refer to our [user documentation](https://www.rc.fas.harvard.edu/resources/documentation/gpgpu-computing-on-the-cluster). To set up PyTorch with GPU support in your user environment, please follow the below steps:
 
-To set up PyTorch with GPU support in your user environment, please follow the below steps:
+**PyTorch with CUDA 12.1 in a conda environment**
 
-(1) Start an interactive job requesting GPUs, e.g., (Note: you will want to start a session on the same type of hardware as what you will run on)
+These instructions set up a `conda` environment with `PyTorch` version 2.2.1 and CUDA version 12.1, where the `cuda-toolkit` is installed directly in the `conda` environment. 
+
+* Start an interactive job requesting GPUs, e.g., (Note: you will want to start a session on the same type of hardware as what you will run on)
 
 ```bash
 salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1 
 ```
 
-(2) Load required software modules, e.g.,
+* Load required software modules, e.g.,
 
 ```bash
 module load python/3.10.13-fasrc01
 ```
 
-(3) Create a [conda environment](https://conda.io/projects/conda/en/latest/index.html), e.g.,
+* Create a [conda environment](https://conda.io/projects/conda/en/latest/index.html), e.g.,
 
 ```bash
 mamba create -n pt2.2.1_cuda12.1 python=3.10 pip wheel
 ```
 
-(4) Activate the new `conda` environment:
+* Activate the new `conda` environment:
 
 ```bash
 source activate pt2.2.1_cuda12.1
 ```
 
-(5) Install `cuda-toolkit` version 12.1.0 with `mamba`
+* Install `cuda-toolkit` version 12.1.0 with `mamba`
 
 ```bash
 mamba install -c "nvidia/label/cuda-12.1.0" cuda-toolkit
 ```
 
-(6) Install PyTorch with `mamba`
+* Install PyTorch with `mamba`
 
 ```bash
 mamba install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
 ```
 
-(7) Install additional Python packages, if needed, e.g.,
+* Install additional Python packages, if needed, e.g.,
 
 ```bash
 mamba install -c conda-forge numpy scipy pandas matplotlib seaborn h5py jupyterlab jupyterlab-spellchecker scikit-learn
+```
+
+**PyTorch with CUDA 11.8 from a software module**
+
+These instructions set up a `conda` environment with PyTorch version 2.2.0 and `CUDA` version 11.8, where `CUDA` is loaded as a software module, `cuda/11.8.0-fasrc01`
+
+```bash
+# Start an interactive job on a GPU node (target the architecture where you plan to run), e.g.,
+salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1
+
+# Load the required modules, e.g.,
+module load python 
+module load cuda/11.8.0-fasrc01 # CUDA version 11.8.0
+
+# Create a conda environment and activate it, e.g.,
+mamba create -n pt2.2.0_cuda11.8 python=3.10 pip wheel -y
+source activate pt2.2.0_cuda11.8
+
+# Install PyTorch
+mamba install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+
+# Install additional packages, e.g.,
+mamba install pandas scikit-learn matplotlib seaborn jupyterlab -y
 ```
 
 ### Other PyTorch/cuda versions
