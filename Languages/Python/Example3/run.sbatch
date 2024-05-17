@@ -12,4 +12,4 @@ module load python
 mamba activate my_env
 
 # Run program
-srun -c 1python numpy_pandas_ex.py
+srun -c 1 python numpy_pandas_ex.py
