@@ -4,28 +4,11 @@
 you use R in RStudio, refer to FASRC [RStudio
 docs](https://docs.rc.fas.harvard.edu/kb/rstudio-server-vs-rstudio-desktop/)
 
-## R changes from CentOS 7 to Rocky 8
-
-- On Rocky 8, FASRC will no longer have software, such as `udunits`, `gdal`,
-`geos`, available through `module load` command that are needed to install R
-packages. Instead, we will be using Spack to install these R packages.
-
-- There is no need to set `R_LIBS_USER` neither to unset `R_LIBS_SITE`
-
-- A basic R module is available through HeLmod (e.g. `module load R`). However,
-  whenever you install R packages with Spack, R is also installed within Spack.
-
-- For more details about the operating system changes, see the [Rocky 8
-    Transition
-    Guide](https://docs.rc.fas.harvard.edu/kb/rocky-8-transition-guide/)
-
 ## Requirements
 
-First, to install spack, follow our [Spack Install and
-Setup](../../Documents/Software/Spack.md) instructions.
-
-Once Spack is installed, then you can install the R packages with Spack from
-the command line.
+Refer to Steps 1 and 2 in the [R with
+Spack](https://docs.rc.fas.harvard.edu/kb/r-and-rstudio/#R_with_Spack) main
+documentation for the requirements
 
 ## Examples
 
