@@ -2,9 +2,11 @@
 
 ![Julia Logo](Images/julia-logo.png)
 
-### Purpose
+### Purpose:
 
 Examples of installing and using Julia on the Harvard University FAS cluster.
+
+### Installation:
 
 ```bash
 # on $HOME
@@ -22,6 +24,8 @@ Examples of installing and using Julia on the Harvard University FAS cluster.
 
 julia>
 ```
+
+### Examples:
 
 * [Example 1](Example1): Monte-Carlo calculation of PI
 * [Example 2](Example2): Ordinary Differential Equations (ODEs)
