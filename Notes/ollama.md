@@ -75,8 +75,6 @@ Example output of terminal 2:
 ```bash
 [jharvard@holylogin04 ~]$ ssh holygpu7c26105
 [jharvard@holygpu7c26105 ~]$ singularity shell --nv ollama_latest.sif
-Singularity> export OLLAMA_HOST=localhost:8888'
-> ^C
 Singularity> export OLLAMA_HOST=localhost:8888
 Singularity> ollama run llama3
 pulling manifest
