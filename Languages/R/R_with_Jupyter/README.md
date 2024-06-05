@@ -1,18 +1,19 @@
 # Installing rpy2 package on Cannon
 
-Here, we describe the steps to install the rpy2 package and use R in
+Here, we describe the steps to install the `rpy2` package and use R in
 Jupyter notebooks on the [OpenOnDemand VDI
 portal](https://rcood.rc.fas.harvard.edu) using that package.
 
-## Create a conda environment, install rpy2 package, and load that
-   environment by selecting the corresponding kernel to start using R
-   in the notebook
+## One-time setup
+
+This is a one-time setup, meaning that you only have to create an environment
+and install package `rpy2` one time.
 
 Create a conda environment and install the rpy2 package:
 
 * Request a compute node:
 ```bash
-salloc -p test -t 02:00:00 -n1 --mem 10000
+salloc --partition test --time 02:00:00 --ntasks=1 --mem 10000
 ```
 
 * Load the required software module to create the conda environment:
@@ -43,11 +44,16 @@ source activate rpy2env
 conda install jupyter numpy matplotlib pandas scikit-learn scipy -y
 ```
 
-* Install `[rpy2](https://rviews.rstudio.com/2022/05/25/calling-r-from-python-with-rpy2/)` package:
+* Install [`rpy2`](https://rviews.rstudio.com/2022/05/25/calling-r-from-python-with-rpy2/) package:
 ```bash
 pip install rpy2
 conda install r-ggplot2 
 ```
+
+## How to launch Jupyter and use `rpy2nev`
+
+After creating the conda environment, you will need to load that environment by
+selecting the corresponding kernel to start using R in the notebook
 
 * Launch the Jupyter app on the OpenOnDemand VDI portal using
   [these](https://docs.rc.fas.harvard.edu/kb/virtual-desktop/)
@@ -66,7 +72,7 @@ script to be executed before launching jupyter (Optional)` option,
 enter the full path to your setup script along with the command line
 argument as illustrated below:
 
-<img src="Images/rpy2-R_setup_script.png" alt="rpy2-R-setup-script" width="600"/>
+<img src="../Images/rpy2-R_setup_script.png" alt="rpy2-R-setup-script" width="600"/>
 
 
 * Load the conda environment by selecting the corresponding kernel:
@@ -75,7 +81,7 @@ Once you open your Jupyter notebook, you can load your conda
 environment by clicking the top right corner of the notebook to select
 the kernel, as shown below:
 
-<img src="Images/rpy2-kernel.png" alt="rpy2-kernel" width="600"/>
+<img src="../Images/rpy2-kernel.png" alt="rpy2-kernel" width="600"/>
 
 Once you open the kernel's drop-down menu, you should be able to see
 the rpy2 conda environment you just created prior to launching the
