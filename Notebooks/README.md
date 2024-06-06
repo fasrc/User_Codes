@@ -1,6 +1,6 @@
 # Notebooks - FASRC
 
-
+Various Jupyter notebooks used in training sessions.
 
 ## Git Clone
 
