@@ -35,7 +35,7 @@ desired location using the `--prefix` flag. For example:
 8. Go to the git repo and pip install the software inside that conda environment:
    ```
    cd gReLU
-   pip install
+   pip install .
    ```
 
 9. pip Install Jupyterlab inside the conda environment: `pip install jupyterlab`
