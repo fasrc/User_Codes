@@ -16,12 +16,16 @@ clusters.
 3. You will need two shells (i.e., 2 terminal/Putty windows)
 
    i. On terminal 1:
+
+   This should be the terminal where you initiated the interactive job
    ```
    singularity shell --nv ollama_latest.sif
    Singularity> export OLLAMA_HOST=localhost:8888
    Singularity> ollama serve
    ```
    ii. On terminal 2:
+
+   This is a new terminal, you should start at a login node.
    ```
    # go to the same compute node where you are running ollama
    ssh nodename
