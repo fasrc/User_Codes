@@ -6,7 +6,7 @@
 
 Collection of example codes illustrating using R and RStudio on the FASRC clusters.
 
-See FASRC R and RStudio documentation
+See FASRC [R and RStudio](https://docs.rc.fas.harvard.edu/kb/r-and-rstudio/) documentation
 
 ### Contents
 
@@ -25,7 +25,7 @@ See FASRC R and RStudio documentation
 
 ### Resources
 
-* FASRC R and RStudio documentation
+* FASRC [R and RStudio](https://docs.rc.fas.harvard.edu/kb/r-and-rstudio/) documentation
 * [Official R website](https://www.r-project.org/)
 * [An Introduction to R](https://cran.r-project.org/doc/manuals/r-release/R-intro.html)
 * [R tutorial (tutorialspoint)](https://www.tutorialspoint.com/r/index.htm)

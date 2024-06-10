@@ -7,8 +7,8 @@ This documemntation explains how to use R in a Jupyter Notebook
 ## Requirements
 
 Refer to steps 1-4 in [R in
-Jupyter](https://docs.rc.fas.harvard.edu/kb/r-and-rstudio/) to install package
-[`r2py`](https://rpy2.github.io/) in a conda/mamba environment and launch a
+Jupyter](https://docs.rc.fas.harvard.edu/kb/r-and-rstudio/#R_in_Jupyter) to install package
+[`rpy2`](https://rpy2.github.io/) in a conda/mamba environment and launch a
 Jupyter Notebook.
 
 ## Install R Packages in Jupyter
