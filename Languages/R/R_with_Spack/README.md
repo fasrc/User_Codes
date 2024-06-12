@@ -1,7 +1,9 @@
 # R packages with Spack 
 
 > [!WARNING]
-> These instructions apply for R from the command line. If you use R in RStudio, refer to FASRC [RStudio docs](https://docs.rc.fas.harvard.edu/kb/r-and-rstudio/).
+> These instructions apply for R from the **command line**. If you use R in
+> RStudio, refer to FASRC [RStudio
+> docs](https://docs.rc.fas.harvard.edu/kb/r-and-rstudio/).
 
 ## Purpose
 
@@ -13,14 +15,28 @@ Refer to Steps 1 and 2 in the [R with
 Spack](https://docs.rc.fas.harvard.edu/kb/r-and-rstudio/#R_with_Spack) main
 documentation for requirements.
 
+## Content
+
+* How to install
+  * [`glmnet`](#glmnet)
+  * [`rstan`](#rstan)
+  * [`seurat`](#seurat)
+  * [`sf`](#sf)
+* Install many R packages in [Spack environment](#spack-environments)
+* Install [specific version of R](#installing-specific-versions-of-r)
+* [Submit a slurm batch job](#submit-a-slurm-batch-job)
+
 ## Examples
 
 > [!IMPORTANT]
-> Packages `rgdal, `raster`, and `rgeos` have been deprecated. Instead, use:
+> Packages `rgdal`, `raster`, and `rgeos` have been deprecated. Instead, use:
+>   * `rgdal` -> `sf` or `terra`
+>   * `raster` -> `terra`
+>   * `rgeos` -> `sf` or `terra`
 
 For all of these examples, ensure you are in a compute node by requesting an
 interactive job (Step 2 of [R with
-Spack](https://docs.rc.fas.harvard.edu/kb/r-and-rstudio/#R_with_Spack).
+Spack](https://docs.rc.fas.harvard.edu/kb/r-and-rstudio/#R_with_Spack)).
 
 We added some examples below. See [Spack
 list](https://spack.readthedocs.io/en/latest/package_list.html) for a full list
@@ -103,6 +119,43 @@ This software may take ~20 min to install
 Linking to GEOS 3.9.1, GDAL 3.5.3, PROJ 8.2.1; sf_use_s2() is TRUE
 ```
 
+## Spack environments
+
+Alternatively, if you would like to install many R packages, you can create a
+[Spack environment](https://spack.readthedocs.io/en/latest/environments.html) --
+Spack environment are similar to conda/mamba environments. After cloning and
+sourcing spack, then:
+
+```bash
+# create environment
+spack env create R_packages
+==> Created environment R_packages in: /n/holyscratch01/jharvard_lab/Lab/jharvard/spack_installs/R_spack/var/spack/environments/R_packages
+==> Activate with: spack env activate R_packages
+
+# activate environment
+spack env activate -p R_packages
+
+# add packages to environment
+spack add r-glmnet r-rstan r-sf
+==> Adding r-glmnet to environment R_packages
+==> Adding r-rstan to environment R_packages
+==> Adding r-sf to environment R_packages
+
+# install packages (this can take 2+ hours)
+spack install
+
+# use R packages
+R
+> library(rstan)
+Loading required package: StanHeaders
+Loading required package: ggplot2
+rstan (Version 2.21.8, GitRev: 2e1f913d3ca3)
+For execution on a local, multicore CPU with excess RAM we recommend calling
+options(mc.cores = parallel::detectCores()).
+To avoid recompilation of unchanged Stan programs, we recommend calling
+rstan_options(auto_write = TRUE)
+```
+
 ## Installing specific versions of R
 
 To install a specific version of r, simply add `@` and the version to the `spack
@@ -123,7 +176,7 @@ Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 ```
 
-## Submitting a slurm job
+## Submit a slurm batch job
 
 When you submit a slurm job and you need to use an R package that was installed
 with Spack, you need to:
