@@ -2,13 +2,13 @@
 
 **NOTE**: These instructions apply to users who use R from the command line. If
 you use R in RStudio, refer to FASRC [RStudio
-docs](https://docs.rc.fas.harvard.edu/kb/rstudio-server-vs-rstudio-desktop/)
+docs](https://docs.rc.fas.harvard.edu/kb/r-and-rstudio/).
 
 ## Requirements
 
 Refer to Steps 1 and 2 in the [R with
 Spack](https://docs.rc.fas.harvard.edu/kb/r-and-rstudio/#R_with_Spack) main
-documentation for the requirements
+documentation for requirements.
 
 ## Examples
 
