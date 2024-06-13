@@ -1,4 +1,4 @@
-## Installation and Execution 
+## Artificial Intelligence/Machine Learning
 
 
 Instructions to install various AI/DL applications on the cluster and
