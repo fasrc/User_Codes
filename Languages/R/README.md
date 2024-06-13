@@ -15,13 +15,10 @@ See FASRC [R and RStudio](https://docs.rc.fas.harvard.edu/kb/r-and-rstudio/) doc
 * [R with Singularity](R_with_Singularity/README.md): Singularity definition files
 * [R packages with Spack](R_with_Spack/README.md) with specific examples of:
   * `glmnet`
-  * `raster`
-  * `rgdal`
-  * `rgeos`
   * `rstan`
-  * `seurat`
   * `sf`
-  * Old R versions
+  * Install specific version of R
+  * Submit a slurm batch job
 
 ### Resources
 
