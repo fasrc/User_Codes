@@ -20,7 +20,6 @@ documentation for requirements.
 * How to install
   * [`glmnet`](#glmnet)
   * [`rstan`](#rstan)
-  * [`seurat`](#seurat)
   * [`sf`](#sf)
 * Install many R packages in [Spack environment](#spack-environments)
 * Install [specific version of R](#installing-specific-versions-of-r)
@@ -34,13 +33,12 @@ documentation for requirements.
 >   * `raster` -> `terra`
 >   * `rgeos` -> `sf` or `terra`
 
-For all of these examples, ensure you are in a compute node by requesting an
-interactive job (Step 2 of [R with
-Spack](https://docs.rc.fas.harvard.edu/kb/r-and-rstudio/#R_with_Spack)).
-
 We added some examples below. See [Spack
 list](https://spack.readthedocs.io/en/latest/package_list.html) for a full list
 of software offered by Spack.
+
+If you have trouble installing packages, change Spack's [default
+architecture](../../../Documents/Software/Spack.md#default-architecture).
 
 ### `glmnet`
 
@@ -55,7 +53,7 @@ of software offered by Spack.
 [jharvard@holy2c02302 spack]$ R
 > library(glmnet)
 Loading required package: Matrix
-Loaded glmnet 4.1-4
+Loaded glmnet 4.1-7
 ```
 
 ### `rstan`
@@ -78,7 +76,7 @@ package `rstan`.
 > library(rstan)
 Loading required package: StanHeaders
 Loading required package: ggplot2
-rstan (Version 2.21.7, GitRev: 2e1f913d3ca3)
+rstan (Version 2.21.8, GitRev: 2e1f913d3ca3)
 For execution on a local, multicore CPU with excess RAM we recommend calling
 options(mc.cores = parallel::detectCores()).
 To avoid recompilation of unchanged Stan programs, we recommend calling
@@ -87,24 +85,13 @@ rstan_options(auto_write = TRUE)
 
 ### `seurat`
 
-This software may take ~30 min to install
-
-```bash
-# install R packages with spack
-[jharvard@holy2c02302 spack]$ spack install r-seurat
-
-# load spack packages
-[jharvard@holy2c02302 spack]$ spack load r-seurat
-
-# launch R and load libraries
-[jharvard@holy2c02302 spack]$ R
-> library(Seurat)
-Attaching SeuratObject
-```
+For Seurat, we recommend using [RStudio
+Server](https://docs.rc.fas.harvard.edu/kb/r-and-rstudio/#RStudio_Server)
+instructions.
 
 ### `sf`
 
-This software may take ~20 min to install
+This software may take ~60 min to install
 
 ```bash
 # install R packages with spack
@@ -116,7 +103,7 @@ This software may take ~20 min to install
 # launch R and load libraries
 [jharvard@holy2c02302 spack]$ R
 > library(sf)
-Linking to GEOS 3.9.1, GDAL 3.5.3, PROJ 8.2.1; sf_use_s2() is TRUE
+Linking to GEOS 3.12.2, GDAL 3.9.0, PROJ 9.2.1; sf_use_s2() is TRUE
 ```
 
 ## Spack environments
