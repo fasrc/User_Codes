@@ -145,8 +145,8 @@ rstan_options(auto_write = TRUE)
 
 ## Installing specific versions of R
 
-To install a specific version of r, simply add `@` and the version to the `spack
-install r` command:
+To install a specific version of r, add `@` and the version to the `spack
+install r` command. For example, to install version 3.5.0:
 
 ```bash
 # install R with spack
@@ -162,6 +162,21 @@ R version 3.5.0 (2018-04-23) -- "Joy in Playing"
 Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 ```
+
+> [!IMPORTANT]
+> If you get a similar error:
+> ```bash
+> ==> Error: concretization failed for the following reasons:
+>
+>   1. Cannot satisfy 'curl@:7'
+>   2. Cannot satisfy 'curl@:7'
+>        required because r depends on curl@:7 when @:4.2
+>          required because r@3.5.0 requested explicitly
+> ```
+> This is because `curl` version < 8 has been labeled as deprecated on Spack.
+> Instead, you can use the operating system's `curl`. See Spack's documentation
+> on [Finding external
+> packages](../../../Documents/Software/Spack.md#finding-external-packages)
 
 ## Submit a slurm batch job
 
@@ -187,7 +202,7 @@ spack load r-raster
 Rscript --vanilla r_spack_load_libs.R > r_spack_load_libs.Rout
 ```
 
-Putting items 1-3 together in `runscript_r_spack.sh`, the slurm batch script becomes:
+Putting steps 1-3 together in `runscript_r_spack.sh`, the slurm batch script becomes:
 
 https://github.com/fasrc/User_Codes/blob/c9b0e1d6bb45750252ad2fb42639618142d8d3c3/Languages/R/runscript_r_spack.sh#L1-L30
 
