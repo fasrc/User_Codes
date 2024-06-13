@@ -7,6 +7,8 @@ applications on the cluster.
 
 ### Contents:
 
+* [heavyAI](heavyAI]
+* [OpenAI](OpenAI)
 * [PyTorch](PyTorch): Instructions to install the current version of
   PyTorch and run it on the cluster.
 * [TensorFlow](Tensorflow): Instructions to either install TensorFlow
