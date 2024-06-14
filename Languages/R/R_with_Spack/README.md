@@ -204,11 +204,11 @@ Rscript --vanilla r_spack_load_libs.R > r_spack_load_libs.Rout
 
 Putting steps 1-3 together in [`runscript_r_spack.sh`](runscript_r_spack.sh), the slurm batch script becomes:
 
-https://github.com/fasrc/User_Codes/blob/c9b0e1d6bb45750252ad2fb42639618142d8d3c3/Languages/R/runscript_r_spack.sh#L1-L30
+https://github.com/fasrc/User_Codes/blob/fda8bc7db5fef981649581412909f115199277a2/Languages/R/R_with_Spack/runscript_r_spack.sh#L1-L28
 
 To load R packages installed with Spack in an R script, it works as usual:
 
-https://github.com/fasrc/User_Codes/blob/d4e6c06b8160b2df44601397700f1caec05260b6/Languages/R/r_spack_load_libs.R#L1-L15
+https://github.com/fasrc/User_Codes/blob/fda8bc7db5fef981649581412909f115199277a2/Languages/R/R_with_Spack/r_spack_load_libs.R#L1-L11
 
 Finally, submit the job that executes the R script [`r_spack_load_libs.R`](r_spack_load_libs.R), submit a slurm job with:
 
