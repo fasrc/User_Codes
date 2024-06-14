@@ -1,8 +1,5 @@
 # load libraries
-library(raster)
-library(rgdal)
-library(raster)
-library(terra)
+library(rstan)
 
 # print something
 print("Hello World!")
