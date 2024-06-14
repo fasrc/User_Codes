@@ -174,8 +174,8 @@ Platform: x86_64-pc-linux-gnu (64-bit)
 >          required because r@3.5.0 requested explicitly
 > ```
 > This is because `curl` version < 8 has been labeled as deprecated on Spack.
-> Instead, you can use the operating system's `curl`. See Spack's documentation
-> on [Finding external
+> Instead, you can use the operating system's `curl`. To use the operating
+> system's `curl`, follow Spack's instructions on [Finding external
 > packages](../../../Documents/Software/Spack.md#finding-external-packages)
 
 ## Submit a slurm batch job
@@ -193,7 +193,7 @@ with Spack, you need to:
 
 ```bash
 spack load r-codetools
-spack load r-raster
+spack load r-rstan
 ```
 
 3. Run the program with either `Rscript` or `R CMD BATCH`
@@ -202,7 +202,7 @@ spack load r-raster
 Rscript --vanilla r_spack_load_libs.R > r_spack_load_libs.Rout
 ```
 
-Putting steps 1-3 together in `runscript_r_spack.sh`, the slurm batch script becomes:
+Putting steps 1-3 together in [`runscript_r_spack.sh`](runscript_r_spack.sh), the slurm batch script becomes:
 
 https://github.com/fasrc/User_Codes/blob/c9b0e1d6bb45750252ad2fb42639618142d8d3c3/Languages/R/runscript_r_spack.sh#L1-L30
 
@@ -210,7 +210,7 @@ To load R packages installed with Spack in an R script, it works as usual:
 
 https://github.com/fasrc/User_Codes/blob/d4e6c06b8160b2df44601397700f1caec05260b6/Languages/R/r_spack_load_libs.R#L1-L15
 
-Finally, submit the job that executes the R script `r_spack_load_libs.R`, submit a slurm job with:
+Finally, submit the job that executes the R script [`r_spack_load_libs.R`](r_spack_load_libs.R), submit a slurm job with:
 
 ```bash
 sbatch runscript_r_spack.sh
