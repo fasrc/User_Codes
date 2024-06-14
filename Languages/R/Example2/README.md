@@ -4,9 +4,10 @@ Example code to illustrate R use on the FASRC cluster. The specific example prin
 
 #### Contents:
 
-* <code>count\_down.R</code>: R source code
-* <code>run.sbatch</code>: Batch-job submission script
-* <code>count_down.Rout</code> : Output file
+* [`count_down.R`](count_down.R): R source code
+* [`run.sbatch`](run.sbatch): Batch-job submission script
+* [`count_down.Rout`](count_down.Rout) : Output file
+* [`count_down.out`](count_down.out) : Output file
 
 #### R source code:
 
