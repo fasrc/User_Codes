@@ -18,9 +18,7 @@ spack --version
 
 # load spack packages
 spack load r-codetools
-spack load r-rgdal
-spack load r-raster
-spack load r-terra
+spack load r-rstan
 
 # run R program and keep output and error messages in r_spack_load_libs.Rout
 Rscript --vanilla r_spack_load_libs.R > r_spack_load_libs.Rout 2>&1
