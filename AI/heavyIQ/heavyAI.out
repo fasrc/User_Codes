@@ -1,0 +1,18 @@
+HEAVYAIBASE:  /scratch/paulasan/36873546
+copying files
+total 12
+-rw-r--r--. 1 paulasan rc_admin 1259 Jun 20 17:35 heavyai.license.801
+-rw-r--r--. 1 paulasan rc_admin 1424 Jun 20 17:35 heavy.conf
+-rw-r--r--. 1 paulasan rc_admin 2121 Jun 20 17:35 servers.json
+
+===================================================================== 
+execute ssh command from local computer:
+ssh -NL 7247:holygpu7c26105:7247 paulasan@login.rc.fas.harvard.edu
+===================================================================== 
+
+startheavy 1837224 running
+Backend TCP:  localhost:8501
+Backend HTTP: localhost:7954
+Frontend Web: localhost:7247
+Calcite TCP:  localhost:8537
+startheavy 1837224 exited
