@@ -1,13 +1,13 @@
-#### Purpose:
+### Purpose
 
 MATLAB example code illustrating using job arrays in SLURM. The specific example computes the sum of integers from 1 through N, where N is the SLURM job-array index.
 
-#### Contents:
+### Contents
 
-* <code>serial\_sum.m</code>: MATLAB source code
-* <code>run.sbatch</code>: Batch-job submission script
+* `serial_sum.m`: MATLAB source code
+* `run.sbatch`: Batch-job submission script
 
-#### Example Code:
+### Example MATLAB Source Code
 
 ```matlab
 %===========================================================================
@@ -25,7 +25,7 @@ function s = serial_sum(N)
 end
 ```
 
-#### Example Batch-Job Submission Script:
+### Example Batch-Job Submission Script
 
 ```bash
 #!/bin/bash
@@ -45,13 +45,13 @@ module load matlab
 srun -c $SLURM_CPUS_PER_TASK matlab -nosplash -nodesktop -nodisplay -r "serial_sum($SLURM_ARRAY_TASK_ID);exit"
 ```
 
-#### Example Usage:
+### Example Usage
 
 ```bash
 sbatch run.sbatch
 ```
 
-#### Example Output:
+### Example Output
 
 ```
 cat array_test_32.out

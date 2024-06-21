@@ -1,13 +1,14 @@
-#### Purpose:
+### Purpose
 
 MATLAB example code computing sum of integers from 1 to N. In this case N=100.
 
-#### Contents:
+### Contents
 
-* <code>serial\_sum.m</code>: MATLAB source code
-* <code>run.sbatch</code>: Batch-job submission script
+* `serial_sum.m`: MATLAB source code
+* `run.sbatch`: Batch-job submission script
+* `serial_sum.out`: Output file
 
-#### Example Code:
+### Example MATLAB Source Code
 
 ```matlab
 %===========================================================================
@@ -25,8 +26,7 @@ function s = serial_sum(N)
 end
 ```
 
-
-#### Example Batch-Job Submission Script:
+### Example Batch-Job Submission Script
 
 ```bash
 #!/bin/bash
@@ -43,21 +43,21 @@ module load matlab
 srun -c $SLURM_CPUS_PER_TASK matlab -nodesktop -nodisplay -nosplash -r "serial_sum(100); exit"
 ```
 
-#### Example Usage:
+### Example Usage
 
 ```bash
 sbatch run.sbatch
 ```
 
-#### Example Output:
+### Example Output
 
 ```
 cat serial_sum.out 
 
                             < M A T L A B (R) >
-                  Copyright 1984-2021 The MathWorks, Inc.
-                  R2021a (9.10.0.1602886) 64-bit (glnxa64)
-                             February 17, 2021
+                  Copyright 1984-2022 The MathWorks, Inc.
+                  R2022b (9.13.0.2049777) 64-bit (glnxa64)
+                              August 24, 2022
 
  
 To get started, type doc.

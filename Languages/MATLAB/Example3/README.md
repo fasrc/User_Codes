@@ -1,14 +1,14 @@
-#### Purpose:
+### Purpose
 
-MATLAB example code illustrating multi-figures in MATLAB in batch mode (without GUI). Please note the command line options <code>-nosplash -nodesktop -nodisplay</code>. The specific example generates the figure <code>figure.png</code>
+MATLAB example code illustrating multi-figures in MATLAB in batch mode (without GUI). Please note the command line options `-nosplash -nodesktop -nodisplay`. The specific example generates the figure `figure.png`
 
-#### Contents:
+### Contents
 
-* <code>multi\_fig.m</code>: MATLAB source code
-* <code>run.sbatch</code>: Batch-job submission script
-* <code>figure.png</code>: Output figure
+* `multi_fig.m`: MATLAB source code
+* `run.sbatch`: Batch-job submission script
+* `figure.png`: Output figure
 
-#### Example Code:
+### Example MATLAB Source Code
 
 ```matlab
 %===========================================================
@@ -86,7 +86,7 @@ print('figure','-dpng')
 exit
 ```
 
-#### Example Batch-Job Submission Script:
+### Example Batch-Job Submission Script
 
 ```bash
 #!/bin/bash
@@ -103,12 +103,12 @@ module load matlab
 srun -c $SLURM_CPUS_PER_TASK matlab -nosplash -nodesktop -nodisplay -r "multi_fig"
 ```
 
-#### Example Usage:
+### Example Usage
 
 ```bash
 sbatch run.sbatch
 ```
 
-#### Example Output:
+### Example Output
 
 ![figure.png](figure.png)

@@ -2,7 +2,7 @@
 #SBATCH -J array_test           # job name
 #SBATCH -o array_test_%a.out    # standard output file
 #SBATCH -e array_test_%a.err    # standard error file
-#SBATCH -p serial_requeue       # partition
+#SBATCH -p shared               # partition
 #SBATCH -c 1                    # number of cores
 #SBATCH -t 0-00:30              # time in D-HH:MM
 #SBATCH --mem=4000              # memory in MB

@@ -1,13 +1,14 @@
-#### Purpose:
+### Purpose
 
 MATLAB example code computing PI via Monte-Carlo method.
 
-#### Contents:
+### Contents
 
-* <code>pi\_monte\_carlo.m</code>: MATLAB source code
-* <code>run.sbatch</code>: Batch-job submission script
+* `pi_monte_carlo.m`: MATLAB source code
+* `run.sbatch`: Batch-job submission script
+* `pi_monte_carlo.out`: Output file
 
-#### Example Batch-Job Submission Script:
+### Example Batch-Job Submission Script
 
 ```bash
 #!/bin/bash
@@ -24,13 +25,13 @@ module load matlab
 srun -c $SLURM_CPUS_PER_TASK matlab -nosplash -nodesktop -nodisplay -r "pi_monte_carlo"
 ```
 
-#### Example Usage:
+### Example Usage
 
 ```bash
 sbatch run.sbatch
 ```
 
-#### Example Code:
+### Example MATLAB Source Code
 
 ```matlab
 %=====================================================================
@@ -59,15 +60,15 @@ fprintf('The computed value of pi is %8.7f.\n',myPI);
 exit;
 ```
 
-#### Example Output:
+### Example Output
 
-```
+```bash
 cat pi_monte_carlo.out 
 
                             < M A T L A B (R) >
-                  Copyright 1984-2021 The MathWorks, Inc.
-                  R2021a (9.10.0.1602886) 64-bit (glnxa64)
-                             February 17, 2021
+                  Copyright 1984-2022 The MathWorks, Inc.
+                  R2022b (9.13.0.2049777) 64-bit (glnxa64)
+                              August 24, 2022
 
  
 To get started, type doc.

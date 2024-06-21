@@ -1,13 +1,13 @@
-#### Purpose:
+### Purpose
 
 MATLAB example code illustrating using job arrays and random-vector generation. The specific example creates N random vectors, where N is the job-array dimension, with uniformly distributed elements in a predefined interval. The program takes as arguments the vector dimension (n), the interval boundaries [a, b], and the seed for the random number generator (iseed).
 
-#### Contents:
+### Contents
 
-* <code>rnd\_test.m</code>: MATLAB source code
-* <code>run.sbatch</code>: Batch-job submission script
+* `rnd_test.m`: MATLAB source code
+* `run.sbatch`: Batch-job submission script
 
-#### MATLAB Source Code:
+### Example MATLAB Source Code
 
 ```matlab
 %===============================================================
@@ -49,7 +49,7 @@ function s = vec_sum(n, vec)
 end
 ```
 
-#### Example Batch-Job Submission Script:
+### Example Batch-Job Submission Script
 
 ```bash
 #!/bin/bash
@@ -73,27 +73,27 @@ echo "iseed = $iseed"
 srun -c $SLURM_CPUS_PER_TASK matlab -nosplash -nodesktop -nodisplay -r "rnd_test(10, -2, 2, $iseed); exit"
 ```
 
-#### Example Usage:
+### Example Usage
 
 ```bash
 sbatch run.sbatch
 ```
 
-#### Example Output:
+### Example Output
 
-```
-cat array_test_1.out
-iseed = 65859596
+```bash
+cat array_test_rnd_1.out
+iseed = 37106878
 
                             < M A T L A B (R) >
-                  Copyright 1984-2021 The MathWorks, Inc.
-                  R2021a (9.10.0.1602886) 64-bit (glnxa64)
-                             February 17, 2021
+                  Copyright 1984-2022 The MathWorks, Inc.
+                  R2022b (9.13.0.2049777) 64-bit (glnxa64)
+                              August 24, 2022
 
  
 To get started, type doc.
 For product information, visit www.mathworks.com.
  
-Random vector: [ -0.134309 1.373540 -1.385494 -1.880850 -1.963074 -1.782992 -1.509674 0.931186 -1.617545 1.217141  ]
-Sum of elements: -6.752070
+Random vector: [ 0.766367 -1.317896 1.396659 0.497333 -0.065059 0.022468 -1.903101 0.244747 0.966363 -0.962693  ]
+Sum of elements: -0.354811
 ```
