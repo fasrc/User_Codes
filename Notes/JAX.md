@@ -68,7 +68,7 @@ Below instructions illustrate using a JAX Singularity container from the [NVIDIA
 singularity pull docker://nvcr.io/nvidia/jax:23.10-paxml-py3
 
 # Example usage on the "kempner_h100" partition (H100s nodes)
-$ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:4
+$ salloc -p kempner_h100 -t 0-06:00 --mem=8000 --gres=gpu:4
 
 $ singularity exec --nv jax_23.10-paxml-py3.sif ipython
 Python 3.10.12 (main, Jun 11 2023, 05:26:28) [GCC 11.4.0]
