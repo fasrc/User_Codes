@@ -8,7 +8,5 @@
 #SBATCH -t 0-00:30
 #SBATCH --mem=2G
 
-# Set up Julia and run the program
-export PATH=$PATH:/n/holylabs/LABS/jharvard_lab/Users/jharvard/software/julia-1.9.3/bin
-srun -n 1 -c 1 julia pi_monte_carlo.jl
-
+# Run the program using Julia
+julia pi_monte_carlo.jl
