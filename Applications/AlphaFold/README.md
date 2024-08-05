@@ -1,6 +1,6 @@
 # AlphaFold
 
-[See FASRC Docs](https://docs.rc.fas.harvard.edu/?post_type=epkb_post_type_1&p=27454&preview=true)
+[See FASRC Docs](https://docs.rc.fas.harvard.edu/kb/alphafold/)
 
 ## Running AlphaFold Examples
 
