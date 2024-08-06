@@ -5,7 +5,7 @@
 ## Configure CryoSPARC Master
 The master program is called with the `cryosparcm` command documented [here](https://guide.cryosparc.com/setup-configuration-and-management/management-and-monitoring/cryosparcm). 
 The major mechanism for customizing the behavior of `cryosparcm` is the config file located in `cryosparc_master/config.sh`.
-The following is a basic `config.sh` containing the license, path to the MongoDB datbase, master hostname, and the base tcp port:
+The following is a basic `config.sh` containing the license, path to the MongoDB database, master hostname, and the base tcp port:
 
 ```bash
 export CRYOSPARC_LICENSE_ID="________-____-____-____-____________"
