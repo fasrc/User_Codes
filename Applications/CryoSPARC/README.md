@@ -19,7 +19,7 @@ Containing the license, path to the MongoDB datbase, master hostname, and the ba
 
 ## Installing CryoSPARC on Cannon
 
-There is a provided [configure.sh script](configure.sh) to get you up and running fast, or proceed interactively if preferred. 
+There is a provided [configure.sh](configure.sh) script to get you up and running fast, or proceed interactively if preferred. 
 
 The install script is based on the [instructions](https://guide.cryosparc.com/setup-configuration-and-management/how-to-download-install-and-configure/downloading-and-installing-cryosparc) found in the CryoSPARC guide. 
 This script should typically be run __on a GPU node__ so that the correct CUDA modules are loaded and functioning. 
