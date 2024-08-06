@@ -5,7 +5,8 @@
 ## Configure CryoSPARC Master
 The master program is called with the `cryosparcm` command documented [here](https://guide.cryosparc.com/setup-configuration-and-management/management-and-monitoring/cryosparcm). 
 The major mechanism for customizing the behavior of `cryosparcm` is the config file located in `cryosparc_master/config.sh`.
-A basic `config.sh` might look like the following
+The following is a basic `config.sh` containing the license, path to the MongoDB datbase, master hostname, and the base tcp port:
+
 ```bash
 export CRYOSPARC_LICENSE_ID="________-____-____-____-____________"
 export CRYOSPARC_DB_PATH="_________________________________________/cryosparc_database"
@@ -15,7 +16,6 @@ export CRYOSPARC_CLICK_WRAP=true
 export CRYOSPARC_MASTER_HOSTNAME=holy_______.rc.fas.harvard.edu
 export CRYOSPARC_BASE_PORT=____
 ```
-Containing the license, path to the MongoDB datbase, master hostname, and the base tcp port. 
 
 ## Installing CryoSPARC on Cannon
 
