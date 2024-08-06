@@ -1,21 +1,8 @@
-Primary Author: Kevin Dalton
+# CryoSPARC
 
-### What is CryoSPARC?
-[CryoSPARC](https://guide.cryosparc.com/) is a closed source, commercially-developed piece software for analyzing single-particle cryoelectron microscopy data.
-It supports CUDA based GPU-accelerated analysis through the PyCUDA library.
-It consists of several applications which are bundled in two separate binary packages, termed
- - CryoSPARC Master (`cryosparcm`)
- - CryoSPARC Worker
+[See FASRC Docs](https://docs.rc.fas.harvard.edu/kb/cryosparc/)
 
-The Master package is meant to use relative little compute resources, and at least some sysadmins seem to have decided to allow users to run this directly on login nodes. 
-CryoSPARC Worker can be run on a separate node or the same node, but typically should have access to GPU compute resources. 
-The worker nodes must have password-less SSH access to the master node as well as unfettered TCP on a number of ports. 
-The authoritative list of requirements for installation can be found in the CryoSPARC [guide](https://guide.cryosparc.com/setup-configuration-and-management/cryosparc-installation-prerequisites). 
-
-In addition to instantiating worker nodes and connecting them to the Master node, CryoSPARC can also be configured with a "Cluster Lane" which submits jobs via the SLURM job scheduler. 
-This is the install strategy described in this document. 
-
-### CryoSPARC Master
+## Configure CryoSPARC Master
 The master program is called with the `cryosparcm` command documented [here](https://guide.cryosparc.com/setup-configuration-and-management/management-and-monitoring/cryosparcm). 
 The major mechanism for customizing the behavior of `cryosparcm` is the config file located in `cryosparc_master/config.sh`.
 A basic `config.sh` might look like the following
@@ -30,30 +17,13 @@ export CRYOSPARC_BASE_PORT=____
 ```
 Containing the license, path to the MongoDB datbase, master hostname, and the base tcp port. 
 
-At the top level, `cryosparcm` is really a `Supervisor` based `shell` script which manages at least six different applications.
-For instance, running `cryosparcm start` will bring up the following applications
- - app (cli)
- - command_core
- - command_rtp
- - command_vis
- - database (MongoDB)
- - webapp
+## Installing CryoSPARC on Cannon
 
-As far as I can tell these mostly communicate with one another over `TCP`. 
-The `TCP` ports used by each of the component programs are not individually configurable, but the base port to which the user connects is configurable in the `cryosparc_master/config.sh`. 
-Of note, the hostname of the node running the master application is also typically hardcoded in this `config.sh` file. 
-However, if this is left unset, it will take the hostname of the machine on which `cryosparcm start` is called. 
+There is a provided [configure.sh script](configure.sh) to get you up and running fast, or proceed interactively if preferred. 
 
-### Obtaining a CryoSPARC License
-CryoSPARC is free for academic use. 
-However, it does require a license.
-You can [request a license](http://cryosparc.com/download) on the CryoSPARC webpage. 
-The process of requesting a license is described in detailed [here](https://guide.cryosparc.com/setup-configuration-and-management/how-to-download-install-and-configure/obtaining-a-license-id).
-
-### Installing CryoSPARC on Cannon
-This monolithic install script is based on the [instructions](https://guide.cryosparc.com/setup-configuration-and-management/how-to-download-install-and-configure/downloading-and-installing-cryosparc) found in the CryoSPARC guide. 
+The install script is based on the [instructions](https://guide.cryosparc.com/setup-configuration-and-management/how-to-download-install-and-configure/downloading-and-installing-cryosparc) found in the CryoSPARC guide. 
 This script should typically be run __on a GPU node__ so that the correct CUDA modules are loaded and functioning. 
-Sequentially, this script does the following steps
+Sequentially, this script does the following steps:
  1) Set environment variables particular to this install
  2) Remove any potential old files that will cause the install to fail
  3) Load the appropriate CUDA related modules
@@ -65,9 +35,7 @@ Sequentially, this script does the following steps
  9) [Add](https://guide.cryosparc.com/setup-configuration-and-management/how-to-download-install-and-configure/downloading-and-installing-cryosparc#create-the-first-user) an initial user account
  10) [Add](https://guide.cryosparc.com/setup-configuration-and-management/how-to-download-install-and-configure/downloading-and-installing-cryosparc#connect-a-cluster-to-cryosparc) the [cluster configuration](https://guide.cryosparc.com/setup-configuration-and-management/how-to-download-install-and-configure/cryosparc-cluster-integration-script-examples#slurm) for running jobs on Cannon
  
- These steps can be run sequentially [with this configure script](configure.sh) or interactively if preferred. 
-
-### Running cryosparc on Cannon
+## Running cryosparc on Cannon
 To run CryoSPARC on Cannon, several things need to happen. 
 First an open port on the login node in the range `7000-11000` needs to be identified (see [here](https://docs.rc.fas.harvard.edu/kb/jupyter-notebook-server-on-cluster/)). 
 Next a CPU node should be allocated using the `SLURM` job scheduler. 
@@ -89,7 +57,7 @@ ssh -NL port:compute_node:port user@holylogin.rc.fas.harvard.edu
 Once authenticated, the CryoSPARC webapp should be viewable at `http://localhost:port`. 
 
 
-### Mostly Automated CryoSPARC Connection
+## Mostly Automated CryoSPARC Connection
 Because the launch process is tedious and error prone, I have automated much of it in [a shell function](bashrc_additions) which the user can add to their cluster `.bashrc`.
 
 This uses a temporary file `CRYOSPARC_CONNECTION_SCRIPT` in order to monitor the progress of the `cryosparcm` launch. 
