@@ -43,7 +43,8 @@ Whisper can be easily installed as mentioned below:
 
 ## Run OpenAI
 
-As mentioned [here](https://docs.rc.fas.harvard.edu/kb/openai/), you
+As mentioned
+[here](https://github.com/fasrc/User_Codes/tree/master/AI/OpenAI), you
 will need to provide an OpenAI key. If you haven't already, you can
 generate one from
 [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys). It
@@ -67,11 +68,7 @@ you want to run OpenAI or Whisper.
 
 # Run Whisper example
 
-You would need to download the sample audio file, `harvard.wav`, and
-the python test script, `openai-whisper-test.py` provided here to your
-profile on Cannon in order to run this example. Remember to edit the
-path of `harvard.wav` in `openai-whisper-test.py` for the example to
-work correctly.
+You would need to download the sample audio file, *harvard.wav*, and the example script, *openai-whisper-test.py*, provided here to your profile on Cannon in order to run this example. Remember to update the path of *harvard.wav* in *openai-whisper-test.py* to its location on Cannon for the example to work properly.
 
 (openai_env) [jharvard@holy8a24301 ~]$ python openai-whisper-test.py
 The stale smell of old beer lingers. It takes heat to bring out the
