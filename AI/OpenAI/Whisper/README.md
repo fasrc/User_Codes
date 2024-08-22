@@ -67,7 +67,7 @@ you want to run OpenAI or Whisper.
 (openai_env) [jharvard@holy8a24301 ~]$ export SSL_CERT_FILE='/etc/pki/tls/certs/ca-bundle.crt'
 
 # Run Whisper example
-You would need to download the sample audio file, harvard.wav, and the
+You would need to download the sample audio file, _harvard.wav_, and the
 example script, openai-whisper-test.py, to your profile on Cannon in
 order to run this example. Remember to update the path of harvard.wav
 in openai-whisper-test.py to its location on Cannon for the example to
