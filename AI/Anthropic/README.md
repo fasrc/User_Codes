@@ -36,8 +36,8 @@ You can install Claude in a conda/mamba environment:
 ## Run Claude
 
 You will need to provide an Anthropic API key. You can generate one
-from logging into their [API page]
-(https://console.anthropic.com/login?selectAccount=true&returnTo=%2Fsettings%2Fkeys%3F). Also,
+from their [API
+page](https://console.anthropic.com/login?selectAccount=true&returnTo=%2Fsettings%2Fkeys%3F). Also,
 see their [quickstart
 guide](https://docs.anthropic.com/en/docs/quickstart).
 
@@ -49,7 +49,7 @@ guide](https://docs.anthropic.com/en/docs/quickstart).
 [jharvard@holy8a24301 ~]$ mamba activate claude_env
 
 # replace my_key with the key that you generated on the Anthropic API website
-[jharvard@holy8a24301 ~]$ export ANTHROPIC_API_KEY='Your-API-Key'
+(claude_env) [jharvard@holy8a24301 ~]$ export ANTHROPIC_API_KEY='Your-API-Key'
 
 # set SSL_CERT_FILE with system's certificate
 (claude_env) [jharvard@holy8a24301 ~]$ export SSL_CERT_FILE='/etc/pki/tls/certs/ca-bundle.crt'
