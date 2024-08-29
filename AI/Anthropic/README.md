@@ -43,7 +43,7 @@ guide](https://docs.anthropic.com/en/docs/quickstart).
 
 ```bash
 # Request an interactive job
-[jharvard@boslogin01 ~]$ salloc --partition=test --time=02:00:00 --mem=8G --cpus-per-task=2
+[jharvard@boslogin01 ~]$ salloc --partition=gpu_test --gres=gpu:1 --time=02:00:00 --mem=8G --cpus-per-task=2
 
 # Source conda environment
 [jharvard@holy8a24301 ~]$ mamba activate claude_env
@@ -56,10 +56,6 @@ guide](https://docs.anthropic.com/en/docs/quickstart).
 
 # run Claude example
 (claude_env) [jharvard@holy8a24301 ~]$ python claude_quickstart.py
-anthropic.BadRequestError: Error code: 400 - {'type': 'error',
-'error': {'type': 'invalid_request_error', 'message': 'Your credit
-balance is too low to access the Claude API. Please go to Plans &
-Billing to upgrade or purchase credits.'}}
 ```
 
 **Note:** Anthropic uses the python package `httpx`. You must set the variable
