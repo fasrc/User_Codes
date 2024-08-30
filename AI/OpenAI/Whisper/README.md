@@ -53,6 +53,12 @@ is advisable to store this key in a safe location, like your
 `SSL_CERT_FILE` in your `~/.bashrc` instead of exporting it every time
 you want to run OpenAI or Whisper.
 
+[//]: # "You would need to download the sample audio file, 'harvard.wav', and the
+example script, `openai-whisper-test.py`, to your profile on Cannon in
+order to run this example. Remember to update the path of `harvard.wav`
+in `openai-whisper-test.py` to its location on Cannon for the example to
+work properly."
+
 ```bash
 # Request an interactive job
 [jharvard@boslogin01 ~]$ salloc --partition test --time 01:00:00 --mem-per-cpu 4G -c 2
