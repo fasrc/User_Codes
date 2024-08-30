@@ -31,13 +31,13 @@ you have already created and installed OpenAI as described
 Whisper can be easily installed as mentioned below:
 
 ```bash
-[jharvard@boslogin01 ~]$ salloc --partition test --time 01:00:00 --mem-per-cpu 4G -c 2
+[jharvard@boslogin01 ~]$ salloc --partition=gpu_test --gres=gpu:1 --time=01:00:00 --mem-per-cpu=4G --cpus-per-task=2
 [jharvard@holy8a24301 ~]$ module load python
 [jharvard@holy8a24301 ~]$ export PYTHONNOUSERSITE=yes
 [jharvard@holy8a24301 ~]$ source activate openai_env
 [jharvard@holy8a24301 ~]$ pip install -U openai-whisper
-[jharvard@holy8a24301 ~]$ conda install conda-forge::ffmpeg -y
-[jharvard@holy8a24301 ~]$ conda install conda-forge::rust -y
+[jharvard@holy8a24301 ~]$ mamba install conda-forge::ffmpeg -y
+[jharvard@holy8a24301 ~]$ mamba install conda-forge::rust -y
 [jharvard@holy8a24301 ~]$ conda deactivate
 ```
 
@@ -67,11 +67,11 @@ you want to run OpenAI or Whisper.
 (openai_env) [jharvard@holy8a24301 ~]$ export SSL_CERT_FILE='/etc/pki/tls/certs/ca-bundle.crt'
 
 # Run Whisper example
-You would need to download the sample audio file, 'harvard.wav', and the
+[//]: # "You would need to download the sample audio file, 'harvard.wav', and the
 example script, `openai-whisper-test.py`, to your profile on Cannon in
 order to run this example. Remember to update the path of `harvard.wav`
 in `openai-whisper-test.py` to its location on Cannon for the example to
-work properly.
+work properly."
 
 (openai_env) [jharvard@holy8a24301 ~]$ python openai-whisper-test.py
 The stale smell of old beer lingers. It takes heat to bring out the
