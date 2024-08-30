@@ -54,11 +54,11 @@ is advisable to store this key in a safe location, like your
 you want to run OpenAI or Whisper.
 
 
-[comment]: "You would need to download the sample audio file, 'harvard.wav', and the
+> **_NOTE:_** You would need to download the sample audio file, 'harvard.wav', and the
 example script, `openai-whisper-test.py`, to your profile on Cannon in
 order to run this example. Remember to update the path of `harvard.wav`
 in `openai-whisper-test.py` to its location on Cannon for the example to
-work properly."
+work properly.
 
 
 ```bash
