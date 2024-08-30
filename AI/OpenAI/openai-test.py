@@ -1,5 +1,5 @@
 # This example was copied from
-# https://platform.openai.com/docs/quickstart?context=python
+# https://platform.openai.com/docs/quickstart?context=python&language-preference=python
 
 from openai import OpenAI
 client = OpenAI()
