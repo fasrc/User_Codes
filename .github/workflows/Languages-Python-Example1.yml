@@ -54,5 +54,15 @@ jobs:
 
     - name: Run SLURM job in Docker
       run: |
-        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:20.11.9 \
+        # docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:20.11.9 \
+        docker run --rm --detach \
+           --name "${USER}_simulator" \
+           -h "slurm-simulator" \
+           --security-opt seccomp:unconfined \
+           --privileged -e container=docker \
+           -v /run -v /sys/fs/cgroup:/sys/fs/cgroup \
+           -v ${{ github.workspace }}:/workspace \
+           -w /workspace \
+           --cgroupns=host \
+           hpcnow/slurm_simulator:20.11.9 /usr/sbin/init
         sbatch /workspace/Languages/Python/Example1/run.sbatch
