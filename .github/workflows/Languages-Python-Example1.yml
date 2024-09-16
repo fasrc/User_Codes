@@ -10,7 +10,7 @@ on:
   workflow_dispatch: # This enables manual triggering of the workflow
 
 jobs:
-  test:
+  Languages-Python-Example1:
     runs-on: ubuntu-latest
 
     steps:
