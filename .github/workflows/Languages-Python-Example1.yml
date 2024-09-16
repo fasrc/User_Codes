@@ -50,7 +50,7 @@ jobs:
 
     - name: Check File Permissions
       run: |
-        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:20.11.9 stat /workspace/Languages/Python/Example1/run.slurm
+        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:20.11.9 stat /workspace/Languages/Python/Example1/run.sbatch
 
     - name: Run SLURM job in Docker
       run: |
