@@ -3,10 +3,11 @@ name: CI Test for mc_pi
 on:
   push:
     branches:
-      - User_Doc-Python
+      - main
   pull_request:
     branches:
-      - User_Doc-Python
+      - main
+  workflow_dispatch: # This enables manual triggering of the workflow
 
 jobs:
   test:
@@ -24,11 +25,11 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt # If you have dependencies listed in a requirements.txt
+        pip install -r requirements.txt # If you have a requirements.txt file in the repo
 
     - name: Run mc_pi.py
       run: |
-        python mc_pi.py
+        python Languages/Python/Example1/mc_pi.py
 
   slurm:
     runs-on: ubuntu-latest
@@ -43,4 +44,4 @@ jobs:
 
     - name: Run SLURM batch file
       run: |
-        sbatch run.sbatch
+        sbatch Languages/Python/Example1/run.slurm
