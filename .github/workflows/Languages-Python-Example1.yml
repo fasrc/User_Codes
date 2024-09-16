@@ -3,10 +3,10 @@ name: CI Test for mc_pi
 on:
   push:
     branches:
-      - main
+      - User_Doc-Python
   pull_request:
     branches:
-      - main
+      - User_Doc-Python
 
 jobs:
   test:
