@@ -37,11 +37,14 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Install SLURM
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y slurm-wlm
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
 
-    - name: Run SLURM batch file
+    - name: Pull SLURM Simulator Docker Image
       run: |
+        docker pull hpcnow/slurm_simulator:20.11.9
+
+    - name: Run SLURM job in Docker
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:20.11.9 \
         sbatch Languages/Python/Example1/run.slurm
