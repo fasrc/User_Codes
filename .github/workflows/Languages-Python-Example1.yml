@@ -33,23 +33,26 @@ jobs:
 
   slurm:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
 
-      - name: Pull SLURM Simulator Docker Image
-        run: |
-          docker pull hpcnow/slurm_simulator:20.11.9
+    - name: Pull SLURM Simulator Docker Image
+      run: |
+        docker pull hpcnow/slurm_simulator:20.11.9
 
-      - name: List Files in Mounted Directory
-        run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:20.11.9 ls -R /workspace
+    - name: List Files in Mounted Directory
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:20.11.9 ls -la /workspace/Languages/Python/Example1
 
-      - name: Run SLURM job in Docker
-        run: |
-          docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:20.11.9 \
-          sbatch /workspace/Languages/Python/Example1/run.slurm
+    - name: Check File Permissions
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:20.11.9 stat /workspace/Languages/Python/Example1/run.slurm
+
+    - name: Run SLURM job in Docker
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:20.11.9 \
+        sbatch /workspace/Languages/Python/Example1/run.slurm
