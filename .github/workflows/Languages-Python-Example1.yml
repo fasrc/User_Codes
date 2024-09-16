@@ -1,4 +1,4 @@
-name: CI Test for mc_pi
+name: CI Test for Languages-Python-Example1/mc_pi.py
 
 on:
   push:
