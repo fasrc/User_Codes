@@ -1,18 +1,18 @@
 ### Purpose:
-
-This example illustrates solving differential equations numerically in Julia. Specifically, it solves an ODE after an example taken from [this](https://sam-dolan.sites.sheffield.ac.uk/mas212-course/sample-notebooks/ode_example) Python notebook, using [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/)
+This example illustrates solving differential equations numerically in
+Julia. Specifically, it solves an ODE after an example taken from
+[this](https://sam-dolan.sites.sheffield.ac.uk/mas212-course/sample-notebooks/ode_example)
+Python notebook, using
+[DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/)
 
 
 ### Contents:
-
 * <code>ode\_test.jl</code>: Julia source code
-* <code>run.sbatch</code>: Batch-job submission script
-* <code>results.dat</code>: Numeric results
-* <code>figure.png</code>: Figure of ODE's solution
 * <code>figure.py</code>: Python script for generating the figure
+* <code>run.sbatch</code>: Batch-job submission script
+* <code>figure.png</code>: Figure of ODE's solution
 
 ### Julia code:
-
 ```julia
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Program: ode_test.jl 
@@ -22,6 +22,7 @@ using SimpleDiffEq
 using Printf
 using Plots
 using Plots.PlotMeasures
+using PyCall
 
 # --- Define the problem ---
 f(u, p, t) = t - u
@@ -52,15 +53,25 @@ for i = 1: size(sol.t)[1]
    @printf(fo, "%8.4f %10.6f %10.6f\n", x, y, y_exact)
 end
 close(fo)
+
+pyimport("numpy")
+
+# --- Run the Python script to plot the result ---
+@pyinclude("figure.py")
 ```
 
-> **Note:** You may need to install the `DifferentialEquations`, `SimpleDiffEq` and `Plots` packages. Use the following command inside the Julia REPL:
+> **Note:** You may need to install the `DifferentialEquations`,
+    `SimpleDiffEq`, `Plots`, and `PyCall` packages. Use the following
+    command inside Julia's full-featured interactive command-line REPL
+    (read-eval-print loop):
 
 ```julia
 julia> using Pkg
 julia> Pkg.add("DifferentialEquations")
 julia> Pkg.add("SimpleDiffEq")
 julia> Pkg.add("Plots")
+julia> ENV["PYTHON"]=""
+julia> Pkg.build("PyCall")
 ```
 
 ### Example Batch-Job Submission Script:
@@ -76,20 +87,16 @@ julia> Pkg.add("Plots")
 #SBATCH -t 0-00:30
 #SBATCH --mem=4G
 
-# Set up Julia and run the program
-export PATH=$PATH:/n/holylabs/LABS/jharvard_lab/Users/jharvard/software/julia-1.9.3/bin
-srun -n 1 -c 1 julia ode_test.jl
+# Run the program using Julia
+julia ode_test.jl
 ```
-**NOTE:** Please remember to point the `PATH` environmental variable to the actual location of your Julia installation.
 
 ### Example Usage:
-
 ```bash
 sbatch run.sbatch
 ```
 
 ### Example Output:
-
 ```bash
 $ cat results.dat 
    Time     Numeric     Exact   
@@ -123,7 +130,6 @@ $ cat results.dat
 ```
 
 ### Figure of Solution:
-
 <img src="figure.png" alt="solution" width="500"/>
 
 ### Python script for generating the figure:
@@ -136,7 +142,6 @@ import os
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-plt.style.use('seaborn-white')
 from matplotlib.ticker import MultipleLocator, FormatStrFormatter
 
 def rc_params():
