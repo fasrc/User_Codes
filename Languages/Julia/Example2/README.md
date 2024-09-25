@@ -61,18 +61,32 @@ pyimport("numpy")
 ```
 
 > **Note:** You may need to install the `DifferentialEquations`,
-    `SimpleDiffEq`, `Plots`, and `PyCall` packages. Use the following
-    command inside Julia's full-featured interactive command-line REPL
-    (read-eval-print loop):
+    `SimpleDiffEq`, `Plots`, `PyCall`, `Conda`, and `matplotlib`
+    packages. Use the following command inside Julia's full-featured
+    interactive command-line REPL (read-eval-print loop) to adding these packages.
 
 ```julia
 julia> using Pkg
 julia> Pkg.add("DifferentialEquations")
 julia> Pkg.add("SimpleDiffEq")
 julia> Pkg.add("Plots")
+julia> Pkg.add("Conda")
 julia> ENV["PYTHON"]=""
 julia> Pkg.build("PyCall")
+julia> using Conda
+julia> Conda.add("matplotlib")
 ```
+
+> **Note:** The `PYTHON` environmental variable above has been set to
+    `blank` prior to building the `PyCall` package. This is to
+    override the default behavior of `PyCall`, which is to use the
+    system's default Python environment in Linux, and instead install
+    Julia's "private" version of Python. You can find more details on
+    how to install `PyCall` at a desired location and call Python
+    functions from a Julia program on
+    [Github](https://github.com/JuliaPy/PyCall.jl) and
+    [Stackoverflow](
+    https://stackoverflow.com/questions/66648841/how-to-call-a-python-function-from-a-julia-program)
 
 ### Example Batch-Job Submission Script:
 
@@ -203,3 +217,5 @@ $ cat results.dat
 ### References:
 
 * [Official **DifferentialEquations.jl** Documentation](https://docs.sciml.ai/DiffEqDocs/stable/)
+* [PyCall](https://github.com/JuliaPy/PyCall.jl)
+* [Pycall to call Python code](https://stackoverflow.com/questions/66648841/how-to-call-a-python-function-from-a-julia-program)
