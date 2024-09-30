@@ -72,6 +72,7 @@ julia> Pkg.add("SimpleDiffEq")
 julia> Pkg.add("Plots")
 julia> Pkg.add("Conda")
 julia> ENV["PYTHON"]=""
+julia> Pkg.add("PyCall")
 julia> Pkg.build("PyCall")
 julia> using Conda
 julia> Conda.add("matplotlib")
