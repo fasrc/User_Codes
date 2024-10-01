@@ -8,7 +8,7 @@ on the cluster.
 
 ### Install the IJulia package:
 
-#### Launch an interactive session and load the Python module:
+* Launch an interactive session and load the Python module:
 
 ```bash
 [jharvard@holylogin01 ~]$ salloc -pty -p test --mem=4G -t 120
@@ -26,8 +26,7 @@ See our [documentation on
 modules](https://docs.rc.fas.harvard.edu/kb/modules-intro/) to learn
 more about how to use them on the cluster.
 
-#### Start Julia and install `IJulia` based on [these
-     instructions](https://docs.rc.fas.harvard.edu/kb/julia/).
+* Start `Julia` and install `IJulia` based on [these instructions](https://docs.rc.fas.harvard.edu/kb/julia/).
 
 
 ### Using the Julia kernel in Jupyter:
