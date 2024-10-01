@@ -7,7 +7,6 @@ on the cluster.
 * `Montepi-Julia.ipynb`: Notebook with Julia source code
 
 ### Install the IJulia package:
-
 * Launch an interactive session and load the Python module:
 
 ```bash
@@ -30,7 +29,6 @@ more about how to use them on the cluster.
 
 
 ### Using the Julia kernel in Jupyter:
-
 To learn how to schedule a Jupyter notebook or Jupyter Lab session via
 our [interactive computing portal
 (VDI)](https://vdi.rc.fas.harvard.edu/) follow [these
@@ -53,11 +51,7 @@ available kernels will be displayed.
 ![Julia VDI](Images/julia-vdi-2.png)
 
 ### References:
-
 * [Lmod modules](https://docs.rc.fas.harvard.edu/kb/modules-intro/)
-
 * [Julia Programming Language](https://docs.rc.fas.harvard.edu/kb/julia/)
-
 * [OOD](https://vdi.rc.fas.harvard.edu/)
-
 * [OOD Jupyter Notebook](https://docs.rc.fas.harvard.edu/kb/vdi-apps/#Jupyter_Notebook)
