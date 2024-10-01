@@ -1,61 +1,8 @@
 # AlphaFold
 
-## What is AlphaFold?
+[See FASRC Docs](https://docs.rc.fas.harvard.edu/kb/alphafold/)
 
-See [AlphaFold](https://github.com/deepmind/alphafold).
-
-## AlphaFold in the FASRC Cannon cluster
-
-Alphafold runs within a Docker container. However, Docker containers are not
-allowed in high performance computing (HPC) systems such as Cannon because
-Docker requires root/sudo privileges, which poses a security concern in HPC
-systems.
-
-Instead, we use [Singularity
-containers](https://docs.sylabs.io/guides/latest/user-guide/introduction.html)
-which was specifically designed for HPC systems.
-
-### Singularity images
-
-The AlphaFold singularity images are stored in a cluster-wide location, meaning
-that individual users **do not** have to copy the singularity images to use
-them. Singularity images are located in
-
-```bash
-/n/singularity_images/FAS/alphafold/
-```
-
-Each singularity image is tagged with the AlphaFold version
-
-```bash
-[jharvard@holylogin03 ~]$ ls -l /n/singularity_images/FAS/alphafold/
-total 13G
--rwxr-xr-x. 1 root root 4.8G May 25 18:06 alphafold_2.3.1.sif
--rwxr-xr-x. 1 root root 2.9G May 25 18:10 alphafold_2.3.2.sif
--rwxr-xr-x. 1 root root 4.5G Nov  2  2022 alphafold_v2.2.4.sif
--rw-r--r--. 1 root root  733 May 25 18:13 readme.txt
-```
-
-- Version 2.3.2: Downloded from [Catguma
-  DockerHub](https://hub.docker.com/layers/catgumag/alphafold/2.3.2/images/sha256-069598169a823d12a1a2c6e26d163b78abba7f59b4171c77cd5579a0636d6bd1?context=explore)
-- Version 2.3.1: Downloaded from [TACC
-  DockerHub](https://hub.docker.com/layers/tacc/alphafold/2.3.1/images/sha256-47a197bfc4eb36cf52e62644e5541b77fd4848e4bb9363d73e176fdb727e06d4?context=explore)
-- Version 2.2.4: We build a Singularity container based on the Singularity definition file from
-  https://github.com/prehensilecode/alphafold_singularity.
-
-### AlphaFold database
-
-The AlphaFold database is stored in a cluster-wide location, meaning that
-individual users **do not** have to download the AlphaFold database to run their
-simulations. The database is stored in SSD as recommended by the developers.
-
-Database location
-
-```bash
-/n/holylfs04-ssd2/LABS/FAS/alphafold_database
-```
-
-## Running AlphaFold
+## Running AlphaFold Examples
 
 We recommend running AlphaFold on GPU partitions because it runs much faster
 than solely using CPUs -- due to AlphaFold's GPU optimization. See [slurm
@@ -119,10 +66,3 @@ sbatch run_alphafold.sh
 # multimer job
 sbatch run_alphafold_multi.sh
 ```
-
-
-## Resources
-
-* [AlphaFold GitHub](https://github.com/deepmind/alphafold)
-* University of Virginia [AlphaFold docs](https://www.rc.virginia.edu/userinfo/rivanna/software/alphafold/)
-* [AlphaFold discussion](https://github.com/deepmind/alphafold/issues/10) about Singularity implementation
