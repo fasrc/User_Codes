@@ -188,8 +188,8 @@ $ cat results.dat
   5.0000   4.013510   4.013476
 ```
 
-### Figure of Solution:
-<img src="figure.png" alt="solution" width="500"/>
+### Example of the figure of solution:
+<img src="../Images/figure.png" alt="solution" width="500"/>
 
 ### References:
 
