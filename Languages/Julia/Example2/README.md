@@ -67,21 +67,7 @@ pyimport("numpy")
     instructions](https://docs.rc.fas.harvard.edu/kb/julia/#Adding_packages_to_Julia)
     to install the packages.
 
-```julia
-julia> using Pkg
-julia> Pkg.add("DifferentialEquations")
-julia> Pkg.add("SimpleDiffEq")
-julia> Pkg.add("Plots")
-julia> Pkg.add("Conda")
-julia> ENV["PYTHON"]=""
-julia> Pkg.add("PyCall")
-julia> Pkg.build("PyCall")
-julia> using Conda
-julia> Conda.add("matplotlib")
-```
-
 ### Example Batch-Job Submission Script:
-
 ```bash
 #!/bin/bash
 #SBATCH -J ode_test
@@ -103,7 +89,6 @@ sbatch run.sbatch
 ```
 
 ### Python script for generating the figure:
-
 ```python
 """
 Program: figure.py
