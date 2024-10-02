@@ -193,6 +193,6 @@ $ cat results.dat
 
 ### References:
 
-* [Official **DifferentialEquations.jl** Documentation](https://docs.sciml.ai/DiffEqDocs/stable/)
+* [Official DifferentialEquations.jl Documentation](https://docs.sciml.ai/DiffEqDocs/stable/)
 * [ODE Example](https://sam-dolan.sites.sheffield.ac.uk/mas212-course/sample-notebooks/ode_example)
 * [Julia Programming Language](https://docs.rc.fas.harvard.edu/kb/julia/)
