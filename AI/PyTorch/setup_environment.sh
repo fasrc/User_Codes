@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # These instructions set up a conda> environment with PyTorch version & CUDA version 
 
 # Start an interactive job requesting GPUs
@@ -5,6 +7,7 @@ salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1
 
 # Load required software modules
 module load python/3.10.13-fasrc01
+
 # Create a conda environment
 mamba create -n pt2.3.0_cuda12.1 python=3.10 pip wheel
 

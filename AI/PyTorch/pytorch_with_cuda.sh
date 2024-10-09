@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # PyTorch with CUDA 11.8 from a software module
 
 # Start an interactive job on a GPU node
