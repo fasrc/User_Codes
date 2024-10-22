@@ -1,7 +1,4 @@
 #!/bin/bash
-
-# Submit the batch job with: sbatch run.sbatch
-
 #SBATCH -c 1
 #SBATCH -N 1
 #SBATCH -t 0-00:30
