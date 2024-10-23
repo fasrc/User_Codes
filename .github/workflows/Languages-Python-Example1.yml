@@ -42,19 +42,18 @@ jobs:
 
     - name: Pull SLURM Simulator Docker Image
       run: |
-        docker pull hpcnow/slurm_simulator:20.11.9
+        docker pull hpcnow/slurm_simulator:24.05.1
 
     - name: List Files in Mounted Directory
       run: |
-        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:20.11.9 ls -la /workspace/Languages/Python/Example1
+        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:24.05.1 ls -la /workspace/Languages/Python/Example1
 
     - name: Check File Permissions
       run: |
-        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:20.11.9 stat /workspace/Languages/Python/Example1/run.sbatch
+        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:24.05.1 stat /workspace/Languages/Python/Example1/run.sbatch
 
     - name: Run SLURM job in Docker
       run: |
-        # docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:20.11.9 \
         docker run --rm --detach \
            --name "${USER}_simulator" \
            -h "slurm-simulator" \
@@ -64,5 +63,5 @@ jobs:
            -v ${{ github.workspace }}:/workspace \
            -w /workspace \
            --cgroupns=host \
-           hpcnow/slurm_simulator:20.11.9 /usr/sbin/init
+           hpcnow/slurm_simulator:24.05.1 /usr/sbin/init
         sbatch /workspace/Languages/Python/Example1/run.sbatch
