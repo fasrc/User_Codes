@@ -1,0 +1,67 @@
+name: CI Test for Languages-Python-Example1/mc_pi.py
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: # This enables manual triggering of the workflow
+
+jobs:
+  Languages-Python-Example1:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x' # Specify the required Python version
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt # If you have a requirements.txt file in the repo
+
+    - name: Run mc_pi.py
+      run: |
+        python Languages/Python/Example1/mc_pi.py
+
+  slurm:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Pull SLURM Simulator Docker Image
+      run: |
+        docker pull hpcnow/slurm_simulator:24.05.1
+
+    - name: List Files in Mounted Directory
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:24.05.1 ls -la /workspace/Languages/Python/Example1
+
+    - name: Check File Permissions
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/workspace -w /workspace hpcnow/slurm_simulator:24.05.1 stat /workspace/Languages/Python/Example1/run.sbatch
+
+    - name: Run SLURM job in Docker
+      run: |
+        docker run --rm --detach \
+           --name "${USER}_simulator" \
+           -h "slurm-simulator" \
+           --security-opt seccomp:unconfined \
+           --privileged -e container=docker \
+           -v /run -v /sys/fs/cgroup:/sys/fs/cgroup \
+           -v ${{ github.workspace }}:/workspace \
+           -w /workspace \
+           --cgroupns=host \
+           hpcnow/slurm_simulator:24.05.1 /usr/sbin/init
+        sbatch /workspace/Languages/Python/Example1/run.sbatch
