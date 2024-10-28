@@ -39,7 +39,7 @@ You will need to provide an Anthropic API key. You can generate one
 from their [API
 page](https://console.anthropic.com/login?selectAccount=true&returnTo=%2Fsettings%2Fkeys%3F). Also,
 see their [quickstart
-guide](https://docs.anthropic.com/en/docs/quickstart).
+guide](https://docs.anthropic.com/en/docs/quickstart).  For the following example see [claude_quickstart.py](claude_quickstart.py).
 
 ```bash
 # Request an interactive job
