@@ -5,7 +5,7 @@ In this document, you will find how to install and run a simple Claude example.
 ## What is Claude?
 
 See Claude [website](https://www.anthropic.com/claude) and
-[documentation](https://docs.anthropic.com/en/docs/intro-to-claude).
+[documentation](https://docs.anthropic.com/en/docs/intro-to-claude) and the FASC [User_Docs entry for Claude](https://docs.rc.fas.harvard.edu/kb/claude/).
 
 ## Security
 
