@@ -6,6 +6,7 @@ using SimpleDiffEq
 using Printf
 using Plots
 using Plots.PlotMeasures
+using PyCall
 
 # --- Define the problem ---
 f(u, p, t) = t - u
@@ -37,3 +38,7 @@ for i = 1: size(sol.t)[1]
 end
 close(fo)
 
+pyimport("numpy")
+
+# --- Run the Python script to plot the result ---
+@pyinclude("figure.py")

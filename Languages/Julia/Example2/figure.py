@@ -5,7 +5,6 @@ import os
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-plt.style.use('seaborn-white')
 from matplotlib.ticker import MultipleLocator, FormatStrFormatter
 
 def rc_params():

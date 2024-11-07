@@ -1,15 +1,13 @@
 ### Purpose:
-
-This example illustrates the use of Julia on the Harvard University FAS cluster. Specifically, it evaluates PI via a Monte-Carlo method.
+This example illustrates the use of Julia on the Harvard University
+FAS cluster. Specifically, it evaluates PI via a Monte-Carlo method.
 
 
 ### Contents:
-
 * <code>pi\_monte\_carlo.jl</code>: Julia source code
 * <code>run.sbatch</code>: Batch-job submission script
 
 ### Julia code:
-
 ```julia
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Program: pi_monte_carlo.jl
@@ -39,7 +37,6 @@ end
 ```
 
 ### Example Batch-Job Submission Script:
-
 ```bash
 #!/bin/bash
 #SBATCH -J pi_monte_carlo
@@ -51,21 +48,16 @@ end
 #SBATCH -t 0-00:30
 #SBATCH --mem=2G
 
-# Set up Julia and run the program
-export PATH=$PATH:/n/holylabs/LABS/jharvard_lab/Users/jharvard/software/julia-1.9.3/bin
-srun -n 1 -c 1 julia pi_monte_carlo.jl
+# Run the program using Julia
+julia pi_monte_carlo.jl
 ```
 
-**NOTE:** Please remember to point the `PATH` environmental variable to the actual location of your Julia installation.
-
 ### Example Usage:
-
 ```bash
 sbatch run.sbatch
 ```
 
 ### Example Output:
-
 ```bash
 $ cat pi_monte_carlo.out 
 N = 1000: PI = 3.228
