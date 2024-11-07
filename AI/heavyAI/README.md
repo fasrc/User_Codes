@@ -4,23 +4,10 @@ In this document you will find instructions to submit a batch job that will
 create access to HeavyAI without using Open OnDemand portal
 (https://rcood.rc.fas.harvard.edu/).
 
-You can still use [Open
-OnDemand]9https://rcood.rc.fas.harvard.edu/pun/sys/dashboard) if you prefer.
+The preferred and easier route is to use [Open
+OnDemand]9https://rcood.rc.fas.harvard.edu/pun/sys/dashboard).
 
-## What is HeavyAI?
-
-See HeavyAI [website](https://www.heavy.ai/product/overview).
-
-This software was formerly known as OmniSci.
-
-## HeavyAI in the FASRC Cannon cluster
-
-HeavyAI is implemented on the FASRC cluster using Singulaity. 
-
-For details about Singularity see:
-
-- [FASRC Singularity documentation](../../Singularity_Containers)
-- [Singularity documentation](https://docs.sylabs.io/guides/latest/user-guide/introduction.html)
+For more information see our [HeavyAI documentation](https://docs.rc.fas.harvard.edu/kb/heavyai/).
 
 ### Singularity images
 
@@ -159,11 +146,3 @@ HeavyAI.
 does not provide a license. You can request a free version on HeavyAI [downloads
 page](https://www.heavy.ai/product/downloads). Note that the free license only
 allows limited computational resources.
-
-## Resources
-
-* [HeavyAI Immerse documentation](https://docs.heavy.ai/immerse/introduction-to-immerse)
-* [HeavyAI harware
-    specs](https://docs.heavy.ai/installation-and-configuration/system-requirements/hardware)
-
-
