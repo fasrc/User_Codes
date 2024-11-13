@@ -1,18 +1,18 @@
 ### Purpose:
-
-This example illustrates solving differential equations numerically in Julia. Specifically, it solves an ODE after an example taken from [this](https://sam-dolan.sites.sheffield.ac.uk/mas212-course/sample-notebooks/ode_example) Python notebook, using [DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/)
+This example illustrates solving differential equations numerically in
+Julia. Specifically, it solves an ODE after an example taken from
+[this](https://sam-dolan.sites.sheffield.ac.uk/mas212-course/sample-notebooks/ode_example)
+Python notebook, using
+[DifferentialEquations.jl](https://docs.sciml.ai/DiffEqDocs/stable/)
 
 
 ### Contents:
-
 * <code>ode\_test.jl</code>: Julia source code
-* <code>run.sbatch</code>: Batch-job submission script
-* <code>results.dat</code>: Numeric results
-* <code>figure.png</code>: Figure of ODE's solution
 * <code>figure.py</code>: Python script for generating the figure
+* <code>run.sbatch</code>: Batch-job submission script
+* <code>figure.png</code>: Figure of ODE's solution
 
 ### Julia code:
-
 ```julia
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Program: ode_test.jl 
@@ -22,6 +22,7 @@ using SimpleDiffEq
 using Printf
 using Plots
 using Plots.PlotMeasures
+using PyCall
 
 # --- Define the problem ---
 f(u, p, t) = t - u
@@ -52,19 +53,21 @@ for i = 1: size(sol.t)[1]
    @printf(fo, "%8.4f %10.6f %10.6f\n", x, y, y_exact)
 end
 close(fo)
+
+pyimport("numpy")
+
+# --- Run the Python script to plot the result ---
+@pyinclude("figure.py")
 ```
 
-> **Note:** You may need to install the `DifferentialEquations`, `SimpleDiffEq` and `Plots` packages. Use the following command inside the Julia REPL:
-
-```julia
-julia> using Pkg
-julia> Pkg.add("DifferentialEquations")
-julia> Pkg.add("SimpleDiffEq")
-julia> Pkg.add("Plots")
-```
+> **Note:** if not already installed, you will need to install the
+    `DifferentialEquations`, `SimpleDiffEq`, `Plots`, `PyCall`,
+    `Conda`, and `matplotlib` packages in order to run `ode_test.jl`
+    successfully. Follow [these
+    instructions](https://docs.rc.fas.harvard.edu/kb/julia/#Adding_packages_to_Julia)
+    to install the packages.
 
 ### Example Batch-Job Submission Script:
-
 ```bash
 #!/bin/bash
 #SBATCH -J ode_test
@@ -76,58 +79,16 @@ julia> Pkg.add("Plots")
 #SBATCH -t 0-00:30
 #SBATCH --mem=4G
 
-# Set up Julia and run the program
-export PATH=$PATH:/n/holylabs/LABS/jharvard_lab/Users/jharvard/software/julia-1.9.3/bin
-srun -n 1 -c 1 julia ode_test.jl
+# Run the program using Julia
+julia ode_test.jl
 ```
-**NOTE:** Please remember to point the `PATH` environmental variable to the actual location of your Julia installation.
 
 ### Example Usage:
-
 ```bash
 sbatch run.sbatch
 ```
 
-### Example Output:
-
-```bash
-$ cat results.dat 
-   Time     Numeric     Exact   
- ------------------------------ 
-  0.0000   1.000000   1.000000
-  0.2000   0.837462   0.837462
-  0.4000   0.740639   0.740640
-  0.6000   0.697624   0.697623
-  0.8000   0.698660   0.698658
-  1.0000   0.735763   0.735759
-  1.2000   0.802393   0.802388
-  1.4000   0.893198   0.893194
-  1.6000   1.003802   1.003793
-  1.8000   1.130613   1.130598
-  2.0000   1.270681   1.270671
-  2.2000   1.421625   1.421606
-  2.4000   1.581455   1.581436
-  2.6000   1.748569   1.748547
-  2.8000   1.921645   1.921620
-  3.0000   2.099603   2.099574
-  3.2000   2.281551   2.281524
-  3.4000   2.466785   2.466747
-  3.6000   2.654677   2.654647
-  3.8000   2.844781   2.844742
-  4.0000   3.036672   3.036631
-  4.2000   3.230027   3.229991
-  4.4000   3.424601   3.424555
-  4.6000   3.620150   3.620104
-  4.8000   3.816498   3.816459
-  5.0000   4.013510   4.013476
-```
-
-### Figure of Solution:
-
-<img src="figure.png" alt="solution" width="500"/>
-
 ### Python script for generating the figure:
-
 ```python
 """
 Program: figure.py
@@ -136,7 +97,6 @@ import os
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-plt.style.use('seaborn-white')
 from matplotlib.ticker import MultipleLocator, FormatStrFormatter
 
 def rc_params():
@@ -195,6 +155,44 @@ plt.legend(fontsize=15, loc="upper left", shadow=True, fancybox=True)
 plt.savefig(fig_path, format='png', dpi=100, bbox_inches='tight')
 ```
 
+### Example Output:
+```bash
+$ cat results.dat
+   Time     Numeric     Exact
+ ------------------------------
+  0.0000   1.000000   1.000000
+  0.2000   0.837462   0.837462
+  0.4000   0.740639   0.740640
+  0.6000   0.697624   0.697623
+  0.8000   0.698660   0.698658
+  1.0000   0.735763   0.735759
+  1.2000   0.802393   0.802388
+  1.4000   0.893198   0.893194
+  1.6000   1.003802   1.003793
+  1.8000   1.130613   1.130598
+  2.0000   1.270681   1.270671
+  2.2000   1.421625   1.421606
+  2.4000   1.581455   1.581436
+  2.6000   1.748569   1.748547
+  2.8000   1.921645   1.921620
+  3.0000   2.099603   2.099574
+  3.2000   2.281551   2.281524
+  3.4000   2.466785   2.466747
+  3.6000   2.654677   2.654647
+  3.8000   2.844781   2.844742
+  4.0000   3.036672   3.036631
+  4.2000   3.230027   3.229991
+  4.4000   3.424601   3.424555
+  4.6000   3.620150   3.620104
+  4.8000   3.816498   3.816459
+  5.0000   4.013510   4.013476
+```
+
+### Example of the figure of solution:
+<img src="../Images/figure.png" alt="solution" width="500"/>
+
 ### References:
 
-* [Official **DifferentialEquations.jl** Documentation](https://docs.sciml.ai/DiffEqDocs/stable/)
+* [Official DifferentialEquations.jl Documentation](https://docs.sciml.ai/DiffEqDocs/stable/)
+* [ODE Example](https://sam-dolan.sites.sheffield.ac.uk/mas212-course/sample-notebooks/ode_example)
+* [Julia Programming Language](https://docs.rc.fas.harvard.edu/kb/julia/)

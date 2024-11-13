@@ -1,15 +1,15 @@
 #!/bin/bash
-#SBATCH -J tex_demo
-#SBATCH -o tex_demo.out
-#SBATCH -e tex_demo.err
-#SBATCH -c 1
-#SBATCH -p serial_requeue
-#SBATCH -t 0-00:30
-#SBATCH --mem=4000
+#SBATCH -J np_pandas        # job name
+#SBATCH -o np_pandas.out    # standard output file
+#SBATCH -e np_pandas.err    # standard error file
+#SBATCH -c 1                # number of cores 
+#SBATCH -p test             # partition
+#SBATCH -t 0-00:30          # time in D-HH:MM
+#SBATCH --mem=12G           # memory in GB
 
 # Load required modules
-module load python/3.10.12-fasrc01
-module load texlive/2018.06.15-fasrc01
+module load python
+mamba activate my_env
 
 # Run program
-srun -c 1python tex_demo.py
+srun -c 1 python numpy_pandas_ex.py
