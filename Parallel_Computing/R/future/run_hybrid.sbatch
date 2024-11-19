@@ -9,10 +9,10 @@
 #SBATCH --mem-per-cpu=4000
 
 # Load required software modules
-module load R/4.1.0-fasrc01
+module load R/4.4.1-fasrc01
 
 # Set up R library
-export R_LIBS_USER=$HOME/apps/R/4.1.0:$R_LIBS_USER
+export R_LIBS_USER=$HOME/apps/R/4.4.1
 
 # Run program
 Rscript --vanilla future_hybrid.R > future_hybrid.Rout 2>&1 

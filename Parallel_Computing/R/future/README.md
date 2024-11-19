@@ -62,22 +62,21 @@ Load required software modules.
 
 ```bash
 # R libraries
-module load R/4.1.0-fasrc01
+module load R/4.4.1-fasrc01
 ```
 
 Create directory for customized R packages and set it up as a local R-library location.
 
 ```bash
-mkdir -p $HOME/apps/R/4.1.0
-export R_LIBS_USER=$HOME/apps/R/4.1.0:$R_LIBS_USER
-unset R_LIBS_SITE
+mkdir -p $HOME/apps/R/4.4.1
+export R_LIBS_USER=$HOME/apps/R/4.4.1
 ```
 
 Install `future` and other packages inside the R shell
 
 ```r
 > install.packages("future")
-Installing package into ‘/n/home05/username/apps/R/4.1.0’
+Installing package into ‘/n/home05/username/apps/R/4.4.1’
 (as ‘lib’ is unspecified)
 
 ... omitted output ...
@@ -157,10 +156,10 @@ File `run_future.sbatch`:
 #SBATCH -t 0-00:10               # Runtime in D-HH:MM, minimum of 10 minutes
 
 # load modules
-module load R/4.1.0-fasrc01
+module load R/4.4.1-fasrc01
 
 # set R lirbary path
-export R_LIBS_USER=$HOME/apps/R/4.1.0:$R_LIBS_USER
+export R_LIBS_USER=$HOME/apps/R/4.4.1
 
 ### slow_square_multisession.R
 # run R program and keep output and error messages in slow_square_multisession.Rout
@@ -281,10 +280,10 @@ This is the file `future_slurm.tmpl` that is populated and submitted by `batchto
 export DEBUGME=<%= Sys.getenv("DEBUGME") %>
 
 # Load required software modules
-module load R/4.1.0-fasrc01
+module load R/4.4.1-fasrc01
 
 # Set up R library
-export R_LIBS_USER=$HOME/apps/R/4.1.0:$R_LIBS_USER
+export R_LIBS_USER=$HOME/apps/R/4.4.1
 
 # Run R process
 Rscript -e 'batchtools::doJobCollection("<%= uri %>")'
@@ -306,10 +305,10 @@ This is the file `run_hybrid.sbatch` that you submit.
 #SBATCH --mem-per-cpu=4000
 
 # Load required software modules
-module load R/4.1.0-fasrc01
+module load R/4.4.1-fasrc01
 
 # Set up R library
-export R_LIBS_USER=$HOME/apps/R/4.1.0:$R_LIBS_USER
+export R_LIBS_USER=$HOME/apps/R/4.4.1
 
 # Run program
 Rscript --vanilla future_hybrid.R > future_hybrid.Rout 2>&1

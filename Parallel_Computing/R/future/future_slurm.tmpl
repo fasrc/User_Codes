@@ -14,10 +14,10 @@
 export DEBUGME=<%= Sys.getenv("DEBUGME") %>
 
 # Load required software modules
-module load R/4.1.0-fasrc01
+module load R/4.4.1-fasrc01
 
 # Set up R library
-export R_LIBS_USER=$HOME/apps/R/4.1.0_futureDocs:$R_LIBS_USER
+export R_LIBS_USER=$HOME/apps/R/4.4.1
 
 # Run R process
 Rscript -e 'batchtools::doJobCollection("<%= uri %>")'
