@@ -2,11 +2,6 @@
 
 In this document, you will find how to install and run a simple OpenAI example.
 
-## What is OpenAI?
-
-See OpenAI [website](https://openai.com/) and
-[documentation](https://platform.openai.com/docs/introduction).
-
 ## Security
 
 Please, **carefully** read Harvard's [AI guidelines](https://huit.harvard.edu/ai/guidelines) and [Generative AI tool comparision](https://huit.harvard.edu/ai/tools).
