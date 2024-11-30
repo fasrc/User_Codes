@@ -2,14 +2,19 @@
 #SBATCH -J np_pandas        # job name
 #SBATCH -o np_pandas.out    # standard output file
 #SBATCH -e np_pandas.err    # standard error file
-#SBATCH -c 1                # number of cores 
-#SBATCH -p test             # partition
-#SBATCH -t 0-00:30          # time in D-HH:MM
-#SBATCH --mem=12G           # memory in GB
+#SBATCH --cpus-per-task=1   # number of cores 
+#SBATCH --partition=test    # partition
+#SBATCH --time=0-01:00      # time in D-HH:MM
+#SBATCH --mem=10G           # memory in GB
 
 # Load required modules
 module load python
+
+# Build the environment
+sh build_env.sh
+
+# Activate the environment
 mamba activate my_env
 
 # Run program
-srun -c 1 python numpy_pandas_ex.py
+python numpy_pandas_ex.py
