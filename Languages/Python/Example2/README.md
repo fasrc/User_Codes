@@ -79,7 +79,7 @@ sbatch run.sbatch
 ### Example Output:
 
 Content of output file `np_pandas.out` showing *only* the newly
-created dataframe:
+created dataframe. See the file for the full output.
 
 ```bash
         0      1       2
