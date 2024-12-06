@@ -80,7 +80,7 @@ by Sylabs while Apptainer is maintained by the Linux Foundation.
 
 ## SingularityCE vocabulary
 
-- **SingularityCE** or **Appteiner** or **Docker**: the containerization software
+- **SingularityCE** or **Apptainer** or **Docker**: the containerization software
   - as in "SingularityCE 3.11" or "Apptainer 1.0"
 - **Image**: a compressed, usually read-only file that contains an OS and specific
   software stack
