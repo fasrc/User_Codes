@@ -227,7 +227,7 @@ You can build or import a SingularityCE container in different ways. You can:
    SingularityCE container.
 -->
 3. Build a SingularityCE container from a Singularity definition file directly
-   on the FASRC clusters. This is an unpriledged build with `proot`, which means
+   on the FASRC clusters. This is an unprivledged build with `proot`, which means
    that it may have some limitations during the build. It will create a 
    SingularityCE container on the FASRC cluster.
 4. Build a SingularityCE container remotely from a local Singularity definition
