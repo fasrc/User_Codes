@@ -4,7 +4,8 @@
 
 ## AlphaFold 3
 
-We recommend running Alphafold3 in two steps to better use cluster resources
+We recommend running [Alphafold3](https://github.com/google-deepmind/alphafold3)
+in two steps to better use cluster resources
 
 * Step 1: Run the data pipeline on a CPU partition
 * Step 2: Run inference on a GPU partition
