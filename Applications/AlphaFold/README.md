@@ -197,7 +197,7 @@ END
 # run data pipeline
 singularity exec \
      --bind $data_dir:/data \
-     /n/singularity_images/FAS/alphafold/alphafold_3.0.0b.sif \
+     /n/singularity_images/FAS/alphafold/alphafold_3.0.0.sif \
      python /app/alphafold/run_alphafold.py \
      --json_path=${my_input_dir}/alphafold_input.json \
      --model_dir=$my_model_parms_dir \
