@@ -5,8 +5,7 @@
 #SBATCH -c 8                     # Number of cores
 #SBATCH -t 00:10:00              # Time (HH:MM:SS)
 #SBATCH --mem=8g                 # Memory
-#SBATCH -o AF3_inf_%j.out        # Name of standard output file
-#SBATCH -e AF3_inf_%j.err        # Name of standard error file
+#SBATCH -o AF3_inf_%j.out        # Both stdout and stderr files
 
 # (don't change this) set database directory (folder)
 export data_dir=/n/holylfs04-ssd2/LABS/FAS/alphafold_databases/v3.0
