@@ -44,16 +44,16 @@ File `run_af3_data_pipeline.sh`:
 #SBATCH -o AF3_dp_%j.out         # Both stdout and stderr files
 
 # (don't change this) set database directory
-export data_dir=/n/holylfs04-ssd2/LABS/FAS/alphafold_databases/v3.0
+data_dir=/n/holylfs04-ssd2/LABS/FAS/alphafold_databases/v3.0
 
 # (change this) set model parameters directory
-export my_model_parms_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/model_parameters
+my_model_parms_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/model_parameters
 
 # (change this) set input directory -- must match location of json input file
-export my_input_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/input_dir
+my_input_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/input_dir
 
 # (change this) set output directory
-export my_output_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir
+my_output_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir
 
 # run alphafold3
 singularity exec \
@@ -113,13 +113,13 @@ File `run_af3_inference.sh`:
 #SBATCH -o AF3_inf_%j.out        # Both stdout and stderr files
 
 # (don't change this) set database directory
-export data_dir=/n/holylfs04-ssd2/LABS/FAS/alphafold_databases/v3.0
+data_dir=/n/holylfs04-ssd2/LABS/FAS/alphafold_databases/v3.0
 
 # (change this) set output directory
-export my_output_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir
+my_output_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir
 
 # (change this) set model parameters directory
-export my_model_parms_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/model_parameters
+my_model_parms_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/model_parameters
 
 # note that the json_path is now output with the .json file from the data pipeline
 singularity exec \
@@ -161,16 +161,16 @@ inference job with the `--dependency` flag:
 #SBATCH -o AF3_dp_%j.out         # Both stdout and stderr
 
 # (don't change this) set database directory
-export data_dir=/n/holylfs04-ssd2/LABS/FAS/alphafold_databases/v3.0
+data_dir=/n/holylfs04-ssd2/LABS/FAS/alphafold_databases/v3.0
 
 # (change this) set model parameters directory
-export my_model_parms_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/model_parameters
+my_model_parms_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/model_parameters
 
 # (change this) set input directory -- must match location of json input file
-export my_input_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/input_dir
+my_input_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/input_dir
 
 # (change this) set output directory
-export my_output_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir
+my_output_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir
 
 # submit inference job that will only run after data pipeline job
 sbatch --dependency=afterok:${SLURM_JOB_ID} <<END
@@ -186,7 +186,7 @@ sbatch --dependency=afterok:${SLURM_JOB_ID} <<END
 singularity exec \
      --nv \
      --bind $data_dir:/data \
-     ${sif} \
+     /n/singularity_images/FAS/alphafold/alphafold_3.0.0.sif \
      python /app/alphafold/run_alphafold.py \
      --json_path=${my_output_dir}/2pv7/2pv7_data.json \
      --model_dir=$my_model_parms_dir \

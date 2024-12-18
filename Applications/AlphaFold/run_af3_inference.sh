@@ -8,13 +8,13 @@
 #SBATCH -o AF3_inf_%j.out        # Both stdout and stderr files
 
 # (don't change this) set database directory (folder)
-export data_dir=/n/holylfs04-ssd2/LABS/FAS/alphafold_databases/v3.0
+data_dir=/n/holylfs04-ssd2/LABS/FAS/alphafold_databases/v3.0
 
 # (change this) set output directory (folder)
-export my_output_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir
+my_output_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir
 
 # (change this) set model parameters directory (folder)
-export my_model_parms_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/model_parameters
+my_model_parms_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/model_parameters
 
 # note that the json_path is now output with the .json file from the data pipeline
 singularity exec \
