@@ -41,8 +41,7 @@ File `run_af3_data_pipeline.sh`:
 #SBATCH -c 8                     # Number of cores
 #SBATCH -t 00:30:00              # Time (D-HH:MM:SS)
 #SBATCH --mem=12g                # Memory
-#SBATCH -o AF3_dp_%j.out         # Name of standard output file
-#SBATCH -e AF3_dp_%j.err         # Name of standard error file
+#SBATCH -o AF3_dp_%j.out         # Both stdout and stderr files
 
 # (don't change this) set database directory
 export data_dir=/n/holylfs04-ssd2/LABS/FAS/alphafold_databases/v3.0
@@ -87,8 +86,7 @@ using 8 cores:
 >
 > `--nhmmer_n_cpu`: Number of CPUs to use for Nhmmer. Default to min(cpu_count, 8). Going beyond 8 CPUs provides very little additionalspeedup.
 
-**Note 2:** AlphaFold3 screen output goes to the stderr file (`.err`) rather than the
-stdout file (`.out`).
+**Note 2:** Both output and error will go to the `.out` file.
 
 ### Inference
 
@@ -102,7 +100,7 @@ You will have to edit in the `run_af3_data_pipeline.sh` script:
 * `my_model_parms_dir`: location where your model parameters are saved
 * `my_output_dir`: location where you would like your output to be saved
 
-File `run_af3_data_pipeline.sh`:
+File `run_af3_inference.sh`:
 
 ```
 #!/bin/bash
@@ -112,8 +110,7 @@ File `run_af3_data_pipeline.sh`:
 #SBATCH -c 8                     # Number of cores
 #SBATCH -t 00:10:00              # Time (HH:MM:SS)
 #SBATCH --mem=8g                 # Memory
-#SBATCH -o AF3_inf_%j.out        # Name of standard output file
-#SBATCH -e AF3_inf_%j.err        # Name of standard error file
+#SBATCH -o AF3_inf_%j.out        # Both stdout and stderr files
 
 # (don't change this) set database directory
 export data_dir=/n/holylfs04-ssd2/LABS/FAS/alphafold_databases/v3.0
@@ -142,8 +139,14 @@ Submit a batch job
 sbatch run_af3_data_pipeline.sh
 ```
 
-**Note:** AlphaFold3 screen output goes to the stderr file (`.err`) rather than the
-stdout file (`.out`).
+**Note:** Both output and error will go to the `.out` file.
+
+### Job dependency option
+
+To streamline job submission, you may submit the inference job with the slurm
+option `--dependency=afterok:jobID`, where `jobID` is the slurm job ID of the
+data pipeline step. This allows you to submit the inference job right after the
+data pipeline and you don't need to monitor for the data pipeline completion.
 
 ### File structure
 
