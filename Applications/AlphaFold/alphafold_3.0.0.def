@@ -59,6 +59,9 @@ from: docker.io/nvidia/cuda:12.6.0-base-ubuntu22.04
     # set python env
     export PATH="/hmmer/bin:/alphafold3_venv/bin:${PATH}"
 
+    # to avoid potentially-conflicting Python packages installed in ~/.local
+    export PYTHONNOUSERSITE=true
+
     # To work around a known XLA issue causing the compilation time to greatly
     # increase, the following environment variable setting XLA flags must be enabled
     # when running AlphaFold 3:
