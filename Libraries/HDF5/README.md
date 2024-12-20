@@ -1,26 +1,25 @@
-#### Purpose:
+### Purpose:
 
 Example of using HDF5 libraries on the cluster. The specific example creates a random vector and writes it to a HDF5 (.h5) file.
 
-#### Contents:
+### Contents:
 
-(1) hdf5_test.f90: Fortran 90 source file
+1. `hdf5_test.f90`: Fortran 90 source file
 
-(2) Makefile: Makefile to compile the source code 
+2. `Makefile`: Makefile to compile the source code 
 
-(3) hdf5_test.sbatch: Btach-job submission script to send the job to the queue
+3. `run_hdf5_test.sh`: Batch-job submission script to send the job to the queue
 
-#### Example Usage:
+### Example Usage:
 
-	source new-modules.sh
-	module load hdf5/1.8.12-fasrc08
+    module load gcc/14.2.0-fasrc01  openmpi/5.0.5-fasrc01 hdf5/1.14.4-fasrc01
 	make
 	sbatch hdf5_test.sbatch
 
-#### Example Output:
+### Example Output:
 
 ```
-[pkrastev@sa01 HDF5]$ h5dump output.h5 
+[jharvard@boslogin07 hdf5]$ h5dump output.h5
 HDF5 "output.h5" {
 GROUP "/" {
    DATASET "darr" {
@@ -49,3 +48,15 @@ GROUP "/" {
 }
 }
 ```
+
+### Troubleshooting
+
+#### Querying hdf5 files on netscratch
+
+If you are on a login node and would like to query hdf5 files located on [`/n/netscratch`](https://docs.rc.fas.harvard.edu/kb/data-storage-workflow-rdm/#Scratch) with, for example, `h5ls` and `h5dump`, you have to set:
+
+```
+export HDF5_USE_FILE_LOCKING=FALSE
+```
+
+Without this settings, the commands `h5ls` and `h5dump` will hang.
