@@ -133,12 +133,6 @@ For N = 300, the sum is (300 * 301) / 2 = 45150, which matches the output.
 
 ## Conclusion
 
-Congratulations on completing the Parallel Processing Educational Exercise! In this tutorial, we explored the concept of serial sum calculation using Python and learned how to submit batch jobs using Slurm.
+In this tutorial, we explored the concept of serial sum calculation using Python and learned how to submit batch jobs using Slurm.
 
 By implementing the `serial_sum.py` script, you gained hands-on experience in calculating the sum of integers from 1 to N using a serial approach. You also learned how to utilize Slurm's job array feature to run the script for different values of N concurrently.
-
-This exercise serves as a foundation for understanding parallel processing concepts. As you progress in your learning journey, you can explore more advanced techniques and algorithms for parallel computation.
-
-Remember, practice is key to mastering parallel processing. Feel free to modify the code, experiment with different values of N, and explore additional Slurm features to deepen your understanding.
-
-Happy parallel processing!
