@@ -1,5 +1,7 @@
 # HPC Job Submission Examples
 
+These examples accompany this presentation on [Parallel Job Workflows](https://www.youtube.com/watch?v=_8ap3sMS3nU).
+
 Two examples demonstrating different approaches to parallel task execution in SLURM.
 
 ## Example 1: Job Arrays
