@@ -4,5 +4,5 @@
 
 ## Content
 
-*[OpenMP Example](OMP_Apps)
-*[MPI Example](MPI_Apps)
+* [OpenMP Example](OMP_Apps)
+* [MPI Example](MPI_Apps)
