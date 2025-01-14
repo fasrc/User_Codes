@@ -14,18 +14,18 @@ int main(){
 
     // Allocate memory on device
     float *d_x, *d_y;
-    cudaMalloc(&d_x, n*sizeof(float));
-    cudaMalloc(&d_y, n*sizeof(float));
+    cudaMalloc((void**)&d_x, n * sizeof(float)); // Cast to void**
+    cudaMalloc((void**)&d_y, n * sizeof(float)); // Cast to void**
 
     // Copy data to device
-    cudaMemcpy(d_x, x, n*sizeof(float), cudaMemcpyHostToDevice);
-    cudaMemcpy(d_y, y, n*sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_x, x, n * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_y, y, n * sizeof(float), cudaMemcpyHostToDevice);
 
     // Perform SAXPY operation
     cublasSaxpy(handle, n, &alpha, d_x, 1, d_y, 1);
 
     // Copy data back to host
-    cudaMemcpy(y, d_y, n*sizeof(float), cudaMemcpyDeviceToHost);
+    cudaMemcpy(y, d_y, n * sizeof(float), cudaMemcpyDeviceToHost);
 
     // Destroy cuBLAS context
     cublasDestroy(handle);
@@ -43,3 +43,4 @@ int main(){
 
     return 0;
 }
+
