@@ -1,5 +1,7 @@
 # OpenMP
 
+These examples are used in the [Parallel Job Workflows training session](https://youtu.be/_8ap3sMS3nU?si=KyQqPuPZG1l0P7Iz&t=2164).
+
 <img src="Images/openmp-logo.png" alt="OpenMP-logo" width="250"/>
 
 

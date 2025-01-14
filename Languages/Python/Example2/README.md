@@ -1,10 +1,11 @@
 ## Purpose:
 
-Build conda environment with `pandas` and `numpy` and submit job using said environment.
+Build a mamba environment with `pandas` and `numpy`, as part of a
+batch job, and use that environment to execute a Python script.
 
 ## Contents:
 
-1. `build_env.sh`: script to build conda environment
+1. `build_env.sh`: Bash script to build mamba environment
 
 2. `numpy_pandas_ex.py`: Python source code
 
@@ -12,16 +13,16 @@ Build conda environment with `pandas` and `numpy` and submit job using said envi
 
 ## Example Usage:
 
-**Step 1:** build conda environment by running script (alternetively, you can execute the commands inside the script).
+**Step 1:** Build mamba environment as part of your batch job.
 
 Contents of `build_env.sh`:
 
 ```bash
-module load python
 mamba create -n my_env python pip wheel pandas numpy -y
 ```
 
-Run script:
+Include the following, in your batch-job submission script, to build the
+environment:
 
 ```bash
 sh build_env.sh
@@ -77,7 +78,8 @@ sbatch run.sbatch
 
 ### Example Output:
 
-Content of output file `np_pandas.out`:
+Content of output file `np_pandas.out` showing *only* the newly
+created dataframe. See the file for the full output.
 
 ```bash
         0      1       2

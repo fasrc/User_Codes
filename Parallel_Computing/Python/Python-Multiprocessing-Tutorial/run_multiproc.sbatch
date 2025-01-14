@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH -J np_pandas        # job name
-#SBATCH -o np_pandas.out    # standard output file
-#SBATCH -e np_pandas.err    # standard error file
+#SBATCH -J multi_proc        # job name
+#SBATCH -o multi_proc.out    # standard output file
+#SBATCH -e multi_proc.err    # standard error file
 #SBATCH --cpus-per-task=1   # number of cores 
 #SBATCH --partition=test    # partition
 #SBATCH --time=0-01:00      # time in D-HH:MM
@@ -11,10 +11,10 @@
 module load python
 
 # Build the environment
-sh build_env.sh
+sh multiprocbuild_env.sh
 
 # Activate the environment
-mamba activate my_env
+mamba activate multiproc_env
 
-# Run program
-python numpy_pandas_ex.py
+# Install pip packages
+pip install jupyterlab swifter
