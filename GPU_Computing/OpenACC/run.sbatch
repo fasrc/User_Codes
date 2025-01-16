@@ -10,7 +10,7 @@
 #SBATCH -t 30
 
 # Load required modules
-module load nvhpc/23.7-fasrc01
+module load nvhpc/24.11-fasrc01
 
 # Run the executable
 ./example_acc.x

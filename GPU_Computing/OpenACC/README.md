@@ -69,7 +69,7 @@ end program main
 The code can be compiled with the NVIDIA Fortran compiler, which is included in the NVIDIA HPC SDK. You can use the below commands to load the NVIDIA HPC SDK software module and compile the code:
 
 ```bash
-module load nvhpc/23.7-fasrc01
+module load nvhpc/24.11-fasrc01
 nvfortran -o example_acc.x example_acc.f90 -acc
 ```
 
@@ -88,7 +88,7 @@ nvfortran -o example_acc.x example_acc.f90 -acc
 #SBATCH -t 30
 
 # Load required modules
-module load nvhpc/23.7-fasrc01
+module load nvhpc/24.11-fasrc01
 
 # Run the executable
 ./example_acc.x 
