@@ -8,6 +8,7 @@ __global__ void saxpy(int n, float a, float *x, float *y)
     }
 }
 
+
 int main()
 {
     int n = 1000000;
@@ -37,6 +38,7 @@ int main()
     int block_size = 256;
     int num_blocks = (n + block_size - 1) / block_size;
     saxpy<<<num_blocks, block_size>>>(n, a, d_x, d_y);
+    cudaDeviceSynchronize();
 
     // Copy result from device to host
     cudaMemcpy(y, d_y, size, cudaMemcpyDeviceToHost);

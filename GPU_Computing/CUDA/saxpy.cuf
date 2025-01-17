@@ -39,4 +39,5 @@ program testSaxpy
 
   print *, "Constant a:", a
   print *, 'Average values ', sum(abs(x))/N, sum(abs(y))/N
+  !write(6,*) "Result: y[1] = ", y(1)
 end program testSaxpy
