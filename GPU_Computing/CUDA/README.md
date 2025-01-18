@@ -78,7 +78,7 @@ int main()
 If the above code is named <code>saxpy.cu</code> it can be compiled as, e.g.,
 
 ```bash
-module load nvhpc/23.7-fasrc01
+module load cuda/12.4.1-fasrc01
 nvcc -o saxpy.x saxpy.cu
 ```
 
@@ -87,7 +87,6 @@ nvcc -o saxpy.x saxpy.cu
 ```bash
 #!/bin/bash
 #SBATCH -p gpu_test
-#SBATCH -n 1
 #SBATCH -c 1
 #SBATCH --gres=gpu:1
 #SBATCH --mem=12000
@@ -97,7 +96,7 @@ nvcc -o saxpy.x saxpy.cu
 #SBATCH -t 30
 
 # Load required modules
-module load nvhpc/23.7-fasrc01
+module load cuda/12.4.1-fasrc01
 
 # Run the executable
 ./saxpy.x
@@ -167,7 +166,7 @@ end program testSaxpy
 If the above code is named <code>saxpy.cuf</code> it can be compiled as, e.g.,
 
 ```bash
-module load nvhpc/23.7-fasrc01
+module load nvhpc/24.11-fasrc01
 nvfortran -o saxpy.x saxpy.cuf
 ```
 
@@ -176,7 +175,6 @@ nvfortran -o saxpy.x saxpy.cuf
 ```bash
 #!/bin/bash
 #SBATCH -p gpu_test
-#SBATCH -n 1
 #SBATCH -c 1
 #SBATCH --gres=gpu:1
 #SBATCH --mem=12000
@@ -186,15 +184,15 @@ nvfortran -o saxpy.x saxpy.cuf
 #SBATCH -t 30
 
 # Load required modules
-module load nvhpc/23.7-fasrc01
+module load nvhpc/24.11-fasrc01
 
 # Run the executable
 ./saxpy.x
 ```
-Assuming the batch-job submission script is named <code>run.sbatch</code>, the jobs is sent to the queue, as usual, with:
+Assuming the batch-job submission script is named <code>run_fort.sbatch</code>, the jobs is sent to the queue, as usual, with:
 
 ```bash
-sbatch run.sbatch
+sbatch run_fort.sbatch
 ```
 ### Example Output
 

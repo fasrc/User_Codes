@@ -27,7 +27,7 @@ program testSaxpy
   call random_number(y)
   call random_number(a)
 
-  !x = 1.0; y = 2.0; a = 2.0
+  x = 1.0; y = 2.0; a = 2.0
   x_d = x
   y_d = y
   call saxpy<<<grid, tBlock>>>(x_d, y_d, a)
@@ -39,5 +39,5 @@ program testSaxpy
 
   print *, "Constant a:", a
   print *, 'Average values ', sum(abs(x))/N, sum(abs(y))/N
-  !write(6,*) "Result: y[1] = ", y(1)
+  write(6,*) "Result: y[1] = ", y(1)
 end program testSaxpy
