@@ -9,7 +9,7 @@ TensorFlow was originally developed by researchers and engineers working on the 
 
 ## Installation:
 
-See our [installation materials on UserDocs](https://docs.rc.fas.harvard.edu/kb/tensorflow/)
+See our [installation materials on UserDocs](https://docs.rc.fas.harvard.edu/kb/tensorflow/).
 
 ## Examples:
 
