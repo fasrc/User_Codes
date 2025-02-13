@@ -1,6 +1,6 @@
 
 
-# Exercise 1: Job Efficiency - Memory
+# Exercise 1: Job Efficiency - Memory per Node ( `--mem` )
 
 We use a Fortran code, `mem_test.f90`, to generate a random matrix of dimension 60,000. 
 Using `double precision`, the program needs ~28.8 GB of memory (since, 

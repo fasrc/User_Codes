@@ -1,15 +1,15 @@
 #!/bin/bash
-#SBATCH -p rc-testing
+#SBATCH -p test
 #SBATCH -J mem_test
 #SBATCH -o mem_test.out
 #SBATCH -e mem_test.err
 #SBATCH -n 1
 #SBATCH -c 1
-#SBATCH -t 30
-#SBATCH --mem=28G 
+#SBATCH -t 20
+#SBATCH --mem=20G 
 
 # Load required modules
-module load gcc/14.2.0-fasrc01
+module load python/3.12.5-fasrc01 
 
 # Run the code
-./mem_test.x
+srun -n 1 -c 1 python mem_test.py
