@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH -p rc-testing
+#SBATCH -p test
 #SBATCH -J mem_test
 #SBATCH -o mem_test.out
 #SBATCH -e mem_test.err
 #SBATCH -n 1
 #SBATCH -c 1
 #SBATCH -t 30
-#SBATCH --mem=28G 
+#SBATCH --mem=20G 
 
 # Load required modules
 module load gcc/14.2.0-fasrc01
