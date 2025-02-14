@@ -1,5 +1,3 @@
-
-
 # Exercise 1: Job Efficiency - Memory per Node ( `--mem` )
 
 We use a C++ code, `mem_test.cpp`, to generate a random matrix of dimension 60,000. 
@@ -14,7 +12,7 @@ module load gcc/14.2.0-fasrc01
 g++ -o mem_test.x mem_test.cpp -O2
 ```
 
-This will generate the executable `mem_test.x`. The Fortran source code is included 
+This will generate the executable `mem_test.x`. The C++ source code is included 
 below:
 
 ```c++
@@ -238,3 +236,4 @@ Memory Efficiency: 96.65% of 28.00 GB (28.00 GB/node)
 ```
 
 We see that the Memory Efficiency is ~97%, while the CPU Efficiency is 98.67%.
+

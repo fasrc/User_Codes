@@ -1,5 +1,3 @@
-
-
 # Exercise 1: Job Efficiency - Memory per Node ( `--mem` )
 
 We use a C code, `mem_test.c`, to generate a random matrix of dimension 60,000. 
@@ -14,7 +12,7 @@ module load gcc/14.2.0-fasrc01
 gcc -o mem_test.x mem_test.c -O2
 ```
 
-This will generate the executable `mem_test.x`. The Fortran source code is included 
+This will generate the executable `mem_test.x`. The C source code is included 
 below:
 
 ```c

@@ -5,8 +5,8 @@
 #SBATCH -e mem_test.err
 #SBATCH -n 1
 #SBATCH -c 1
-#SBATCH -t 20
-#SBATCH --mem=20G 
+#SBATCH -t 30
+#SBATCH --mem=21G 
 
 # Load required modules
 module load python/3.12.5-fasrc01 
