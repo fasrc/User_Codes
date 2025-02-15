@@ -5,8 +5,8 @@
 #SBATCH -e mem_test.err
 #SBATCH -n 1
 #SBATCH -c 1
-#SBATCH -t 20
-#SBATCH --mem=20G 
+#SBATCH -t 30
+#SBATCH --mem=3G 
 
 # Load required modules
 module load R/4.4.1-fasrc01

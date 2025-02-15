@@ -17,7 +17,7 @@ create_symmetric_matrix <- function(n) {
 
 # Main function
 main <- function() {
-  n <- 30000  # Matrix dimension
+  n <- 20000  # Matrix dimension
   
   cat("Creating a symmetric random matrix of size", n, "x", n, "...\n")
   
