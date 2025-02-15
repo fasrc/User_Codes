@@ -1,10 +1,9 @@
-
 # Exercise 1: Job Efficiency - Memory per Node ( `--mem` )
 
 We use a R code, `mem_test.R`, to generate a random matrix of dimension 20,000.  
 
 ## Step 1: Environment set up
-To run the code we need to load one of the available Python modules, e.g.,
+To run the code we need to load one of the available R modules, e.g.,
 
 ```bash
 module load R/4.4.1-fasrc01
