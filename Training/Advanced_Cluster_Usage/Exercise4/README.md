@@ -253,7 +253,7 @@ Upon execution the job will generate the speedup figure `speedup.png`:
 ![Speedup](speedup.png)
 
 We see that the program displays an excellent strong scaling up to 16 MPI ranks. 
-After this the speedup diverges from the liner trend. For instance, with 64 MPI tasks
+After this the speedup diverges from the linear trend. For instance, with 64 MPI tasks
 the application achieves parallel efficiency of about 61%.
 
 ```bash
