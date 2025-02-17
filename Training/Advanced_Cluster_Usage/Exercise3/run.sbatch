@@ -29,5 +29,5 @@ cat omp_pi.dat  | grep -e Time  -e Number | awk -F ":" '{if ($1 ~ "Time" ) {prin
 #  --- Generate speedup figure ---
 sleep 2
 module load python/3.10.13-fasrc01
-source activate /n/home06/pkrastev/holystore01/conda/python-3.10_env
+source activate python-3.10_env
 python speedup.py

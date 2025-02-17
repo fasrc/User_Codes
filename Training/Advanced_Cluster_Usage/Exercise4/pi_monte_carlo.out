@@ -1,0 +1,5 @@
+ Number of MPI ranks:       32
+ Exact PI:    3.14159265
+ Computed PI: 3.14183189
+ Error:       0.00762%
+ Total time:  3.71 sec

@@ -41,10 +41,10 @@ program pi_monte_carlo
 
   t1 = MPI_WTIME(ierr)
 
-  iseed = -99            ! Seed for random number generator
-  r = 1.0d0              ! Unit circle
-  sample_number = 1e10   ! Number of samples
-  randval =  rand(iseed) ! Iinitialize the random number generator 
+  iseed = -99                ! Seed for random number generator
+  r = 1.0d0                  ! Unit circle
+  sample_number = 3000000000 ! Number of samples
+  randval =  rand(iseed)     ! Iinitialize the random number generator 
  
   ! Convert to INTEGER8...............................................
   iproc8 = iproc

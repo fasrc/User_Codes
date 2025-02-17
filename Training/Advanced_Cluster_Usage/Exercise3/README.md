@@ -20,7 +20,7 @@ The code is compiled with
 
 ```bash
 module load intel/24.2.1-fasrc01	# Load required software modules
-make             			        # Compile
+make             			# Compile
 ```
 using the `Makefile`:
 
@@ -207,6 +207,9 @@ The job uses a Python code ,`speedup.py`, to generate the speedup figure `speedu
 
 We see that the program displays an excellent strong scaling up to 8 OMP threads.
 
+Below is the Python code used to calculate the speedup and generate the speedup
+figure.
+
 ### Python source code
 
 ```python
@@ -254,3 +257,5 @@ plt.legend(fontsize=15,loc=2)
 
 plt.savefig('speedup.png', format='png')
 ```
+
+
