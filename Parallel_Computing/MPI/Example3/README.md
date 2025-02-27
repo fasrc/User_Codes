@@ -57,7 +57,7 @@ srun -n $SLURM_NTASKS --mpi=pmix ./planczos.x
 ```bash
 module load intel/24.0.1-fasrc01 openmpi/5.0.2-fasrc01
 make
-sbatch
+sbatch run.sbatch
 ```
 
 ### Example Output:
