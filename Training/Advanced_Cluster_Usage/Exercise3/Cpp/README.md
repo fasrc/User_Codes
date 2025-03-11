@@ -3,11 +3,12 @@
 This example illustrates evaluating the speedup of parallel applications. 
 The specific example is an OpenMP (OMP) implementation of a Monte-Carlo algorithm for 
 calculating $\pi$ in parallel. We will run the program on 1, 2, 4, 8, 16, 32, and 64
-OMP threads, calculate the speedup and create a speedup figure.
+OMP threads, calculate the speedup and create a speedup figure. 
+This is a C++ implementation.
 
 ## Contents:
 
-* <code>omp_pi.c</code>: C source code
+* <code>omp_pi.c</code>: C++ source code
 * <code>Makefile</code>: Makefile to compile the code
 * <code>run.sbatch</code>: Batch-job submission script
 * <code>scaling_results.txt</code>: Scaling results / Timing
@@ -29,14 +30,14 @@ using the `Makefile`:
 # Makefile
 #=================================================
 CFLAGS   = -c -O2 -qopenmp
-COMPILER = icx
+COMPILER = icpx
 PRO         = omp_pi
 OBJECTS     = ${PRO}.o
 
 ${PRO}.x : $(OBJECTS)
 	$(COMPILER) -o ${PRO}.x $(OBJECTS) -qopenmp
 
-%.o : %.c
+%.o : %.cpp
 	$(COMPILER) $(CFLAGS) $(<F)
 
 clean :
@@ -44,58 +45,63 @@ clean :
 ```
 This will generate the executable `omp_pi.x`. The C source code is included below:
 
-```c
-/*
-  PROGRAM: omp_pi.c
-  DESCRIPTION: 
-     OpenMP implementation of Monte-Carlo algorithm
-     for calculating PI
-  USAGE: omp_pi.x <number_of_samples> <number_of_threads>
- */
-#include <stdio.h>
-#include <stdlib.h>
+```c++
+#include <iostream>
+#include <iomanip>    // Added for setprecision
+#include <random>
+#include <chrono>
+#include <cmath>
 #include <omp.h>
-#include <math.h>
 
-int main (int argc, char *argv[]) {
-  int i, count, samples, nthreads, seed;
-  struct drand48_data drand_buf;
-  double x, y, z;
-  double t0, t1, tf, PI;
-  
-  samples  = atoi(argv[1]);       // Number of sumples
-  nthreads = atoi(argv[2]);
-  omp_set_num_threads (nthreads); // Set number of threads
-
-  printf("Number of threads: %2i\n", nthreads);
-
-  t0 = omp_get_wtime();
-  count = 0;
-
-#pragma omp parallel private(i, x, y, z, seed, drand_buf) shared(samples)
-  {
-    seed = 1202107158 + omp_get_thread_num() * 1999;
-    srand48_r (seed, &drand_buf);
-    
-#pragma omp for reduction(+:count)
-    for (i=0; i<samples; i++) {
-      drand48_r (&drand_buf, &x);
-      drand48_r (&drand_buf, &y);
-      z = x*x + y*y;
-      if ( z <= 1.0 ) count++;
+int main(int argc, char *argv[]) {
+    if (argc != 3) {
+        std::cerr << "Usage: " << argv[0] << " <number_of_samples> <number_of_threads>" << std::endl;
+        return 1;
     }
-  }
 
-  t1 = omp_get_wtime();
-  tf = t1 - t0;
-  
-  // Estimate PI............................................
-  PI =  4.0*count/samples;
+    int samples = std::atoi(argv[1]);    // Number of samples
+    int nthreads = std::atoi(argv[2]);   // Number of threads
+    omp_set_num_threads(nthreads);
 
-  printf("Exact value of PI: %7.5f\n", M_PI);
-  printf("Estimate of PI:    %7.5f\n", PI);
-  printf("Time: %7.2f sec.\n\n", tf);
-  return 0;
+    std::cout << "Number of threads: " << nthreads << std::endl;
+
+    // Get start time
+    auto t0 = omp_get_wtime();
+    int count = 0;
+
+#pragma omp parallel
+    {
+        // Each thread gets its own random number generator
+        unsigned int seed = 1202107158 + omp_get_thread_num() * 1999;
+        std::mt19937 gen(seed);  // Mersenne Twister random number generator
+        std::uniform_real_distribution<double> dist(0.0, 1.0);
+
+#pragma omp for reduction(+:count)
+        for (int i = 0; i < samples; i++) {
+            double x = dist(gen);
+            double y = dist(gen);
+            double z = x * x + y * y;
+            if (z <= 1.0) {
+                count++;
+            }
+        }
+    }
+
+    // Get end time
+    auto t1 = omp_get_wtime();
+    double tf = t1 - t0;
+
+    // Estimate PI
+    double PI = 4.0 * count / samples;
+
+    // Output results
+    std::cout << std::fixed << std::setprecision(5);
+    std::cout << "Exact value of PI: " << M_PI << std::endl;
+    std::cout << "Estimate of PI:    " << PI << std::endl;
+    std::cout << std::fixed << std::setprecision(2);
+    std::cout << "Time: " << tf << " sec." << std::endl;
+
+    return 0;
 }
 ```
 ### Step 2: Create a job submission script 
@@ -111,7 +117,7 @@ script to run the program with 1, 2, 4, 8, 16, 32, and 64 OMP threads.
 #SBATCH -t 0-00:30
 #SBATCH -p test
 #SBATCH -N 1
-#SBATCH -c 4
+#SBATCH -c 64
 #SBATCH --mem=4G
 
 PRO=omp_pi
@@ -122,7 +128,7 @@ unset OMP_NUM_THREADS
 
 # --- Run program with 1, 2, 4, 8, 16, and 32 OpenMP threads ---
 echo "Number of threads: ${i}"
-./${PRO}.x 1000000000 ${SLURM_CPUS_PER_TASK} > ${PRO}.dat
+./${PRO}.x 100000000 ${SLURM_CPUS_PER_TASK} > ${PRO}.dat
 ```
 
 ### Step 3: Submit the Job
@@ -140,46 +146,46 @@ Upon job completion, the results are recorded in the file `omp_pi.dat`.
 You can check the job status with `sacct`, e.g.,
 
 ```bash
-sacct -j 6282602
+sacct -j 6306397
 JobID           JobName  Partition    Account  AllocCPUS      State ExitCode 
 ------------ ---------- ---------- ---------- ---------- ---------- -------- 
-6282602          omp_pi       test   rc_admin          4  COMPLETED      0:0 
-6282602.bat+      batch              rc_admin          4  COMPLETED      0:0 
-6282602.ext+     extern              rc_admin          4  COMPLETED      0:0
+6306397          omp_pi       test   rc_admin         16  COMPLETED      0:0 
+6306397.bat+      batch              rc_admin         16  COMPLETED      0:0 
+6306397.ext+     extern              rc_admin         16  COMPLETED      0:0 
 ```
 
 and output with. e.g.,
 
 ```bash
 cat omp_pi.dat
-Number of threads:  4
+Number of threads: 16
 Exact value of PI: 3.14159
-Estimate of PI:    3.14165
-Time:    2.74 sec.
+Estimate of PI:    3.14161
+Time: 0.77 sec.
 ```
 
 ### Step 5: Speedup figure
 
-For each run, we record the runtime in a file, e.g., `scaling_results.txt`. An example 
-is given below:
+For each run, we record the runtime in a file, e.g., `scaling_results.txt`. An example is given below:
 
 ```bash
 cat scaling_results.txt 
- 1 10.93
- 2 5.47
- 4 2.74
- 8 1.37
-16 0.68
-32 0.34
-64 0.19
+ 1 12.26
+ 2 6.14
+ 4 3.07
+ 8 1.53
+16 0.87
+32 0.66
+64 0.54
 ```
 
-This file is used by a Python code, `speedup.py`, to generate the speedup 
-figure `speedup.png`:
+This file is used by a Python code, `speedup.py`, to generate the 
+speedup figure `speedup.png`:
 
 ![Speedup](speedup.png)
 
-We see that the program displays an excellent strong scaling up to 32 OMP threads.
+We see that the program displays an good strong scaling up to 16 OMP threads, and
+deteriorates afterwards.
 
 Below we include the Python code used to calculate the speedup and generate the speedup
 figure, and also an example submission script to send the figure-generating job to the queue.
@@ -275,11 +281,11 @@ Table with the results is given below:
 ```bash
 cat speedup.out 
     Nthreads  Walltime  Speedup  Efficiency (%)
-       1       10.93     1.00      100.00
-       2        5.47     2.00       99.91
-       4        2.74     3.99       99.73
-       8        1.37     7.98       99.73
-      16        0.68    16.07      100.46
-      32        0.34    32.15      100.46
-      64        0.19    57.53       89.88
+       1       12.26     1.00      100.00
+       2        6.14     2.00       99.84
+       4        3.07     3.99       99.84
+       8        1.53     8.01      100.16
+      16        0.87    14.09       88.07
+      32        0.66    18.58       58.05
+      64        0.54    22.70       35.47
 ```
