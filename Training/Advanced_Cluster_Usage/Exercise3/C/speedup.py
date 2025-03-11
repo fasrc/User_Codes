@@ -1,7 +1,7 @@
 """
 Program: speedup.py
          Code generates speedup plot
-         for nthreads = [1, 2, 4 ,8]
+         for nthreads = [1, 2, 4 ,8, 16, 32, 64]
 """
 import numpy as np
 import matplotlib.pyplot as plt

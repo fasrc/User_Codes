@@ -2,15 +2,15 @@
 
 This example illustrates evaluating the speedup of parallel applications. 
 The specific example is an OpenMP (OMP) implementation of a Monte-Carlo algorithm for 
-calculating $\pi$ in parallel. The program is run on 1, 2, 4, 8, 16, and 32 OMP threads, 
-and then we create a speedup figure.
+calculating $\pi$ in parallel. We will run the program on 1, 2, 4, 8, 16, 32, and 64
+OMP threads, calculate the speedup and create a speedup figure.
 
 ## Contents:
 
 * <code>omp_pi.c</code>: C source code
-* <code>omp_pi.dat</code>: Output file
 * <code>Makefile</code>: Makefile to compile the code
 * <code>run.sbatch</code>: Batch-job submission script
+* <code>scaling_results.txt</code>: Scaling results / Timing
 * <code>speedup.py</code>: Python code to generate speedup figure
 * <code>speedup.png</code>: Speedup figure
 
@@ -20,7 +20,7 @@ The code is compiled with
 
 ```bash
 module load intel/24.2.1-fasrc01	# Load required software modules
-make             			# Compile
+make             			        # Compile
 ```
 using the `Makefile`:
 
@@ -101,7 +101,7 @@ int main (int argc, char *argv[]) {
 ### Step 2: Create a job submission script 
 
 Below is an example batch-job submission script for this exercise. Use this
-script to run the job with 1, 2, 4, 8, 16, and 32 OMP threads. 
+script to run the program with 1, 2, 4, 8, 16, 32, and 64 OMP threads. 
 
 ```bash
 #!/bin/bash
@@ -123,17 +123,6 @@ unset OMP_NUM_THREADS
 # --- Run program with 1, 2, 4, 8, 16, and 32 OpenMP threads ---
 echo "Number of threads: ${i}"
 ./${PRO}.x 1000000000 ${SLURM_CPUS_PER_TASK} > ${PRO}.dat
-```
-
-> **NOTE:** To generate the scaling figure, you will need to load a Python 
-module and activate a `conda` environment, e.g., `python-3.10_env`, 
-(see below) containing the `numpy` and `matplotlib` packages.
-
-Below is an example `conda` environment, e.g.,
-
-```bash
-module load python/3.10.13-fasrc01
-mamba create -n python-3.10_env python=3.10 pip wheel numpy scipy matplotlib pandas seaborn h5py
 ```
 
 ### Step 3: Submit the Job
@@ -159,7 +148,7 @@ JobID           JobName  Partition    Account  AllocCPUS      State ExitCode
 6282602.ext+     extern              rc_admin          4  COMPLETED      0:0
 ```
 
-and output:  
+and output with. e.g.,
 
 ```bash
 cat *.dat
@@ -171,19 +160,29 @@ Time:    2.74 sec.
 
 ### Step 5: Speedup figure
 
-For each run, record the runtime in a file, e.g., `scaling_results.txt`.
+For each run, we record the runtime in a file, e.g., `scaling_results.txt`. An example is given below:
 
-The job uses a Python code ,`speedup.py`, and the `scaling_results.txt` file, 
-to generate the speedup figure `speedup.png`:
+```bash
+cat scaling_results.txt 
+ 1 10.93
+ 2 5.47
+ 4 2.74
+ 8 1.37
+16 0.68
+32 0.34
+64 0.19
+```
+
+This file is used by a Python code, `speedup.py`, to generate the speedup figure `speedup.png`:
 
 ![Speedup](speedup.png)
 
-We see that the program displays an excellent strong scaling up to 8 OMP threads.
+We see that the program displays an excellent strong scaling up to 16 OMP threads.
 
-Below is the Python code used to calculate the speedup and generate the speedup
-figure.
+Below we include the Python code used to calculate the speedup and generate the speedup
+figure, and also an example submission script to send the figure-generating job to the queue.
 
-### Python source code
+**Python source code:**
 
 ```python
 """
@@ -231,4 +230,54 @@ plt.legend(fontsize=15,loc=2)
 plt.savefig('speedup.png', format='png')
 ```
 
+> **NOTE:** To generate the scaling figure, you will need to load a Python 
+module and activate a `conda` environment, e.g., `python-3.10_env`, 
+(see below) containing the `numpy` and `matplotlib` packages.
 
+Below is an example `conda` environment, e.g.,
+
+```bash
+module load python/3.10.13-fasrc01
+mamba create -n python-3.10_env python=3.10 pip wheel numpy scipy matplotlib pandas seaborn h5py
+```
+
+**Submission script for the figure-generating job:**
+
+```bash
+#!/bin/bash
+#SBATCH -J speedup
+#SBATCH -o speedup.out
+#SBATCH -e speedup.err
+#SBATCH -t 0-00:30
+#SBATCH -p test
+#SBATCH -c 1
+#SBATCH --mem=4G
+
+# --- Set up environment ---
+module load python/3.10.13-fasrc01
+source activate python-3.10_env
+
+# --- Run the python code speedup.py ---
+python speedup.py
+```
+
+If we name the above script `run_speedup.sbatch`, for instance, the job is submitted to the queue as usual with:
+
+```bash
+sbatch run_speedup.sbatch
+```
+In addition to the speedup, the python code computes also the parallel efficiency $E(n)=S(n)/n$, which measures how efficiently you parallelize your code. Here $S(n)=T(1)/T(n)$ is the speedup, $n$ is the number of parallel processes (threads), $T(1)$ is the time to complete the program on one thread, and $T(n)$ is the time to complete the program on $n$ threads. 
+
+Table with the results is given below:
+
+```bash
+cat speedup.out 
+    Nthreads  Walltime  Speedup  Efficiency (%)
+       1       10.93     1.00      100.00
+       2        5.47     2.00       99.91
+       4        2.74     3.99       99.73
+       8        1.37     7.98       99.73
+      16        0.68    16.07      100.46
+      32        0.34    32.15      100.46
+      64        0.19    57.53       89.88
+```

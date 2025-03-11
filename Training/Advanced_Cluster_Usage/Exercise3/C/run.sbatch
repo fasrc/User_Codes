@@ -5,7 +5,7 @@
 #SBATCH -t 0-00:30
 #SBATCH -p test
 #SBATCH -N 1
-#SBATCH -c 4
+#SBATCH -c 32
 #SBATCH --mem=4G
 
 PRO=omp_pi
