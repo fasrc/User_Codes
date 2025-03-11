@@ -110,13 +110,13 @@ Submitted batch job 3881384
 
 First, check the job status, e.g.,
 ```bash
-sacct -j 3881361
+sacct -j 3881384
 JobID           JobName  Partition    Account  AllocCPUS      State ExitCode 
 ------------ ---------- ---------- ---------- ---------- ---------- -------- 
-3881361        planczos       test   rc_admin          8     FAILED      1:0 
-3881361.bat+      batch              rc_admin          8     FAILED      1:0 
-3881361.ext+     extern              rc_admin          8  COMPLETED      0:0 
-3881361.0    planczos.x              rc_admin          8 OUT_OF_ME+    0:125
+3881384        planczos       test   rc_admin          8  COMPLETED      0:0 
+3881384.bat+      batch              rc_admin          8  COMPLETED      0:0 
+3881384.ext+     extern              rc_admin          8  COMPLETED      0:0 
+3881384.0    planczos.x              rc_admin          8  COMPLETED      0:0
 ```
 You can also check the STD output, e.g.,
 

@@ -318,3 +318,22 @@ plt.legend(fontsize=15,loc=2)
 plt.savefig('speedup.png', format='png')
 #plt.show()
 ```
+
+# Improve Speedup and Scaling of Distributed (MPI) Apps
+
+There are various ways to further improve the speedup and scaling:
+
+* Reduce time spent in MPI communication
+* Improve load-balance (aim to give equal amount of work to each MPI process)
+* Make use of SLURM options, such as: <br>
+   * `--nodes / -N`<br>
+   * `--ntasks-per-node` <br>
+   * `--contiguous` <br>
+   * `--distribution / -m` <br>
+
+Pleas refer to the [SLURM documentation](https://slurm.schedmd.com/sbatch.html) 
+for details on using of these options.
+
+Exploring the speedup figure above, we observe a pronounced departure of the speedup
+from its linear trend at the 32-MPI-rank mark.    
+
