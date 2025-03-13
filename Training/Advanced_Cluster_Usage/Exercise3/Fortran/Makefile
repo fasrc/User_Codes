@@ -2,14 +2,14 @@
 # Makefile
 #=================================================
 CFLAGS   = -c -O2 -fopenmp
-COMPILER = gcc
+COMPILER = gfortran
 PRO         = omp_pi
 OBJECTS     = ${PRO}.o
 
 ${PRO}.x : $(OBJECTS)
 	$(COMPILER) -o ${PRO}.x $(OBJECTS) -fopenmp
 
-%.o : %.c
+%.o : %.f90
 	$(COMPILER) $(CFLAGS) $(<F)
 
 clean :

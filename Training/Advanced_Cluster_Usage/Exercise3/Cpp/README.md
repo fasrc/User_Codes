@@ -20,8 +20,8 @@ This is a C++ implementation.
 The code is compiled with
 
 ```bash
-module load intel/24.2.1-fasrc01	# Load required software modules
-make             			        # Compile
+module load gcc/14.2.0-fasrc01	# Load required software modules
+make             			    # Compile
 ```
 using the `Makefile`:
 
@@ -29,21 +29,21 @@ using the `Makefile`:
 #=================================================
 # Makefile
 #=================================================
-CFLAGS   = -c -O2 -qopenmp
-COMPILER = icpx
+CFLAGS   = -c -O2 -fopenmp
+COMPILER = g++
 PRO         = omp_pi
 OBJECTS     = ${PRO}.o
 
 ${PRO}.x : $(OBJECTS)
-	$(COMPILER) -o ${PRO}.x $(OBJECTS) -qopenmp
+	$(COMPILER) -o ${PRO}.x $(OBJECTS) -fopenmp
 
 %.o : %.cpp
 	$(COMPILER) $(CFLAGS) $(<F)
 
 clean :
-	rm -fr *.o *.x *.out *.err *.dat scaling_results.txt
+	rm -fr *.o *.x *.out *.err *.dat
 ```
-This will generate the executable `omp_pi.x`. The C source code is included below:
+This will generate the executable `omp_pi.x`. The C++ source code is included below:
 
 ```c++
 #include <iostream>
@@ -117,16 +117,16 @@ script to run the program with 1, 2, 4, 8, 16, 32, and 64 OMP threads.
 #SBATCH -t 0-00:30
 #SBATCH -p test
 #SBATCH -N 1
-#SBATCH -c 64
+#SBATCH -c 1
 #SBATCH --mem=4G
 
 PRO=omp_pi
 
 # --- Load required software modules ---
-module load intel/24.2.1-fasrc01
+module load gcc/14.2.0-fasrc01
 unset OMP_NUM_THREADS
 
-# --- Run program with 1, 2, 4, 8, 16, and 32 OpenMP threads ---
+# --- Run program with 1, 2, 4, 8, 16, 32, and 64 OpenMP threads ---
 echo "Number of threads: ${i}"
 ./${PRO}.x 100000000 ${SLURM_CPUS_PER_TASK} > ${PRO}.dat
 ```
@@ -170,13 +170,13 @@ For each run, we record the runtime in a file, e.g., `scaling_results.txt`. An e
 
 ```bash
 cat scaling_results.txt 
- 1 12.26
- 2 6.14
- 4 3.07
- 8 1.53
-16 0.87
-32 0.66
-64 0.54
+ 1 19.72
+ 2 9.87
+ 4 4.94
+ 8 2.47
+16 1.24
+32 0.63
+64 0.32
 ```
 
 This file is used by a Python code, `speedup.py`, to generate the 
@@ -184,8 +184,7 @@ speedup figure `speedup.png`:
 
 ![Speedup](speedup.png)
 
-We see that the program displays an good strong scaling up to 16 OMP threads, and
-deteriorates afterwards.
+We see that the program displays an excellent strong scaling up to 64 OMP threads.
 
 Below we include the Python code used to calculate the speedup and generate the speedup
 figure, and also an example submission script to send the figure-generating job to the queue.
@@ -281,11 +280,11 @@ Table with the results is given below:
 ```bash
 cat speedup.out 
     Nthreads  Walltime  Speedup  Efficiency (%)
-       1       12.26     1.00      100.00
-       2        6.14     2.00       99.84
-       4        3.07     3.99       99.84
-       8        1.53     8.01      100.16
-      16        0.87    14.09       88.07
-      32        0.66    18.58       58.05
-      64        0.54    22.70       35.47
+       1       19.72     1.00      100.00
+       2        9.87     2.00       99.90
+       4        4.94     3.99       99.80
+       8        2.47     7.98       99.80
+      16        1.24    15.90       99.40
+      32        0.63    31.30       97.82
+      64        0.32    61.62       96.29    
 ```

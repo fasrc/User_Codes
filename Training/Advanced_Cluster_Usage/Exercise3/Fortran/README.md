@@ -3,11 +3,11 @@
 This example illustrates evaluating the speedup of parallel applications. 
 The specific example is an OpenMP (OMP) implementation of a Monte-Carlo algorithm for 
 calculating $\pi$ in parallel. We will run the program on 1, 2, 4, 8, 16, 32, and 64
-OMP threads, calculate the speedup and create a speedup figure.
+OMP threads, calculate the speedup and create a speedup figure. This is a Fortran implementation.
 
 ## Contents:
 
-* <code>omp_pi.c</code>: C source code
+* <code>omp_pi.f90</code>: Fortran source code
 * <code>Makefile</code>: Makefile to compile the code
 * <code>run.sbatch</code>: Batch-job submission script
 * <code>scaling_results.txt</code>: Scaling results / Timing
@@ -19,8 +19,8 @@ OMP threads, calculate the speedup and create a speedup figure.
 The code is compiled with
 
 ```bash
-module load gcc/14.2.0-fasrc01 	# Load required software modules
-make             			    # Compile
+module load gcc/14.2.0-fasrc01	   # Load required software modules
+make             			       # Compile
 ```
 using the `Makefile`:
 
@@ -29,14 +29,14 @@ using the `Makefile`:
 # Makefile
 #=================================================
 CFLAGS   = -c -O2 -fopenmp
-COMPILER = gcc
+COMPILER = gfortran
 PRO         = omp_pi
 OBJECTS     = ${PRO}.o
 
 ${PRO}.x : $(OBJECTS)
 	$(COMPILER) -o ${PRO}.x $(OBJECTS) -fopenmp
 
-%.o : %.c
+%.o : %.f90
 	$(COMPILER) $(CFLAGS) $(<F)
 
 clean :
@@ -44,59 +44,73 @@ clean :
 ```
 This will generate the executable `omp_pi.x`. The C source code is included below:
 
-```c
-/*
-  PROGRAM: omp_pi.c
-  DESCRIPTION: 
-     OpenMP implementation of Monte-Carlo algorithm
-     for calculating PI
-  USAGE: omp_pi.x <number_of_samples> <number_of_threads>
- */
-#include <stdio.h>
-#include <stdlib.h>
-#include <omp.h>
-#include <math.h>
-
-int main (int argc, char *argv[]) {
-  int i, count, samples, nthreads, seed;
-  struct drand48_data drand_buf;
-  double x, y, z;
-  double t0, t1, tf, PI;
+```fortran
+!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+! Program: omp_pi.f90
+!          OpenMP implementation of Monte-Carlo algorithm for calculating PI
+!          Translated from omp_pi.c, adapted for gfortran
+!
+! Compile: gfortran -o omp_pi.x omp_pi.f90 -O2 -fopenmp
+! 
+! Run:     ./omp_pi.x <number_of_samples> <number_of_threads>
+!          OMP_NUM_THREADS=<number_of_threads> ./omp_pi.x (optional override)
+!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+PROGRAM omp_pi
+  USE OMP_LIB   ! OpenMP library
+  IMPLICIT NONE
   
-  samples  = atoi(argv[1]);       // Number of sumples
-  nthreads = atoi(argv[2]);
-  omp_set_num_threads (nthreads); // Set number of threads
-
-  printf("Number of threads: %2i\n", nthreads);
-
-  t0 = omp_get_wtime();
-  count = 0;
-
-#pragma omp parallel private(i, x, y, z, seed, drand_buf) shared(samples)
-  {
-    seed = 1202107158 + omp_get_thread_num() * 1999;
-    srand48_r (seed, &drand_buf);
+  INTEGER(4) :: i, count, samples, nthreads, tid
+  INTEGER(4) :: seed_size
+  INTEGER(4), ALLOCATABLE :: seed(:)
+  REAL(8)    :: x, y, z
+  REAL(8)    :: t0, t1, tf, PI
+  REAL(8), PARAMETER :: PI_EXACT = 3.14159265358979323846D0
+  CHARACTER(LEN=20) :: arg1, arg2
+  
+  ! Get command-line arguments
+  CALL GET_COMMAND_ARGUMENT(1, arg1)
+  CALL GET_COMMAND_ARGUMENT(2, arg2)
+  READ(arg1, *) samples   ! Number of samples
+  READ(arg2, *) nthreads  ! Number of threads
+  
+  CALL OMP_SET_NUM_THREADS(nthreads)
+  
+  WRITE(*,'(A,I2)') "Number of threads: ", nthreads
+  
+  t0 = OMP_GET_WTIME()
+  count = 0
+  
+  !$OMP PARALLEL PRIVATE(i, x, y, z, tid, seed) SHARED(samples)
+    tid = OMP_GET_THREAD_NUM()
     
-#pragma omp for reduction(+:count)
-    for (i=0; i<samples; i++) {
-      drand48_r (&drand_buf, &x);
-      drand48_r (&drand_buf, &y);
-      z = x*x + y*y;
-      if ( z <= 1.0 ) count++;
-    }
-  }
-
-  t1 = omp_get_wtime();
-  tf = t1 - t0;
+    ! Thread-specific seed for intrinsic RNG
+    CALL RANDOM_SEED(SIZE=seed_size)
+    ALLOCATE(seed(seed_size))
+    seed = 1202107158 + tid * 1999  ! Match C seeding strategy
+    CALL RANDOM_SEED(PUT=seed)
+    DEALLOCATE(seed)
+    
+    !$OMP DO REDUCTION(+:count)
+    DO i = 0, samples - 1           ! Match C loop range (0 to samples-1)
+      CALL RANDOM_NUMBER(x)
+      CALL RANDOM_NUMBER(y)
+      z = x*x + y*y
+      IF (z <= 1.0D0) count = count + 1
+    END DO
+    !$OMP END DO
+  !$OMP END PARALLEL
   
-  // Estimate PI............................................
-  PI =  4.0*count/samples;
-
-  printf("Exact value of PI: %7.5f\n", M_PI);
-  printf("Estimate of PI:    %7.5f\n", PI);
-  printf("Time: %7.2f sec.\n\n", tf);
-  return 0;
-}
+  t1 = OMP_GET_WTIME()
+  tf = t1 - t0
+  
+  ! Estimate PI
+  PI = 4.0D0 * REAL(count, KIND=8) / REAL(samples, KIND=8)
+  
+  WRITE(*,'(A,F7.5)') "Exact value of PI: ", PI_EXACT
+  WRITE(*,'(A,F7.5)') "Estimate of PI:    ", PI
+  WRITE(*,'(A,F7.2,A)') "Time: ", tf, " sec."
+  
+END PROGRAM omp_pi
 ```
 ### Step 2: Create a job submission script 
 
@@ -111,7 +125,7 @@ script to run the program with 1, 2, 4, 8, 16, 32, and 64 OMP threads.
 #SBATCH -t 0-00:30
 #SBATCH -p test
 #SBATCH -N 1
-#SBATCH -c 4
+#SBATCH -c 1
 #SBATCH --mem=4G
 
 PRO=omp_pi
@@ -140,12 +154,12 @@ Upon job completion, the results are recorded in the file `omp_pi.dat`.
 You can check the job status with `sacct`, e.g.,
 
 ```bash
-sacct -j 6282602
+sacct -j 6534305
 JobID           JobName  Partition    Account  AllocCPUS      State ExitCode 
 ------------ ---------- ---------- ---------- ---------- ---------- -------- 
-6282602          omp_pi       test   rc_admin          4  COMPLETED      0:0 
-6282602.bat+      batch              rc_admin          4  COMPLETED      0:0 
-6282602.ext+     extern              rc_admin          4  COMPLETED      0:0
+6534305          omp_pi       test   rc_admin          4  COMPLETED      0:0 
+6534305.bat+      batch              rc_admin          4  COMPLETED      0:0 
+6534305.ext+     extern              rc_admin          4  COMPLETED      0:0 
 ```
 
 and output with. e.g.,
@@ -154,8 +168,8 @@ and output with. e.g.,
 cat omp_pi.dat
 Number of threads:  4
 Exact value of PI: 3.14159
-Estimate of PI:    3.14165
-Time:    2.74 sec.
+Estimate of PI:    3.14158
+Time:    6.18 sec.
 ```
 
 ### Step 5: Speedup figure
@@ -165,13 +179,13 @@ is given below:
 
 ```bash
 cat scaling_results.txt 
- 1 10.92
- 2 5.47
- 4 2.74
- 8 1.37
-16 0.68
-32 0.34
-64 0.17
+ 1 24.67
+ 2 12.39
+ 4 6.23
+ 8 3.13
+16 1.57
+32 0.79
+64 0.40
 ```
 
 This file is used by a Python code, `speedup.py`, to generate the speedup 
@@ -275,11 +289,11 @@ Table with the results is given below:
 ```bash
 cat speedup.out 
     Nthreads  Walltime  Speedup  Efficiency (%)
-       1       10.92     1.00      100.00
-       2        5.47     2.00       99.82
-       4        2.74     3.99       99.64
-       8        1.37     7.97       99.64
-      16        0.68    16.06      100.00
-      32        0.34    32.12      100.00
-      64        0.17    64.24      100.00
+       1       24.67     1.00      100.00
+       2       12.39     1.99       99.56
+       4        6.23     3.96       99.00
+       8        3.13     7.88       98.52
+      16        1.57    15.71       98.21
+      32        0.79    31.23       97.59
+      64        0.40    61.68       96.37
 ```
