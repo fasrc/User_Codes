@@ -9,7 +9,7 @@
 
 # --- Set up environment ---
 module load python/3.10.13-fasrc01
-source activate /n/home06/pkrastev/holystore01/conda/python-3.10_env #python-3.10_env
+source activate python-3.10_env
 
 # --- Run the python code speedup.py ---
 python speedup.py

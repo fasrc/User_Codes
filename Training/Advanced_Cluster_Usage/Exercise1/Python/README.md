@@ -1,5 +1,3 @@
-
-
 # Exercise 1: Job Efficiency - Memory per Node ( `--mem` )
 
 We use a Python code, `mem_test.py`, to generate a random matrix of dimension 30,000.  

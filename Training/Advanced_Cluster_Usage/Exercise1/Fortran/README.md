@@ -1,5 +1,3 @@
-
-
 # Exercise 1: Job Efficiency - Memory per Node ( `--mem` )
 
 We use a Fortran code, `mem_test.f90`, to generate a random matrix of dimension 60,000. 
@@ -11,7 +9,32 @@ We compile the code with:
 
 ```bash
 module load gcc/14.2.0-fasrc01
-gfortran -o mem_test.x mem_test.f90 -O2
+make
+```
+
+using the `Makefile`:
+
+```make
+#==========================================================
+# Make file
+#==========================================================
+CFLAGS   = -c -O2
+COMPILER = gfortran
+PRO      = mem_test
+OBJECTS  = mem_test.o
+
+# Default target
+all: ${PRO}.x
+
+${PRO}.x : $(OBJECTS)
+	$(COMPILER) -o ${PRO}.x $(OBJECTS)
+
+%.o : %.f90
+	$(COMPILER) $(CFLAGS) $<
+
+.PHONY: clean
+clean:
+	rm -f *.o *.x *.out *.err
 ```
 
 This will generate the executable `mem_test.x`. The Fortran source code is included 

@@ -1,102 +1,92 @@
 # Exercise 3: Scaling - OpenMP 
 
 This example illustrates evaluating the speedup of parallel applications. 
-The specific example is an OpenMP (OMP) implementation of a Monte-Carlo algorithm for 
-calculating $\pi$ in parallel. We will run the program on 1, 2, 4, 8, 16, 32, and 64
-OMP threads, calculate the speedup and create a speedup figure.
+The specific example is a Python implementation of a Monte-Carlo algorithm for 
+calculating $\pi$ in parallel using `multiprocessing`. We will run the program on 1, 2, 4, 8, 16, 32, and 64 parallel processes, calculate the speedup and create a speedup figure.
 
 ## Contents:
 
-* <code>omp_pi.c</code>: C source code
-* <code>Makefile</code>: Makefile to compile the code
+* <code>mp_pi.py</code>: Python source code
 * <code>run.sbatch</code>: Batch-job submission script
 * <code>scaling_results.txt</code>: Scaling results / Timing
 * <code>speedup.py</code>: Python code to generate speedup figure
 * <code>speedup.png</code>: Speedup figure
 
-### Step 1: Compile the source code
+### Step 1: Review the Python source code
 
-The code is compiled with
+The Python source code `mp_pi.py` is included below:
 
-```bash
-module load gcc/14.2.0-fasrc01 	# Load required software modules
-make             			    # Compile
-```
-using the `Makefile`:
+```python
+#!/usr/bin/env python3
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Program: mp_pi.py
+#          Parallel Monte-Carlo algorithm for calculating PI using multiprocessing
+#          Translated from omp_pi.c
+#
+# Usage:   python mp_pi.py <number_of_samples> <number_of_processes>
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+import sys
+import math
+import time
+from multiprocessing import Pool
 
-```makefile
-#=================================================
-# Makefile
-#=================================================
-CFLAGS   = -c -O2 -fopenmp
-COMPILER = gcc
-PRO         = omp_pi
-OBJECTS     = ${PRO}.o
+def lcg_rand(seed):
+    a = 69069
+    c = 1
+    m = 2147483647
+    seed = (a * seed + c) % m
+    return seed, float(seed) / m
 
-${PRO}.x : $(OBJECTS)
-	$(COMPILER) -o ${PRO}.x $(OBJECTS) -fopenmp
-
-%.o : %.c
-	$(COMPILER) $(CFLAGS) $(<F)
-
-clean :
-	rm -fr *.o *.x *.out *.err *.dat
-```
-This will generate the executable `omp_pi.x`. The C source code is included below:
-
-```c
-/*
-  PROGRAM: omp_pi.c
-  DESCRIPTION: 
-     OpenMP implementation of Monte-Carlo algorithm
-     for calculating PI
-  USAGE: omp_pi.x <number_of_samples> <number_of_threads>
- */
-#include <stdio.h>
-#include <stdlib.h>
-#include <omp.h>
-#include <math.h>
-
-int main (int argc, char *argv[]) {
-  int i, count, samples, nthreads, seed;
-  struct drand48_data drand_buf;
-  double x, y, z;
-  double t0, t1, tf, PI;
-  
-  samples  = atoi(argv[1]);       // Number of sumples
-  nthreads = atoi(argv[2]);
-  omp_set_num_threads (nthreads); // Set number of threads
-
-  printf("Number of threads: %2i\n", nthreads);
-
-  t0 = omp_get_wtime();
-  count = 0;
-
-#pragma omp parallel private(i, x, y, z, seed, drand_buf) shared(samples)
-  {
-    seed = 1202107158 + omp_get_thread_num() * 1999;
-    srand48_r (seed, &drand_buf);
+def calc_pi_chunk(args):
+    samples, seed_base, process_id = args
+    count = 0
+    seed = seed_base + process_id * 1999
     
-#pragma omp for reduction(+:count)
-    for (i=0; i<samples; i++) {
-      drand48_r (&drand_buf, &x);
-      drand48_r (&drand_buf, &y);
-      z = x*x + y*y;
-      if ( z <= 1.0 ) count++;
-    }
-  }
+    for i in range(samples):
+        seed, rx = lcg_rand(seed)
+        seed, ry = lcg_rand(seed)
+        x = rx
+        y = ry
+        z = x * x + y * y
+        
+        if z <= 1.0:
+            count += 1
+    
+    return count
 
-  t1 = omp_get_wtime();
-  tf = t1 - t0;
-  
-  // Estimate PI............................................
-  PI =  4.0*count/samples;
+def main():
+    if len(sys.argv) != 3:
+        print("Usage: python mp_pi.py <number_of_samples> <number_of_processes>")
+        sys.exit(1)
+    
+    total_samples = int(sys.argv[1])
+    nprocesses = int(sys.argv[2])
+    
+    samples_per_process = total_samples // nprocesses
+    remainder = total_samples % nprocesses
+    tasks = []
+    base_seed = 1202107158
+    
+    for i in range(nprocesses):
+        chunk_size = samples_per_process + (1 if i < remainder else 0)
+        tasks.append((chunk_size, base_seed, i))
+    
+    t0 = time.perf_counter()
+    with Pool(processes=nprocesses) as pool:
+        results = pool.map(calc_pi_chunk, tasks)
+    
+    total_count = sum(results)
+    tf = time.perf_counter() - t0
+    
+    pi_estimate = 4.0 * total_count / total_samples
+    
+    print(f"Number of processes: {nprocesses:2d}")
+    print(f"Exact value of PI: {math.pi:7.5f}")
+    print(f"Estimate of PI:    {pi_estimate:7.5f}")
+    print(f"Time: {tf:7.2f} sec.")
 
-  printf("Exact value of PI: %7.5f\n", M_PI);
-  printf("Estimate of PI:    %7.5f\n", PI);
-  printf("Time: %7.2f sec.\n\n", tf);
-  return 0;
-}
+if __name__ == "__main__":
+    main()
 ```
 ### Step 2: Create a job submission script 
 
@@ -105,24 +95,24 @@ script to run the program with 1, 2, 4, 8, 16, 32, and 64 OMP threads.
 
 ```bash
 #!/bin/bash
-#SBATCH -J omp_pi
-#SBATCH -o omp_pi.out
-#SBATCH -e omp_pi.err
+#SBATCH -J mp_pi
+#SBATCH -o mp_pi.out
+#SBATCH -e mp_pi.err
 #SBATCH -t 0-00:30
 #SBATCH -p test
 #SBATCH -N 1
-#SBATCH -c 64
+#SBATCH -c 16
 #SBATCH --mem=4G
 
-PRO=omp_pi
+PRO=mp_pi
 
 # --- Load required software modules ---
-module load gcc/14.2.0-fasrc01
+module load python/3.10.13-fasrc01 
 unset OMP_NUM_THREADS
 
 # --- Run program with 1, 2, 4, 8, 16, 32, and 64 OpenMP threads ---
-echo "Number of threads: ${i}"
-srun -c ${SLURM_CPUS_PER_TASK} ./${PRO}.x 1000000000 ${SLURM_CPUS_PER_TASK} > ${PRO}.dat
+echo "Number of threads: ${SLURM_CPUS_PER_TASK}"
+srun -c ${SLURM_CPUS_PER_TASK} python ${PRO}.py 30000000 ${SLURM_CPUS_PER_TASK} > ${PRO}.dat
 ```
 
 ### Step 3: Submit the Job
@@ -136,26 +126,27 @@ sbatch run.sbatch
 
 ### Step 4: Check the job status and output
 
-Upon job completion, the results are recorded in the file `omp_pi.dat`.
+Upon job completion, the results are recorded in the file `mp_pi.dat`.
 You can check the job status with `sacct`, e.g.,
 
 ```bash
-sacct -j 6282602
+sacct -j 6788229
 JobID           JobName  Partition    Account  AllocCPUS      State ExitCode 
 ------------ ---------- ---------- ---------- ---------- ---------- -------- 
-6282602          omp_pi       test   rc_admin          4  COMPLETED      0:0 
-6282602.bat+      batch              rc_admin          4  COMPLETED      0:0 
-6282602.ext+     extern              rc_admin          4  COMPLETED      0:0
+6788229           mp_pi       test   rc_admin         16  COMPLETED      0:0 
+6788229.bat+      batch              rc_admin         16  COMPLETED      0:0 
+6788229.ext+     extern              rc_admin         16  COMPLETED      0:0 
+6788229.0        python              rc_admin         16  COMPLETED      0:0 
 ```
 
 and output with. e.g.,
 
 ```bash
-cat omp_pi.dat
-Number of threads:  4
+cat mp_pi.dat 
+Number of processes: 16
 Exact value of PI: 3.14159
-Estimate of PI:    3.14165
-Time:    2.74 sec.
+Estimate of PI:    3.14145
+Time:    1.18 sec..
 ```
 
 ### Step 5: Speedup figure
@@ -165,13 +156,13 @@ is given below:
 
 ```bash
 cat scaling_results.txt 
- 1 10.92
- 2 5.47
- 4 2.74
- 8 1.37
-16 0.68
-32 0.34
-64 0.17
+ 1 17.49
+ 2 8.90
+ 4 4.41
+ 8 2.23
+16 1.17
+32 0.67
+64 0.41
 ```
 
 This file is used by a Python code, `speedup.py`, to generate the speedup 
@@ -179,7 +170,8 @@ figure `speedup.png`:
 
 ![Speedup](speedup.png)
 
-We see that the program displays an excellent strong scaling up to 64 OMP threads.
+We see that the program displays an excellent strong scaling up to 16 threads, and
+good scaling up to 64 threads.
 
 Below we include the Python code used to calculate the speedup and generate the speedup
 figure, and also an example submission script to send the figure-generating job to the queue.
@@ -275,11 +267,11 @@ Table with the results is given below:
 ```bash
 cat speedup.out 
     Nthreads  Walltime  Speedup  Efficiency (%)
-       1       10.92     1.00      100.00
-       2        5.47     2.00       99.82
-       4        2.74     3.99       99.64
-       8        1.37     7.97       99.64
-      16        0.68    16.06      100.00
-      32        0.34    32.12      100.00
-      64        0.17    64.24      100.00
+       1       17.49     1.00      100.00
+       2        8.90     1.97       98.26
+       4        4.41     3.97       99.15
+       8        2.23     7.84       98.04
+      16        1.17    14.95       93.43
+      32        0.67    26.10       81.58
+      64        0.41    42.66       66.65
 ```
