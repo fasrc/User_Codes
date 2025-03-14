@@ -16,4 +16,4 @@ unset OMP_NUM_THREADS
 
 # --- Run program with 1, 2, 4, 8, 16, 32, and 64 OpenMP threads ---
 echo "Number of threads: ${i}"
-./${PRO}.x 1000000000 ${SLURM_CPUS_PER_TASK} > ${PRO}.dat
+srun -c ${SLURM_CPUS_PER_TASK} ./${PRO}.x 1000000000 ${SLURM_CPUS_PER_TASK} > ${PRO}.dat

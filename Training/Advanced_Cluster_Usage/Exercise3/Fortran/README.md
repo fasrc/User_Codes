@@ -136,7 +136,7 @@ unset OMP_NUM_THREADS
 
 # --- Run program with 1, 2, 4, 8, 16, 32, and 64 OpenMP threads ---
 echo "Number of threads: ${i}"
-./${PRO}.x 1000000000 ${SLURM_CPUS_PER_TASK} > ${PRO}.dat
+srun -c ${SLURM_CPUS_PER_TASK} ./${PRO}.x 1000000000 ${SLURM_CPUS_PER_TASK} > ${PRO}.dat
 ```
 
 ### Step 3: Submit the Job
@@ -154,22 +154,23 @@ Upon job completion, the results are recorded in the file `omp_pi.dat`.
 You can check the job status with `sacct`, e.g.,
 
 ```bash
-sacct -j 6534305
+sacct -j 6836205
 JobID           JobName  Partition    Account  AllocCPUS      State ExitCode 
 ------------ ---------- ---------- ---------- ---------- ---------- -------- 
-6534305          omp_pi       test   rc_admin          4  COMPLETED      0:0 
-6534305.bat+      batch              rc_admin          4  COMPLETED      0:0 
-6534305.ext+     extern              rc_admin          4  COMPLETED      0:0 
+6836205          omp_pi       test   rc_admin          4  COMPLETED      0:0 
+6836205.bat+      batch              rc_admin          4  COMPLETED      0:0 
+6836205.ext+     extern              rc_admin          4  COMPLETED      0:0 
+6836205.0      omp_pi.x              rc_admin          4  COMPLETED      0:0
 ```
 
 and output with. e.g.,
 
 ```bash
-cat omp_pi.dat
+cat omp_pi.dat 
 Number of threads:  4
 Exact value of PI: 3.14159
 Estimate of PI:    3.14158
-Time:    6.18 sec.
+Time:    6.23 sec.
 ```
 
 ### Step 5: Speedup figure

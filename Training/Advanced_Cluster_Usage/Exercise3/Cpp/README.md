@@ -8,7 +8,7 @@ This is a C++ implementation.
 
 ## Contents:
 
-* <code>omp_pi.c</code>: C++ source code
+* <code>omp_pi.cpp</code>: C++ source code
 * <code>Makefile</code>: Makefile to compile the code
 * <code>run.sbatch</code>: Batch-job submission script
 * <code>scaling_results.txt</code>: Scaling results / Timing
@@ -128,7 +128,7 @@ unset OMP_NUM_THREADS
 
 # --- Run program with 1, 2, 4, 8, 16, 32, and 64 OpenMP threads ---
 echo "Number of threads: ${i}"
-./${PRO}.x 100000000 ${SLURM_CPUS_PER_TASK} > ${PRO}.dat
+srun -c ${SLURM_CPUS_PER_TASK} ./${PRO}.x 1000000000 ${SLURM_CPUS_PER_TASK} > ${PRO}.dat
 ```
 
 ### Step 3: Submit the Job
@@ -157,11 +157,11 @@ JobID           JobName  Partition    Account  AllocCPUS      State ExitCode
 and output with. e.g.,
 
 ```bash
-cat omp_pi.dat
-Number of threads: 16
+cat omp_pi.dat 
+Number of threads: 4
 Exact value of PI: 3.14159
-Estimate of PI:    3.14161
-Time: 0.77 sec.
+Estimate of PI:    3.14165
+Time: 4.94 sec.
 ```
 
 ### Step 5: Speedup figure
