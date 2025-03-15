@@ -1,97 +1,121 @@
 # Exercise 3: Scaling - OpenMP 
 
 This example illustrates evaluating the speedup of parallel applications. 
-The specific example is a Python implementation of a Monte-Carlo algorithm for 
-calculating $\pi$ in parallel using `multiprocessing`. We will run the program on 1, 2, 4, 8, 16, 32, and 64 parallel processes, calculate the speedup and create a speedup figure.
+The specific example is a R implementation of a Monte-Carlo algorithm for 
+calculating $\pi$ in parallel using the `parallel` R package. We will run the program on 1, 2, 4, 8, 16, 32, and 64 parallel processes, calculate the speedup and create a speedup figure.
 
 ## Contents:
 
-* <code>mp_pi.py</code>: Python source code
+* <code>mp_pi.R</code>: R source code
 * <code>run.sbatch</code>: Batch-job submission script
 * <code>scaling_results.txt</code>: Scaling results / Timing
 * <code>speedup.py</code>: Python code to generate speedup figure
 * <code>speedup.png</code>: Speedup figure
 
-### Step 1: Review the Python source code
+### Step 1: Review the R source code
 
-The Python source code `mp_pi.py` is included below:
+The R source code `mp_pi.py` is included below:
 
-```python
-#!/usr/bin/env python3
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Program: mp_pi.py
-#          Parallel Monte-Carlo algorithm for calculating PI using multiprocessing
-#          Translated from omp_pi.c
-#
-# Usage:   python mp_pi.py <number_of_samples> <number_of_processes>
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-import sys
-import math
-import time
-from multiprocessing import Pool
+```r
+#!/usr/bin/env Rscript
 
-def lcg_rand(seed):
-    a = 69069
-    c = 1
-    m = 2147483647
-    seed = (a * seed + c) % m
-    return seed, float(seed) / m
+# Program: mp_pi.R
+# Parallel Monte-Carlo PI calculation using R's parallel package
 
-def calc_pi_chunk(args):
-    samples, seed_base, process_id = args
-    count = 0
-    seed = seed_base + process_id * 1999
-    
-    for i in range(samples):
-        seed, rx = lcg_rand(seed)
-        seed, ry = lcg_rand(seed)
-        x = rx
-        y = ry
-        z = x * x + y * y
-        
-        if z <= 1.0:
-            count += 1
-    
-    return count
+# Function to generate random numbers using LCG
+lcg_rand <- function(seed) {
+  a <- 69069
+  c <- 1
+  m <- 2147483647
+  seed <- (a * seed + c) %% m
+  return(list(seed = seed, value = seed / m))
+}
 
-def main():
-    if len(sys.argv) != 3:
-        print("Usage: python mp_pi.py <number_of_samples> <number_of_processes>")
-        sys.exit(1)
+# Function to calculate PI for a chunk of samples
+calc_pi_chunk <- function(args) {
+  samples <- args$samples
+  seed_base <- args$seed_base
+  pid <- args$pid
+  
+  count <- 0
+  seed <- seed_base + pid * 1999
+  
+  for (i in 1:samples) {
+    result <- lcg_rand(seed)
+    seed <- result$seed
+    x <- result$value
     
-    total_samples = int(sys.argv[1])
-    nprocesses = int(sys.argv[2])
+    result <- lcg_rand(seed)
+    seed <- result$seed
+    y <- result$value
     
-    samples_per_process = total_samples // nprocesses
-    remainder = total_samples % nprocesses
-    tasks = []
-    base_seed = 1202107158
-    
-    for i in range(nprocesses):
-        chunk_size = samples_per_process + (1 if i < remainder else 0)
-        tasks.append((chunk_size, base_seed, i))
-    
-    t0 = time.perf_counter()
-    with Pool(processes=nprocesses) as pool:
-        results = pool.map(calc_pi_chunk, tasks)
-    
-    total_count = sum(results)
-    tf = time.perf_counter() - t0
-    
-    pi_estimate = 4.0 * total_count / total_samples
-    
-    print(f"Number of processes: {nprocesses:2d}")
-    print(f"Exact value of PI: {math.pi:7.5f}")
-    print(f"Estimate of PI:    {pi_estimate:7.5f}")
-    print(f"Time: {tf:7.2f} sec.")
+    z <- x * x + y * y
+    if (z <= 1) count <- count + 1
+  }
+  
+  return(count)
+}
 
-if __name__ == "__main__":
-    main()
+# Main function
+main <- function() {
+  # Parse command-line arguments
+  args <- commandArgs(trailingOnly = TRUE)
+  if (length(args) != 2) {
+    cat("Usage: Rscript mp_pi.R <number_of_samples> <number_of_processes>\n")
+    quit(status = 1)
+  }
+  
+  total_samples <- as.integer(args[1])
+  nprocesses <- as.integer(args[2])
+  
+  # Set up parallel cluster
+  library(parallel)
+  cl <- makeCluster(nprocesses)
+  
+  # Split samples across processes
+  samples_per_proc <- total_samples %/% nprocesses
+  remainder <- total_samples %% nprocesses
+  tasks <- list()
+  base_seed <- 1202107158
+  
+  for (i in 1:nprocesses) {
+    chunk_size <- samples_per_proc + (if (i <= remainder) 1 else 0)
+    tasks[[i]] <- list(samples = chunk_size, seed_base = base_seed, pid = i - 1)
+  }
+  
+  # Timing start
+  t0 <- Sys.time()
+  
+  # Export functions to cluster
+  clusterExport(cl, c("lcg_rand", "calc_pi_chunk"))
+  
+  # Run in parallel
+  results <- parLapply(cl, tasks, calc_pi_chunk)
+  
+  # Stop cluster
+  stopCluster(cl)
+  
+  # Combine results
+  total_count <- sum(unlist(results))
+  tf <- as.numeric(Sys.time() - t0, units = "secs")
+  
+  # Estimate PI
+  pi_estimate <- 4.0 * total_count / total_samples
+  
+  # Output results
+  cat(sprintf("Number of processes: %2d\n", nprocesses))
+  cat(sprintf("Exact value of PI: %.5f\n", pi))
+  cat(sprintf("Estimate of PI:    %.5f\n", pi_estimate))
+  cat(sprintf("Time: %.2f sec.\n", tf))
+}
+
+# Execute main
+main()
 ```
 ### Step 2: Create a job submission script 
 
 Below is an example batch-job submission script for this exercise. Use this
-script to run the program with 1, 2, 4, 8, 16, 32, and 64 OMP threads. 
+script to run the program with 1, 2, 4, 8, 16, 32, and 64 parallel processes. 
 
 ```bash
 #!/bin/bash
@@ -101,18 +125,18 @@ script to run the program with 1, 2, 4, 8, 16, 32, and 64 OMP threads.
 #SBATCH -t 0-00:30
 #SBATCH -p test
 #SBATCH -N 1
-#SBATCH -c 16
+#SBATCH -c 2
 #SBATCH --mem=4G
 
 PRO=mp_pi
 
 # --- Load required software modules ---
-module load python/3.10.13-fasrc01 
+module load R/4.4.3-fasrc01
 unset OMP_NUM_THREADS
 
 # --- Run program with 1, 2, 4, 8, 16, 32, and 64 OpenMP threads ---
 echo "Number of threads: ${SLURM_CPUS_PER_TASK}"
-srun -c ${SLURM_CPUS_PER_TASK} python ${PRO}.py 30000000 ${SLURM_CPUS_PER_TASK} > ${PRO}.dat
+srun -c ${SLURM_CPUS_PER_TASK} Rscript ${PRO}.R 10000000  ${SLURM_CPUS_PER_TASK} > ${PRO}.dat
 ```
 
 ### Step 3: Submit the Job
@@ -130,13 +154,12 @@ Upon job completion, the results are recorded in the file `mp_pi.dat`.
 You can check the job status with `sacct`, e.g.,
 
 ```bash
-sacct -j 6788229
 JobID           JobName  Partition    Account  AllocCPUS      State ExitCode 
 ------------ ---------- ---------- ---------- ---------- ---------- -------- 
-6788229           mp_pi       test   rc_admin         16  COMPLETED      0:0 
-6788229.bat+      batch              rc_admin         16  COMPLETED      0:0 
-6788229.ext+     extern              rc_admin         16  COMPLETED      0:0 
-6788229.0        python              rc_admin         16  COMPLETED      0:0 
+6856431           mp_pi       test   rc_admin         16  COMPLETED      0:0 
+6856431.bat+      batch              rc_admin         16  COMPLETED      0:0 
+6856431.ext+     extern              rc_admin         16  COMPLETED      0:0 
+6856431.0       Rscript              rc_admin         16  COMPLETED      0:0
 ```
 
 and output with. e.g.,
@@ -145,8 +168,8 @@ and output with. e.g.,
 cat mp_pi.dat 
 Number of processes: 16
 Exact value of PI: 3.14159
-Estimate of PI:    3.14145
-Time:    1.18 sec.
+Estimate of PI:    3.14012
+Time: 1.83 sec.
 ```
 
 ### Step 5: Speedup figure
@@ -156,13 +179,13 @@ is given below:
 
 ```bash
 cat scaling_results.txt 
- 1 17.49
- 2 8.90
- 4 4.41
- 8 2.23
-16 1.17
-32 0.67
-64 0.41
+ 1 19.25
+ 2 9.70
+ 4 5.17
+ 8 2.73
+16 1.48
+32 0.80
+64 0.46
 ```
 
 This file is used by a Python code, `speedup.py`, to generate the speedup 
@@ -267,11 +290,11 @@ Table with the results is given below:
 ```bash
 cat speedup.out 
     Nthreads  Walltime  Speedup  Efficiency (%)
-       1       17.49     1.00      100.00
-       2        8.90     1.97       98.26
-       4        4.41     3.97       99.15
-       8        2.23     7.84       98.04
-      16        1.17    14.95       93.43
-      32        0.67    26.10       81.58
-      64        0.41    42.66       66.65
+       1       19.25     1.00      100.00
+       2        9.70     1.98       99.23
+       4        5.17     3.72       93.09
+       8        2.73     7.05       88.14
+      16        1.48    13.01       81.29
+      32        0.80    24.06       75.20
+      64        0.46    41.85       65.39
 ```

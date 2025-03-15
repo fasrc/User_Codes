@@ -11,9 +11,9 @@
 PRO=mp_pi
 
 # --- Load required software modules ---
-module load python/3.10.13-fasrc01 
+module load R/4.4.3-fasrc01
 unset OMP_NUM_THREADS
 
 # --- Run program with 1, 2, 4, 8, 16, 32, and 64 OpenMP threads ---
 echo "Number of threads: ${SLURM_CPUS_PER_TASK}"
-srun -c ${SLURM_CPUS_PER_TASK} python ${PRO}.py 30000000 ${SLURM_CPUS_PER_TASK} > ${PRO}.dat
+srun -c ${SLURM_CPUS_PER_TASK} Rscript ${PRO}.R 10000000  ${SLURM_CPUS_PER_TASK} > ${PRO}.dat
