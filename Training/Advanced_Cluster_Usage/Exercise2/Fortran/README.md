@@ -1,4 +1,4 @@
-# Exercise 1: Job Efficiency - Memory per CPU/core ( `--mem-per-cpu` )
+# Exercise 2: Job Efficiency - Memory per CPU/core ( `--mem-per-cpu` )
 
 We use a Fortran code, `omp_mem_test.f90`, to generate a random matrix of dimension 60,000. Using `double precision`, the program needs ~28.8 GB of memory (since, 
 60000 x 60000 x 8 bytes = 28,800,000,000 bytes)  to execute successfully. We use OpenMP to parallelize the creation of the random matrix. The specific example uses 2 OMP threads. The purpose of this exercise is to illustrate requesting the memory via the `--mem-per-cpu` option.

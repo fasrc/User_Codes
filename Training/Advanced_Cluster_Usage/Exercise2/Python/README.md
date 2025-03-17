@@ -1,4 +1,4 @@
-# Exercise 1: Job Efficiency - Memory per CPU/core ( `--mem-per-cpu` )
+# Exercise 2: Job Efficiency - Memory per CPU/core ( `--mem-per-cpu` )
 
 We use a Python code, `mp_mem_test.py`, to generate a random matrix of dimension 30,000 in parallel via the `threading` Python package. The specific example uses 2 threads.  
 

@@ -1,4 +1,4 @@
-# Exercise 1: Job Efficiency - Memory per CPU/core ( `--mem-per-cpu` )
+# Exercise 2: Job Efficiency - Memory per CPU/core ( `--mem-per-cpu` )
 
 We use a C++ code, `omp_mem_test.cpp`, to generate a random matrix of dimension 60,000. 
 Using `double precision`, the program needs ~28.8 GB of memory (since, 
