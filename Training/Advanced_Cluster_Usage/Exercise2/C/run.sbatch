@@ -6,7 +6,7 @@
 #SBATCH -N 1
 #SBATCH -c 2
 #SBATCH -t 30
-#SBATCH --mem-per-cpu=14G 
+#SBATCH --mem-per-cpu=10G 
 
 # Load required modules
 module load gcc/14.2.0-fasrc01
