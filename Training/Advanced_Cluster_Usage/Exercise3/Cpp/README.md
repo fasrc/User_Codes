@@ -204,12 +204,13 @@ import matplotlib as mpl
 mpl.rcParams['xtick.labelsize'] = 17
 mpl.rcParams['ytick.labelsize'] = 17
 
-with open('scaling_results.txt','r') as f: 
-     nproc,walltime = zip(*[ (int(i.strip().split(' ')[0]),float(i.strip().split(' ')[1])) for i in f.readlines()])
+# Get data
+infile = "scaling_results.txt"
+darr = np.loadtxt(infile, skiprows=0)
+nproc    = darr[:,0]
+walltime = darr[:,1]
 
-nproc      = list(nproc)
-walltime   = list(walltime)
-
+# Compute speedup and parallel efficiency
 speedup = []
 efficiency = []
 for i in range(len(walltime)):
@@ -224,7 +225,7 @@ for i in range(len(walltime)):
     print ("%8d %11.2f %8.2f %11.2f" % \
         (nproc[i], walltime[i], speedup[i], efficiency[i]))
     
-
+# Speedup figure
 fig, ax = plt.subplots(figsize=(8,6))
 p1 = plt.plot(nproc, nproc, linewidth = 2.0, color="black",
         linestyle='-', label='Ideal speedup')
@@ -237,16 +238,8 @@ plt.legend(fontsize=15,loc=2)
 plt.savefig('speedup.png', format='png')
 ```
 
-> **NOTE:** To generate the scaling figure, you will need to load a Python 
-module and activate a `conda` environment, e.g., `python-3.10_env`, 
-(see below) containing the `numpy` and `matplotlib` packages.
-
-Below is an example `conda` environment, e.g.,
-
-```bash
-module load python/3.10.13-fasrc01
-mamba create -n python-3.10_env python=3.10 pip wheel numpy scipy matplotlib pandas seaborn h5py
-```
+> **NOTE:** To generate the scaling figure, you will need to load a Python
+module and activate a `conda` environment, e.g., `speedup_env`, containing the `numpy` and `matplotlib` packages. If not already, please create the `speedup_env` conda environment.
 
 **Submission script for the figure-generating job:**
 
@@ -261,8 +254,8 @@ mamba create -n python-3.10_env python=3.10 pip wheel numpy scipy matplotlib pan
 #SBATCH --mem=4G
 
 # --- Set up environment ---
-module load python/3.10.13-fasrc01
-source activate python-3.10_env
+module load python/3.12.8-fasrc01
+source activate speedup_env 
 
 # --- Run the python code speedup.py ---
 python speedup.py

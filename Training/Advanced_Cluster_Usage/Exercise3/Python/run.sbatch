@@ -11,7 +11,7 @@
 PRO=mp_pi
 
 # --- Load required software modules ---
-module load python/3.10.13-fasrc01 
+module load python/3.12.8-fasrc01 
 unset OMP_NUM_THREADS
 
 # --- Run program with 1, 2, 4, 8, 16, 32, and 64 OpenMP threads ---

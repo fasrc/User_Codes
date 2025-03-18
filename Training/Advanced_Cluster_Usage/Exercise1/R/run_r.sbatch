@@ -9,7 +9,7 @@
 #SBATCH --mem=3G 
 
 # Load required modules
-module load R/4.4.1-fasrc01
+module load R/4.4.3-fasrc01
 
 # Run the code
 srun -n 1 -c 1 Rscript mem_test.R

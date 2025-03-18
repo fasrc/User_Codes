@@ -6,7 +6,7 @@ We use a R code, `mem_test.R`, to generate a random matrix of dimension 20,000.
 To run the code we need to load one of the available R modules, e.g.,
 
 ```bash
-module load R/4.4.1-fasrc01
+module load R/4.4.3-fasrc01
 ```
 
  The R source code used in this example  is included  below:
@@ -66,7 +66,7 @@ actually needs:
 #SBATCH --mem=3G 
 
 # Load required modules
-module load R/4.4.1-fasrc01
+module load R/4.4.3-fasrc01
 
 # Run the code
 srun -n 1 -c 1 Rscript mem_test.R

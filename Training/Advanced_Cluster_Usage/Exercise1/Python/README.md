@@ -6,7 +6,7 @@ We use a Python code, `mem_test.py`, to generate a random matrix of dimension 30
 To run the code we need to load one of the available Python modules, e.g.,
 
 ```bash
-module load python/3.12.5-fasrc01
+module load python/3.12.8-fasrc01
 ```
 
  The Python source code used in this example  is included  below:
@@ -66,7 +66,7 @@ actually needs:
 #SBATCH --mem=20G 
 
 # Load required modules
-module load python/3.12.5-fasrc01 
+module load python/3.12.8-fasrc01
 
 # Run the code
 srun -n 1 -c 1 python mem_test.py

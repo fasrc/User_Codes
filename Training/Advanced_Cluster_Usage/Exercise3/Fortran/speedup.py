@@ -10,12 +10,13 @@ import matplotlib as mpl
 mpl.rcParams['xtick.labelsize'] = 17
 mpl.rcParams['ytick.labelsize'] = 17
 
-with open('scaling_results.txt','r') as f: 
-     nproc,walltime = zip(*[ (int(i.strip().split(' ')[0]),float(i.strip().split(' ')[1])) for i in f.readlines()])
+# Get data
+infile = "scaling_results.txt"
+darr = np.loadtxt(infile, skiprows=0)
+nproc    = darr[:,0]
+walltime = darr[:,1]
 
-nproc      = list(nproc)
-walltime   = list(walltime)
-
+# Compute speedup and parallel efficiency
 speedup = []
 efficiency = []
 for i in range(len(walltime)):
@@ -30,7 +31,7 @@ for i in range(len(walltime)):
     print ("%8d %11.2f %8.2f %11.2f" % \
         (nproc[i], walltime[i], speedup[i], efficiency[i]))
     
-
+# Speedup figure
 fig, ax = plt.subplots(figsize=(8,6))
 p1 = plt.plot(nproc, nproc, linewidth = 2.0, color="black",
         linestyle='-', label='Ideal speedup')
@@ -41,4 +42,3 @@ plt.ylabel('Speedup', fontsize=20)
 plt.legend(fontsize=15,loc=2)
 
 plt.savefig('speedup.png', format='png')
-#plt.show()
