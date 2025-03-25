@@ -1,6 +1,10 @@
 ## Python
 <img src="Images/python-logo.png" alt="Python-logo" width="150"/>
 
+For general information on the Python Programing Language at FASRC and Cannon, we have several entries on User Docs: 
+* [Python Programming Language](https://docs.rc.fas.harvard.edu/kb/python/)
+* [Python Package Management](https://docs.rc.fas.harvard.edu/kb/python-package-installation/)
+
 ### Purpose:
 
 Examples of using Python on the Harvard University FAS cluster.  Feel free to contribute new examples.
