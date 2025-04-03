@@ -2,15 +2,14 @@
 #SBATCH -J mpi_IO_test1
 #SBATCH -o mpi_IO_test1.out
 #SBATCH -e mpi_IO_test1.err
-#SBATCH -p general
+#SBATCH -p test
 #SBATCH -t 30
 #SBATCH -n 8
 #SBATCH --mem-per-cpu=4000
 
-# Load required modules
-source new-modules.sh
-module load intel/15.0.0-fasrc01
-module load openmpi/1.8.3-fasrc02
+# --- Load required modules ---
+module load intel/25.0.1-fasrc01
+module load openmpi/5.0.5-fasrc01
 
-# Run program
-srun -n 8 --mpi=pmi2 .mpi_IO_test1.x
+# --- Run program ---
+srun -n 8 --mpi=pmix ./mpi_IO_test1.x
