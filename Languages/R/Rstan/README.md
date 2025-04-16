@@ -1,6 +1,6 @@
 # RStan
 
-The below steps outline how to setup `Rstan` on your environment on the FASRC Cannon cluster.
+The below steps outline how to setup `Rstan` in your environment on the FASRC Cannon cluster.
 
 * Load required software modules and set up a local `R` library. 
 
