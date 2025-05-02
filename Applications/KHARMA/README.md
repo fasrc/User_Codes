@@ -134,6 +134,7 @@ From: nvidia/cuda:12.2.0-devel-ubuntu22.04
     echo ">>> Building OpenMPI 5.0.5 with CUDA and UCX"
     cd /tmp
     rm -rf openmpi-5.0.5 openmpi-5.0.5.tar.gz
+    apt-get update && apt-get install -y build-essential libnuma-dev
     wget https://download.open-mpi.org/release/open-mpi/v5.0/openmpi-5.0.5.tar.gz
     tar -xzf openmpi-5.0.5.tar.gz
     cd openmpi-5.0.5
@@ -201,7 +202,7 @@ EOF
 Build the container with:
 
 ```bash
-sudo singularity build kharma_v2.sif kharma_v2.def
+singularity build --fakeroot kharma_v2.sif kharma_v2.def
 ```
 
 This will generate the Singularity image `kharma_v2.sif`
