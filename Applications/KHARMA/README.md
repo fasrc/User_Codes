@@ -287,9 +287,21 @@ export OMP_PROC_BIND=spread
 export OMP_PLACES=threads
 export KOKKOS_NUM_DEVICES=1
 
-srun -n 8 --mpi=pmix singularity exec --nv ../KHARMA/Image/kharma_v2.sif /opt/kharma/kharma.cuda  -i ./par/mad.par4
+srun -n 8 --mpi=pmix singularity exec --nv /n/singularity_images/FAS/KHARMA/kharma_v2.sif /opt/kharma/kharma.cuda  -i ./par/mad.par4
 ```
 >**Note:** It is important to notice that you need to a MPI module matching the MPI flavor and version inside the container. This is required for running MPI apps with Singularity.
+
+In this example we also use a Singularity image located at
+
+```
+/n/singularity_images/FAS/KHARMA/kharma_v2.sif
+```
+
+Alternatively, one can use a local Singularity image, e.g.,
+
+```
+../KHARMA/Image/kharma_v2.sif
+```
 
 The above job-submission scripts assume that you have a KHARMA parameter file in the working directory, e.g.,
 
