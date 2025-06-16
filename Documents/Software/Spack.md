@@ -13,29 +13,34 @@ These instructions are intended to guide you on how to use Spack on the FAS RC C
 ## Install and Setup
 
 Spack works out of the box. Simply clone Spack to get going. In this example, we will clone the latest version of Spack.
-> **Note:** <code>Spack</code> can be installed in your home or lab space. For best performance and efficiency, we recommend to install Spack in your lab directory, e.g., <code>/n/holylabs/LABS/<PI_LAB>/Lab/software</code> or other lab storage if holylabs is not available.
+> **Note:** <code>Spack</code> can be installed in your home or lab space. For best performance and efficiency, we recommend to install Spack in your lab directory, e.g., <code>/n/holylabs/<PI_LAB>/Lab/software</code> or other lab storage if holylabs is not available.
 
 ```bash
 $ git clone -c feature.manyFiles=true https://github.com/spack/spack.git
 Cloning into 'spack'...
-remote: Enumerating objects: 19108, done.
-remote: Counting objects: 100% (19108/19108), done.
-remote: Compressing objects: 100% (10461/10461), done.
-remote: Total 19108 (delta 2000), reused 13700 (delta 1592), pack-reused 0
-Receiving objects: 100% (19108/19108), 12.63 MiB | 25.17 MiB/s, done.
-Resolving deltas: 100% (2000/2000), done.
+remote: Enumerating objects: 686304, done.
+remote: Counting objects: 100% (1134/1134), done.
+remote: Compressing objects: 100% (560/560), done.
+remote: Total 686304 (delta 913), reused 573 (delta 569), pack-reused 685170 (from 5)
+Receiving objects: 100% (686304/686304), 231.28 MiB | 43.53 MiB/s, done.
+Resolving deltas: 100% (325977/325977), done.
+Updating files: 100% (1709/1709), done.
 ```
 
 This will create the <code>spack</code> folder in the current directory. Next, go to this directory and add Spack to your path. Spack has some nice command-line integration tools, so instead of simply appending to your <code>PATH</code> variable, source the Spack setup script.
 
 ```bash
 $ cd spack/
-$ . share/spack/setup-env.sh
+$ source share/spack/setup-env.sh
 $ spack --version
-0.21.0.dev0 (89fc9a9d47108c5d34f3f5180eb10d5253689c29)
+1.0.0.dev0 (3b00a98cc8e8c1db33453d564f508928090be5a0)
 ```
+
+Your version is likely different because Spack updates their Github often.
+
 ### Group Permissions
-By default Spack will match your usual file permissions which typically are set up without group write permission. For lab wide installs of Spack though you will want to ensure that it has [group write enforced](https://spack.readthedocs.io/en/latest/build_settings.html#package-permissions). You can set this by going to the <code>etc/spack</code> directory in your Spack installation and adding a file called <code>packages.yaml</code> (or editing the exiting one) with the following contents:
+
+By default, Spack will match your usual file permissions which typically are set up without group write permission. For lab wide installs of Spack though, you will want to ensure that it has [group write enforced](https://spack.readthedocs.io/en/latest/build_settings.html#package-permissions). You can set this by going to the <code>etc/spack</code> directory in your Spack installation and adding a file called <code>packages.yaml</code> (or editing the exiting one) with the following contents. Example for the `jharvard_lab` (substitute `jharvard_lab` with your own lab):
 
 ```yaml
 packages:
@@ -44,14 +49,16 @@ packages:
       write: group
       group: jharvard_lab
 ```
+
 ### Default Architecture
-By default Spack will autodetect which architecture your underlying hardware is and build software to match that. However in cases where you are running on heterogeneous hardware it is best to use a more [generic flag](https://spack.readthedocs.io/en/latest/build_settings.html#package-preferences). You can set this by going to the <code>etc/spack</code> directory in your Spack installation and adding a file called <code>packages.yaml</code> (or editing the exiting one) with the following contents:
+By default, Spack will autodetect the architecture of your underlying hardware and build software to match it. However, in cases where you are running on heterogeneous hardware, it is best to use a more [generic flag](https://spack.readthedocs.io/en/latest/build_settings.html#package-preferences). You can set this by editing the file `etc/spack/packages.yaml` located inside the `spack` folder (if you don't have the file `etc/spack/packages.yaml`, you can create it). Add the following contents:
 
 ```yaml
 packages:
   all:
     target: [x86_64]
 ```
+
 ### Relocating Spack
 Once your Spack environment has been installed it cannot be easily moved. Some of the packages in Spack hardcode the absolute paths into themselves and thus cannot be changed with out rebuilding them. As such simply copying the Spack installation will not actually move the Spack installation.
 
@@ -205,6 +212,44 @@ automake@1.16.1  coreutils@8.30     diffutils@3.6  gawk@4.2.1       gmake@4.2.1 
 
 This even works with modules loaded from other package managers.  You simply have to have those loaded prior to running the [find](https://spack.readthedocs.io/en/latest/build_settings.html#automatically-find-external-packages) command. After these have been added to Spack, Spack will try to use them if it can in future builds rather than installing its own versions.
 
+### Using an Lmod module in Spack
+
+Use your favorite text editor, e.g., <code>Vim</code>, <code>Emacs</code>,<code>VSCode</code>, etc., to edit the [package configuration](https://spack.readthedocs.io/en/latest/packages_yaml.html#package-settings-packages-yaml) YAML file <code>~/.spack/packages.yaml</code>, e.g.,
+
+```bash
+vi ~/.spack/packages.yaml
+```
+
+Each package section in this file is similar to the below:
+
+```bash
+packages:
+  package1:
+    # settings for package1
+  package2:
+    # settings for package2
+  fftw:
+    externals:
+    - spec: fftw@3.3.10
+      prefix: /n/sw/helmod-rocky8/apps/MPI/gcc/14.2.0-fasrc01/openmpi/5.0.5-fasrc01/fftw/3.3.10-fasrc01
+    buildable: false
+```
+
+To obtain the `prefix` of a module that will be used in Spack, find the module's `<MODULENAME>_HOME`.
+
+Let's say you would like to use `fftw/3.3.10-fasrc01` module instead of building it with Spack. You can find its `<MODULENAME>_HOME` with:
+
+```
+$ echo $FFTW_HOME
+/n/sw/helmod-rocky8/apps/MPI/gcc/14.2.0-fasrc01/openmpi/5.0.5-fasrc01/fftw/3.3.10-fasrc01
+```
+
+Alernatively, you can find `<MODULENAME>_HOME` with
+
+```
+$ module display fftw/3.3.10-fasrc01
+```
+
 ## Uninstalling Packages
 
 Spack provides an easy way to uninstall packages with the <code>spack uninstall PACKAGE_NAME</code>, e.g.,
@@ -274,10 +319,10 @@ $ which gcc
 
 ```bash
 $ spack compiler find
-==> Added 1 new compiler to ~/.spack/linux/compilers.yaml
+==> Added 1 new compiler to ~/.spack/packages.yaml
     gcc@12.2.0
 ==> Compilers are defined in the following files:
-    ~/.spack/linux/compilers.yaml
+    ~/.spack/packages.yaml
 ```
 If you run <code>spack compilers</code> again, you will see that the new compiler has been added to the compiler list and made a default (listed first), e.g.,
 
@@ -292,10 +337,10 @@ gcc@12.2.0  gcc@8.5.0
 
 * ### Edit manually the compiler configuration file
 
-Use your favorite text editor, e.g., <code>Vim</code>, <code>Emacs</code>,<code>VSCode</code>, etc., to edit the compiler configuration YAML file <code>~/.spack/linux/compilers.yaml</code>, e.g.,
+Use your favorite text editor, e.g., <code>Vim</code>, <code>Emacs</code>,<code>VSCode</code>, etc., to edit the compiler configuration YAML file <code>~/.spack/packages.yaml</code>, e.g.,
 
 ```bash
-vi ~/.spack/linux/compilers.yaml
+vi ~/.spack/packages.yaml
 ```
 Each <code>-compiler:</code> section in this file is similar to the below:
 
@@ -374,14 +419,14 @@ gsl@2.7.1
 
 Many HPC software packages work in parallel using MPI. Although <code>spack</code> has the ability to install MPI libraries from scratch, the recommended way is to configure <code>spack</code> to use  MPI already available on the cluster as software modules, instead of building its own MPI libraries. 
 
-MPI is configured through the <code>packages.yaml</code> file. For instance, if we need <code>OpenMPI</code> version 4.1.3 compiled with <code>GCC</code> version 12, we could follow the below steps to add this MPI configuration:
+MPI is configured through the <code>packages.yaml</code> file. For instance, if we need <code>OpenMPI</code> version 5.0.5 compiled with <code>GCC</code> version 12, we could follow the below steps to add this MPI configuration:
 
 ### Determine the MPI location / prefix
 
 ```bash
-$ module load gcc/12.2.0-fasrc01 openmpi/4.1.5-fasrc03
+$ module load gcc/12.2.0-fasrc01 openmpi/5.0.5-fasrc02
 $ echo $MPI_HOME
-/n/sw/helmod-rocky8/apps/Comp/gcc/12.2.0-fasrc01/openmpi/4.1.5-fasrc03
+/n/sw/helmod-rocky8/apps/Comp/gcc/12.2.0-fasrc01/openmpi/5.0.5-fasrc02
 ```
 
 ### Edit manually the packages configuration file
@@ -399,17 +444,17 @@ Include the following contents:
 packages:
   openmpi:
     externals:
-    - spec: openmpi@4.1.5%gcc@12.2.0
-      prefix: /n/sw/helmod-rocky8/apps/Comp/gcc/12.2.0-fasrc01/openmpi/4.1.5-fasrc03
+    - spec: openmpi@5.0.5%gcc@12.2.0
+      prefix: /n/sw/helmod-rocky8/apps/Comp/gcc/12.2.0-fasrc01/openmpi/5.0.5-fasrc02
     buildable: False
 ```
 The option <code>buildable: False</code> reassures that MPI won't be built from source. Instead, <code>spack</code> will use the MPI provided as a software module in the corresponding prefix.
 
-Once the MPI is configured, it can be used to build packages. The below example shows how to install <code>HDF5</code> version 1.12.2  with <code>openmpi@4.1.4</code> and <code>gcc@12.2.0</code>.
+Once the MPI is configured, it can be used to build packages. The below example shows how to install <code>HDF5</code> version 1.12.2  with <code>openmpi@5.0.5</code> and <code>gcc@12.2.0</code>.
 
 ```bash
 $ module purge
-$ spack install hdf5@1.12.2 % gcc@12.2.0 ^ openmpi@4.1.5
+$ spack install hdf5@1.12.2 % gcc@12.2.0 ^ openmpi@5.0.5
 ...
 ==> Installing hdf5-1.12.2-lfmo7dvzrgmu35mt74zqjz2mfcwa2urb
 ==> No binary for hdf5-1.12.2-lfmo7dvzrgmu35mt74zqjz2mfcwa2urb found: installing from source
@@ -429,7 +474,7 @@ $ spack load hdf5@1.12.2%gcc@12.2.0
 $ spack find --loaded
 -- linux-rocky8-icelake / gcc@12.2.0 ----------------------------
 berkeley-db@18.1.40  ca-certificates-mozilla@2022-10-11  diffutils@3.8  hdf5@1.12.2    ncurses@6.3    openssl@1.1.1s  pkgconf@1.8.0   zlib@1.2.13
-bzip2@1.0.8          cmake@3.24.3                        gdbm@1.23      libiconv@1.16  openmpi@4.1.4  perl@5.36.0     readline@8.1.2
+bzip2@1.0.8          cmake@3.24.3                        gdbm@1.23      libiconv@1.16  openmpi@5.0.5  perl@5.36.0     readline@8.1.2
 ==> 15 loaded packages
 ```
 
@@ -466,7 +511,7 @@ See build log for details:
   /tmp/jharvard
 	/spack-stage/spack-stage-nvhpc-22.7-iepk6vgndc7hmzs3evxqz6qw2vf6qt7s/spack-build-out.txt
 ```
-In this error the compiler cannot find a library it is dependent on <code>mpfr</code>.  To fix this we will need to add the relevant library to the compiler definition in <code>~/.spack/linux/compilers.yaml</code>. In this case we are using <code>gcc/10.2.0-fasrc01</code> which when loaded also loads:
+In this error the compiler cannot find a library it is dependent on <code>mpfr</code>.  To fix this we will need to add the relevant library to the compiler definition in <code>~/.spack/packages.yaml</code>. In this case we are using <code>gcc/10.2.0-fasrc01</code> which when loaded also loads:
 
 ```bash
 [jharvard@holy7c22501 ~]# module list
@@ -499,7 +544,7 @@ prepend_path("LD_LIBRARY_PATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/l
 prepend_path("LIBRARY_PATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/lib64")
 prepend_path("PKG_CONFIG_PATH","/n/helmod/apps/centos7/Core/mpfr/4.1.0-fasrc01/lib64/pkgconfig")
 ```
-And then pull out the <code>LIBRARY_PATH</code>. Once we have the paths for all three of these dependencies we can add them to the <code>~/.spack/linux/compilers.yaml</code> as follows
+And then pull out the <code>LIBRARY_PATH</code>. Once we have the paths for all three of these dependencies we can add them to the <code>~/.spack/packages.yaml</code> as follows
 
 ```bash
 - compiler:
@@ -549,10 +594,10 @@ Then, run `compiler find` to update compilers
 
 ```bash
 $ spack compiler find
-==> Added 1 new compiler to /n/home01/jharvard/.spack/linux/compilers.yaml
+==> Added 1 new compiler to /n/home01/jharvard/.spack/packages.yaml
     gcc@8.5.0
 ==> Compilers are defined in the following files:
-    /n/home01/jharvard/.spack/linux/compilers.yaml
+    /n/home01/jharvard/.spack/packages.yaml
 ```
 
 Now, you can see a Rocky 8 compiler is also available
