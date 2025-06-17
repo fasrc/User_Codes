@@ -6,13 +6,34 @@
 
 The below instructions provide a spack recipe for building MPI capable instance of LAMMPS on the [FASRC Cannon cluster](https://www.rc.fas.harvard.edu/about/cluster-architecture/).
 
-## Compiler and MPI Library Spack configuration
+## Pre-requisites: Compiler and MPI Library Spack configuration
 
-Here we will use the [GNU/GCC](https://gcc.gnu.org/) compiler suite together with [OpenMPI](https://www.open-mpi.org/).
+Here we will use the [GNU/GCC](https://gcc.gnu.org/) compiler suite together with [OpenMPI](https://www.open-mpi.org/). We will also use a module for [FFTW](https://www.fftw.org/).
 
- The below instructions assume that spack is already configured to use the GCC compiler `gcc@12.2.0` and OpenMPI Library `openmpi@4.1.5`, as explained [here](https://github.com/fasrc/User_Codes/blob/master/Documents/Software/Spack.md).
+The below instructions assume that spack is already configured to use the GCC compiler `gcc@14.2.0`, OpenMPI Library `openmpi@5.0.5`, and FFTW with module `fftw/3.3.10-fasrc01`. If you have not configured them yet, see:
+
+1. To add `gcc` compiler: [Spack compiler configuration](Spack.md#compiler-configuration)
+2. To add `openmpi`: [Spack MPI Configuration](Spack.md#mpi-configuration)
+3. To add `fftw` as an external package:  [Using an Lmod module in Spack](Spack.md#using-an-lmod-module-in-spack)
 
 ## Create LAMMPS spack environment and activate it
+
+First, request an interactive job
+
+```
+salloc --partition test --time 06:00:00 --mem-per-cpu 4G -c 8
+```
+
+Second, download and activate Spack. For performance, we recommend using a Lab share in Holyoke (i.e., path starts with `holy`) instead of using your home directory. Here, we show an example with `/n/holylabs`:
+
+```
+cd /n/holylabs/jharvard_lab/Lab/jharvard
+git clone -c feature.manyFiles=true https://github.com/spack/spack.git spack_lammps
+cd spack_lammps/
+source share/spack/setup-env.sh
+```
+
+Finally, create a Spack environment and activate it
 
 ```bash
 spack env create lammps
@@ -21,257 +42,221 @@ spack env activate -p lammps
 
 ## Install the LAMMPS environment
 
+### Note on architecture
+
+If you are planning to run LAMMPS in different partitions, we recommend setting Spack to a [general architecture](spack.md#default-architecture). Otherwise, Spack will detect the architecture of the node that you are building LAMMPS and optimize for this specific architecture and may not run on another hardware. For example, LAMMPS built on Sapphire Rapids may not run on Cascade Lake.
+
 ### Install `libbsd`
 
 > **Note:** In this recipe, we first install `libbsd` with the system version of the GCC compiler, `gcc@8.5.0`, as the installation fails, if we try to add it directly to the environment and install it with `gcc@12.2.0`.
 
 ```bash
-spack install --add libbsd@0.11.6 % gcc@8.5.0
+spack install --add libbsd@0.12.2 % gcc@8.5.0
 ```
 
 ### Add the rest of the required packages to the spack environment
 
+First, add `Python<=3.10` because newer versions of Python do not contain the package `distutils` ([reference](https://stackoverflow.com/a/76691103)) and will cause the installation to fail.
+
+```
+spack add python@3.10
+```
+Second, add openmpi
+
+```
+spack add openmpi@5.0.5
+```
+
+Third, add FFTW
+
+```
+spack add fftw@3.3.10
+```
+
+Then, add LAMMPS required packages
+
 ```bash
-spack add openmpi@4.1.5
-spack add lammps +asphere +body +class2 +colloid +compress +coreshell +dipole +granular +kokkos +kspace +manybody +mc +misc +molecule +mpiio +openmp-package +peri +python +qeq +replica +rigid +shock +snap +spin +srd +user-reaxc +user-misc % gcc@12.2.0 ^ openmpi@4.1.5
+spack add lammps +asphere +body +class2 +colloid +compress +coreshell +dipole +granular +kokkos +kspace +manybody +mc +misc +molecule +mpiio +openmp-package +peri +python +qeq +replica +rigid +shock +snap +spin +srd +user-reaxc +user-misc % gcc@14.2.0 ^ openmpi@5.0.5
 ```
 
 ### Install the environment
 
-Once all required packages are added to the environment, it can be installed with:
+Once all required packages are added to the environment, it can be installed with (note that the installation can take 1-2 hours):
 
 ```bash
 spack install
 ```
+
 For example,
 
 ```bash
-[lammps] [pkrastev@builds01 spack]$ spack add lammps +asphere +body +class2 +colloid +compress +coreshell +dipole +granular +kokkos +kspace +manybody +mc +misc +molecule +mpiio +openmp-package +peri +python +qeq +replica +rigid +shock +snap +spin +srd +user-reaxc +user-misc % gcc@12.2.0 ^ openmpi@4.1.5
-==> Adding lammps%gcc@12.2.0+asphere+body+class2+colloid+compress+coreshell+dipole+granular+kokkos+kspace+manybody+mc+misc+molecule+mpiio+openmp-package+peri+python+qeq+replica+rigid+shock+snap+spin+srd+user-misc+user-reaxc ^openmpi@4.1.5 to environment lammps
-[lammps] [pkrastev@builds01 spack]$ spack install
-==> Concretized lammps%gcc@12.2.0+asphere+body+class2+colloid+compress+coreshell+dipole+granular+kokkos+kspace+manybody+mc+misc+molecule+mpiio+openmp-package+peri+python+qeq+replica+rigid+shock+snap+spin+srd+user-misc+user-reaxc ^openmpi@4.1.5
- -   brvuawz  lammps@20201029%gcc@12.2.0+asphere+body+class2+colloid+compress+coreshell~cuda~cuda_mps+dipole~exceptions~ffmpeg+granular~ipo~jpeg~kim+kokkos+kspace~latte+lib+manybody+mc+misc~mliap+molecule+mpi+mpiio~opencl+openmp+openmp-package~opt+peri~png~poems+python+qeq+replica+rigid~rocm+shock+snap+spin+srd~user-adios~user-atc~user-awpmd~user-bocs~user-cgsdk~user-colvars~user-diffraction~user-dpd~user-drude~user-eff~user-fep~user-h5md~user-intel~user-lb~user-manifold~user-meamc~user-mesodpd~user-mesont~user-mgpt+user-misc~user-mofff~user-molfile~user-netcdf~user-omp~user-phonon~user-plumed~user-ptm~user-qtb~user-reaction+user-reaxc~user-sdpd~user-smd~user-smtbq~user-sph~user-tally~user-uef~user-yaff~voronoi build_system=cmake build_type=Release fftw_precision=double generator=make lammps_sizes=smallbig arch=linux-rocky8-x86_64
-[+]  gfpb5mz      ^cmake@3.27.7%gcc@12.2.0~doc+ncurses+ownlibs build_system=generic build_type=Release arch=linux-rocky8-x86_64
-[+]  yvt4hk5          ^curl@8.4.0%gcc@12.2.0~gssapi~ldap~libidn2~librtmp~libssh~libssh2+nghttp2 build_system=autotools libs=shared,static tls=openssl arch=linux-rocky8-x86_64
-[+]  lvshkiv              ^nghttp2@1.57.0%gcc@12.2.0 build_system=autotools arch=linux-rocky8-x86_64
-[+]  enjvgjw          ^ncurses@6.4%gcc@12.2.0~symlinks+termlib abi=none build_system=autotools arch=linux-rocky8-x86_64
-[+]  vydxoz7          ^zlib-ng@2.1.4%gcc@12.2.0+compat+opt build_system=autotools arch=linux-rocky8-x86_64
-[+]  o3gyqz4      ^fftw@3.3.10%gcc@12.2.0+mpi~openmp~pfft_patches build_system=autotools precision=double,float arch=linux-rocky8-x86_64
-[+]  svtpsvv      ^gmake@4.4.1%gcc@12.2.0~guile build_system=generic arch=linux-rocky8-x86_64
-[+]  jiw5kkj      ^kokkos@3.7.02%gcc@12.2.0~aggressive_vectorization~compiler_warnings~cuda~debug~debug_bounds_check~debug_dualview_modify_check~deprecated_code~examples~hpx~hpx_async_dispatch~hwloc~ipo~memkind~numactl~openmp~openmptarget~pic~rocm+serial+shared~sycl~tests~threads~tuning~wrapper build_system=cmake build_type=Release cxxstd=17 generator=make intel_gpu_arch=none arch=linux-rocky8-x86_64
-[e]  rzl24ya      ^openmpi@4.1.5%gcc@12.2.0~atomics~cuda~cxx~cxx_exceptions~gpfs~internal-hwloc~internal-pmix~java~legacylaunchers~lustre~memchecker~openshmem~orterunprefix+romio+rsh~singularity+static+vt+wrapper-rpath build_system=autotools fabrics=none schedulers=none arch=linux-rocky8-x86_64
- -   eo7i4v4      ^py-mpi4py@3.1.4%gcc@12.2.0 build_system=python_pip arch=linux-rocky8-x86_64
- -   p66ce3e          ^py-cython@0.29.36%gcc@12.2.0 build_system=python_pip patches=c4369ad arch=linux-rocky8-x86_64
- -   uwtiq6m          ^py-pip@23.1.2%gcc@12.2.0 build_system=generic arch=linux-rocky8-x86_64
- -   beehlpu          ^py-setuptools@68.0.0%gcc@12.2.0 build_system=generic arch=linux-rocky8-x86_64
- -   dwr4bwe          ^py-wheel@0.41.2%gcc@12.2.0 build_system=generic arch=linux-rocky8-x86_64
- -   5hw7nhs      ^py-numpy@1.26.1%gcc@12.2.0 build_system=python_pip patches=873745d arch=linux-rocky8-x86_64
- -   kqjh467          ^ninja@1.11.1%gcc@12.2.0+re2c build_system=generic arch=linux-rocky8-x86_64
-[+]  7kut2tz              ^re2c@2.2%gcc@12.2.0 build_system=generic arch=linux-rocky8-x86_64
-[+]  5oqjy7z          ^openblas@0.3.24%gcc@12.2.0~bignuma~consistent_fpcsr+fortran~ilp64+locking+pic+shared build_system=makefile symbol_suffix=none threads=none arch=linux-rocky8-x86_64
-[+]  k7dhgbu              ^perl@5.38.0%gcc@12.2.0+cpanm+opcode+open+shared+threads build_system=generic patches=714e4d1 arch=linux-rocky8-x86_64
-[+]  gyedpff                  ^berkeley-db@18.1.40%gcc@12.2.0+cxx~docs+stl build_system=autotools patches=26090f4,b231fcc arch=linux-rocky8-x86_64
-[+]  bd3npcq          ^pkgconf@1.9.5%gcc@12.2.0 build_system=autotools arch=linux-rocky8-x86_64
- -   u2hdpyq          ^py-pyproject-metadata@0.7.1%gcc@12.2.0 build_system=python_pip arch=linux-rocky8-x86_64
- -   qkyvv7u              ^py-packaging@23.1%gcc@12.2.0 build_system=python_pip arch=linux-rocky8-x86_64
- -   zo3mqxg                  ^py-flit-core@3.9.0%gcc@12.2.0 build_system=python_pip arch=linux-rocky8-x86_64
- -   ayhpfzo      ^python@3.11.6%gcc@12.2.0+bz2+crypt+ctypes+dbm~debug+libxml2+lzma~nis~optimizations+pic+pyexpat+pythoncmd+readline+shared+sqlite3+ssl~tkinter+uuid+zlib build_system=generic patches=13fa8bf,b0615b2,ebdca64,f2fd060 arch=linux-rocky8-x86_64
-[+]  xxvougl          ^bzip2@1.0.8%gcc@12.2.0~debug~pic+shared build_system=generic arch=linux-rocky8-x86_64
-[+]  6delrmq              ^diffutils@3.9%gcc@12.2.0 build_system=autotools arch=linux-rocky8-x86_64
- -   utxeqjk          ^expat@2.5.0%gcc@12.2.0+libbsd build_system=autotools arch=linux-rocky8-x86_64
-[+]  p4j7tjd              ^libbsd@0.11.6%gcc@8.5.0 build_system=autotools arch=linux-rocky8-x86_64
-[+]  dhtpyny                  ^gmake@4.4.1%gcc@8.5.0~guile build_system=generic arch=linux-rocky8-x86_64
-[+]  zgocxqu                  ^libmd@1.0.4%gcc@8.5.0 build_system=autotools arch=linux-rocky8-x86_64
-[+]  r4ncx2h          ^gdbm@1.23%gcc@12.2.0 build_system=autotools arch=linux-rocky8-x86_64
-[+]  nbmdkeh          ^gettext@0.22.3%gcc@12.2.0+bzip2+curses+git~libunistring+libxml2+pic+shared+tar+xz build_system=autotools arch=linux-rocky8-x86_64
-[+]  4ic3bei              ^libiconv@1.17%gcc@12.2.0 build_system=autotools libs=shared,static arch=linux-rocky8-x86_64
-[+]  vib3s6c              ^libxml2@2.10.3%gcc@12.2.0+pic~python+shared build_system=autotools arch=linux-rocky8-x86_64
-[+]  bmtzwo2              ^tar@1.34%gcc@12.2.0 build_system=autotools zip=pigz arch=linux-rocky8-x86_64
-[+]  g5ndpd7                  ^pigz@2.7%gcc@12.2.0 build_system=makefile arch=linux-rocky8-x86_64
-[+]  kjif3oe                  ^zstd@1.5.5%gcc@12.2.0+programs build_system=makefile compression=none libs=shared,static arch=linux-rocky8-x86_64
-[+]  vxfrf2m          ^libffi@3.4.4%gcc@12.2.0 build_system=autotools arch=linux-rocky8-x86_64
-[+]  pevl53e          ^libxcrypt@4.4.35%gcc@12.2.0~obsolete_api build_system=autotools patches=4885da3 arch=linux-rocky8-x86_64
-[+]  t6g7cgp          ^openssl@3.1.3%gcc@12.2.0~docs+shared build_system=generic certs=mozilla arch=linux-rocky8-x86_64
-[+]  y4pl22s              ^ca-certificates-mozilla@2023-05-30%gcc@12.2.0 build_system=generic arch=linux-rocky8-x86_64
-[+]  gqnfuu6          ^readline@8.2%gcc@12.2.0 build_system=autotools patches=bbf97f1 arch=linux-rocky8-x86_64
-[+]  ir4yzhv          ^sqlite@3.43.2%gcc@12.2.0+column_metadata+dynamic_extensions+fts~functions+rtree build_system=autotools arch=linux-rocky8-x86_64
-[+]  2lrosds          ^util-linux-uuid@2.38.1%gcc@12.2.0 build_system=autotools arch=linux-rocky8-x86_64
-[+]  o2frdmd          ^xz@5.4.1%gcc@12.2.0~pic build_system=autotools libs=shared,static arch=linux-rocky8-x86_64
+[lammps] [jharvard@holy8a24101 spack_lammps]$ spack add python@3.10
+==> Adding python@3.10 to environment lammps
 
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/nghttp2-1.57.0-lvshkivi7b4qjhtdvew667hctxypbszb
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/zlib-ng-2.1.4-vydxoz7fvgvsutjrmly6cayjaedjyrmg
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/ncurses-6.4-enjvgjww5qpxthriw5sywb7isei43bww
-[+] /n/sw/helmod-rocky8/apps/Comp/gcc/12.2.0-fasrc01/openmpi/4.1.5-fasrc03 (external openmpi-4.1.5-rzl24yaivlkwvg4g5qznqm3vv32l2fh3)
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/gmake-4.4.1-svtpsvvjlmcqaoikxzgv7tn65gm5qkd2
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/bzip2-1.0.8-xxvougl2pg4l2ovlb763elztdhdigg4c
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-8.5.0/libmd-1.0.4-zgocxqucujk4t6egi7imbdmsmk6kf7hm
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/re2c-2.2-7kut2tz4mzisyoxxpdzw5fsoserrhg5b
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/openssl-3.1.3-t6g7cgpe6j762uy7k6tywuvoehrpoxlr
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/util-linux-uuid-2.38.1-2lrosds6dyqiwq2dqezt4rfxpilyw7mx
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/pkgconf-1.9.5-bd3npcqaivwm7xw6ryfdx4ngkhsqvw5y
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/fftw-3.3.10-o3gyqz4xr6icuwhvkij36gelql4w7zhe
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/xz-5.4.1-o2frdmd6pdpc5shh4b7ceuh6m3r24tky
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/libxcrypt-4.4.35-pevl53etfet57jj6otonswfahl4lpgln
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/libiconv-1.17-4ic3bei7fcc3od6alzc4xhoag6tovpc6
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/pigz-2.7-g5ndpd7evf6ikjvebjge3twqrifi3pio
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/openblas-0.3.24-5oqjy7z5brnhphx4cutohw242bfxnk7m
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/kokkos-3.7.02-jiw5kkjl63zeyy45klhoojvcbc2yndbq
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/readline-8.2-gqnfuu6cimjmva7lm3226ajtlbbf33wb
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/zstd-1.5.5-kjif3oebskvl7e2ctnhmfjeyllpfdb44
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/libffi-3.4.4-vxfrf2modrtt52i565y3vtph64q7kdgi
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-8.5.0/libbsd-0.11.6-p4j7tjdjyqh53iyoeeui2npoompdw33g
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/curl-8.4.0-yvt4hk57jtntsqm3n3jund52c5b6j3yf
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/libxml2-2.10.3-vib3s6cnyl2yvtxwpneekgtl2wrbbhmr
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/gdbm-1.23-r4ncx2hr7cny6evxb65xredi36qykaee
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/sqlite-3.43.2-ir4yzhvm3qpqqtznwpyzb6i34emgbtzw
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/tar-1.34-bmtzwo27cebonnqmsq7bmgff334itq4a
-==> Installing expat-2.5.0-utxeqjkqdtzrd4hj6thql2awuuyn6nu2 [28/42]
-==> No binary for expat-2.5.0-utxeqjkqdtzrd4hj6thql2awuuyn6nu2 found: installing from source
-==> Fetching https://mirror.spack.io/_source-cache/archive/6f/6f0e6e01f7b30025fa05c85fdad1e5d0ec7fd35d9f61b22f34998de11969ff67.tar.bz2
-==> No patches needed for expat
-==> expat: Executing phase: 'autoreconf'
-==> expat: Executing phase: 'configure'
-==> expat: Executing phase: 'build'
-==> expat: Executing phase: 'install'
-==> expat: Successfully installed expat-2.5.0-utxeqjkqdtzrd4hj6thql2awuuyn6nu2
-  Stage: 0.32s.  Autoreconf: 0.00s.  Configure: 11.32s.  Build: 5.61s.  Install: 0.60s.  Post-install: 0.06s.  Total: 18.07s
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/expat-2.5.0-utxeqjkqdtzrd4hj6thql2awuuyn6nu2
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/cmake-3.27.7-gfpb5mzafl4j7znv6r3z7v3n65y4lmhd
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/gettext-0.22.3-nbmdkehmpboc6ujcs7i4h7nkzchrtmlz
-==> Installing python-3.11.6-ayhpfzopafuhgnbm76kgzhcwzzj3bgk6 [31/42]
-==> No binary for python-3.11.6-ayhpfzopafuhgnbm76kgzhcwzzj3bgk6 found: installing from source
-==> Fetching https://www.python.org/ftp/python/3.11.6/Python-3.11.6.tgz
-==> Applied patch /builds/pkrastev/Spack/spack/var/spack/repos/builtin/packages/python/python-3.7.4+-distutils-C++-testsuite.patch
-==> Applied patch /builds/pkrastev/Spack/spack/var/spack/repos/builtin/packages/python/python-3.11-distutils-C++.patch
-==> Applied patch /builds/pkrastev/Spack/spack/var/spack/repos/builtin/packages/python/tkinter-3.11.patch
-==> Applied patch /builds/pkrastev/Spack/spack/var/spack/repos/builtin/packages/python/rpath-non-gcc.patch
-==> Ran patch() for python
-==> python: Executing phase: 'configure'
-==> python: Executing phase: 'build'
-==> python: Executing phase: 'install'
-==> python: Successfully installed python-3.11.6-ayhpfzopafuhgnbm76kgzhcwzzj3bgk6
-  Stage: 2.25s.  Configure: 1m 13.81s.  Build: 21.41s.  Install: 21.77s.  Post-install: 1.42s.  Total: 2m 0.87s
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/python-3.11.6-ayhpfzopafuhgnbm76kgzhcwzzj3bgk6
-==> Installing ninja-1.11.1-kqjh467ra53zkcgsfw2f2seztreu6cn7 [32/42]
-==> No binary for ninja-1.11.1-kqjh467ra53zkcgsfw2f2seztreu6cn7 found: installing from source
-==> Fetching https://mirror.spack.io/_source-cache/archive/31/31747ae633213f1eda3842686f83c2aa1412e0f5691d1c14dbbcc67fe7400cea.tar.gz
-==> No patches needed for ninja
-==> ninja: Executing phase: 'configure'
-==> ninja: Executing phase: 'install'
-==> ninja: Successfully installed ninja-1.11.1-kqjh467ra53zkcgsfw2f2seztreu6cn7
-  Stage: 0.24s.  Configure: 28.56s.  Install: 0.01s.  Post-install: 0.08s.  Total: 29.06s
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/ninja-1.11.1-kqjh467ra53zkcgsfw2f2seztreu6cn7
-==> Installing py-pip-23.1.2-uwtiq6mvi75v6eztiwl35ehuwvdjlzvq [33/42]
-==> No binary for py-pip-23.1.2-uwtiq6mvi75v6eztiwl35ehuwvdjlzvq found: installing from source
-==> Fetching https://mirror.spack.io/_source-cache/archive/3e/3ef6ac33239e4027d9a5598a381b9d30880a1477e50039db2eac6e8a8f6d1b18
-==> No patches needed for py-pip
-==> py-pip: Executing phase: 'install'
-==> py-pip: Successfully installed py-pip-23.1.2-uwtiq6mvi75v6eztiwl35ehuwvdjlzvq
-  Stage: 0.27s.  Install: 2.75s.  Post-install: 0.23s.  Total: 3.38s
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/py-pip-23.1.2-uwtiq6mvi75v6eztiwl35ehuwvdjlzvq
-==> Installing py-wheel-0.41.2-dwr4bwera5xqx3tcjni2xwle35yni2xv [34/42]
-==> No binary for py-wheel-0.41.2-dwr4bwera5xqx3tcjni2xwle35yni2xv found: installing from source
-==> Fetching https://files.pythonhosted.org/packages/py3/w/wheel/wheel-0.41.2-py3-none-any.whl
-==> No patches needed for py-wheel
-==> py-wheel: Executing phase: 'install'
-==> py-wheel: Successfully installed py-wheel-0.41.2-dwr4bwera5xqx3tcjni2xwle35yni2xv
-  Stage: 0.96s.  Install: 0.57s.  Post-install: 0.07s.  Total: 1.73s
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/py-wheel-0.41.2-dwr4bwera5xqx3tcjni2xwle35yni2xv
-==> Installing py-setuptools-68.0.0-beehlpujcxge7rergkdu2sqtd3juztlx [35/42]
-==> No binary for py-setuptools-68.0.0-beehlpujcxge7rergkdu2sqtd3juztlx found: installing from source
-==> Fetching https://mirror.spack.io/_source-cache/archive/11/11e52c67415a381d10d6b462ced9cfb97066179f0e871399e006c4ab101fc85f
-==> No patches needed for py-setuptools
-==> py-setuptools: Executing phase: 'install'
-==> py-setuptools: Successfully installed py-setuptools-68.0.0-beehlpujcxge7rergkdu2sqtd3juztlx
-  Stage: 0.10s.  Install: 0.97s.  Post-install: 0.13s.  Total: 1.33s
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/py-setuptools-68.0.0-beehlpujcxge7rergkdu2sqtd3juztlx
-==> Installing py-flit-core-3.9.0-zo3mqxgcedttrjdp3s3e44ws3og4zn53 [36/42]
-==> No binary for py-flit-core-3.9.0-zo3mqxgcedttrjdp3s3e44ws3og4zn53 found: installing from source
-==> Fetching https://files.pythonhosted.org/packages/source/f/flit-core/flit_core-3.9.0.tar.gz
-==> No patches needed for py-flit-core
-==> py-flit-core: Executing phase: 'install'
-==> py-flit-core: Successfully installed py-flit-core-3.9.0-zo3mqxgcedttrjdp3s3e44ws3og4zn53
-  Stage: 0.92s.  Install: 0.81s.  Post-install: 0.09s.  Total: 1.94s
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/py-flit-core-3.9.0-zo3mqxgcedttrjdp3s3e44ws3og4zn53
-==> Installing py-cython-0.29.36-p66ce3exy7gg5fta3sfefwwwh6lwc2w2 [37/42]
-==> No binary for py-cython-0.29.36-p66ce3exy7gg5fta3sfefwwwh6lwc2w2 found: installing from source
-==> Fetching https://mirror.spack.io/_source-cache/archive/41/41c0cfd2d754e383c9eeb95effc9aa4ab847d0c9747077ddd7c0dcb68c3bc01f.tar.gz
-==> Applied patch /builds/pkrastev/Spack/spack/var/spack/repos/builtin/packages/py-cython/5712.patch
-==> py-cython: Executing phase: 'install'
-==> py-cython: Successfully installed py-cython-0.29.36-p66ce3exy7gg5fta3sfefwwwh6lwc2w2
-  Stage: 0.46s.  Install: 58.86s.  Post-install: 0.15s.  Total: 59.59s
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/py-cython-0.29.36-p66ce3exy7gg5fta3sfefwwwh6lwc2w2
-==> Installing py-packaging-23.1-qkyvv7uu42txcfawduemltgl7ddjy4jn [38/42]
-==> No binary for py-packaging-23.1-qkyvv7uu42txcfawduemltgl7ddjy4jn found: installing from source
-==> Fetching https://mirror.spack.io/_source-cache/archive/a3/a392980d2b6cffa644431898be54b0045151319d1e7ec34f0cfed48767dd334f.tar.gz
-==> No patches needed for py-packaging
-==> py-packaging: Executing phase: 'install'
-==> py-packaging: Successfully installed py-packaging-23.1-qkyvv7uu42txcfawduemltgl7ddjy4jn
-  Stage: 0.26s.  Install: 0.76s.  Post-install: 0.07s.  Total: 1.23s
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/py-packaging-23.1-qkyvv7uu42txcfawduemltgl7ddjy4jn
-==> Installing py-mpi4py-3.1.4-eo7i4v4wgy35fuvmf76aygklxnxzkbs2 [39/42]
-==> No binary for py-mpi4py-3.1.4-eo7i4v4wgy35fuvmf76aygklxnxzkbs2 found: installing from source
-==> Fetching https://mirror.spack.io/_source-cache/archive/17/17858f2ebc623220d0120d1fa8d428d033dde749c4bc35b33d81a66ad7f93480.tar.gz
-==> No patches needed for py-mpi4py
-==> py-mpi4py: Executing phase: 'install'
-==> py-mpi4py: Successfully installed py-mpi4py-3.1.4-eo7i4v4wgy35fuvmf76aygklxnxzkbs2
-  Stage: 1.40s.  Install: 49.94s.  Post-install: 0.08s.  Total: 51.58s
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/py-mpi4py-3.1.4-eo7i4v4wgy35fuvmf76aygklxnxzkbs2
-==> Installing py-pyproject-metadata-0.7.1-u2hdpyqmxrrs54rhmddn6rwbawbqvn4z [40/42]
-==> No binary for py-pyproject-metadata-0.7.1-u2hdpyqmxrrs54rhmddn6rwbawbqvn4z found: installing from source
-==> Fetching https://mirror.spack.io/_source-cache/archive/0a/0a94f18b108b9b21f3a26a3d541f056c34edcb17dc872a144a15618fed7aef67.tar.gz
-==> No patches needed for py-pyproject-metadata
-==> py-pyproject-metadata: Executing phase: 'install'
-==> py-pyproject-metadata: Successfully installed py-pyproject-metadata-0.7.1-u2hdpyqmxrrs54rhmddn6rwbawbqvn4z
-  Stage: 0.23s.  Install: 0.96s.  Post-install: 0.07s.  Total: 1.40s
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/py-pyproject-metadata-0.7.1-u2hdpyqmxrrs54rhmddn6rwbawbqvn4z
-==> Installing py-numpy-1.26.1-5hw7nhsp23hc6m35emvtzzuficgf5745 [41/42]
-==> No binary for py-numpy-1.26.1-5hw7nhsp23hc6m35emvtzzuficgf5745 found: installing from source
-==> Fetching https://files.pythonhosted.org/packages/source/n/numpy/numpy-1.26.1.tar.gz
-==> Applied patch /builds/pkrastev/Spack/spack/var/spack/repos/builtin/packages/py-numpy/check_executables.patch
-==> py-numpy: Executing phase: 'install'
-==> py-numpy: Successfully installed py-numpy-1.26.1-5hw7nhsp23hc6m35emvtzzuficgf5745
-  Stage: 1.56s.  Install: 1m 10.30s.  Post-install: 0.34s.  Total: 1m 12.37s
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/py-numpy-1.26.1-5hw7nhsp23hc6m35emvtzzuficgf5745
-==> Installing lammps-20201029-brvuawzoq5ge6ak27a7474ziesqmbbq4 [42/42]
-==> No binary for lammps-20201029-brvuawzoq5ge6ak27a7474ziesqmbbq4 found: installing from source
+[lammps] [jharvard@holy8a24101 spack_lammps]$ spack add openmpi@5.0.5
+==> Adding openmpi@5.0.5 to environment lammps
+
+[lammps] [jharvard@holy8a24101 spack_lammps]$ spack add fftw@3.3.10
+==> Adding fftw@3.3.10 to environment lammps
+
+[lammps] [jharvard@holy8a24101 spack_lammps]$ spack add lammps +asphere +body +class2 +colloid +compress +coreshell +dipole +granular +kokkos +kspace +manybody +mc +misc +molecule +mpiio +openmp-package +peri +python +qeq +replica +rigid +shock +snap +spin +srd +user-reaxc +user-misc % gcc@14.2.0 ^ openmpi@5.0.5
+==> Adding lammps+asphere+body+class2+colloid+compress+coreshell+dipole+granular+kokkos+kspace+manybody+mc+misc+molecule+mpiio+openmp-package+peri+python+qeq+replica+rigid+shock+snap+spin+srd+user-misc+user-reaxc %gcc@14.2.0 ^openmpi@5.0.5 to environment lammps
+
+[lammps] [jharvard@holy8a24101 spack_lammps]$ time spack install
+==> Concretized 4 specs
+[e]  3h3h2fa  fftw@3.3.10+mpi~openmp~pfft_patches+shared build_system=autotools patches:=872cff9 precision:=double,float arch=linux-rocky8-x86_64
+ -   mpxtdzi  lammps@20201029+asphere+body+class2+colloid+compress+coreshell~cuda~cuda_mps+dipole~exceptions~ffmpeg+granular~ipo~jpeg~kim+kokkos+kspace~latte+lib+manybody+mc+misc~mliap+molecule+mpi+mpiio~opencl+openmp+openmp-package~opt+peri~png~poems+python+qeq+replica+rigid~rocm+shock+snap+spin+srd~tools~user-adios~user-atc~user-awpmd~user-bocs~user-cgsdk~user-colvars~user-diffraction~user-dpd~user-drude~user-eff~user-fep~user-h5md~user-intel~user-lb~user-manifold~user-meamc~user-mesodpd~user-mesont~user-mgpt+user-misc~user-mofff~user-molfile~user-netcdf~user-omp~user-phonon~user-plumed~user-ptm~user-qtb~user-reaction+user-reaxc~user-sdpd~user-smd~user-smtbq~user-sph~user-tally~user-uef~user-yaff~voronoi build_system=cmake build_type=Release fft=fftw3 fftw_precision=double generator=make lammps_sizes=smallbig arch=linux-rocky8-x86_64
+ -   4rflzcx      ^cmake@3.31.6~doc+ncurses+ownlibs~qtgui build_system=generic build_type=Release arch=linux-rocky8-x86_64
+ -   7ntqqo3          ^curl@8.11.1~gssapi~ldap~libidn2~librtmp~libssh~libssh2+nghttp2 build_system=autotools libs:=shared,static tls:=openssl arch=linux-rocky8-x86_64
+ -   7naninn              ^nghttp2@1.65.0 build_system=autotools arch=linux-rocky8-x86_64
+[+]  4jidax3      ^compiler-wrapper@1.0 build_system=generic arch=linux-rocky8-x86_64
+[e]  ttcg57n      ^gcc@14.2.0~binutils+bootstrap~graphite~mold~nvptx~piclibs~profiled~strip build_system=autotools build_type=RelWithDebInfo languages:='c,c++,fortran' arch=linux-rocky8-x86_64
+ -   xfiurn5      ^gcc-runtime@14.2.0 build_system=generic arch=linux-rocky8-x86_64
+[e]  o6n6gob      ^glibc@2.28 build_system=autotools arch=linux-rocky8-x86_64
+[+]  bbt3qol      ^gmake@4.4.1~guile build_system=generic arch=linux-rocky8-x86_64
+[e]  g32o7e4          ^gcc@8.5.0~binutils+bootstrap~graphite~nvptx~piclibs~profiled~strip build_system=autotools build_type=RelWithDebInfo languages:='c,c++,fortran' patches:=98a9c96,d4919d6 arch=linux-rocky8-x86_64
+[+]  ilgbgax          ^gcc-runtime@8.5.0 build_system=generic arch=linux-rocky8-x86_64
+ -   osze522      ^kokkos@3.7.02~aggressive_vectorization~cmake_lang~compiler_warnings+complex_align~cuda~debug~debug_bounds_check~debug_dualview_modify_check~deprecated_code~examples~hip_relocatable_device_code~hpx~hpx_async_dispatch~hwloc~ipo~memkind~numactl~openmp~openmptarget~pic~rocm+serial+shared~sycl~tests~threads~tuning~wrapper build_system=cmake build_type=Release cxxstd=17 generator=make intel_gpu_arch=none arch=linux-rocky8-x86_64
+ -   nffr23q      ^py-build@1.2.2~virtualenv build_system=python_pip arch=linux-rocky8-x86_64
+ -   zvk3yap          ^py-flit-core@3.12.0 build_system=python_pip arch=linux-rocky8-x86_64
+ -   qmwbcrl          ^py-packaging@25.0 build_system=python_pip arch=linux-rocky8-x86_64
+ -   hzb2z4c          ^py-pyproject-hooks@1.2.0 build_system=python_pip arch=linux-rocky8-x86_64
+ -   rvtjcyg          ^py-tomli@2.0.1 build_system=python_pip arch=linux-rocky8-x86_64
+ -   fcmf63t      ^py-mpi4py@4.0.1 build_system=python_pip arch=linux-rocky8-x86_64
+ -   3lhqnpu          ^py-cython@3.0.11 build_system=python_pip arch=linux-rocky8-x86_64
+ -   xrauvfb          ^py-setuptools@79.0.1 build_system=generic arch=linux-rocky8-x86_64
+ -   uph3xco      ^py-numpy@2.2.6 build_system=python_pip patches:=1c9cb08,873745d arch=linux-rocky8-x86_64
+ -   oldpzfb          ^openblas@0.3.29~bignuma~consistent_fpcsr+dynamic_dispatch+fortran~ilp64+locking+pic+shared build_system=makefile symbol_suffix=none threads=none arch=linux-rocky8-x86_64
+ -   4na77sl          ^py-meson-python@0.16.0 build_system=python_pip arch=linux-rocky8-x86_64
+ -   phdbgoa              ^meson@1.7.0 build_system=python_pip patches:=0f0b1bd arch=linux-rocky8-x86_64
+ -   6antgmb                  ^ninja@1.12.1+re2c build_system=generic patches:=93f4bb3 arch=linux-rocky8-x86_64
+ -   bbhlvsn                      ^re2c@3.1 build_system=autotools arch=linux-rocky8-x86_64
+ -   6dqk3y7              ^py-pyproject-metadata@0.9.1 build_system=python_pip arch=linux-rocky8-x86_64
+ -   aawwbc3      ^py-pip@25.1.1 build_system=generic arch=linux-rocky8-x86_64
+ -   n3ekb2x      ^py-wheel@0.45.1 build_system=generic arch=linux-rocky8-x86_64
+ -   ktvjhpk      ^python-venv@1.0 build_system=generic arch=linux-rocky8-x86_64
+[e]  guivmvv  openmpi@5.0.5+atomics~cuda~debug~gpfs~internal-hwloc~internal-libevent~internal-pmix~ipv6~java~lustre~memchecker~openshmem~romio+rsh~static~two_level_namespace+vt+wrapper-rpath build_system=autotools fabrics:=none romio-filesystem:=none schedulers:=none arch=linux-rocky8-x86_64
+ -   e6cslwo  python@3.10.16+bz2+crypt+ctypes+dbm~debug+libxml2+lzma~optimizations+pic+pyexpat+pythoncmd+readline+shared+sqlite3+ssl~tkinter+uuid+zlib build_system=generic patches:=0d98e93,7d40923,ebdca64,f2fd060 arch=linux-rocky8-x86_64
+ -   aw2b7q4      ^bzip2@1.0.8~debug~pic+shared build_system=generic arch=linux-rocky8-x86_64
+ -   e6p5vwc          ^diffutils@3.10 build_system=autotools arch=linux-rocky8-x86_64
+ -   4kuimjy      ^expat@2.7.1+libbsd build_system=autotools arch=linux-rocky8-x86_64
+[+]  aonj3db          ^libbsd@0.12.2 build_system=autotools arch=linux-rocky8-x86_64
+[+]  nwfft3p              ^libmd@1.1.0 build_system=autotools arch=linux-rocky8-x86_64
+ -   tuio76x      ^gdbm@1.23 build_system=autotools arch=linux-rocky8-x86_64
+ -   wpkusmx      ^gettext@0.23.1+bzip2+curses+git~libunistring+libxml2+pic+shared+tar+xz build_system=autotools arch=linux-rocky8-x86_64
+ -   rbqgqpv          ^libiconv@1.18 build_system=autotools libs:=shared,static arch=linux-rocky8-x86_64
+ -   4tegpgq          ^libxml2@2.13.5~http+pic~python+shared build_system=autotools arch=linux-rocky8-x86_64
+ -   kzgcnyy          ^tar@1.35 build_system=autotools zip=pigz arch=linux-rocky8-x86_64
+ -   6xso4pk              ^pigz@2.8 build_system=makefile arch=linux-rocky8-x86_64
+ -   6pbg4je              ^zstd@1.5.7+programs build_system=makefile compression:=none libs:=shared,static arch=linux-rocky8-x86_64
+ -   3vj4gpx      ^libffi@3.4.7 build_system=autotools arch=linux-rocky8-x86_64
+ -   we4xltk      ^libxcrypt@4.4.38~obsolete_api build_system=autotools arch=linux-rocky8-x86_64
+ -   hctt263          ^perl@5.40.0+cpanm+opcode+open+shared+threads build_system=generic arch=linux-rocky8-x86_64
+ -   nwmbelg              ^berkeley-db@18.1.40+cxx~docs+stl build_system=autotools patches:=26090f4,b231fcc arch=linux-rocky8-x86_64
+ -   xybm2qm      ^ncurses@6.5~symlinks+termlib abi=none build_system=autotools patches:=7a351bc arch=linux-rocky8-x86_64
+ -   o6gbeku      ^openssl@3.4.1~docs+shared build_system=generic certs=mozilla arch=linux-rocky8-x86_64
+ -   feo5ibm          ^ca-certificates-mozilla@2025-02-25 build_system=generic arch=linux-rocky8-x86_64
+ -   z365t2j      ^pkgconf@2.3.0 build_system=autotools arch=linux-rocky8-x86_64
+ -   o2rpuwe      ^readline@8.2 build_system=autotools patches:=1ea4349,24f587b,3d9885e,5911a5b,622ba38,6c8adf8,758e2ec,79572ee,a177edc,bbf97f1,c7b45ff,e0013d9,e065038 arch=linux-rocky8-x86_64
+ -   emd77vc      ^sqlite@3.46.0+column_metadata+dynamic_extensions+fts~functions+rtree build_system=autotools arch=linux-rocky8-x86_64
+ -   vlbruks      ^util-linux-uuid@2.41 build_system=autotools arch=linux-rocky8-x86_64
+ -   x3xcxj3      ^xz@5.6.3~pic build_system=autotools libs:=shared,static arch=linux-rocky8-x86_64
+ -   yprpmnc      ^zlib-ng@2.2.4+compat+new_strategies+opt+pic+shared build_system=autotools arch=linux-rocky8-x86_64
+
+[+] /n/sw/helmod-rocky8/apps/Comp/gcc/14.2.0-fasrc01/openmpi/5.0.5-fasrc01 (external openmpi-5.0.5-guivmvvfvgx5ztklxiu5ahrhih7dp65j)
+[+] /n/sw/helmod-rocky8/apps/MPI/gcc/14.2.0-fasrc01/openmpi/5.0.5-fasrc01/fftw/3.3.10-fasrc01 (external fftw-3.3.10-3h3h2falkeomenwugyxqgvk5u6cx3rh3)
+[+] /n/holylabs/jharvard_lab/Lab/software/spack_lammps/opt/spack/linux-x86_64/compiler-wrapper-1.0-4jidax3a3jc3ogpk7a5x5gufb2cxs4gr
+==> gcc@14.2.0 : has external module in ['gcc/14.2.0-fasrc01']
+[+] /n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01 (external gcc-14.2.0-ttcg57nq5t3r5a4aaslllnnypcwscff5)
+[+] /usr (external glibc-2.28-o6n6gob4a7744vkxw5jqpioi55tdj633)
+==> Installing ca-certificates-mozilla-2025-02-25-feo5ibmyevhdlh75lb4wcn3pqq72gtgi [6/57]
+==> No binary for ca-certificates-mozilla-2025-02-25-feo5ibmyevhdlh75lb4wcn3pqq72gtgi found: installing from source
+==> Fetching https://mirror.spack.io/_source-cache/archive/50/50a6277ec69113f00c5fd45f09e8b97a4b3e32daa35d3a95ab30137a55386cef
+    [100%]  233.26 KB @   22.7 MB/s
+==> No patches needed for ca-certificates-mozilla
+==> ca-certificates-mozilla: Executing phase: 'install'
+==> ca-certificates-mozilla: Successfully installed ca-certificates-mozilla-2025-02-25-feo5ibmyevhdlh75lb4wcn3pqq72gtgi
+  Stage: 0.08s.  Install: 0.01s.  Post-install: 0.06s.  Total: 0.20s
+[+] /n/holylabs/jharvard_lab/Lab/software/spack_lammps/opt/spack/linux-x86_64/ca-certificates-mozilla-2025-02-25-feo5ibmyevhdlh75lb4wcn3pqq72gtgi
+[+] /n/holylabs/jharvard_lab/Lab/software/spack_lammps/opt/spack/linux-x86_64/gcc-runtime-8.5.0-ilgbgaxvhaiblyhnxila5hwescpoucab
+==> Installing gcc-runtime-14.2.0-xfiurn5qvdozoj7vdjsnff2gh3fugkr7 [8/57]
+==> No binary for gcc-runtime-14.2.0-xfiurn5qvdozoj7vdjsnff2gh3fugkr7 found: installing from source
+==> No patches needed for gcc-runtime
+==> gcc-runtime: Executing phase: 'install'
+==> gcc-runtime: Successfully installed gcc-runtime-14.2.0-xfiurn5qvdozoj7vdjsnff2gh3fugkr7
+  Stage: 0.00s.  Install: 1.38s.  Post-install: 0.15s.  Total: 1.59s
+[+] /n/holylabs/jharvard_lab/Lab/software/spack_lammps/opt/spack/linux-x86_64/gcc-runtime-14.2.0-xfiurn5qvdozoj7vdjsnff2gh3fugkr7
+[+] /n/holylabs/jharvard_lab/Lab/software/spack_lammps/opt/spack/linux-x86_64/libmd-1.1.0-nwfft3pazs5ut2ybvxpnuy7s3wei3twc
+[+] /n/holylabs/jharvard_lab/Lab/software/spack_lammps/opt/spack/linux-x86_64/gmake-4.4.1-bbt3qoltmvddzvkp7ntwxlcwvowdw77b
+==> Installing zstd-1.5.7-6pbg4jenkueraxcdqpgqn44bj2p6mylh [11/57]
+==> No binary for zstd-1.5.7-6pbg4jenkueraxcdqpgqn44bj2p6mylh found: installing from source
+==> Fetching https://mirror.spack.io/_source-cache/archive/37/37d7284556b20954e56e1ca85b80226768902e2edabd3b649e9e72c0c9012ee3.tar.gz
+    [100%]    2.45 MB @   45.3 MB/s
+==> No patches needed for zstd
+==> zstd: Executing phase: 'edit'
+==> zstd: Executing phase: 'build'
+==> zstd: Executing phase: 'install'
+==> zstd: Successfully installed zstd-1.5.7-6pbg4jenkueraxcdqpgqn44bj2p6mylh
+  Stage: 0.22s.  Edit: 0.00s.  Build: 0.00s.  Install: 29.18s.  Post-install: 0.15s.  Total: 29.65s
+[+] /n/holylabs/jharvard_lab/Lab/software/spack_lammps/opt/spack/linux-x86_64/zstd-1.5.7-6pbg4jenkueraxcdqpgqn44bj2p6mylh
+==> Installing libffi-3.4.7-3vj4gpxomsn32hwgfpvftdqfrbe3dkrt [12/57]
+==> No binary for libffi-3.4.7-3vj4gpxomsn32hwgfpvftdqfrbe3dkrt found: installing from source
+==> Fetching https://mirror.spack.io/_source-cache/archive/13/138607dee268bdecf374adf9144c00e839e38541f75f24a1fcf18b78fda48b2d.tar.gz
+    [100%]    1.39 MB @   54.6 MB/s
+==> No patches needed for libffi
+==> libffi: Executing phase: 'autoreconf'
+==> libffi: Executing phase: 'configure'
+==> libffi: Executing phase: 'build'
+==> libffi: Executing phase: 'install'
+==> libffi: Successfully installed libffi-3.4.7-3vj4gpxomsn32hwgfpvftdqfrbe3dkrt
+  Stage: 0.14s.  Autoreconf: 0.00s.  Configure: 4.95s.  Build: 1.53s.  Install: 0.40s.  Post-install: 0.11s.  Total: 7.28s
+
+... omitted output ...
+
+[+] /n/holylabs/jharvard_lab/Lab/software/spack_lammps/opt/spack/linux-x86_64/py-numpy-2.2.6-uph3xcohv3d6hy5oo7gimunjan4cgrsx
+==> Installing lammps-20201029-mpxtdzikg462l7exn4m4igeqs2ymrfkg [57/57]
+==> No binary for lammps-20201029-mpxtdzikg462l7exn4m4igeqs2ymrfkg found: installing from source
 ==> Fetching https://mirror.spack.io/_source-cache/archive/75/759705e16c1fedd6aa6e07d028cc0c78d73c76b76736668420946a74050c3726.tar.gz
+    [100%]  127.07 MB @   63.1 MB/s
 ==> No patches needed for lammps
 ==> lammps: Executing phase: 'cmake'
 ==> lammps: Executing phase: 'build'
 ==> lammps: Executing phase: 'install'
-==> lammps: Successfully installed lammps-20201029-brvuawzoq5ge6ak27a7474ziesqmbbq4
-  Stage: 8.79s.  Cmake: 8.14s.  Build: 2m 12.32s.  Install: 1.78s.  Post-install: 0.21s.  Total: 2m 31.51s
-[+] /builds/pkrastev/Spack/spack/opt/spack/linux-rocky8-x86_64/gcc-12.2.0/lammps-20201029-brvuawzoq5ge6ak27a7474ziesqmbbq4
-==> Updating view at /builds/pkrastev/Spack/spack/var/spack/environments/lammps/.spack-env/view
-==> Warning: Skipping external package: openmpi@4.1.5%gcc@12.2.0~atomics~cuda~cxx~cxx_exceptions~gpfs~internal-hwloc~internal-pmix~java~legacylaunchers~lustre~memchecker~openshmem~orterunprefix+romio+rsh~singularity+static+vt+wrapper-rpath build_system=autotools fabrics=none schedulers=none arch=linux-rocky8-x86_64/rzl24ya
+==> lammps: Successfully installed lammps-20201029-mpxtdzikg462l7exn4m4igeqs2ymrfkg
+  Stage: 4.38s.  Cmake: 5.00s.  Build: 5m 56.16s.  Install: 4.94s.  Post-install: 0.74s.  Total: 6m 11.57s
+[+] /n/holylabs/jharvard_lab/Lab/software/spack_lammps/opt/spack/linux-x86_64/lammps-20201029-mpxtdzikg462l7exn4m4igeqs2ymrfkg
+==> Updating view at /n/holylabs/jharvard_lab/Lab/software/spack_lammps/var/spack/environments/lammps/.spack-env/view
 ```
 
 ### List the packages installed in the LAMMPS environment
 
 ```bash
-[lammps] [pkrastev@builds01 spack]$ spack find
+[lammps] [jharvard@holy8a24402 spack_lammps]$ spack find
 ==> In environment lammps
-==> Root specs
-openmpi@4.1.5 
+==> 5 root specs
+[e] fftw@3.3.10
+[+] lammps+asphere+body+class2+colloid+compress+coreshell+dipole+granular+kokkos+kspace+manybody+mc+misc+molecule+mpiio+openmp-package+peri+python+qeq+replica+rigid+shock+snap+spin+srd+user-misc+user-reaxc
+[+] libbsd@0.12.2
+[e] openmpi@5.0.5
+[+] python@3.10
 
--- no arch / gcc@8.5.0 ------------------------------------------
-libbsd@0.11.6%gcc@8.5.0 
-
--- no arch / gcc@12.2.0 -----------------------------------------
-lammps%gcc@12.2.0 +asphere+body+class2+colloid+compress+coreshell+dipole+granular+kokkos+kspace+manybody+mc+misc+molecule+mpiio+openmp-package+peri+python+qeq+replica+rigid+shock+snap+spin+srd+user-misc+user-reaxc
-
-==> Installed packages
 -- linux-rocky8-x86_64 / gcc@8.5.0 ------------------------------
-gmake@4.4.1  libbsd@0.11.6  libmd@1.0.4
+gmake@4.4.1  libbsd@0.12.2  libmd@1.1.0
 
--- linux-rocky8-x86_64 / gcc@12.2.0 -----------------------------
-berkeley-db@18.1.40                 diffutils@3.9   gmake@4.4.1      libxcrypt@4.4.35  openblas@0.3.24  pkgconf@1.9.5       py-packaging@23.1            python@3.11.6  util-linux-uuid@2.38.1
-bzip2@1.0.8                         expat@2.5.0     kokkos@3.7.02    libxml2@2.10.3    openmpi@4.1.5    py-cython@0.29.36   py-pip@23.1.2                re2c@2.2       xz@5.4.1
-ca-certificates-mozilla@2023-05-30  fftw@3.3.10     lammps@20201029  ncurses@6.4       openssl@3.1.3    py-flit-core@3.9.0  py-pyproject-metadata@0.7.1  readline@8.2   zlib-ng@2.1.4
-cmake@3.27.7                        gdbm@1.23       libffi@3.4.4     nghttp2@1.57.0    perl@5.38.0      py-mpi4py@3.1.4     py-setuptools@68.0.0         sqlite@3.43.2  zstd@1.5.5
-curl@8.4.0                          gettext@0.22.3  libiconv@1.17    ninja@1.11.1      pigz@2.7         py-numpy@1.26.1     py-wheel@0.41.2              tar@1.34
-==> 47 installed packages
+-- linux-rocky8-x86_64 / gcc@14.2.0 -----------------------------
+berkeley-db@18.1.40  expat@2.7.1      libffi@3.4.7      nghttp2@1.65.0   pigz@2.8                py-numpy@2.2.6  tar@1.35
+bzip2@1.0.8          gdbm@1.23        libiconv@1.18     ninja@1.12.1     pkgconf@2.3.0           python@3.10.16  util-linux-uuid@2.41
+cmake@3.31.6         gettext@0.23.1   libxcrypt@4.4.38  openblas@0.3.29  py-cython@3.0.11        re2c@3.1        xz@5.6.3
+curl@8.11.1          kokkos@3.7.02    libxml2@2.13.5    openssl@3.4.1    py-meson-python@0.16.0  readline@8.2    zlib-ng@2.2.4
+diffutils@3.10       lammps@20201029  ncurses@6.5       perl@5.40.0      py-mpi4py@4.0.1         sqlite@3.46.0   zstd@1.5.7
+
+-- linux-rocky8-x86_64 / no compiler ----------------------------
+ca-certificates-mozilla@2025-02-25  gcc@14.2.0          meson@1.7.0          py-packaging@25.0            py-setuptools@79.0.1
+compiler-wrapper@1.0                gcc-runtime@8.5.0   openmpi@5.0.5        py-pip@25.1.1                py-tomli@2.0.1
+fftw@3.3.10                         gcc-runtime@14.2.0  py-build@1.2.2       py-pyproject-hooks@1.2.0     py-wheel@0.45.1
+gcc@8.5.0                           glibc@2.28          py-flit-core@3.12.0  py-pyproject-metadata@0.9.1  python-venv@1.0
+==> 58 installed packages
+==> 0 concretized packages to be installed (show with `spack find -c`)
 ```
 
 ## Use LAMMPS
@@ -279,7 +264,7 @@ curl@8.4.0                          gettext@0.22.3  libiconv@1.17    ninja@1.11.
 Once the environment is installed, all installed packages in the LAMMPS environment are available on the `PATH`, e.g.,:
 
 ```bash
-[lammps] [pkrastev@builds01 ~]$ lmp -h
+[lammps] [jharvard@holy8a24102 spack_lammps]$ lmp -h
 
 Large-scale Atomic/Molecular Massively Parallel Simulator - 29 Oct 2020
 
@@ -299,18 +284,18 @@ List of command line options supported by this LAMMPS executable:
 -plog basename              : basename for partition logs (-pl)
 -pscreen basename           : basename for partition screens (-ps)
 -restart2data rfile dfile ... : convert restart to data file (-r2data)
--restart2dump rfile dgroup dstyle dfile ... 
+-restart2dump rfile dgroup dstyle dfile ...
                             : convert restart to dump file (-r2dump)
 -reorder topology-specs     : processor reordering (-r)
 -screen none/filename       : where to send screen output (-sc)
 -suffix gpu/intel/opt/omp   : style suffix to apply (-sf)
 -var varname value          : set index style variable (-v)
 
-OS: Linux 4.18.0-425.10.1.el8_7.x86_64 on x86_64
+OS: Linux 4.18.0-513.18.1.el8_9.x86_64 on x86_64
 
-Compiler: GNU C++ 12.2.0 with OpenMP 4.5
+Compiler: GNU C++ 14.2.0 with OpenMP 4.5
 C++ standard: C++17
-MPI v3.1: Open MPI v4.1.5, package: Open MPI pedmon@builds01.rc.fas.harvard.edu Distribution, ident: 4.1.5, repo rev: v4.1.5, Feb 23, 2023
+MPI v3.1: Open MPI v5.0.5, package: Open MPI pedmon@builds01.rc.fas.harvard.edu Distribution, ident: 5.0.5, repo rev: v5.0.5, Jul 22, 2024
 
 Active compile time flags:
 
@@ -323,404 +308,298 @@ sizeof(bigint):   64-bit
 
 Installed packages:
 
-ASPHERE BODY CLASS2 COLLOID COMPRESS CORESHELL DIPOLE GRANULAR KOKKOS KSPACE 
-MANYBODY MC MISC MOLECULE MPIIO PERI PYTHON QEQ REPLICA RIGID SHOCK SNAP SPIN 
-SRD USER-MISC USER-REAXC 
+ASPHERE BODY CLASS2 COLLOID COMPRESS CORESHELL DIPOLE GRANULAR KOKKOS KSPACE
+MANYBODY MC MISC MOLECULE MPIIO PERI PYTHON QEQ REPLICA RIGID SHOCK SNAP SPIN
+SRD USER-MISC USER-REAXC
 
 List of individual style options included in this LAMMPS executable
 
 * Atom styles:
 
-angle           angle/kk        angle/kk/device angle/kk/host   atomic          
-atomic/kk       atomic/kk/device                atomic/kk/host  body            
-bond            bond/kk         bond/kk/device  bond/kk/host    charge          
-charge/kk       charge/kk/device                charge/kk/host  dipole          
-ellipsoid       full            full/kk         full/kk/device  full/kk/host    
-hybrid          hybrid/kk       line            molecular       molecular/kk    
-molecular/kk/device             molecular/kk/host               peri            
-sphere          sphere/kk       sphere/kk/device                sphere/kk/host  
-spin            template        tri             
+angle           angle/kk        angle/kk/device angle/kk/host   atomic
+atomic/kk       atomic/kk/device                atomic/kk/host  body
+bond            bond/kk         bond/kk/device  bond/kk/host    charge
+charge/kk       charge/kk/device                charge/kk/host  dipole
+ellipsoid       full            full/kk         full/kk/device  full/kk/host
+hybrid          hybrid/kk       line            molecular       molecular/kk
+molecular/kk/device             molecular/kk/host               peri
+sphere          sphere/kk       sphere/kk/device                sphere/kk/host
+spin            template        tri
 
 * Integrate styles:
 
-respa           verlet          verlet/kk       verlet/kk/device                
-verlet/kk/host  verlet/split    
+respa           verlet          verlet/kk       verlet/kk/device
+verlet/kk/host  verlet/split
 
 * Minimize styles:
 
-cg              cg/kk           cg/kk/device    cg/kk/host      fire            
-fire/old        hftn            quickmin        sd              spin            
-spin/cg         spin/lbfgs      
+cg              cg/kk           cg/kk/device    cg/kk/host      fire
+fire/old        hftn            quickmin        sd              spin
+spin/cg         spin/lbfgs
 
 * Pair styles:
 
-adp             agni            airebo          airebo/morse    atm             
-beck            body/nparticle  body/rounded/polygon            
-body/rounded/polyhedron         bop             born            born/coul/dsf   
-born/coul/dsf/cs                born/coul/long  born/coul/long/cs               
-born/coul/msm   born/coul/wolf  born/coul/wolf/cs               brownian        
-brownian/poly   buck            buck/coul/cut   buck/coul/cut/kk                
-buck/coul/cut/kk/device         buck/coul/cut/kk/host           buck/coul/long  
-buck/coul/long/cs               buck/coul/long/kk               
-buck/coul/long/kk/device        buck/coul/long/kk/host          buck/coul/msm   
-buck/kk         buck/kk/device  buck/kk/host    buck/long/coul/long             
-buck/mdf        colloid         comb            comb3           cosine/squared  
-coul/cut        coul/cut/kk     coul/cut/kk/device              coul/cut/kk/host                
-coul/debye      coul/debye/kk   coul/debye/kk/device            
-coul/debye/kk/host              coul/diel       coul/dsf        coul/dsf/kk     
-coul/dsf/kk/device              coul/dsf/kk/host                coul/long       
-coul/long/cs    coul/long/kk    coul/long/kk/device             
-coul/long/kk/host               coul/msm        coul/shield     coul/slater/cut 
-coul/slater/long                coul/streitz    coul/wolf       coul/wolf/cs    
-coul/wolf/kk    coul/wolf/kk/device             coul/wolf/kk/host               
-reax            dpd             dpd/tstat       drip            dsmc            
-e3b             eam             eam/alloy       eam/alloy/kk    
-eam/alloy/kk/device             eam/alloy/kk/host               eam/cd          
-eam/cd/old      eam/fs          eam/fs/kk       eam/fs/kk/device                
-eam/fs/kk/host  eam/kk          eam/kk/device   eam/kk/host     edip            
-edip/multi      eim             extep           gauss           gauss/cut       
-gayberne        gran/hertz/history              gran/hooke      
-gran/hooke/history              gran/hooke/history/kk           
-gran/hooke/history/kk/device    gran/hooke/history/kk/host      granular        
-gw              gw/zbl          hbond/dreiding/lj               
-hbond/dreiding/morse            hybrid          hybrid/kk       hybrid/overlay  
-hybrid/overlay/kk               ilp/graphene/hbn                
-kolmogorov/crespi/full          kolmogorov/crespi/z             lcbop           
-lebedeva/z      lennard/mdf     line/lj         list            lj96/cut        
-lj/charmm/coul/charmm           lj/charmm/coul/charmm/implicit  
-lj/charmm/coul/charmm/implicit/kk               
-lj/charmm/coul/charmm/implicit/kk/device        
-lj/charmm/coul/charmm/implicit/kk/host          lj/charmm/coul/charmm/kk        
-lj/charmm/coul/charmm/kk/device lj/charmm/coul/charmm/kk/host   
-lj/charmm/coul/long             lj/charmm/coul/long/kk          
-lj/charmm/coul/long/kk/device   lj/charmm/coul/long/kk/host     
-lj/charmm/coul/msm              lj/charmmfsw/coul/charmmfsh     
-lj/charmmfsw/coul/long          lj/class2       lj/class2/coul/cut              
-lj/class2/coul/cut/kk           lj/class2/coul/cut/kk/device    
-lj/class2/coul/cut/kk/host      lj/class2/coul/long             
-lj/class2/coul/long/cs          lj/class2/coul/long/kk          
-lj/class2/coul/long/kk/device   lj/class2/coul/long/kk/host     lj/class2/kk    
-lj/class2/kk/device             lj/class2/kk/host               lj/cubic        
-lj/cut          lj/cut/coul/cut lj/cut/coul/cut/kk              
-lj/cut/coul/cut/kk/device       lj/cut/coul/cut/kk/host         
-lj/cut/coul/debye               lj/cut/coul/debye/kk            
-lj/cut/coul/debye/kk/device     lj/cut/coul/debye/kk/host       lj/cut/coul/dsf 
-lj/cut/coul/dsf/kk              lj/cut/coul/dsf/kk/device       
-lj/cut/coul/dsf/kk/host         lj/cut/coul/long                
-lj/cut/coul/long/cs             lj/cut/coul/long/kk             
-lj/cut/coul/long/kk/device      lj/cut/coul/long/kk/host        lj/cut/coul/msm 
-lj/cut/coul/wolf                lj/cut/dipole/cut               
-lj/cut/dipole/long              lj/cut/kk       lj/cut/kk/device                
-lj/cut/kk/host  lj/cut/tip4p/cut                lj/cut/tip4p/long               
-lj/expand       lj/expand/coul/long             lj/expand/kk    
-lj/expand/kk/device             lj/expand/kk/host               lj/gromacs      
-lj/gromacs/coul/gromacs         lj/gromacs/coul/gromacs/kk      
-lj/gromacs/coul/gromacs/kk/device               lj/gromacs/coul/gromacs/kk/host 
-lj/gromacs/kk   lj/gromacs/kk/device            lj/gromacs/kk/host              
-lj/long/coul/long               lj/long/dipole/long             
-lj/long/tip4p/long              lj/mdf          lj/sf/dipole/sf lj/smooth       
-lj/smooth/linear                lj/sf           local/density   lubricate       
-lubricateU      lubricateU/poly lubricate/poly  meam/spline     meam/sw/spline  
-mie/cut         momb            morse           morse/kk        morse/kk/device 
-morse/kk/host   morse/smooth/linear             nb3b/harmonic   nm/cut          
-nm/cut/coul/cut nm/cut/coul/long                peri/eps        peri/lps        
-peri/pmb        peri/ves        polymorphic     python          reax/c          
-reax/c/kk       reax/c/kk/device                reax/c/kk/host  rebo            
-resquared       snap            snap/kk         snap/kk/device  snap/kk/host    
-soft            spin/dipole/cut spin/dipole/long                spin/dmi        
-spin/exchange   spin/magelec    spin/neel       srp             sw              
-sw/kk           sw/kk/device    sw/kk/host      table           table/kk        
-table/kk/device table/kk/host   tersoff         tersoff/kk      
-tersoff/kk/device               tersoff/kk/host tersoff/mod     tersoff/mod/c   
-tersoff/mod/kk  tersoff/mod/kk/device           tersoff/mod/kk/host             
-tersoff/table   tersoff/zbl     tersoff/zbl/kk  tersoff/zbl/kk/device           
-tersoff/zbl/kk/host             tip4p/cut       tip4p/long      tri/lj          
-ufm             vashishta       vashishta/kk    vashishta/kk/device             
-vashishta/kk/host               vashishta/table yukawa          yukawa/colloid  
-yukawa/kk       yukawa/kk/device                yukawa/kk/host  zbl             
-zbl/kk          zbl/kk/device   zbl/kk/host     zero            
+adp             agni            airebo          airebo/morse    atm
+beck            body/nparticle  body/rounded/polygon
+body/rounded/polyhedron         bop             born            born/coul/dsf
+born/coul/dsf/cs                born/coul/long  born/coul/long/cs
+born/coul/msm   born/coul/wolf  born/coul/wolf/cs               brownian
+brownian/poly   buck            buck/coul/cut   buck/coul/cut/kk
+buck/coul/cut/kk/device         buck/coul/cut/kk/host           buck/coul/long
+buck/coul/long/cs               buck/coul/long/kk
+buck/coul/long/kk/device        buck/coul/long/kk/host          buck/coul/msm
+buck/kk         buck/kk/device  buck/kk/host    buck/long/coul/long
+buck/mdf        colloid         comb            comb3           cosine/squared
+coul/cut        coul/cut/kk     coul/cut/kk/device              coul/cut/kk/host
+coul/debye      coul/debye/kk   coul/debye/kk/device
+coul/debye/kk/host              coul/diel       coul/dsf        coul/dsf/kk
+coul/dsf/kk/device              coul/dsf/kk/host                coul/long
+coul/long/cs    coul/long/kk    coul/long/kk/device
+coul/long/kk/host               coul/msm        coul/shield     coul/slater/cut
+coul/slater/long                coul/streitz    coul/wolf       coul/wolf/cs
+coul/wolf/kk    coul/wolf/kk/device             coul/wolf/kk/host
+reax            dpd             dpd/tstat       drip            dsmc
+e3b             eam             eam/alloy       eam/alloy/kk
+eam/alloy/kk/device             eam/alloy/kk/host               eam/cd
+eam/cd/old      eam/fs          eam/fs/kk       eam/fs/kk/device
+eam/fs/kk/host  eam/kk          eam/kk/device   eam/kk/host     edip
+edip/multi      eim             extep           gauss           gauss/cut
+gayberne        gran/hertz/history              gran/hooke
+gran/hooke/history              gran/hooke/history/kk
+gran/hooke/history/kk/device    gran/hooke/history/kk/host      granular
+gw              gw/zbl          hbond/dreiding/lj
+hbond/dreiding/morse            hybrid          hybrid/kk       hybrid/overlay
+hybrid/overlay/kk               ilp/graphene/hbn
+kolmogorov/crespi/full          kolmogorov/crespi/z             lcbop
+lebedeva/z      lennard/mdf     line/lj         list            lj96/cut
+lj/charmm/coul/charmm           lj/charmm/coul/charmm/implicit
+lj/charmm/coul/charmm/implicit/kk
+lj/charmm/coul/charmm/implicit/kk/device
+lj/charmm/coul/charmm/implicit/kk/host          lj/charmm/coul/charmm/kk
+lj/charmm/coul/charmm/kk/device lj/charmm/coul/charmm/kk/host
+lj/charmm/coul/long             lj/charmm/coul/long/kk
+lj/charmm/coul/long/kk/device   lj/charmm/coul/long/kk/host
+lj/charmm/coul/msm              lj/charmmfsw/coul/charmmfsh
+lj/charmmfsw/coul/long          lj/class2       lj/class2/coul/cut
+lj/class2/coul/cut/kk           lj/class2/coul/cut/kk/device
+lj/class2/coul/cut/kk/host      lj/class2/coul/long
+lj/class2/coul/long/cs          lj/class2/coul/long/kk
+lj/class2/coul/long/kk/device   lj/class2/coul/long/kk/host     lj/class2/kk
+lj/class2/kk/device             lj/class2/kk/host               lj/cubic
+lj/cut          lj/cut/coul/cut lj/cut/coul/cut/kk
+lj/cut/coul/cut/kk/device       lj/cut/coul/cut/kk/host
+lj/cut/coul/debye               lj/cut/coul/debye/kk
+lj/cut/coul/debye/kk/device     lj/cut/coul/debye/kk/host       lj/cut/coul/dsf
+lj/cut/coul/dsf/kk              lj/cut/coul/dsf/kk/device
+lj/cut/coul/dsf/kk/host         lj/cut/coul/long
+lj/cut/coul/long/cs             lj/cut/coul/long/kk
+lj/cut/coul/long/kk/device      lj/cut/coul/long/kk/host        lj/cut/coul/msm
+lj/cut/coul/wolf                lj/cut/dipole/cut
+lj/cut/dipole/long              lj/cut/kk       lj/cut/kk/device
+lj/cut/kk/host  lj/cut/tip4p/cut                lj/cut/tip4p/long
+lj/expand       lj/expand/coul/long             lj/expand/kk
+lj/expand/kk/device             lj/expand/kk/host               lj/gromacs
+lj/gromacs/coul/gromacs         lj/gromacs/coul/gromacs/kk
+lj/gromacs/coul/gromacs/kk/device               lj/gromacs/coul/gromacs/kk/host
+lj/gromacs/kk   lj/gromacs/kk/device            lj/gromacs/kk/host
+lj/long/coul/long               lj/long/dipole/long
+lj/long/tip4p/long              lj/mdf          lj/sf/dipole/sf lj/smooth
+lj/smooth/linear                lj/sf           local/density   lubricate
+lubricateU      lubricateU/poly lubricate/poly  meam/spline     meam/sw/spline
+mie/cut         momb            morse           morse/kk        morse/kk/device
+morse/kk/host   morse/smooth/linear             nb3b/harmonic   nm/cut
+nm/cut/coul/cut nm/cut/coul/long                peri/eps        peri/lps
+peri/pmb        peri/ves        polymorphic     python          reax/c
+reax/c/kk       reax/c/kk/device                reax/c/kk/host  rebo
+resquared       snap            snap/kk         snap/kk/device  snap/kk/host
+soft            spin/dipole/cut spin/dipole/long                spin/dmi
+spin/exchange   spin/magelec    spin/neel       srp             sw
+sw/kk           sw/kk/device    sw/kk/host      table           table/kk
+table/kk/device table/kk/host   tersoff         tersoff/kk
+tersoff/kk/device               tersoff/kk/host tersoff/mod     tersoff/mod/c
+tersoff/mod/kk  tersoff/mod/kk/device           tersoff/mod/kk/host
+tersoff/table   tersoff/zbl     tersoff/zbl/kk  tersoff/zbl/kk/device
+tersoff/zbl/kk/host             tip4p/cut       tip4p/long      tri/lj
+ufm             vashishta       vashishta/kk    vashishta/kk/device
+vashishta/kk/host               vashishta/table yukawa          yukawa/colloid
+yukawa/kk       yukawa/kk/device                yukawa/kk/host  zbl
+zbl/kk          zbl/kk/device   zbl/kk/host     zero
 
 * Bond styles:
 
-class2          class2/kk       class2/kk/device                class2/kk/host  
-fene            fene/expand     fene/kk         fene/kk/device  fene/kk/host    
-gromos          harmonic        harmonic/kk     harmonic/kk/device              
-harmonic/kk/host                harmonic/shift  harmonic/shift/cut              
-hybrid          morse           nonlinear       quartic         special         
-table           zero            
+class2          class2/kk       class2/kk/device                class2/kk/host
+fene            fene/expand     fene/kk         fene/kk/device  fene/kk/host
+gromos          harmonic        harmonic/kk     harmonic/kk/device
+harmonic/kk/host                harmonic/shift  harmonic/shift/cut
+hybrid          morse           nonlinear       quartic         special
+table           zero
 
 * Angle styles:
 
-charmm          charmm/kk       charmm/kk/device                charmm/kk/host  
-class2          class2/kk       class2/kk/device                class2/kk/host  
-cosine          cosine/delta    cosine/kk       cosine/kk/device                
-cosine/kk/host  cosine/periodic cosine/shift    cosine/shift/exp                
-cosine/squared  dipole          fourier         fourier/simple  harmonic        
-harmonic/kk     harmonic/kk/device              harmonic/kk/host                
-hybrid          quartic         table           zero            
+charmm          charmm/kk       charmm/kk/device                charmm/kk/host
+class2          class2/kk       class2/kk/device                class2/kk/host
+cosine          cosine/delta    cosine/kk       cosine/kk/device
+cosine/kk/host  cosine/periodic cosine/shift    cosine/shift/exp
+cosine/squared  dipole          fourier         fourier/simple  harmonic
+harmonic/kk     harmonic/kk/device              harmonic/kk/host
+hybrid          quartic         table           zero
 
 * Dihedral styles:
 
-charmm          charmm/kk       charmm/kk/device                charmm/kk/host  
-charmmfsw       class2          class2/kk       class2/kk/device                
-class2/kk/host  cosine/shift/exp                fourier         harmonic        
-harmonic/kk     harmonic/kk/device              harmonic/kk/host                
-helix           hybrid          multi/harmonic  nharmonic       opls            
-opls/kk         opls/kk/device  opls/kk/host    quadratic       spherical       
-table           table/cut       zero            
+charmm          charmm/kk       charmm/kk/device                charmm/kk/host
+charmmfsw       class2          class2/kk       class2/kk/device
+class2/kk/host  cosine/shift/exp                fourier         harmonic
+harmonic/kk     harmonic/kk/device              harmonic/kk/host
+helix           hybrid          multi/harmonic  nharmonic       opls
+opls/kk         opls/kk/device  opls/kk/host    quadratic       spherical
+table           table/cut       zero
 
 * Improper styles:
 
-class2          class2/kk       class2/kk/device                class2/kk/host  
-cossq           cvff            distance        fourier         harmonic        
-harmonic/kk     harmonic/kk/device              harmonic/kk/host                
-hybrid          ring            umbrella        zero            
+class2          class2/kk       class2/kk/device                class2/kk/host
+cossq           cvff            distance        fourier         harmonic
+harmonic/kk     harmonic/kk/device              harmonic/kk/host
+hybrid          ring            umbrella        zero
 
 * KSpace styles:
 
-ewald           ewald/dipole    ewald/dipole/spin               ewald/disp      
-msm             msm/cg          pppm            pppm/cg         pppm/dipole     
-pppm/dipole/spin                pppm/disp       pppm/disp/tip4p pppm/kk         
-pppm/kk/device  pppm/kk/host    pppm/stagger    pppm/tip4p      
+ewald           ewald/dipole    ewald/dipole/spin               ewald/disp
+msm             msm/cg          pppm            pppm/cg         pppm/dipole
+pppm/dipole/spin                pppm/disp       pppm/disp/tip4p pppm/kk
+pppm/kk/device  pppm/kk/host    pppm/stagger    pppm/tip4p
 
 * Fix styles
 
-accelerate/cos  adapt           addforce        addtorque       append/atoms    
-atom/swap       ave/atom        ave/chunk       ave/correlate   
-ave/correlate/long              ave/histo       ave/histo/weight                
-ave/time        aveforce        balance         bond/break      bond/create     
-bond/create/angle               bond/swap       box/relax       cmap            
-controller      deform          deform/kk       deform/kk/device                
-deform/kk/host  deposit         ave/spatial     ave/spatial/sphere              
-drag            dt/reset        efield          ehex            
-electron/stopping               enforce2d       enforce2d/kk    
-enforce2d/kk/device             enforce2d/kk/host               evaporate       
-external        ffl             filter/corotate flow/gauss      freeze          
-freeze/kk       freeze/kk/device                freeze/kk/host  gcmc            
-gld             gle             gravity         gravity/kk      
-gravity/kk/device               gravity/kk/host grem            halt            
-heat            hyper/global    hyper/local     imd             indent          
-ipi             langevin        langevin/kk     langevin/kk/device              
-langevin/kk/host                langevin/spin   lineforce       momentum        
-momentum/chunk  momentum/kk     momentum/kk/device              momentum/kk/host                
-move            msst            neb             neb/spin        nph             
-nph/asphere     nph/body        nph/kk          nph/kk/device   nph/kk/host     
-nph/sphere      nphug           npt             npt/asphere     npt/body        
-npt/cauchy      npt/kk          npt/kk/device   npt/kk/host     npt/sphere      
-numdiff         nve             nve/asphere     nve/asphere/noforce             
-nve/body        nve/kk          nve/kk/device   nve/kk/host     nve/limit       
-nve/line        nve/noforce     nve/sphere      nve/sphere/kk   
-nve/sphere/kk/device            nve/sphere/kk/host              nve/spin        
-nve/tri         nvk             nvt             nvt/asphere     nvt/body        
-nvt/kk          nvt/kk/device   nvt/kk/host     nvt/sllod       nvt/sphere      
-oneway          orient/bcc      orient/eco      orient/fcc      pafi            
-pimd            planeforce      pour            precession/spin press/berendsen 
-print           propel/self     property/atom   property/atom/kk                
-python/invoke   python          python/move     qeq/comb        qeq/dynamic     
-qeq/dynamic     qeq/fire        qeq/fire        qeq/point       qeq/point       
-qeq/reax        qeq/reax/kk     qeq/reax/kk/device              qeq/reax/kk/host                
-qeq/shielded    qeq/shielded    qeq/slater      qeq/slater      rattle          
-reax/c/bonds    reax/c/bonds/kk reax/c/bonds/kk/device          
-reax/c/bonds/kk/host            reax/c/species  reax/c/species/kk               
-reax/c/species/kk/device        reax/c/species/kk/host          recenter        
-restrain        rhok            rigid           rigid/nph       rigid/nph/small 
-rigid/npt       rigid/npt/small rigid/nve       rigid/nve/small rigid/nvt       
-rigid/nvt/small rigid/small     setforce        setforce/kk     
-setforce/kk/device              setforce/kk/host                setforce/spin   
-shake           smd             spring          spring/chunk    spring/rg       
-spring/self     srd             store/force     store/state     temp/berendsen  
-temp/csld       temp/csvr       temp/rescale    tfmc            
-thermal/conductivity            ti/spring       tmd             ttm             
-ttm/mod         tune/kspace     vector          viscosity       viscous         
-wall/body/polygon               wall/body/polyhedron            wall/colloid    
-wall/ees        wall/gran       wall/gran/region                wall/harmonic   
-wall/lj1043     wall/lj126      wall/lj93       wall/lj93/kk    
-wall/lj93/kk/device             wall/lj93/kk/host               wall/morse      
-wall/piston     wall/reflect    wall/reflect/kk wall/reflect/kk/device          
-wall/reflect/kk/host            wall/reflect/stochastic         wall/region     
-wall/region/ees wall/srd        widom           
+accelerate/cos  adapt           addforce        addtorque       append/atoms
+atom/swap       ave/atom        ave/chunk       ave/correlate
+ave/correlate/long              ave/histo       ave/histo/weight
+ave/time        aveforce        balance         bond/break      bond/create
+bond/create/angle               bond/swap       box/relax       cmap
+controller      deform          deform/kk       deform/kk/device
+deform/kk/host  deposit         ave/spatial     ave/spatial/sphere
+drag            dt/reset        efield          ehex
+electron/stopping               enforce2d       enforce2d/kk
+enforce2d/kk/device             enforce2d/kk/host               evaporate
+external        ffl             filter/corotate flow/gauss      freeze
+freeze/kk       freeze/kk/device                freeze/kk/host  gcmc
+gld             gle             gravity         gravity/kk
+gravity/kk/device               gravity/kk/host grem            halt
+heat            hyper/global    hyper/local     imd             indent
+ipi             langevin        langevin/kk     langevin/kk/device
+langevin/kk/host                langevin/spin   lineforce       momentum
+momentum/chunk  momentum/kk     momentum/kk/device              momentum/kk/host
+move            msst            neb             neb/spin        nph
+nph/asphere     nph/body        nph/kk          nph/kk/device   nph/kk/host
+nph/sphere      nphug           npt             npt/asphere     npt/body
+npt/cauchy      npt/kk          npt/kk/device   npt/kk/host     npt/sphere
+numdiff         nve             nve/asphere     nve/asphere/noforce
+nve/body        nve/kk          nve/kk/device   nve/kk/host     nve/limit
+nve/line        nve/noforce     nve/sphere      nve/sphere/kk
+nve/sphere/kk/device            nve/sphere/kk/host              nve/spin
+nve/tri         nvk             nvt             nvt/asphere     nvt/body
+nvt/kk          nvt/kk/device   nvt/kk/host     nvt/sllod       nvt/sphere
+oneway          orient/bcc      orient/eco      orient/fcc      pafi
+pimd            planeforce      pour            precession/spin press/berendsen
+print           propel/self     property/atom   property/atom/kk
+python/invoke   python          python/move     qeq/comb        qeq/dynamic
+qeq/dynamic     qeq/fire        qeq/fire        qeq/point       qeq/point
+qeq/reax        qeq/reax/kk     qeq/reax/kk/device              qeq/reax/kk/host
+qeq/shielded    qeq/shielded    qeq/slater      qeq/slater      rattle
+reax/c/bonds    reax/c/bonds/kk reax/c/bonds/kk/device
+reax/c/bonds/kk/host            reax/c/species  reax/c/species/kk
+reax/c/species/kk/device        reax/c/species/kk/host          recenter
+restrain        rhok            rigid           rigid/nph       rigid/nph/small
+rigid/npt       rigid/npt/small rigid/nve       rigid/nve/small rigid/nvt
+rigid/nvt/small rigid/small     setforce        setforce/kk
+setforce/kk/device              setforce/kk/host                setforce/spin
+shake           smd             spring          spring/chunk    spring/rg
+spring/self     srd             store/force     store/state     temp/berendsen
+temp/csld       temp/csvr       temp/rescale    tfmc
+thermal/conductivity            ti/spring       tmd             ttm
+ttm/mod         tune/kspace     vector          viscosity       viscous
+wall/body/polygon               wall/body/polyhedron            wall/colloid
+wall/ees        wall/gran       wall/gran/region                wall/harmonic
+wall/lj1043     wall/lj126      wall/lj93       wall/lj93/kk
+wall/lj93/kk/device             wall/lj93/kk/host               wall/morse
+wall/piston     wall/reflect    wall/reflect/kk wall/reflect/kk/device
+wall/reflect/kk/host            wall/reflect/stochastic         wall/region
+wall/region/ees wall/srd        widom
 
 * Compute styles:
 
-ackland/atom    adf             aggregate/atom  angle           angle/local     
-angmom/chunk    basal/atom      body/local      bond            bond/local      
-centro/atom     centroid/stress/atom            chunk/atom      
-chunk/spread/atom               cluster/atom    cna/atom        cnp/atom        
-com             com/chunk       contact/atom    coord/atom      coord/atom/kk   
-coord/atom/kk/device            coord/atom/kk/host              damage/atom     
-dihedral        dihedral/local  dilatation/atom dipole/chunk    displace/atom   
-entropy/atom    erotate/asphere erotate/rigid   erotate/sphere  
-erotate/sphere/atom             event/displace  fragment/atom   global/atom     
-group/group     gyration        gyration/chunk  gyration/shape  
-gyration/shape/chunk            heat/flux       hexorder/atom   hma             
-improper        improper/local  inertia/chunk   ke              ke/atom         
-ke/rigid        momentum        msd             msd/chunk       msd/nongauss    
-omega/chunk     orientorder/atom                orientorder/atom/kk             
-orientorder/atom/kk/device      orientorder/atom/kk/host        pair            
-pair/local      pe              pe/atom         plasticity/atom pressure        
-pressure/cylinder               property/atom   property/chunk  property/local  
-rdf             reduce          reduce/chunk    reduce/region   rigid/local     
-slice           sna/atom        snad/atom       snap            snav/atom       
-spin            stress/atom     stress/mop      stress/mop/profile              
-temp            temp/asphere    temp/body       temp/chunk      temp/com        
-temp/cs         temp/deform     temp/kk         temp/kk/device  temp/kk/host    
-temp/partial    temp/profile    temp/ramp       temp/region     temp/rotate     
-temp/sphere     ti              torque/chunk    vacf            vcm/chunk       
-viscosity/cos   
+ackland/atom    adf             aggregate/atom  angle           angle/local
+angmom/chunk    basal/atom      body/local      bond            bond/local
+centro/atom     centroid/stress/atom            chunk/atom
+chunk/spread/atom               cluster/atom    cna/atom        cnp/atom
+com             com/chunk       contact/atom    coord/atom      coord/atom/kk
+coord/atom/kk/device            coord/atom/kk/host              damage/atom
+dihedral        dihedral/local  dilatation/atom dipole/chunk    displace/atom
+entropy/atom    erotate/asphere erotate/rigid   erotate/sphere
+erotate/sphere/atom             event/displace  fragment/atom   global/atom
+group/group     gyration        gyration/chunk  gyration/shape
+gyration/shape/chunk            heat/flux       hexorder/atom   hma
+improper        improper/local  inertia/chunk   ke              ke/atom
+ke/rigid        momentum        msd             msd/chunk       msd/nongauss
+omega/chunk     orientorder/atom                orientorder/atom/kk
+orientorder/atom/kk/device      orientorder/atom/kk/host        pair
+pair/local      pe              pe/atom         plasticity/atom pressure
+pressure/cylinder               property/atom   property/chunk  property/local
+rdf             reduce          reduce/chunk    reduce/region   rigid/local
+slice           sna/atom        snad/atom       snap            snav/atom
+spin            stress/atom     stress/mop      stress/mop/profile
+temp            temp/asphere    temp/body       temp/chunk      temp/com
+temp/cs         temp/deform     temp/kk         temp/kk/device  temp/kk/host
+temp/partial    temp/profile    temp/ramp       temp/region     temp/rotate
+temp/sphere     ti              torque/chunk    vacf            vcm/chunk
+viscosity/cos
 
 * Region styles:
 
-block           block/kk        block/kk/device block/kk/host   cone            
-cylinder        intersect       plane           prism           sphere          
-union           
+block           block/kk        block/kk/device block/kk/host   cone
+cylinder        intersect       plane           prism           sphere
+union
 
 * Dump styles:
 
-atom            atom/gz         atom/mpiio      atom/zstd       cfg             
-cfg/gz          cfg/mpiio       cfg/zstd        custom          custom/gz       
-custom/mpiio    custom/zstd     dcd             image           local           
-local/gz        local/zstd      movie           xtc             xyz             
-xyz/gz          xyz/mpiio       xyz/zstd        
+atom            atom/gz         atom/mpiio      atom/zstd       cfg
+cfg/gz          cfg/mpiio       cfg/zstd        custom          custom/gz
+custom/mpiio    custom/zstd     dcd             image           local
+local/gz        local/zstd      movie           xtc             xyz
+xyz/gz          xyz/mpiio       xyz/zstd
 
 * Command styles
 
-balance         change_box      create_atoms    create_bonds    create_box      
-delete_atoms    delete_bonds    reset_ids       displace_atoms  hyper           
-info            minimize        neb             neb/spin        prd             
-read_data       read_dump       read_restart    replicate       rerun           
-reset_atom_ids  reset_mol_ids   run             set             tad             
-temper          temper/grem     temper/npt      velocity        write_coeff     
+balance         change_box      create_atoms    create_bonds    create_box
+delete_atoms    delete_bonds    reset_ids       displace_atoms  hyper
+info            minimize        neb             neb/spin        prd
+read_data       read_dump       read_restart    replicate       rerun
+reset_atom_ids  reset_mol_ids   run             set             tad
+temper          temper/grem     temper/npt      velocity        write_coeff
 write_data      write_dump      write_restart
 ```
+
 ### Interactive runs
 
 You can run LAMMPS interactively in both serial and parallel mode. This assumes you have requested an interactive session first, as explained [here](https://docs.rc.fas.harvard.edu/kb/running-jobs/#articleTOC_14).
 
-**Serial**
+**Prerequisite:**
+
+Source Spack and activate environment
 
 ```
-[lammps] [pkrastev@builds01 Fort]$ lmp -in in.demo 
+### NOTE: Replace <PATH TO spack_lammps> with the actual path to your spack installation
 
-LAMMPS (29 Oct 2020)
-  using 1 OpenMP thread(s) per MPI task
-Lattice spacing in x,y,z = 1.6795962 1.6795962 1.6795962
-Created orthogonal box = (0.0000000 0.0000000 0.0000000) to (16.795962 16.795962 16.795962)
-  1 by 1 by 1 MPI processor grid
-Created 4000 atoms
-  create_atoms CPU = 0.001 seconds
-Neighbor list info ...
-  update every 20 steps, delay 0 steps, check no
-  max neighbors/atom: 2000, page size: 100000
-  master list distance cutoff = 2.8
-  ghost atom cutoff = 2.8
-  binsize = 1.4, bins = 12 12 12
-  1 neighbor lists, perpetual/occasional/extra = 1 0 0
-  (1) pair lj/cut, perpetual
-      attributes: half, newton on
-      pair build: half/bin/atomonly/newton
-      stencil: half/bin/3d/newton
-      bin: standard
-Setting up Verlet run ...
-  Unit style    : lj
-  Current step  : 0
-  Time step     : 0.005
-Per MPI rank memory allocation (min/avg/max) = 3.763 | 3.763 | 3.763 Mbytes
-Step Temp E_pair E_mol TotEng Press 
-       0         1.44   -6.7733681            0   -4.6139081   -5.0199732 
-     100   0.75715334   -5.7581426            0   -4.6226965   0.20850222 
-Loop time of 0.168767 on 1 procs for 100 steps with 4000 atoms
-
-Performance: 255973.752 tau/day, 592.532 timesteps/s
-99.8% CPU use with 1 MPI tasks x 1 OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 0.13874    | 0.13874    | 0.13874    |   0.0 | 82.21
-Neigh   | 0.023646   | 0.023646   | 0.023646   |   0.0 | 14.01
-Comm    | 0.003051   | 0.003051   | 0.003051   |   0.0 |  1.81
-Output  | 2.8434e-05 | 2.8434e-05 | 2.8434e-05 |   0.0 |  0.02
-Modify  | 0.0027839  | 0.0027839  | 0.0027839  |   0.0 |  1.65
-Other   |            | 0.0005168  |            |       |  0.31
-
-Nlocal:        4000.00 ave        4000 max        4000 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:        5754.00 ave        5754 max        5754 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Neighs:       150362.0 ave      150362 max      150362 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 150362
-Ave neighs/atom = 37.590500
-Neighbor list builds = 5
-Dangerous builds not checked
-Total wall time: 0:00:00
+[jharvard@holy8a24102 ~]$ cd <PATH TO spack_lammps>
+[jharvard@holy8a24102 spack_lammps]$ source share/spack/setup-env.sh
+[jharvard@holy8a24102 spack_lammps]$ spack env activate -p lammps
 ```
 
-**Parallel (e.g., 4 MPI tasks)**
+**Example: input file `in.demo` (3D Lennard-Jones melt)**
+
+The examples below use [in.demo](https://github.com/lammps/lammps/blob/08d285655821cbaea1b803a21c9ff39b93e164c3/python/examples/in.demo#) from [LAMMPS repository](https://github.com/lammps/lammps).
 
 ```
-[lammps] [pkrastev@builds01 Fort]$ mpirun -np 4 lmp -in in.demo 
-LAMMPS (29 Oct 2020)
-  using 1 OpenMP thread(s) per MPI task
-Lattice spacing in x,y,z = 1.6795962 1.6795962 1.6795962
-Created orthogonal box = (0.0000000 0.0000000 0.0000000) to (16.795962 16.795962 16.795962)
-  1 by 2 by 2 MPI processor grid
-Created 4000 atoms
-  create_atoms CPU = 0.002 seconds
-Neighbor list info ...
-  update every 20 steps, delay 0 steps, check no
-  max neighbors/atom: 2000, page size: 100000
-  master list distance cutoff = 2.8
-  ghost atom cutoff = 2.8
-  binsize = 1.4, bins = 12 12 12
-  1 neighbor lists, perpetual/occasional/extra = 1 0 0
-  (1) pair lj/cut, perpetual
-      attributes: half, newton on
-      pair build: half/bin/atomonly/newton
-      stencil: half/bin/3d/newton
-      bin: standard
-Setting up Verlet run ...
-  Unit style    : lj
-  Current step  : 0
-  Time step     : 0.005
-Per MPI rank memory allocation (min/avg/max) = 3.224 | 3.224 | 3.224 Mbytes
-Step Temp E_pair E_mol TotEng Press 
-       0         1.44   -6.7733681            0   -4.6139081   -5.0199732 
-     100   0.75715334   -5.7581426            0   -4.6226965   0.20850222 
-Loop time of 0.0526894 on 4 procs for 100 steps with 4000 atoms
-
-Performance: 819898.804 tau/day, 1897.914 timesteps/s
-99.7% CPU use with 4 MPI tasks x 1 OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 0.034334   | 0.035334   | 0.036511   |   0.4 | 67.06
-Neigh   | 0.006092   | 0.0061221  | 0.0061656  |   0.0 | 11.62
-Comm    | 0.0090592  | 0.01032    | 0.011391   |   0.8 | 19.59
-Output  | 2.6026e-05 | 2.9345e-05 | 3.4108e-05 |   0.0 |  0.06
-Modify  | 0.00065987 | 0.00070476 | 0.0007444  |   0.0 |  1.34
-Other   |            | 0.0001791  |            |       |  0.34
-
-Nlocal:        1000.00 ave        1019 max         980 min
-Histogram: 1 0 0 0 0 2 0 0 0 1
-Nghost:        2858.75 ave        2881 max        2844 min
-Histogram: 1 1 0 0 1 0 0 0 0 1
-Neighs:        37590.5 ave       38013 max       37269 min
-Histogram: 2 0 0 0 0 0 0 1 0 1
-
-Total # of neighbors = 150362
-Ave neighs/atom = 37.590500
-Neighbor list builds = 5
-Dangerous builds not checked
-Total wall time: 0:00:00
-```
-
-**Example input file `in.demo` (3d Lennard-Jones melt)**
-
-```
-[lammps] [pkrastev@builds01 Fort]$ cat in.demo 
+[lammps] [jharvard@holy8a24301 spack_lammps]$ cat in.demo
 # 3d Lennard-Jones melt
 
 units		lj
@@ -748,11 +627,132 @@ variable	vy atom vy
 
 run		100
 ```
+
+**Serial**
+
+```
+[lammps] [jharvard@holy8a24301 spack_lammps]$ lmp -in in.demo
+LAMMPS (29 Oct 2020)
+  using 1 OpenMP thread(s) per MPI task
+Lattice spacing in x,y,z = 1.6795962 1.6795962 1.6795962
+Created orthogonal box = (0.0000000 0.0000000 0.0000000) to (16.795962 16.795962 16.795962)
+  1 by 1 by 1 MPI processor grid
+Created 4000 atoms
+  create_atoms CPU = 0.001 seconds
+Neighbor list info ...
+  update every 20 steps, delay 0 steps, check no
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 2.8
+  ghost atom cutoff = 2.8
+  binsize = 1.4, bins = 12 12 12
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : lj
+  Current step  : 0
+  Time step     : 0.005
+Per MPI rank memory allocation (min/avg/max) = 3.763 | 3.763 | 3.763 Mbytes
+Step Temp E_pair E_mol TotEng Press
+       0         1.44   -6.7733681            0   -4.6139081   -5.0199732
+     100   0.75715334   -5.7581426            0   -4.6226965   0.20850222
+Loop time of 0.166196 on 1 procs for 100 steps with 4000 atoms
+
+Performance: 259934.223 tau/day, 601.700 timesteps/s
+99.8% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.1346     | 0.1346     | 0.1346     |   0.0 | 80.99
+Neigh   | 0.026011   | 0.026011   | 0.026011   |   0.0 | 15.65
+Comm    | 0.0026822  | 0.0026822  | 0.0026822  |   0.0 |  1.61
+Output  | 2.4151e-05 | 2.4151e-05 | 2.4151e-05 |   0.0 |  0.01
+Modify  | 0.0023231  | 0.0023231  | 0.0023231  |   0.0 |  1.40
+Other   |            | 0.0005541  |            |       |  0.33
+
+Nlocal:        4000.00 ave        4000 max        4000 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:        5754.00 ave        5754 max        5754 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:       150362.0 ave      150362 max      150362 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 150362
+Ave neighs/atom = 37.590500
+Neighbor list builds = 5
+Dangerous builds not checked
+Total wall time: 0:00:00
+```
+
+**Parallel (e.g., 4 MPI tasks)**
+
+```
+[lammps] [jharvard@holy8a24301 spack_lammps]$ mpirun -np 4 lmp -in in.demo
+LAMMPS (29 Oct 2020)
+  using 1 OpenMP thread(s) per MPI task
+Lattice spacing in x,y,z = 1.6795962 1.6795962 1.6795962
+Created orthogonal box = (0.0000000 0.0000000 0.0000000) to (16.795962 16.795962 16.795962)
+  1 by 2 by 2 MPI processor grid
+Created 4000 atoms
+  create_atoms CPU = 0.001 seconds
+Neighbor list info ...
+  update every 20 steps, delay 0 steps, check no
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 2.8
+  ghost atom cutoff = 2.8
+  binsize = 1.4, bins = 12 12 12
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair lj/cut, perpetual
+      attributes: half, newton on
+      pair build: half/bin/atomonly/newton
+      stencil: half/bin/3d/newton
+      bin: standard
+Setting up Verlet run ...
+  Unit style    : lj
+  Current step  : 0
+  Time step     : 0.005
+Per MPI rank memory allocation (min/avg/max) = 3.224 | 3.224 | 3.224 Mbytes
+Step Temp E_pair E_mol TotEng Press
+       0         1.44   -6.7733681            0   -4.6139081   -5.0199732
+     100   0.75715334   -5.7581426            0   -4.6226965   0.20850222
+Loop time of 0.0487977 on 4 procs for 100 steps with 4000 atoms
+
+Performance: 885288.044 tau/day, 2049.278 timesteps/s
+96.1% CPU use with 4 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.034078   | 0.034385   | 0.034719   |   0.1 | 70.46
+Neigh   | 0.0066096  | 0.0066407  | 0.0066986  |   0.0 | 13.61
+Comm    | 0.0065501  | 0.0069472  | 0.0072876  |   0.3 | 14.24
+Output  | 2.2972e-05 | 2.5369e-05 | 3.2187e-05 |   0.0 |  0.05
+Modify  | 0.0005837  | 0.00059166 | 0.00060061 |   0.0 |  1.21
+Other   |            | 0.0002079  |            |       |  0.43
+
+Nlocal:        1000.00 ave        1019 max         980 min
+Histogram: 1 0 0 0 0 2 0 0 0 1
+Nghost:        2858.75 ave        2881 max        2844 min
+Histogram: 1 1 0 0 1 0 0 0 0 1
+Neighs:        37590.5 ave       38013 max       37269 min
+Histogram: 2 0 0 0 0 0 0 1 0 1
+
+Total # of neighbors = 150362
+Ave neighs/atom = 37.590500
+Neighbor list builds = 5
+Dangerous builds not checked
+Total wall time: 0:00:00
+```
+
 ### Batch jobs
 
 **Example batch job submission script**
 
-Below is an example batch-job submission script using the LAMMPS spack environment.
+Below is an example batch-job submission script `run_lammps.sh` using the LAMMPS spack environment.
 
 ```bash
 #!/bin/bash
@@ -766,12 +766,19 @@ Below is an example batch-job submission script using the LAMMPS spack environme
 
 # --- Activate the LAMMPS Spack environment., e.g., ---
 ### NOTE: Replace <PATH TO> with the actual path to your spack installation
-. <PATH TO>/spack/share/spack/setup-env.sh
+. <PATH TO>/spack_lammps/share/spack/setup-env.sh
 spack env activate lammps
 
 # --- Run the executable ---
 srun -n $SLURM_NTASKS --mpi=pmix lmp -in in.demo
 ```
+
+Submit the job
+
+```
+sbatch run_lammps.sh
+```
+
 
 ## References:
 
