@@ -295,45 +295,61 @@ $ spack unload
 
 ## Compiler Configuration
 
-Spack has the ability to build packages with multiple compilers and compiler versions. This can be particularly useful, if a package needs to be built with specific compilers and compiler versions. You can display the available compilers by the <code>spack compilers</code> command, e.g.,
+On the cluster, we support a set of core compilers, such as GNU (GCC) compiler suit, Intel, and PGI provided on the cluster through [software modules](https://docs.rc.fas.harvard.edu/kb/modules-intro).
+
+Spack has the ability to build packages with multiple compilers and compiler versions. This can be particularly useful, if a package needs to be built with specific compilers and compiler versions. You can display the available compilers by the `spack compiler list` command.
+
+If you have never used Spack, you will likely have no compiler listed (see [Add GCC compiler](#add-gcc-compiler-version-to-the-spack-compilers) section below for how to add compilers):
 
 ```bash
-$ spack compilers
-==> Available compilers
--- gcc rocky8-x86_64 --------------------------------------------
-gcc@8.5.0
+$ spack compiler list
+==> No compilers available. Run `spack compiler find` to autodetect compilers
 ```
 
-The listed compilers are system level compilers provided by the OS itself. On the cluster, we support a set of core compilers, such as GNU (GCC) compiler suit, Intel, and PGI provided on the cluster through [software modules](https://docs.rc.fas.harvard.edu/kb/modules-intro).
+If you have used Spack before, you may see system-level compilers provided by the operating system (OS) itself:
+
+```bash
+$ spack compiler list
+==> Available compilers
+-- gcc rocky8-x86_64 --------------------------------------------
+[e]  gcc@8.5.0
+
+-- llvm rocky8-x86_64 -------------------------------------------
+[e]  llvm@19.1.7
+```
 
 You can easily add additional compilers to spack by loading the appropriate software modules, running the <code>spack compiler find</code> command, and edit the <code>compilers.yaml</code> configuration file. For instance, if you need GCC version 12.2.0 you need to do the following:
 
 * ### Load the required software module
 
 ```bash
-$ module load gcc/12.2.0-fasrc01
+$ module load gcc/14.2.0-fasrc01
 $ which gcc
-/n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/gcc
+/n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01/bin/gcc
 ```
-* ### Add this GCC compiler version to the spack compilers
+
+* ### Add GCC compiler version to the spack compilers
 
 ```bash
 $ spack compiler find
-==> Added 1 new compiler to ~/.spack/packages.yaml
-    gcc@12.2.0
+==> Added 1 new compiler to /n/home01/jharvard/.spack/packages.yaml
+    gcc@14.2.0
 ==> Compilers are defined in the following files:
-    ~/.spack/packages.yaml
+    /n/home01/jharvard/.spack/packages.yaml
 ```
-If you run <code>spack compilers</code> again, you will see that the new compiler has been added to the compiler list and made a default (listed first), e.g.,
+If you run <code>spack compiler list</code> again, you will see that the new compiler has been added to the compiler list and made a default (listed first), e.g.,
 
 ```bash
-$ spack compilers
+$ spack compiler list
 ==> Available compilers
 -- gcc rocky8-x86_64 --------------------------------------------
-gcc@12.2.0  gcc@8.5.0
+[e]  gcc@8.5.0  [e]  gcc@14.2.0
+
+-- llvm rocky8-x86_64 -------------------------------------------
+[e]  llvm@19.1.7
 ```
 
-> **Note:** By default, spack does not fill in the <code>modules:</code> field in the <code>compilers.yaml</code> file. If you are using a compiler from a module, then you should add this field manually.
+> **Note:** By default, spack does not fill in the <code>modules:</code> field in the <code>~/.spack/packages.yaml</code> file. If you are using a compiler from a module, then you should add this field manually.
 
 * ### Edit manually the compiler configuration file
 
@@ -342,75 +358,92 @@ Use your favorite text editor, e.g., <code>Vim</code>, <code>Emacs</code>,<code>
 ```bash
 vi ~/.spack/packages.yaml
 ```
-Each <code>-compiler:</code> section in this file is similar to the below:
+
+Each compiler is defined as a package in `~/.spack/packages.yaml`. Below, you can see gcc 14.2.0 (from module) and gcc 8.5.0 (from OS) defined:
 
 ```bash
-- compiler:
-    spec: gcc@12.2.0
-    paths:
-      cc: /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/gcc
-      cxx: /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/g++
-      f77: /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/gfortran
-      fc: /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/gfortran
-    flags: {}
-    operating_system: rocky8
-    target: x86_64
-    modules: []
-    environment: {}
-    extra_rpaths: []
+packages:
+  gcc:
+    externals:
+    - spec: gcc@14.2.0 languages:='c,c++,fortran'
+      prefix: /n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01
+      extra_attributes:
+        compilers:
+          c: /n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01/bin/gcc
+          cxx: /n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01/bin/g++
+          fortran: /n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01/bin/gfortran
+    - spec: gcc@8.5.0 languages:='c,c++,fortran'
+      prefix: /usr
+      extra_attributes:
+        compilers:
+          c: /usr/bin/gcc
+          cxx: /usr/bin/g++
+          fortran: /usr/bin/gfortran
 ```
-We have to edit the <code>modules: []</code> line to read
+
+We have to add the <code>modules:</code> definition for gcc 14.2.0:
 
 ```bash
-    modules: [gcc/12.2.0-fasrc01]
+packages:
+  gcc:
+    externals:
+    - spec: gcc@14.2.0 languages:='c,c++,fortran'
+      prefix: /n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01
+      extra_attributes:
+        compilers:
+          c: /n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01/bin/gcc
+          cxx: /n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01/bin/g++
+          fortran: /n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01/bin/gfortran
+    modules: [gcc/14.2.0-fasrc01]
 ```
-and save the compiler config. file. If more than one modules are required by the compiler, these need to be separated by semicolon (;).
+
+and save the packages file. If more than one modules are required by the compiler, these need to be separated by semicolon `;`.
 
 We can display the configuration of a specific compiler by the <code>spack compiler info</code> command, e.g.,
 
 ```bash
-$ spack compiler info gcc@12.2.0
-gcc@12.2.0:
-	paths:
-		cc = /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/gcc
-		cxx = /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/g++
-		f77 = /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/gfortran
-		fc = /n/sw/helmod-rocky8/apps/Core/gcc/12.2.0-fasrc01/bin/gfortran
-	modules  = ['gcc/12.2.0-fasrc01']
-	operating system  = rocky8
+$ spack compiler info gcc@14.2.0
+gcc@=14.2.0 languages:='c,c++,fortran' arch=linux-rocky8-x86_64:
+  prefix: /n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01
+  compilers:
+    c: /n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01/bin/gcc
+    cxx: /n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01/bin/g++
+    fortran: /n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01/bin/gfortran
+  modules:
+    gcc/14.2.0-fasrc01
 ```
 
-Once the new compiler is configured, it can be used to build packages. The below example shows how to install the GNU Scientific Library (GSL) with <code>gcc@12.2.0</code>.
+Once the new compiler is configured, it can be used to build packages. The below example shows how to install the GNU Scientific Library (GSL) with <code>gcc@14.2.0</code>.
 
 ```bash
 # Check available GSL versions
 $ spack versions gsl
 ==> Safe versions (already checksummed):
-  2.7.1  2.7  2.6  2.5  2.4  2.3  2.2.1  2.1  2.0  1.16
+  2.8  2.7.1  2.7  2.6  2.5  2.4  2.3  2.2.1  2.1  2.0  1.16
 ==> Remote versions (not yet checksummed):
   2.2  1.15  1.14  1.13  1.12  1.11  1.10  1.9  1.8  1.7  1.6  1.5  1.4  1.3  1.2  1.1.1  1.1  1.0
 
-# Install GSL version 2.7.1 with GCC version 12.2.0
-$ spack install gsl@2.7.1%gcc@12.2.0
-==> Installing gsl-2.7.1-uj6i6eqdsymvgupsqulhgewhb7nkr2vc
-==> No binary for gsl-2.7.1-uj6i6eqdsymvgupsqulhgewhb7nkr2vc found: installing from source
-==> Fetching https://mirror.spack.io/_source-cache/archive/dc/dcb0fbd43048832b757ff9942691a8dd70026d5da0ff85601e52687f6deeb34b.tar.gz
+# Install GSL version 2.8 with GCC version 14.2.0
+$ spack install gsl@2.8%gcc@14.2.0
+==> Installing gsl-2.8-f73ztv4nqpizippccafwwavb2agdw6tn [6/6]
+==> Fetching https://mirror.spack.io/_source-cache/archive/6a/6a99eeed15632c6354895b1dd542ed5a855c0f15d9ad1326c6fe2b2c9e423190.tar.gz
+    [100%]    9.00 MB @   72.6 MB/s
 ==> No patches needed for gsl
 ==> gsl: Executing phase: 'autoreconf'
 ==> gsl: Executing phase: 'configure'
 ==> gsl: Executing phase: 'build'
 ==> gsl: Executing phase: 'install'
-==> gsl: Successfully installed gsl-2.7.1-uj6i6eqdsymvgupsqulhgewhb7nkr2vc
-  Fetch: 0.93s.  Build: 1m 38.29s.  Total: 1m 39.22s.
-[+] /home/spack/opt/spack/linux-rocky8-icelake/gcc-12.2.0/gsl-2.7.1-uj6i6eqdsymvgupsqulhgewhb7nkr2vc
+==> gsl: Successfully installed gsl-2.8-f73ztv4nqpizippccafwwavb2agdw6tn
+  Stage: 0.52s.  Autoreconf: 0.00s.  Configure: 8.43s.  Build: 1m 32.46s.  Install: 4.10s.  Post-install: 0.88s.  Total: 1m 46.59s
+[+] /n/holylabs/jharvard_lab/Lab/software/spack_v0/opt/spack/linux-x86_64/gsl-2.8-f73ztv4nqpizippccafwwavb2agdw6tn
 
 # Load the installed package
-$ spack load gsl@2.7.1%gcc@12.2.0
+$ spack load gsl@2.8%gcc@14.2.0
 
 # List the loaded package
 $ spack find --loaded
--- linux-rocky8-icelake / gcc@12.2.0 ----------------------------
-gsl@2.7.1
+-- linux-rocky8-x86_64 / gcc@14.2.0 -----------------------------
+gsl@2.8
 ==> 1 loaded package
 ```
 > **NOTE:** Please, note that you first need to do `module purge` to make sure that all modules are unloaded for this to work.
