@@ -425,6 +425,8 @@ $ spack versions gsl
 
 # Install GSL version 2.8 with GCC version 14.2.0
 $ spack install gsl@2.8%gcc@14.2.0
+... omitted output ...
+
 ==> Installing gsl-2.8-f73ztv4nqpizippccafwwavb2agdw6tn [6/6]
 ==> Fetching https://mirror.spack.io/_source-cache/archive/6a/6a99eeed15632c6354895b1dd542ed5a855c0f15d9ad1326c6fe2b2c9e423190.tar.gz
     [100%]    9.00 MB @   72.6 MB/s
@@ -446,20 +448,19 @@ $ spack find --loaded
 gsl@2.8
 ==> 1 loaded package
 ```
-> **NOTE:** Please, note that you first need to do `module purge` to make sure that all modules are unloaded for this to work.
 
 ## MPI Configuration
 
-Many HPC software packages work in parallel using MPI. Although <code>spack</code> has the ability to install MPI libraries from scratch, the recommended way is to configure <code>spack</code> to use  MPI already available on the cluster as software modules, instead of building its own MPI libraries. 
+Many HPC software packages work in parallel using MPI. Although Spack has the ability to install MPI libraries from scratch, the recommended way is to configure Spack to use  MPI already available on the cluster as software modules, instead of building its own MPI libraries.
 
-MPI is configured through the <code>packages.yaml</code> file. For instance, if we need <code>OpenMPI</code> version 5.0.5 compiled with <code>GCC</code> version 12, we could follow the below steps to add this MPI configuration:
+MPI is configured through the <code>packages.yaml</code> file. For instance, if we need OpenMPI version 5.0.5 compiled with GCC version 14, we could follow the below steps to add this MPI configuration:
 
 ### Determine the MPI location / prefix
 
 ```bash
-$ module load gcc/12.2.0-fasrc01 openmpi/5.0.5-fasrc02
+$ module load gcc/14.2.0-fasrc01 openmpi/5.0.5-fasrc01
 $ echo $MPI_HOME
-/n/sw/helmod-rocky8/apps/Comp/gcc/12.2.0-fasrc01/openmpi/5.0.5-fasrc02
+/n/sw/helmod-rocky8/apps/Comp/gcc/14.2.0-fasrc01/openmpi/5.0.5-fasrc01
 ```
 
 ### Edit manually the packages configuration file
@@ -477,41 +478,42 @@ Include the following contents:
 packages:
   openmpi:
     externals:
-    - spec: openmpi@5.0.5%gcc@12.2.0
-      prefix: /n/sw/helmod-rocky8/apps/Comp/gcc/12.2.0-fasrc01/openmpi/5.0.5-fasrc02
-    buildable: False
+    - spec: openmpi@5.0.5%gcc@14.2.0
+      prefix: /n/sw/helmod-rocky8/apps/Comp/gcc/14.2.0-fasrc01/openmpi/5.0.5-fasrc01
+    buildable: false
 ```
-The option <code>buildable: False</code> reassures that MPI won't be built from source. Instead, <code>spack</code> will use the MPI provided as a software module in the corresponding prefix.
+The option <code>buildable: False</code> reassures that MPI won't be built from source. Instead, Spack will use the MPI provided as a software module in the corresponding prefix.
 
-Once the MPI is configured, it can be used to build packages. The below example shows how to install <code>HDF5</code> version 1.12.2  with <code>openmpi@5.0.5</code> and <code>gcc@12.2.0</code>.
+Once the MPI is configured, it can be used to build packages. The below example shows how to install HDF5 version 1.12.2  with <code>openmpi@5.0.5</code> and <code>gcc@14.2.0</code>.
+
+> **Note:** Please note the command <code>module purge</code>. This is required as otherwise the build fails.
 
 ```bash
 $ module purge
-$ spack install hdf5@1.12.2 % gcc@12.2.0 ^ openmpi@5.0.5
-...
-==> Installing hdf5-1.12.2-lfmo7dvzrgmu35mt74zqjz2mfcwa2urb
-==> No binary for hdf5-1.12.2-lfmo7dvzrgmu35mt74zqjz2mfcwa2urb found: installing from source
-==> Fetching https://mirror.spack.io/_source-cache/archive/2a/2a89af03d56ce7502dcae18232c241281ad1773561ec00c0f0e8ee2463910f14.tar.gz
+$ spack install hdf5@1.14.6 % gcc@14.2.0 ^ openmpi@5.0.5
+... omitted output ...
+
+==> Installing hdf5-1.14.6-oj6u3gx7ctqtlwu4thnp36zxxrw2bb6z [22/22]
+==> Fetching https://mirror.spack.io/_source-cache/archive/e4/e4defbac30f50d64e1556374aa49e574417c9e72c6b1de7a4ff88c4b1bea6e9b.tar.gz
+    [100%]   39.29 MB @   34.0 MB/s
 ==> Ran patch() for hdf5
 ==> hdf5: Executing phase: 'cmake'
 ==> hdf5: Executing phase: 'build'
 ==> hdf5: Executing phase: 'install'
-==> hdf5: Successfully installed hdf5-1.12.2-lfmo7dvzrgmu35mt74zqjz2mfcwa2urb
-  Fetch: 0.58s.  Build: 1m 21.39s.  Total: 1m 21.98s.
-[+] /home/spack/opt/spack/linux-rocky8-icelake/gcc-12.2.0/hdf5-1.12.2-lfmo7dvzrgmu35mt74zqjz2mfcwa2urb
+==> hdf5: Successfully installed hdf5-1.14.6-oj6u3gx7ctqtlwu4thnp36zxxrw2bb6z
+  Stage: 3.05s.  Cmake: 15.44s.  Build: 1m 11.88s.  Install: 1.59s.  Post-install: 0.35s.  Total: 1m 32.63s
+[+] /n/holylabs/jharvard_lab/Lab/software/spack_v0/opt/spack/linux-x86_64/hdf5-1.14.6-oj6u3gx7ctqtlwu4thnp36zxxrw2bb6z
 
 # Load the installed package
-$ spack load hdf5@1.12.2%gcc@12.2.0
+$ spack load hdf5@1.14.6%gcc@14.2.0
 
 # List the loaded package
 $ spack find --loaded
--- linux-rocky8-icelake / gcc@12.2.0 ----------------------------
-berkeley-db@18.1.40  ca-certificates-mozilla@2022-10-11  diffutils@3.8  hdf5@1.12.2    ncurses@6.3    openssl@1.1.1s  pkgconf@1.8.0   zlib@1.2.13
-bzip2@1.0.8          cmake@3.24.3                        gdbm@1.23      libiconv@1.16  openmpi@5.0.5  perl@5.36.0     readline@8.1.2
-==> 15 loaded packages
+$ spack find --loaded
+-- linux-rocky8-x86_64 / gcc@14.2.0 -----------------------------
+gsl@2.8  hdf5@1.14.6
+==> 2 loaded packages
 ```
-
-> **Note:** Please note the command <code>module purge</code>. This is required as otherwise the build fails.
 
 ## Troubleshooting
 When spack builds it uses a <code>stage</code> directory located in <code>/tmp</code>. Spack also cleans up this space once it is done building, regardless of if the build succeeds or fails. This can make troubleshooting failed builds difficult as the logs from those builds are stored in <code>stage</code>. To preserve these files for debugging you will first want to set the <code>$TMP</code> environmental variable to a location that you want to dump files in <code>stage</code> to. Then you will want to add the <code>--keep-stage</code> flag to spack (ex. <code>spack install --keep-stage <package></code>), which tells spack to keep the staging files rather than remove them.
@@ -602,7 +604,7 @@ Namely we needed to add the <code>prepend_path</code> to the <code>environment</
 ### C compiler cannot create executables
 This is the same type of error as the <code>Cannot open shared object file: No such file or directory</code>. Namely the compiler cannot find the libraries it is dependent on. See the troubleshooting section for the [shared objects error](#cannot-open-shared-object-file-no-such-file-or-directory) for how to resolve.
 
-### Only supported on macOS
+### Error: Only supported on macOS
 
 If you are trying to install a package and get an error about only macOS
 
@@ -649,6 +651,23 @@ gcc@7.5.0  gcc@6.5.0
 ```
 
 And you can proceed with the spack package installs.
+
+### Error:
+
+If your package has a `gmake` as a dependency, you may run into this error:
+
+```
+/tmp/ccRlxmkM.s:202: Error: no such instruction: `vmovw %ebp,%xmm3'
+```
+
+First, check that `as` version is `<=2.38` with:
+
+```
+$ as --version
+GNU assembler version 2.30-123.el8
+```
+
+If that's the case, then use a generic linux architecture as explained in [Default Architecture](#default-architecture).
 
 ## Advanced Topics
 
