@@ -1,6 +1,8 @@
 # Parallel Computing Examples
 
-Examples of how to submit parallel jobs for different languages and applications.
+Each directory contains complete working examples with compilation instructions, batch scripts, and sample outputs.
+
+For general information about parallel computing on Harvard's cluster, see the [RC User Documentation](https://docs.rc.fas.harvard.edu/).
 
 ## Core Parallel Computing Paradigms
 
@@ -52,12 +54,3 @@ Specialized libraries for parallel data access and scientific computing.
 | **OpenMP** | Single-node, shared memory | C, Fortran | Thread scaling, Matrix diagonalization |
 | **Job Arrays** | Independent tasks | Any | Parameter sweeps, Multiple simulations |
 | **HDF5/NetCDF** | Large datasets | Fortran, C | Climate data, Scientific datasets |
-
-## Getting Started
-
-1. **Choose your parallel approach** based on problem characteristics
-2. **Load appropriate modules** for your compiler and libraries  
-3. **Follow directory-specific README** for detailed instructions
-4. **Use provided SLURM scripts** as job submission templates
-
-Each directory contains complete working examples with compilation instructions, batch scripts, and sample outputs.
