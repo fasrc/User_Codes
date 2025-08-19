@@ -45,5 +45,3 @@ For general guidance on using languages on the cluster, see the [RC User Documen
 | **Python** | Data analysis, prototyping, testing | Rapid development, pandas/numpy workflows | [numpy_pandas_ex.py](./Python/Example2/numpy_pandas_ex.py), [test_mc_pi.py](./Python/Example1/test_mc_pi.py) |
 | **Julia / MATLAB** | High-level numerical performance | Prototyping with near-C speed or toolbox integration | [figure.py](./Julia/Example2/figure.py), **[MATLAB](./MATLAB/)** |
 | **IDL / Perl / Mathematica** | Domain tools & scripting glue | Specialized data formats, quick symbolic checks | **[IDL](./IDL/)**, **[Perl](./Perl/)**, **[Mathematica](./Mathematica/)** |
-
-Backup files: [README.md.backup](./.backup/README.md.backup) | Alternate draft: [README_best.md](./.md/README_best.md)
