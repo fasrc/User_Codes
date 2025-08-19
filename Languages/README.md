@@ -11,7 +11,7 @@ For general guidance on using languages on the cluster, see the [RC User Documen
 
 ### Build Tools and C/C++ Compilation
 - **[C](./C/)**: Small, portable programs with compilation flags and makefile snippets; see the summation program at [sum.c](./C/Example/sum.c) for a minimal build-and-run workflow.
-- **[Cpp](./Cpp/)**: 23 C++ examples covering modern build conventions, template usage, and parallel compile optimizations for scientific codebases.
+- **[Cpp](./Cpp/)**: C++ examples covering modern build conventions, template usage, and parallel compile optimizations for scientific codebases.
 
 ## Compiled Scientific Languages
 
