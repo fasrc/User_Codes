@@ -394,7 +394,7 @@ packages:
           c: /n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01/bin/gcc
           cxx: /n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01/bin/g++
           fortran: /n/sw/helmod-rocky8/apps/Core/gcc/14.2.0-fasrc01/bin/gfortran
-    modules: [gcc/14.2.0-fasrc01]
+      modules: [gcc/14.2.0-fasrc01]
 ```
 
 and save the packages file. If more than one modules are required by the compiler, these need to be separated by semicolon `;`.
