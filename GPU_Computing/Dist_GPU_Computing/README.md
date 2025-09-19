@@ -6,5 +6,6 @@ Common workflows include multi-GPU training with MPI and NCCL-based collectives 
 
 ## Examples
 
-* [Using multiple GPUs with MPI and CUDA](./MPI_and_CUDA/)
-* [Using multiple GPUs on a single node with NCCL and CUDA]
+* [Using MPI and CUDA](./MPI_and_CUDA/)
+* [Using NCCL and CUDA on a single node](./NCCL_and_CUDA/SingleNode)
+* [Compiling and running KHARMA (MPI+CUDA code)](https://github.com/fasrc/User_Codes/tree/master/Applications/KHARMA)
