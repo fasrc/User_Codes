@@ -14,3 +14,4 @@ The FAS-RC Cannon cluster provides access to a variety of NVIDIA GPUs, including
 * [OpenACC](./OpenACC)
 * [Using Programming Languages](./CUDA)
 * [Using Numba](./Numba)
+* [Distributed GPU Computing](./Dist_GPU_Computing)
