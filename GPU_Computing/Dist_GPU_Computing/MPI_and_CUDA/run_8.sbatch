@@ -9,8 +9,8 @@
 #SBATCH -o output.out
 #SBATCH -e error.err
 
-
 export UCX_TLS=^gdr_copy
+export UCX_LOG_LEVEL=error
 module load gcc/12.2.0-fasrc01 
 module load openmpi/5.0.5-fasrc02
 

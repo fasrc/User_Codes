@@ -29,7 +29,7 @@ Alternatively, manually compile with:
 nvcc -Xcompiler -fopenmp mpi_cuda.cu -o mpi_cuda.x -I${MPI_INCLUDE} -L${MPI_LIB} -lmpi -lgomp
 ```
 
-### Example Makefile
+## Example Makefile
 
 ```make
 # Compiler
@@ -62,7 +62,7 @@ clean:
 .PHONY: all clean
 ```
 
-### Source code `mpi_cuda.cu`
+## Source code `mpi_cuda.cu`
 
 ```c
 #include <stdio.h>
@@ -147,7 +147,33 @@ Use the provided batch-job submission script `run.sbatch` to send the job to the
 sbatch run.sbatch
 ```
 
-### Batch-job submission script
+### Batch-job submission script (single node)
+
+The below script uses 4 GPUs on a single compute node.
+
+```bash
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH --ntasks-per-node=4
+#SBATCH --gres=gpu:4
+#SBATCH --mem-per-cpu=8G
+#SBATCH -J mpi_and_cuda
+#SBATCH -t 1:00:00
+#SBATCH -p gpu
+#SBATCH -o output.out
+#SBATCH -e error.err
+
+export UCX_TLS=^gdr_copy
+export UCX_LOG_LEVEL=error
+module load gcc/12.2.0-fasrc01 
+module load openmpi/5.0.5-fasrc02
+
+srun -n 4 --mpi=pmix ./mpi_cuda.x
+```
+
+### Batch-job submission script (multi-node)
+
+The below script uses 8 GPUs on 2 compute nodes (4 GPUs/node).
 
 ```bash
 #!/bin/bash
@@ -161,8 +187,8 @@ sbatch run.sbatch
 #SBATCH -o output.out
 #SBATCH -e error.err
 
-
 export UCX_TLS=^gdr_copy
+export UCX_LOG_LEVEL=error
 module load gcc/12.2.0-fasrc01 
 module load openmpi/5.0.5-fasrc02
 
@@ -179,12 +205,19 @@ You can change the number of Monte Carlo samples (integration bins) by modifying
 
 To improve precision, you can increase this number or switch from `float` to `double`.
 
-## Output Example
+## Example Output (4 GPUs across 2 nodes)
 
 ```
-myid = 0: device used = 0; partial pi = 0.785398
-myid = 1: device used = 1; partial pi = 0.785398
-myid = 2: device used = 2; partial pi = 0.785398
-myid = 3: device used = 3; partial pi = 0.785398
-PI = 3.141593
+cat output.out 
+myid = 6: device used = 2; partial pi = 0.301313
+myid = 1: device used = 1; partial pi = 0.482504
+myid = 3: device used = 3; partial pi = 0.419490
+myid = 4: device used = 0; partial pi = 0.379798
+myid = 0: device used = 0; partial pi = 0.497427
+PI = 3.141578
+myid = 5: device used = 1; partial pi = 0.339609
+myid = 2: device used = 2; partial pi = 0.455174
+myid = 7: device used = 3; partial pi = 0.266264
 ```
+
+Note: Please notice that the output is unsorted.
