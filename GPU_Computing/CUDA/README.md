@@ -78,7 +78,7 @@ int main()
 If the above code is named <code>saxpy.cu</code> it can be compiled as, e.g.,
 
 ```bash
-module load cuda/12.4.1-fasrc01
+module load cuda/12.9.1-fasrc01
 nvcc -o saxpy.x saxpy.cu
 ```
 
@@ -96,7 +96,7 @@ nvcc -o saxpy.x saxpy.cu
 #SBATCH -t 30
 
 # Load required modules
-module load cuda/12.4.1-fasrc01
+module load cuda/12.9.1-fasrc01
 
 # Run the executable
 ./saxpy.x
