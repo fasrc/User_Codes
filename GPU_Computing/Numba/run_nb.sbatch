@@ -9,8 +9,8 @@
 #SBATCH -t 30
 
 # Load required modules
-module load python/3.12.5-fasrc01
-module load cuda/12.4.1-fasrc01
+module load python/3.12.11-fasrc01
+module load cuda/12.9.1-fasrc01
 source activate numba_env
 
 # Run the program

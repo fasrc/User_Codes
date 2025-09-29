@@ -12,8 +12,8 @@ Numba supports various compilation targets, including CPU and GPU, making it ver
 
 Create a conda environment and install `Numba` via `mamba`, e.g.,
 ```bash
-module load python/3.12.5-fasrc01
-mamba create -n numba_env python=3.10 pip wheel
+module load python/3.12.11-fasrc01
+mamba create -n numba_env python=3.12 pip wheel
 source activate numba_env
 mamba install numba
 ```
@@ -81,7 +81,7 @@ print('{0} {1:7.4f} {2}'.format('Time:', t, 's'))
 #SBATCH -t 30
 
 # Load required modules
-module load python/3.12.5-fasrc01
+module load python/3.12.11-fasrc01
 source activate numba_env
 
 # Run the program
@@ -158,8 +158,8 @@ print('{0} {1:7.4f} {2}'.format('Time:', t, 's'))
 #SBATCH -t 30
 
 # Load required modules
-module load python/3.12.5-fasrc01
-module load cuda/12.4.1-fasrc01
+module load python/3.12.11-fasrc01
+module load cuda/12.9.1-fasrc01
 source activate numba_env
 
 # Run the program
