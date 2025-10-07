@@ -1,5 +1,5 @@
 // Compile with:
-// nvcc -O3 -std=c++17 -o nccl_reduce_mpi.x nccl_reduce_mpi.cu -lnccl -lmpi
+// nvcc -O3 -std=c++17 -o ncclReduce_mpi.x ncclReduce_mpi.cu -lnccl -lmpi
 
 #include <cstdio>
 #include <cstdlib>

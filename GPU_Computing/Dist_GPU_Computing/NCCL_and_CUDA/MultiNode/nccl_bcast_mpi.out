@@ -1,0 +1,25 @@
+12	8	2	2	8	12	10	8	
+
+This is rank 0, device 0
+24	16	4	4	16	24	20	16	
+
+This is rank 1, device 1
+24	16	4	4	16	24	20	16	
+
+This is rank 2, device 2
+24	16	4	4	16	24	20	16	
+
+This is rank 3, device 3
+
+This is rank 4, device 0
+24	16	4	4	16	24	20	16	
+24	16	4	4	16	24	20	16	
+
+This is rank 5, device 1
+24	16	4	4	16	24	20	16	
+
+This is rank 6, device 2
+24	16	4	4	16	24	20	16	
+
+This is rank 7, device 3
+24	16	4	4	16	24	20	16	
