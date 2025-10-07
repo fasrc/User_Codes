@@ -1,4 +1,68 @@
-// Build: nvcc -O3 -std=c++17 -o ncclAllGather_nompi.x ncclAllGather_nompi.cu -lnccl
+/*
+ * =============================================================================
+ *  NCCL + CUDA AllGather (No MPI) with Shared-File Bootstrap
+ * =============================================================================
+ *
+ *  Overview
+ *  --------
+ *  Demonstrates a fully MPI-free, multi-node NCCL program using CUDA where each
+ *  process controls exactly one GPU (selected via per-node local rank env vars).
+ *  Rank 0 creates a `ncclUniqueId` and writes it to a small file on a shared
+ *  filesystem; other ranks read that file to join the same NCCL communicator.
+ *
+ *  Each rank contributes a single float equal to 10*(rank+1). An `ncclAllGather`
+ *  is performed so every rank receives the full vector:
+ *
+ *      [10.0, 20.0, 30.0, ..., 10.0 * world_size]
+ *
+ *  The gathered vector is printed from the device on each rank, in order, using
+ *  a simple NCCL-based barrier to avoid interleaving.
+ *
+ *  What this shows
+ *  ---------------
+ *  - Launching multi-node jobs **without MPI** (e.g., via Slurm `srun`)
+ *  - Minimal out-of-band bootstrap using a **shared file** for `ncclUniqueId`
+ *  - One-process-per-GPU mapping via `LOCAL_RANK`/`SLURM_LOCALID`
+ *  - Using **NCCL only** for both intra- and inter-node collectives (AllGather)
+ *  - Ordered, readable output using a tiny NCCL AllReduce as a barrier
+ *
+ *  Requirements
+ *  ------------
+ *  - CUDA Toolkit
+ *  - NCCL library
+ *  - A shared filesystem visible to all ranks (for the uid file)
+ *  - A launcher that sets rank env vars (e.g., Slurm `srun`)
+ *
+ *  Build
+ *  -----
+ *  nvcc -O3 -std=c++17 -o ncclAllGather_nompi.x ncclAllGather_nompi.cu -lnccl
+ *
+ *  Bootstrap details
+ *  -----------------
+ *  - Rank/size are taken from environment (e.g., SLURM_NTASKS/PROCID/LOCALID).
+ *  - Rank 0 calls `ncclGetUniqueId()` and writes it to:
+ *        $SLURM_SUBMIT_DIR/nccl_uid.$SLURM_JOB_ID     (fallback: $HOME/nccl_uid.default)
+ *  - Other ranks spin-wait up to ~30s for that file, then read the id and join.
+ *
+ *  Expected output (shape)
+ *  -----------------------
+ *  Rank 0 prints the seed once:
+ *      10.00 20.00 30.00 ... (up to 10*world_size)
+ *  Then, for ranks 0..world_size-1 in order:
+ *      This is rank R, device D
+ *          10.00 20.00 30.00 ... (same gathered vector)
+ *
+ *  Notes
+ *  -----
+ *  - Device selection: `device = local_rank % cudaDeviceCount()`.
+ *  - The simple NCCL barrier uses `ncclAllReduce` on a single int and a stream
+ *    sync to serialize prints without MPI.
+ *  - Ensure the uid path is on a **shared** and **writable** filesystem.
+ *  - If your site lacks a shared FS or you prefer not to write files, you can
+ *    replace the bootstrap with a small TCP rendezvous or PMIx publish/lookup.
+ * =============================================================================
+ */
+
 #include <stdio.h>
 #include <vector>
 #include <string>

@@ -1,9 +1,67 @@
-// Build:
-//   nvcc -O3 -std=c++17 -o ncclAllGather_pmix.x ncclAllGather_pmix.cu -lnccl -lpmix
-//
-// Key change vs prior attempt:
-//   * Non-root ranks do PMIx_Get() using proc {nspace, rank=0} (publisher)
-//   * Fence uses PMIX_COLLECT_DATA=true before PMIx_Get()
+/*
+ * =============================================================================
+ *  NCCL + CUDA AllGather (No MPI) with PMIx Bootstrap
+ * =============================================================================
+ *
+ *  Overview
+ *  --------
+ *  Demonstrates a fully MPI-free, multi-node NCCL program that uses **PMIx**
+ *  for out-of-band bootstrap/rendezvous and CUDA for device work. Each process
+ *  controls exactly one GPU (chosen by its per-node local rank), contributes a
+ *  single float equal to `10*(rank+1)`, and participates in an `ncclAllGather`
+ *  so every rank receives the full vector:
+ *
+ *      [10.0, 20.0, 30.0, ..., 10.0 * world_size]
+ *
+ *  Bootstrap (via PMIx)
+ *  --------------------
+ *  - Rank 0 calls `ncclGetUniqueId()` and **publishes** it using:
+ *      `PMIx_Put(PMIX_GLOBAL, "nccl_uid", ...)` + `PMIx_Commit()`
+ *  - All ranks then enter `PMIx_Fence` with **PMIX_COLLECT_DATA=true** to push
+ *    KVs to the server.
+ *  - Non-root ranks fetch the UID with `PMIx_Get` **from the publisher proc**
+ *    `{ nspace, rank=0 }` (some PMIx stacks require targeting the origin).
+ *
+ *  What this shows
+ *  ---------------
+ *  - Multi-node collectives using **NCCL only** (no MPI) for data movement
+ *  - **PMIx** for rank/size discovery and exchanging the `ncclUniqueId`
+ *  - One-process-per-GPU pattern across nodes
+ *  - Ordered, readable output using PMIx fences as barriers
+ *
+ *  Requirements
+ *  ------------
+ *  - CUDA Toolkit
+ *  - NCCL library
+ *  - PMIx runtime
+ *  - A cluster with ≥ 1 GPU per process (example assumes 2 nodes × 4 GPUs)
+ *
+ *  Build
+ *  -----
+ *  nvcc -O3 -std=c++17 -o ncclAllGather_pmix.x ncclAllGather_pmix.cu -lnccl -lpmix
+ *
+ *  Expected output (shape)
+ *  -----------------------
+ *  - Rank 0 prints the seed once:
+ *      10.00 20.00 30.00 ... (up to 10*world_size)
+ *  - Then, for ranks 0..world_size-1 in order:
+ *      This is rank R, device D
+ *          10.00 20.00 30.00 ... (same gathered vector, printed from device)
+ *
+ *  Notes / Troubleshooting
+ *  -----------------------
+ *  - If `PMIx_Get("nccl_uid")` times out:
+ *      • Ensure a **collecting fence** runs after `PMIx_Put` (`PMIX_COLLECT_DATA=true`).
+ *      • Query the **publisher proc** `{ nspace, rank=0 }`, not your own proc.
+ *      • Launch with the site-supported PMIx flavor (e.g., `--mpi=pmix_v3`/`v5`).
+ *  - Device selection: `device = local_rank % cudaDeviceCount()`.
+ *  - For sites where Put/Get is restricted, you can swap to `PMIx_Publish` /
+ *    `PMIx_Lookup` or use a tiny TCP rendezvous—still MPI-free.
+ *
+ *  Author: (Your Name)
+ *  License: MIT (or your preferred license)
+ * =============================================================================
+ */
 
 #include <cstdio>
 #include <cstdlib>

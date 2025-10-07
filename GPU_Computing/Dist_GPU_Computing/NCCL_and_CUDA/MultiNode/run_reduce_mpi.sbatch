@@ -20,5 +20,5 @@ export UCX_LOG_LEVEL=error
 module load nvhpc/24.11-fasrc01                      # NCCL and CUDA
 module load gcc/12.2.0-fasrc01 openmpi/4.1.5-fasrc03 # MPI
 
-srun -n 8 --mpi=pmix ./nccl_reduce_mpi.x
+srun -n 8 --mpi=pmix ./ncclReduce_mpi.x
 

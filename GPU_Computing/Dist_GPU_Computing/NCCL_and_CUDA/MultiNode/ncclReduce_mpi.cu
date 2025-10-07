@@ -1,5 +1,67 @@
-// Compile with:
-// nvcc -O3 -std=c++17 -o ncclReduce_mpi.x ncclReduce_mpi.cu -lnccl -lmpi
+/*
+ * =============================================================================
+ *  NCCL + CUDA + MPI Reduce (Multi-Node, One GPU per Rank)
+ * =============================================================================
+ *
+ *  Overview
+ *  --------
+ *  Demonstrates bootstrapping a multi-node NCCL communicator with MPI and
+ *  performing a pair of `ncclReduce` operations (sum to root). Each MPI rank
+ *  controls exactly one GPU (selected via its per-node local rank). Every rank
+ *  initializes two length-8 vectors on its GPU:
+ *
+ *      x = [1, 1, 1, 1, 1, 1, 1, 1]
+ *      y = [2, 2, 2, 2, 2, 2, 2, 2]
+ *
+ *  NCCL reduces (sums) x and y across all ranks to rank 0. A simple CUDA kernel
+ *  on rank 0 then computes a block-wise reduction of the received vector and
+ *  prints a “dot” value from the device (for 8 ranks, this prints 128.00).
+ *  Non-root ranks print a matching “0.00” line to keep the output aligned with
+ *  single-node examples.
+ *
+ *  What this shows
+ *  ---------------
+ *  - Using MPI *only* for:
+ *      • process/rank discovery
+ *      • computing per-node local rank to select the CUDA device
+ *      • broadcasting a single `ncclUniqueId` to all ranks
+ *  - Using NCCL for the inter/intra-node collectives (two `ncclReduce` calls)
+ *  - One-process-per-GPU pattern that scales across nodes
+ *  - Ordered, non-interleaved printing by iterating ranks 0..N-1
+ *
+ *  Data flow
+ *  ---------
+ *    Host (all ranks) -> Device (all ranks)
+ *      └─ ncclReduce(x, root=0) and ncclReduce(y, root=0)
+ *            └─ Rank 0 launches CUDA kernel to reduce and print a value
+ *               Other ranks print a placeholder line
+ *
+ *  Requirements
+ *  ------------
+ *  - CUDA Toolkit
+ *  - NCCL library
+ *  - MPI implementation (for launch + bootstrap)
+ *  - A cluster with ≥ 1 GPU per MPI rank (example assumes 2 nodes × 4 GPUs)
+ *
+ *  Build
+ *  -----
+ *  nvcc -O3 -std=c++17 -o ncclReduce_mpi.x ncclReduce_mpi.cu -lnccl -lmpi
+ *
+ *  Expected output (shape)
+ *  -----------------------
+ *  Rank 0 prints the initial host vectors once (x then y).
+ *  Then, for ranks 0..N-1 in order:
+ *      This is rank R, device D
+ *          dot(x,y) = 128.00     (on rank 0 for N=8; others print 0.00)
+ *
+ *  Notes
+ *  -----
+ *  - Only the root’s Sx_d/Sy_d contain valid reduced data after `ncclReduce`.
+ *  - Device selection: `device = local_rank % cudaDeviceCount()`.
+ *  - The kernel uses a single block with `blockDim = data_size` (8) and shared
+ *    memory to do a simple sum reduction; adjust if you change `data_size`.
+ * =============================================================================
+ */
 
 #include <cstdio>
 #include <cstdlib>

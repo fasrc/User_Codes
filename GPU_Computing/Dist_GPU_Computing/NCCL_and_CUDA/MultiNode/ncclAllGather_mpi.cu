@@ -1,5 +1,57 @@
-// Compile with:
-// nvcc -O3 -std=c++17 -o ncclAllGather_mpi.x ncclAllGather_mpi.cu -lnccl -lmpi
+/*
+ * =============================================================================
+ *  NCCL + CUDA + MPI AllGather (Multi-Node, One GPU per Rank)
+ * =============================================================================
+ *
+ *  Overview
+ *  --------
+ *  Demonstrates how to bootstrap NCCL collectives with MPI across multiple
+ *  nodes (e.g., 2 nodes × 4 GPUs = 8 ranks). Each MPI rank controls exactly
+ *  one GPU (selected via local rank), contributes a single float equal to
+ *  10*(rank+1), and participates in an `ncclAllGather` so that every rank
+ *  receives the full vector:
+ *
+ *      [10.0, 20.0, 30.0, ..., 10.0 * world_size]
+ *
+ *  After the collective, each rank prints the gathered vector from its GPU.
+ *  The output is printed in rank order to avoid interleaving.
+ *
+ *  What this shows
+ *  ---------------
+ *  - Using MPI only for bootstrap:
+ *      * Discover world size / ranks and local rank per node
+ *      * Broadcast a single `ncclUniqueId` to all ranks
+ *  - Using NCCL for the actual inter/intra-node communication (AllGather)
+ *  - One process per GPU pattern for multi-GPU, multi-node jobs
+ *
+ *  Requirements
+ *  ------------
+ *  - CUDA Toolkit
+ *  - NCCL library
+ *  - MPI implementation with PMIx/SLURM or mpirun support
+ *  - A cluster with ≥ 1 GPU per MPI rank (example assumes 8 GPUs total)
+ *
+ *  Build
+ *  -----
+ *  nvcc -O3 -std=c++17 -o ncclAllGather_mpi.x ncclAllGather_mpi.cu -lnccl -lmpi
+ *
+ *  Expected Output (shape)
+ *  -----------------------
+ *  Rank 0 prints the initial seed line once:
+ *      10.00 20.00 30.00 ... (up to 10*world_size)
+ *  Then each rank, in order, prints:
+ *      This is rank R, device D
+ *          10.00 20.00 30.00 ... (same gathered vector)
+ *
+ *  Notes
+ *  -----
+ *  - Device selection uses the per-node local rank (via MPI split-type),
+ *    mapping local_rank % num_devices.
+ *  - The code is generic: it works for any world_size ≥ 1, not just 8.
+ *  - MPI is used only for process management and the `ncclUniqueId` broadcast;
+ *    NCCL handles all device-to-device communication across nodes.
+ * =============================================================================
+ */
 
 #include <stdio.h>
 #include <vector>

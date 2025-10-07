@@ -1,4 +1,60 @@
-// nvcc -O3 -std=c++17 -o ncclBcast_mpi.x ncclBcast_mpi.cu -lnccl -lmpi
+/*
+ * =============================================================================
+ *  NCCL + CUDA + MPI Broadcast (Multi-Node, One GPU per Rank)
+ * =============================================================================
+ *
+ *  Overview
+ *  --------
+ *  Demonstrates bootstrapping a multi-node NCCL communicator with MPI and
+ *  performing an `ncclBcast` from rank 0 to all ranks. Each MPI rank controls
+ *  exactly one GPU (selected via its per-node local rank). Rank 0 seeds an
+ *  integer vector on its GPU; the vector is broadcast to every GPU; then each
+ *  rank runs a CUDA kernel that multiplies each element by 2 and prints the
+ *  results from the device.
+ *
+ *  What this shows
+ *  ---------------
+ *  - Using MPI *only* for process management and NCCL bootstrap:
+ *      • discover world size and ranks
+ *      • compute local rank per node to select the CUDA device
+ *      • broadcast a single `ncclUniqueId` to all ranks
+ *  - Using NCCL for the actual inter- and intra-node collective (`ncclBcast`)
+ *  - One-process-per-GPU pattern across multiple nodes
+ *  - Ordered, non-interleaved printing by iterating ranks 0..N-1
+ *
+ *  Data flow
+ *  ---------
+ *    Host (rank 0) -> Device (rank 0)
+ *      └─ ncclBcast (root=0) ─> Device (all ranks)
+ *            └─ CUDA kernel: a[i] *= 2; device-side printf
+ *
+ *  Requirements
+ *  ------------
+ *  - CUDA Toolkit
+ *  - NCCL library
+ *  - MPI implementation (for launch + bootstrap)
+ *  - A cluster with ≥ 1 GPU per MPI rank (example assumes 2 nodes × 4 GPUs)
+ *
+ *  Build
+ *  -----
+ *  nvcc -O3 -std=c++17 -o ncclBcast_mpi.x ncclBcast_mpi.cu -lnccl -lmpi
+ *
+ *  Expected output (shape)
+ *  -----------------------
+ *  Rank 0 prints the initial host vector once (deterministic with srand(42)).
+ *  Then, for ranks 0..N-1 in order:
+ *      This is rank R, device D
+ *          <8 integers printed from the device, each doubled>
+ *
+ *  Notes
+ *  -----
+ *  - Device selection: `device = local_rank % cudaDeviceCount()`.
+ *  - Rank 0 performs the host→device copy before the broadcast.
+ *  - `MPI_Barrier` gates prints so device-side output is readable and ordered.
+ *  - Works for any `world_size ≥ 1`; defaults assume 8 ranks total.
+ * =============================================================================
+ */
+
 #include <nccl.h>
 #include <mpi.h>
 #include <cuda_runtime.h>
