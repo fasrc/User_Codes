@@ -1,3 +1,5 @@
+For more information on Slurm, check out our most popular page on User Docs: [Convenient Slurm Commands](https://docs.rc.fas.harvard.edu/kb/convenient-slurm-commands/).
+
 # IQSS-slurm-examples
 
 ### This repository includes "Hello World" scripts to run IQSS statistics packages on a slurm cluster.
