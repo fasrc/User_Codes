@@ -4,7 +4,7 @@
 #SBATCH -t 15 # Runtime in minutes; job killed after this amount of time; default: 10
 #SBATCH -p serial_requeue # Partition to submit to; default: serial_requeue
 #SBATCH --mem=100 # Memory shared across all cores in MB (see also –mem-per-cpu)
-#SBATCH --open-mode=append; default: overwrite
+#SBATCH --open-mode=append # default: overwrite
 #SBATCH -o %x_%j.out # Standard out goes to this file; default: slurm-JOBID.out
 #SBATCH -e %x_%j.err # Standard err goes to this file; default: slurm-JOBID.err
 
@@ -12,7 +12,7 @@
 
 # Commands to run go on next lines
 # Start by loading module(s) for your application:
-load     # put my application module(s) here
+module load     # put my application module(s) here
 
 # Run the application
 
