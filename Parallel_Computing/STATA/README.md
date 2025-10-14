@@ -1,6 +1,6 @@
 #### Purpose:
 
-This example illustrates using STATA on the FASRC cluster at Harvard University.
+This example illustrates using STATA on the FASRC cluster at Harvard University. For more information, see our [FASRC User Docs website entry for Stata](https://docs.rc.fas.harvard.edu/kb/stata-on-cluster/).
 
 #### Contents:
 
@@ -156,9 +156,4 @@ Sorted by:  foreign
 
 end of do-file
 ```
-
-#### REFERENCES:
-
-* [STATA website](http://www.stata.com)
-* [STATA documentation (release 2014-3)](https://www.stata.com/features/documentation)
 
