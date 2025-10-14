@@ -8,8 +8,13 @@
 
 ## Examples
 
+### Basic Examples
 * [Example1](Example1/): Standard serial Lanczos algorithm with re-orthogonalization
 * [Example2](Example2/): Computes integer sum from 1 to 100
+
+### Numerical Methods
+* [Deriv](Deriv/): Numerical derivative calculations including tabulated derivatives and testing routines
+* [Interp](Interp/): Interpolation methods including Lagrange interpolation implementations
 
 
 ## References
