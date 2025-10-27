@@ -1,6 +1,22 @@
 ### Purpose:
 
-Example Program solving **A x = b** via ScaLAPACK routine PSGESV.
+This is a ScaLAPACK example program that solves a linear system **Ax = b** in parallel across multiple MPI processes.
+
+Specifically:
+
+- **Problem size**: 9×9 matrix with 1 right-hand side vector
+- **Process grid**: 2×3 (6 total MPI processes)  
+- **Block size**: 2×2 (for distribution across processes)
+- **Solver**: PSGESV (parallel general linear system solver using LU factorization)
+
+The workflow:
+1. Initializes BLACS process grid
+2. Distributes matrix A and vector b across the 6 processes
+3. Solves the system in parallel
+4. Validates by computing residual: ||Ax - b|| / (||x|| × ||A|| × ε × N)
+5. Prints whether solution is correct (residual < 10)
+
+The `MATINIT` subroutine hardcodes specific matrix values for each process's local storage based on its position (row, col) in the grid.
 
 ### Contents:
 
