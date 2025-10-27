@@ -22,12 +22,8 @@ In-depth examples focusing on complex data handling scenarios.
 ## Code Files Overview
 
 ### Example Scripts
-- **[README.md](./README.md)**: Overview and instructions for using Parallel NetCDF examples.
 - **[simple_xy_par_wr.f90](./Example2/simple_xy_par_wr.f90)**: Fortran program for parallel writing of 2D arrays, adapted from the official NetCDF package.
 - **[simple_xy_par_rd.f90](./Example3/simple_xy_par_rd.f90)**: Fortran program for reading 2D arrays in parallel, ensuring data consistency.
-- **[Example1 README.md](./Example1/README.md)**: Documentation for the first example, detailing usage and expected outputs.
-- **[Example2 README.md](./Example2/README.md)**: Documentation for the second example, including performance benchmarks.
-- **[Example3 README.md](./Example3/README.md)**: Documentation for the third example, focusing on advanced features.
 
 ## Quick Reference
 
