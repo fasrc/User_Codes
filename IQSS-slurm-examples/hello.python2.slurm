@@ -9,7 +9,7 @@
 #SBATCH -e %x_%j.err # Standard err goes to this file
 # Commands to run go on next lines:
 
-module load python/2.7.14-fasrc02
+module load python/3.12.11-fasrc02
 chmod u+x ./hello.py2
 ./hello.py2
 
