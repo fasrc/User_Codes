@@ -5,7 +5,7 @@
 Here, we briefly explain different ways to use R in parallel on the Harvard University FASRC Cannon cluster.
 
 
-* For R basics, refer to [R-Basics](https://docs.rc.fas.harvard.edu/kb/r-basics/)
+* For R basics, refer to [R and R Studio](https://docs.rc.fas.harvard.edu/kb/r-basics/)
 * For R Parallel, refer to [R-Parallel](https://docs.rc.fas.harvard.edu/kb/r-parallel/)
 
 ### Processing large datasets
