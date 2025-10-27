@@ -14,7 +14,7 @@ The workflow:
 2. Distributes matrix A and vector b across the 6 processes
 3. Solves the system in parallel
 4. Validates by computing residual: `||Ax - b|| / (||x|| × ||A|| × ε × N)`
-5. Prints whether solution is correct (residual < 10)
+5. Prints whether solution is correct `(residual < 10)`
 
 The `MATINIT` subroutine hardcodes specific matrix values for each process's local storage based on its position (row, col) in the grid.
 
