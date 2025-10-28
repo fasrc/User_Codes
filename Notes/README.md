@@ -9,15 +9,15 @@ This directory contains comprehensive documentation for installing, configuring,
 ## Directory Purpose
 
 The **Notes** directory serves as a knowledge repository for:
-- 🔧 Complex software installation procedures not covered in standard documentation
-- 🐛 Troubleshooting guides and known workarounds for common issues
-- 📊 Performance optimization tips and resource allocation strategies
-- 🔬 Specialized scientific computing workflows and integrations
-- 💡 Best practices for HPC software deployment and management
+-  Complex software installation procedures not covered in standard documentation
+-  Troubleshooting guides and known workarounds for common issues
+-  Performance optimization tips and resource allocation strategies
+-  Specialized scientific computing workflows and integrations
+-  Best practices for HPC software deployment and management
 
 ## Content Organization
 
-### 📁 Directory Structure
+### Directory Structure
 
 ```
 Notes/
@@ -47,7 +47,7 @@ Notes/
 
 ## Detailed Documentation Index
 
-### 🤖 Machine Learning & AI Tools
+### Machine Learning & AI Tools
 
 #### **AlphaPose** ([alphapose.md](alphapose.md))
 Multi-person pose estimation framework with real-time capabilities.
@@ -90,7 +90,7 @@ Genomics-specific machine learning tool for regulatory element analysis.
 - **Use Cases**: Genomic sequence analysis, regulatory element prediction
 - **Integration**: Works with Jupyter Lab for interactive analysis
 
-### 🧬 Scientific Computing & Simulation
+### Scientific Computing & Simulation
 
 #### **Amber22** ([amber.md](amber.md))
 Molecular dynamics simulation package for biomolecules.
@@ -126,7 +126,7 @@ CUDA templates for linear algebra subroutines.
 - **Use Cases**: Deep learning primitives, HPC kernels
 - **Testing**: Extensive test suite (may require memory management)
 
-### 📊 Statistical Computing & Data Analysis
+### Statistical Computing & Data Analysis
 
 #### **R-INLA** ([INLA_R.md](INLA_R.md))
 Integrated Nested Laplace Approximation for Bayesian inference.
@@ -144,7 +144,7 @@ Configure R kernel for Jupyter notebook environments.
 - **Use Cases**: Interactive data analysis, reproducible research
 - **Scripts**: Setup automation provided
 
-### 🛠️ Development Tools & Infrastructure
+### Development Tools & Infrastructure
 
 #### **VS Code Remote Tunnel** ([vscode_remote_tunnel.md](vscode_remote_tunnel.md))
 Enable VS Code development on compute nodes.
@@ -162,7 +162,7 @@ Gene prediction tool for eukaryotic genomes.
 - **Use Cases**: Genome annotation, comparative genomics
 - **Dependencies**: Handled automatically by Spack
 
-### 📋 Workflow Management
+### Workflow Management
 
 #### **SLURM Job Arrays** ([JobArrays/](JobArrays/))
 Comprehensive examples for parallel job submission patterns.
@@ -184,7 +184,7 @@ Comprehensive examples for parallel job submission patterns.
   - Sample data structures for testing
   - Command reference guide
 
-### 📚 Reference Documents (PDFs)
+### Reference Documents (PDFs)
 
 #### **Dash-Cannon.pdf**
 Complete guide for deploying Dash/Plotly web applications on the cluster.
@@ -216,7 +216,7 @@ R package development in terminal environments.
 - Dependency management
 - CI/CD integration
 
-### 📊 Interactive Examples
+### Interactive Examples
 
 #### **plotly_test.ipynb**
 Jupyter notebook demonstrating Plotly visualizations on HPC.
@@ -227,7 +227,7 @@ Jupyter notebook demonstrating Plotly visualizations on HPC.
 
 ## Installation Methods Overview
 
-### 🔍 Method Comparison Table
+### Method Comparison Table
 
 | Method | Best For | Pros | Cons | Examples |
 |--------|----------|------|------|----------|
@@ -239,7 +239,7 @@ Jupyter notebook demonstrating Plotly visualizations on HPC.
 
 ## Common Patterns & Best Practices
 
-### 🎯 Resource Allocation Guidelines
+### Resource Allocation Guidelines
 
 #### GPU Jobs
 ```bash
@@ -257,7 +257,7 @@ Jupyter notebook demonstrating Plotly visualizations on HPC.
 #SBATCH --cpus-per-task=16
 ```
 
-### 🔧 Environment Management
+### Environment Management
 
 #### Module Loading Order
 1. Compiler (gcc/intel)
@@ -276,7 +276,7 @@ source activate myenv
 conda clean --all
 ```
 
-### 🐛 Common Troubleshooting
+### Common Troubleshooting
 
 #### CUDA Version Mismatches
 - Check `nvidia-smi` vs module versions
