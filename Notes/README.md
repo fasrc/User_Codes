@@ -67,7 +67,7 @@ Part of OpenMMLab ecosystem for pose estimation research.
 - **Use Cases**: Research-grade pose estimation, benchmark evaluations
 - **Testing**: Includes GPU validation procedures
 
-#### **JAX** ([JAX.md](JAX.md)) ![JAX Logo](jax_logo_250px.png)
+#### **JAX** ([JAX.md](JAX.md))
 Google's accelerated NumPy for machine learning research.
 - **Installation Methods**: 
   - Conda with system modules
