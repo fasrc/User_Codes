@@ -67,7 +67,7 @@ Part of OpenMMLab ecosystem for pose estimation research.
 - **Use Cases**: Research-grade pose estimation, benchmark evaluations
 - **Testing**: Includes GPU validation procedures
 
-#### **JAX** ([JAX.md](JAX.md))
+#### **JAX** ([JAX.md](JAX.md)) ![JAX Logo](jax_logo_250px.png)
 Google's accelerated NumPy for machine learning research.
 - **Installation Methods**: 
   - Conda with system modules
@@ -182,37 +182,37 @@ Comprehensive examples for parallel job submission patterns.
   - Error handling patterns
 
 - **Scripts Included**:
-  - `recursive-array.sh`: Automated array job generation
+  - [`recursive-array.sh`](recursive-array.sh): Automated array job generation
   - Sample data structures for testing
-  - Command reference guide
+  - [`commands_for_exercises.txt`](JobArrays/commands_for_exercises.txt): Command reference guide
 
 ### Reference Documents (PDFs)
 
-#### **Dash-Cannon.pdf**
+#### **Dash-Cannon.pdf** ([Dash-Cannon.pdf](Dash-Cannon.pdf))
 Complete guide for deploying Dash/Plotly web applications on the cluster.
 - Interactive dashboard creation
 - Port forwarding setup
 - Security considerations
 
-#### **Flask-Cannon.pdf**
+#### **Flask-Cannon.pdf** ([Flask-Cannon.pdf](Flask-Cannon.pdf))
 Flask web application deployment on HPC infrastructure.
 - Development to production workflow
 - Resource allocation strategies
 - Scaling considerations
 
-#### **Stata-Python-Instructions.pdf**
+#### **Stata-Python-Instructions.pdf** ([Stata-Python-Instructions.pdf](Stata-Python-Instructions.pdf))
 Integration guide for Stata with Python environments.
 - Jupyter kernel configuration
 - Data exchange patterns
 - Mixed-language workflows
 
-#### **Tidyverse-R-CLI.pdf**
+#### **Tidyverse-R-CLI.pdf** ([Tidyverse-R-CLI.pdf](Tidyverse-R-CLI.pdf))
 Command-line R with tidyverse packages.
 - Non-interactive execution
 - Batch processing strategies
 - Performance optimization
 
-#### **Devtools-R-terminal.pdf**
+#### **Devtools-R-terminal.pdf** ([Devtools-R-terminal.pdf](Devtools-R-terminal.pdf))
 R package development in terminal environments.
 - Build and test workflows
 - Dependency management
@@ -220,7 +220,7 @@ R package development in terminal environments.
 
 ### Interactive Examples
 
-#### **plotly_test.ipynb**
+#### **plotly_test.ipynb** ([plotly_test.ipynb](plotly_test.ipynb))
 Jupyter notebook demonstrating Plotly visualizations on HPC.
 - 3D plotting examples
 - Large dataset handling
