@@ -7,7 +7,7 @@
 #SBATCH -o AF3_dp_%j.out         # Both stdout and stderr files
 
 # (don't change this) set database directory
-data_dir=/n/holylfs04-ssd2/LABS/FAS/alphafold_databases/v3.0
+data_dir=/n/holylabs/rc_admin/Everyone/alphafold_databases/v3
 
 # (change this) set model parameters directory
 my_model_parms_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/model_parameters
