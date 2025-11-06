@@ -21,7 +21,7 @@ my_output_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir
 # run alphafold3
 singularity exec \
      --bind $data_dir:/data \
-     /n/singularity_images/FAS/alphafold/alphafold_3.0.0.sif \
+     /n/singularity_images/FAS/alphafold/alphafold_3.0.1.sif \
      python /app/alphafold/run_alphafold.py \
      --json_path=${my_input_dir}/alphafold_input.json \
      --model_dir=$my_model_parms_dir \
