@@ -1,5 +1,5 @@
 bootstrap: docker
-from: docker.io/nvidia/cuda:12.6.0-base-ubuntu22.04
+from: docker.io/nvidia/cuda:12.6.3-base-ubuntu24.04
 
 %post
     export DEBIAN_FRONTEND=noninteractive
@@ -9,44 +9,52 @@ from: docker.io/nvidia/cuda:12.6.0-base-ubuntu22.04
     # git is required for pyproject.toml toolchain's use of CMakeLists.txt.
     # gcc, g++, make are required for compiling hmmer and AlphaFold 3 libaries.
     # zlib is a required dependency of AlphaFold 3.
-    apt update --quiet \
-        && apt install --yes --quiet software-properties-common \
-        && apt install --yes --quiet git wget gcc g++ make zlib1g-dev zstd
+    apt-get update --quiet \
+        && apt-get install --yes --quiet software-properties-common \
+        && apt-get install --yes --quiet git wget gcc g++ make zlib1g-dev zstd
 
-    # Get apt repository of specific Python versions. Then install Python. Tell APT
-    # this isn't an interactive TTY to avoid timezone prompt when installing.
-    add-apt-repository ppa:deadsnakes/ppa \
-        && apt install --yes --quiet python3.11 python3-pip python3.11-venv python3.11-dev
+    apt-get install --yes --quiet python3.12 python3-pip python3.12-venv python3.12-dev
 
     # Update pip to the latest version. Not necessary in Docker, but good to do when
     # this is used as a recipe for local installation since we rely on new pip
     # features for secure installs.
-    python3.11 -m venv /alphafold3_venv
+    python3 -m venv /alphafold3_venv
     PATH="/hmmer/bin:/alphafold3_venv/bin:$PATH"
-    pip3 install --upgrade pip
+    pip3 install --no-cache-dir --upgrade pip
 
     # Install HMMER. Do so before copying the source code, so that docker can cache
-    # the image layer containing HMMER.
+    # the image layer containing HMMER. Alternatively, you could also install it
+    # using `apt-get install hmmer` instead of bulding it from source, but we want
+    # to have control over the exact version of HMMER and also apply the sequence
+    # limit patch. Also note that eddylab.org unfortunately doesn't support HTTPS
+    # and the tar file published on GitHub is explicitly not recommended to be used
+    # for building from source.
     mkdir /hmmer_build /hmmer ; \
         wget http://eddylab.org/software/hmmer/hmmer-3.4.tar.gz --directory-prefix /hmmer_build ; \
-        (cd /hmmer_build && tar zxf hmmer-3.4.tar.gz && rm hmmer-3.4.tar.gz) ; \
-        (cd /hmmer_build/hmmer-3.4 && ./configure --prefix /hmmer) ; \
-        (cd /hmmer_build/hmmer-3.4 && make -j8) ; \
+        (cd /hmmer_build && echo "ca70d94fd0cf271bd7063423aabb116d42de533117343a9b27a65c17ff06fbf3 hmmer-3.4.tar.gz" | sha256sum --check) && \
+        (cd /hmmer_build && tar zxf hmmer-3.4.tar.gz && rm hmmer-3.4.tar.gz)
+
+    # Copy the AlphaFold 3 source code from the local machine to the container app/ folder
+    mkdir -p /app
+    cd /app/
+    git clone https://github.com/google-deepmind/alphafold3.git alphafold
+
+    # Apply the --seq_limit patch to HMMER.
+    cp /app/alphafold/docker/jackhmmer_seq_limit.patch /hmmer_build/
+    (cd /hmmer_build && patch -p0 < jackhmmer_seq_limit.patch)
+
+    # Build HMMER.
+    (cd /hmmer_build/hmmer-3.4 && ./configure --prefix /hmmer) ; \
+        (cd /hmmer_build/hmmer-3.4 && make -j) ; \
         (cd /hmmer_build/hmmer-3.4 && make install) ; \
         (cd /hmmer_build/hmmer-3.4/easel && make install) ; \
         rm -R /hmmer_build
 
-    # Copy the AlphaFold 3 source code from the local machine to the container and
-    # set the working directory to there.
-    mkdir -p app
-    cd app/
-    git clone https://github.com/google-deepmind/alphafold3.git --branch v3.0.0 alphafold
-    cd alphafold
-
-
     # Install the Python dependencies AlphaFold 3 needs.
-    pip3 install -r dev-requirements.txt
-    pip3 install --no-deps .
+    cd /app/alphafold
+    pip3 install --no-cache-dir setuptools
+    pip3 install --no-cache-dir -r dev-requirements.txt
+    pip3 install --no-cache-dir --no-deps .
 
     # Build chemical components database (this binary was installed by pip).
     build_data
@@ -75,8 +83,9 @@ from: docker.io/nvidia/cuda:12.6.0-base-ubuntu22.04
     exec python3 /app/alphafold/run_alphafold.py "$@"
 
 %labels
-    Author paula_sanematsu@g.harvard.edu
+    Authors paula_sanematsu@g.harvard.edu, nweeks@g.harvard.edu
+    Version 3.0.1
+    Definition file based on official Alphafold3 Dockerfile https://github.com/google-deepmind/alphafold3/blob/f3e86f27dfac16559d16f470bb2f9323eb357f1f/docker/Dockerfile
 
 %help
-    Singularity container to run Alphafold3, converted from the Dockerfile https://github.com/google-deepmind/alphafold3/commits/main/docker/Dockerfile
-
+    Singularity container to run Alphafold3 version 3.0.1, converted from the official Alphafold3 Dockerfile.
