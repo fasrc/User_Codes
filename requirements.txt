@@ -1,2 +1,0 @@
-# requirements.txt
-# No external dependencies are required for mc_pi.py

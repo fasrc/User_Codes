@@ -12,21 +12,11 @@ The below instructions are for building WRF/WPS with the Intel compiler and Inte
 **Intel Compiler and Intel MPI**
 
 ```bash
-module load intel/23.0.0-fasrc01
-module load intelmpi/2021.8.0-fasrc01
-module load netcdf-fortran/4.6.0-fasrc03
+module load intel/24.2.1-fasrc01
+module load intelmpi/2021.13-fasrc01
+module load netcdf-fortran/4.6.1-fasrc04
 module load libpng/1.6.25-fasrc01
-module load jasper/1.900.1-fasrc02 
-```
-
-**Intel Compiler and MPICH**
-
-```bash
-module load intel/23.0.0-fasrc01
-module load mpich/4.1-fasrc01
-module load netcdf-fortran/4.6.0-fasrc02
-module load libpng/1.6.25-fasrc01
-module load jasper/1.900.1-fasrc02 
+module load jasper/1.900.1-fasrc01
 ```
 
 * ### Define required environment variables
@@ -52,12 +42,12 @@ git clone https://github.com/wrf-model/WRF.git
 
 ```bash
 cd WRF/
-./configure 
+./configure
 checking for perl5... no
 checking for perl... found /usr/bin/perl (perl)
-Will use NETCDF in dir: /n/sw/helmod-rocky8/apps/MPI/intel/23.0.0-fasrc01/intelmpi/2021.8.0-fasrc01/netcdf-fortran/4.6.0-fasrc03
+Will use NETCDF in dir: /n/sw/helmod-rocky8/apps/MPI/intel/24.2.1-fasrc01/intelmpi/2021.13-fasrc01/netcdf-fortran/4.6.1-fasrc04
 ADIOS2 not set in environment. Will configure WRF for use without.
-Will use HDF5 in dir: /n/sw/helmod-rocky8/apps/MPI/intel/23.0.0-fasrc01/intelmpi/2021.8.0-fasrc01/hdf5/1.14.0-fasrc02
+Will use HDF5 in dir: /n/sw/helmod-rocky8/apps/MPI/intel/24.2.1-fasrc01/intelmpi/2021.13-fasrc01/hdf5/1.14.4-fasrc01
 PHDF5 not set in environment. Will configure WRF for use without.
 Will use 'time' to report timing information
 
@@ -88,19 +78,23 @@ Please select from among the following Linux x86_64 options:
  64. (serial)  65. (smpar)  66. (dmpar)  67. (dm+sm)   INTEL (ifort/icc): HSW/BDW
  68. (serial)  69. (smpar)  70. (dmpar)  71. (dm+sm)   INTEL (ifort/icc): KNL MIC
  72. (serial)  73. (smpar)  74. (dmpar)  75. (dm+sm)   AMD (flang/clang) :  AMD ZEN1/ ZEN2/ ZEN3 Architectures
- 76. (serial)  77. (smpar)  78. (dmpar)  79. (dm+sm)   FUJITSU (frtpx/fccpx): FX10/FX100 SPARC64 IXfx/Xlfx
+ 76. (serial)  77. (smpar)  78. (dmpar)  79. (dm+sm)   INTEL (ifx/icx) : oneAPI LLVM
+ 80. (serial)  81. (smpar)  82. (dmpar)  83. (dm+sm)   FUJITSU (frtpx/fccpx): FX10/FX100 SPARC64 IXfx/Xlfx
 
-Enter selection [1-79] :
+Enter selection [1-83] :
 ```
 
-Choose, e.g., option 15 to compile a MPI version of WRF with Intel compilers, and then option 1 to select the default nesting:
+Choose, e.g., option 78 to compile a MPI version of WRF with Intel oneAPI compilers (`icx` and `ifx`), and then option 1 to select the default nesting:
 
 ```
-Enter selection [1-79] : 15
+Enter selection [1-83] : 78
 ------------------------------------------------------------------------
 Compile for nesting? (1=basic, 2=preset moves, 3=vortex following) [default 1]: 
 
 Configuration successful! 
+------------------------------------------------------------------------
+testing for fseeko and fseeko64
+fseeko is supported and handles 64 bit offsets
 ------------------------------------------------------------------------
 ```
 > **NOTE:** If you see the below message also do `cd share; cp landread.c.dist landread.c; cd ../`
@@ -112,21 +106,17 @@ The moving nest option is not available due to missing rpc/types.h file.
 Copy landread.c.dist to landread.c in share directory to bypass compile error.
  
 *****************************************************************************
+*****************************************************************************
+This build of WRF will use NETCDF4 with HDF5 compression
+*****************************************************************************
 ```
-* ### Modify the file `configure.wrf` (around lines 154-155) to read the following:
+* ### Modify the file `configure.wrf` (around lines 136-137) to read the following:
 
 **Intel Compiler and Intel MPI**
 
 ```bash
-DM_FC  =  mpiifort -f90=$(SFC)
-DM_CC  =  mpiicc -cc=$(SCC) -DMPI2_SUPPORT
-```
-
-**Intel Compiler and MPICH**
-
-```bash
-DM_FC  =  mpif90 -f90=$(SFC)
-DM_CC  =  mpicc -cc=$(SCC) -DMPI2_SUPPORT
+DM_FC  =  mpiifx -f90=$(SFC)
+DM_CC  =  mpiicx -cc=$(SCC)
 ```
 
 Note that you have to do this each time you run ./configure, because the `configure.wrf` script is overwritten each time.
@@ -143,7 +133,7 @@ This generates the **[compile_wrf.log](compile_wrf.log)** file with details of t
 
 The WRF Pre-Processing System (WPS) is a collection
 of Fortran and C programs that provides data used as
-input to the real.exe and real_nmm.exe programs. There 
+input to the `real.exe` and `real_nmm.exe` programs. There 
 are three main programs and a number of auxiliary 
 programs that are part of WPS.  Both the ARW and NMM 
 dynamical cores in WRF are supported by WPS.
@@ -153,6 +143,7 @@ One needs to configure and compile WRF following the above example steps, before
 * ### Clone WPS from the official Github repository
 
 ```bash
+cd ../
 git clone https://github.com/wrf-model/WPS.git
 ```
 * ### Configure WPS. Choose, e.g., option 19 to compile a MPI version with GRIB2 capabilities:
@@ -160,11 +151,11 @@ git clone https://github.com/wrf-model/WPS.git
 ```bash
 cd WPS/
 ./configure 
-Will use NETCDF in dir: /n/sw/helmod-rocky8/apps/MPI/intel/23.0.0-fasrc01/intelmpi/2021.8.0-fasrc01/netcdf-fortran/4.6.0-fasrc03
+Will use NETCDF in dir: /n/sw/helmod-rocky8/apps/MPI/intel/24.2.1-fasrc01/intelmpi/2021.13-fasrc01/netcdf-fortran/4.6.1-fasrc04
 Found what looks like a valid WRF I/O library in ../WRF
 Found Jasper environment variables for GRIB2 support...
-  $JASPERLIB = /n/sw/helmod-rocky8/apps/Comp/intel/23.0.0-fasrc01/jasper/1.900.1-fasrc02/lib64
-  $JASPERINC = /n/sw/helmod-rocky8/apps/Comp/intel/23.0.0-fasrc01/jasper/1.900.1-fasrc02/include
+  $JASPERLIB = /n/sw/helmod-rocky8/apps/Core/jasper/1.900.1-fasrc01/lib64
+  $JASPERINC = /n/sw/helmod-rocky8/apps/Core/jasper/1.900.1-fasrc01/include
 ------------------------------------------------------------------------
 Please select from among the following supported platforms.
 
@@ -184,50 +175,48 @@ Please select from among the following supported platforms.
   14.  Linux x86_64, IA64 and Opteron    (serial_NO_GRIB2)
   15.  Linux x86_64, IA64 and Opteron    (dmpar)
   16.  Linux x86_64, IA64 and Opteron    (dmpar_NO_GRIB2)
-  17.  Linux x86_64, Intel compiler    (serial)
-  18.  Linux x86_64, Intel compiler    (serial_NO_GRIB2)
-  19.  Linux x86_64, Intel compiler    (dmpar)
-  20.  Linux x86_64, Intel compiler    (dmpar_NO_GRIB2)
-  21.  Linux x86_64, Intel compiler, SGI MPT    (serial)
-  22.  Linux x86_64, Intel compiler, SGI MPT    (serial_NO_GRIB2)
-  23.  Linux x86_64, Intel compiler, SGI MPT    (dmpar)
-  24.  Linux x86_64, Intel compiler, SGI MPT    (dmpar_NO_GRIB2)
-  25.  Linux x86_64, Intel compiler, IBM POE    (serial)
-  26.  Linux x86_64, Intel compiler, IBM POE    (serial_NO_GRIB2)
-  27.  Linux x86_64, Intel compiler, IBM POE    (dmpar)
-  28.  Linux x86_64, Intel compiler, IBM POE    (dmpar_NO_GRIB2)
-  29.  Linux x86_64 g95 compiler     (serial)
-  30.  Linux x86_64 g95 compiler     (serial_NO_GRIB2)
-  31.  Linux x86_64 g95 compiler     (dmpar)
-  32.  Linux x86_64 g95 compiler     (dmpar_NO_GRIB2)
-  33.  Cray XE/XC CLE/Linux x86_64, Cray compiler   (serial)
-  34.  Cray XE/XC CLE/Linux x86_64, Cray compiler   (serial_NO_GRIB2)
-  35.  Cray XE/XC CLE/Linux x86_64, Cray compiler   (dmpar)
-  36.  Cray XE/XC CLE/Linux x86_64, Cray compiler   (dmpar_NO_GRIB2)
-  37.  Cray XC CLE/Linux x86_64, Intel compiler   (serial)
-  38.  Cray XC CLE/Linux x86_64, Intel compiler   (serial_NO_GRIB2)
-  39.  Cray XC CLE/Linux x86_64, Intel compiler   (dmpar)
-  40.  Cray XC CLE/Linux x86_64, Intel compiler   (dmpar_NO_GRIB2)
+  17.  Linux x86_64, Intel oneAPI compilers    (serial)
+  18.  Linux x86_64, Intel oneAPI compilers    (serial_NO_GRIB2)
+  19.  Linux x86_64, Intel oneAPI compilers    (dmpar)
+  20.  Linux x86_64, Intel oneAPI compilers    (dmpar_NO_GRIB2)
+  21.  Linux x86_64, Intel Classic compilers    (serial)
+  22.  Linux x86_64, Intel Classic compilers    (serial_NO_GRIB2)
+  23.  Linux x86_64, Intel Classic compilers    (dmpar)
+  24.  Linux x86_64, Intel Classic compilers    (dmpar_NO_GRIB2)
+  25.  Linux x86_64, Intel Classic compilers, SGI MPT    (serial)
+  26.  Linux x86_64, Intel Classic compilers, SGI MPT    (serial_NO_GRIB2)
+  27.  Linux x86_64, Intel Classic compilers, SGI MPT    (dmpar)
+  28.  Linux x86_64, Intel Classic compilers, SGI MPT    (dmpar_NO_GRIB2)
+  29.  Linux x86_64, Intel Classic compilers, IBM POE    (serial)
+  30.  Linux x86_64, Intel Classic compilers, IBM POE    (serial_NO_GRIB2)
+  31.  Linux x86_64, Intel Classic compilers, IBM POE    (dmpar)
+  32.  Linux x86_64, Intel Classic compilers, IBM POE    (dmpar_NO_GRIB2)
+  33.  Linux x86_64 g95 compiler     (serial)
+  34.  Linux x86_64 g95 compiler     (serial_NO_GRIB2)
+  35.  Linux x86_64 g95 compiler     (dmpar)
+  36.  Linux x86_64 g95 compiler     (dmpar_NO_GRIB2)
+  37.  Cray XE/XC CLE/Linux x86_64, Cray compiler   (serial)
+  38.  Cray XE/XC CLE/Linux x86_64, Cray compiler   (serial_NO_GRIB2)
+  39.  Cray XE/XC CLE/Linux x86_64, Cray compiler   (dmpar)
+  40.  Cray XE/XC CLE/Linux x86_64, Cray compiler   (dmpar_NO_GRIB2)
+  41.  Cray XC CLE/Linux x86_64, Intel Classic compilers   (serial)
+  42.  Cray XC CLE/Linux x86_64, Intel Classic compilers   (serial_NO_GRIB2)
+  43.  Cray XC CLE/Linux x86_64, Intel Classic compilers   (dmpar)
+  44.  Cray XC CLE/Linux x86_64, Intel Classic compilers   (dmpar_NO_GRIB2)
 
-Enter selection [1-40] : 19
+Enter selection [1-44] : 19
 ------------------------------------------------------------------------
 Configuration successful. To build the WPS, type: compile
 ------------------------------------------------------------------------
 ```
 
-* ### Modify the `configure.wps` around lines 65-66 to read the following:
+* ### Modify the `configure.wps` around lines 67-68 to read the following:
 
 **Intel Compiler and Intel MPI**
 
 ```bash
-DM_FC               = mpiifort
-DM_CC               = mpiicc
-```
-**Intel Compiler and MPICH**
-
-```bash
-DM_FC               = mpif90
-DM_CC               = mpicc
+DM_FC               = mpiifx
+DM_CC               = mpiicx
 ```
 
 (4) Compile WPS. If you're on an interactive shell, remove the "&" to avoid timing out:

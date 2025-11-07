@@ -2,11 +2,9 @@
 
 ## Introduction
 
-This web-page is intended to help you compile and run MPI applications on the cluster cluster.
+This web-page is intended to help you compile and run MPI applications on the cluster cluster.  For more information on MPI and OpenMPI, see our [User Docs entry](https://docs.rc.fas.harvard.edu/kb/mpi-message-passing-interface/).
 
-The Message Passing Interface (MPI) library allows processes in your parallel application to communicate with one another by sending and receiving messages. There is no default MPI library in your environment when you log in to the cluster. You need to choose the desired MPI implementation for your applications. This is done by loading an appropriate MPI module. Currently the available MPI implementations on our cluster are [OpenMPI](https://www.open-mpi.org/) and [Mpich](https://www.mpich.org/). For both implementations the MPI libraries are compiled and built with either the [Intel compiler suite](https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html) or the [GNU compiler suite](https://www.gnu.org/software/gcc/). These are organized in [software modules](https://docs.rc.fas.harvard.edu/kb/modules-intro/).
-
-For instance, if you want to use OpenMPI compiled with the GNU compiler you need to load appropriate compiler and MPI modules. Below are some possible combinations, check <code>module spider MODULENAME</code> to get a full listing of possibilities.
+If you want to use OpenMPI compiled with the GNU compiler you need to load appropriate compiler and MPI modules. Below are some possible combinations, check <code>module spider MODULENAME</code> to get a full listing of possibilities.
 
 ```bash
 # GCC + OpenMPI, e.g.,
@@ -26,20 +24,6 @@ module load intel/24.0.1-fasrc01 intelmpi/2021.11-fasrc01
 ```
 
 For reproducibility and consistency it is recommended to use the complete module name with the module load command, as illustrated above. Modules on the cluster get updated often so check if there are more recent ones. The modules are set up so that you can only have one MPI module loaded at a time. If you try loading a second one it will automatically unload the first. This is done to avoid dependencies collisions.
-
-There are four ways you can set up your MPI on the cluster:
-
-* Put the module load command in your startup files.<br>
-Most users will find this option most convenient. You will likely only want to use a single version of MPI for all your work. This method also works with all MPI modules currently available on the cluster.
-
-* Load the module in your current shell.<br>
-For the current MPI versions you do not need to have the module load command in your startup files. If you submit a job the remote processes will inherit the submission shell environment and use the proper MPI library. Note this method does not work with older versions of MPI.
-
-* Load the module in your job script.<br>
-If you will be using different versions of MPI for different jobs, then you can put the module load command in your script. You need to ensure your script can execute the module load command properly.
-
-* Do not use modules and set environment variables yourself. <br>
-You obviously do not need to use modules but can hard code paths. However, these locations may change without warning so you should set them in one location only and not scatter them throughout your scripts. This option could be useful if you have a customized local build of MPI you would like to use with your applications.
 
 ## Your First MPI Program
 
@@ -229,14 +213,7 @@ srun -n $SLURM_NTASKS --mpi=pmi2 ./mpitest.x
 
 > **NOTE:** Notice, in the above example we use Intel and IntelMPI, <code>module load intel/23.2.0-fasrc01 intelmpi/2021.10.0-fasrc01</code>. As a rule, you **must** load exactly the same modules you used to compile your code.
 
-
-### Submit the jobs to the queue
-
-The <code>sbatch</code> command followed the batch-job script name, e.g., <code>run.sbatch</code>, is used to submit your batch script to the cluster compute nodes. Upon submission a job ID is returned, such as:
-
-```bash
-sbatch run.sbatch
-```
+Here is useful Information on [how to run jobs](https://docs.rc.fas.harvard.edu/kb/running-jobs/) and [Convienent Slurm Commands](https://docs.rc.fas.harvard.edu/kb/convenient-slurm-commands/).
 
 ### Monitor your job
 

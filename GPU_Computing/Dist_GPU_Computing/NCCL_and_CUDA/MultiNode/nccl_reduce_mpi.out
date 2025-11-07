@@ -1,0 +1,26 @@
+1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	
+2.00	2.00	2.00	2.00	2.00	2.00	2.00	2.00	
+
+ This is rank 0, device 0
+
+ This is rank 4, device 0
+	dot(x,y) = 0.00
+
+ This is rank 5, device 1
+	dot(x,y) = 0.00
+
+ This is rank 6, device 2
+	dot(x,y) = 0.00
+
+ This is rank 7, device 3
+	dot(x,y) = 0.00
+	dot(x,y) = 128.00
+
+ This is rank 1, device 1
+	dot(x,y) = 0.00
+
+ This is rank 2, device 2
+	dot(x,y) = 0.00
+
+ This is rank 3, device 3
+	dot(x,y) = 0.00

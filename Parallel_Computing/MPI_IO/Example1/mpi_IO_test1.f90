@@ -8,9 +8,8 @@
 !
 ! Author: Plamen G Krastev
 !         Harvard University
-!         Research Computing
-!         Faculty of Arts and Sciences
-!         38 Oxford Street, Room 117
+!         FAS Research Computing
+!         38 Oxford Street
 !         Cambridge, MA 02138, USA
 !         Email: plamenkrastev@fas.harvard.edu
 !

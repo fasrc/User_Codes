@@ -1,0 +1,97 @@
+Transaction
+
+  Prefix: /n/home_rc/mjoshi/.conda/envs/my_env
+
+  Updating specs:
+
+   - python
+   - pip
+   - wheel
+   - pandas
+   - numpy
+
+
+  Package                 Version  Build                Channel           Size
+────────────────────────────────────────────────────────────────────────────────
+  Install:
+────────────────────────────────────────────────────────────────────────────────
+
+  + python_abi               3.13  5_cp313              conda-forge        6kB
+  + _libgcc_mutex             0.1  conda_forge          conda-forge        3kB
+  + ld_impl_linux-64         2.43  h712a8e2_2           conda-forge      669kB
+  + ca-certificates     2024.8.30  hbcca054_0           conda-forge      159kB
+  + libgomp                14.2.0  h77fa898_1           conda-forge      461kB
+  + _openmp_mutex             4.5  2_gnu                conda-forge       24kB
+  + libgcc                 14.2.0  h77fa898_1           conda-forge      849kB
+  + libgfortran5           14.2.0  hd5240d6_1           conda-forge        1MB
+  + libzlib                 1.3.1  hb9d3cd8_2           conda-forge       61kB
+  + libstdcxx              14.2.0  hc0a3c3a_1           conda-forge        4MB
+  + libgcc-ng              14.2.0  h69a702a_1           conda-forge       54kB
+  + openssl                 3.4.0  hb9d3cd8_0           conda-forge        3MB
+  + libexpat                2.6.4  h5888daf_0           conda-forge       73kB
+  + libgfortran            14.2.0  h69a702a_1           conda-forge       54kB
+  + libsqlite              3.47.0  hadc24fc_1           conda-forge      875kB
+  + tk                     8.6.13  noxft_h4845f30_101   conda-forge     Cached
+  + libffi                  3.4.2  h7f98852_5           conda-forge       58kB
+  + bzip2                   1.0.8  h4bc722e_7           conda-forge     Cached
+  + ncurses                   6.5  he02047a_1           conda-forge      889kB
+  + libuuid                2.38.1  h0b41bf4_0           conda-forge       34kB
+  + libmpdec                4.0.0  h4bc722e_0           conda-forge       90kB
+  + xz                      5.2.6  h166bdaf_0           conda-forge      418kB
+  + libopenblas            0.3.28  pthreads_h94d23a6_1  conda-forge        6MB
+  + readline                  8.2  h8228510_1           conda-forge      281kB
+  + libblas                 3.9.0  25_linux64_openblas  conda-forge       16kB
+  + libcblas                3.9.0  25_linux64_openblas  conda-forge       16kB
+  + liblapack               3.9.0  25_linux64_openblas  conda-forge       16kB
+  + tzdata                  2024b  hc8b5060_0           conda-forge      122kB
+  + python                 3.13.0  h9ebbce0_101_cp313   conda-forge       33MB
+  + pip                    24.3.1  pyh145f28c_0         conda-forge        1MB
+  + six                    1.16.0  pyh6c4a22f_0         conda-forge     Cached
+  + pytz                   2024.1  pyhd8ed1ab_0         conda-forge     Cached
+  + python-tzdata          2024.2  pyhd8ed1ab_0         conda-forge      143kB
+  + wheel                  0.45.1  pyhd8ed1ab_0         conda-forge       63kB
+  + python-dateutil   2.9.0.post0  pyhff2d567_0         conda-forge      222kB
+  + numpy                   2.1.3  py313h4bf6692_0      conda-forge        8MB
+  + pandas                  2.2.3  py313ha87cce1_1      conda-forge       15MB
+
+  Summary:
+
+  Install: 37 packages
+
+  Total download: 78MB
+
+────────────────────────────────────────────────────────────────────────────────
+
+
+
+Looking for: ['python', 'pip', 'wheel', 'pandas', 'numpy']
+
+
+Downloading and Extracting Packages: ...working... done
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+
+To activate this environment, use
+
+     $ mamba activate my_env
+
+To deactivate an active environment, use
+
+     $ mamba deactivate
+
+        0      1       2
+0   Spark  20000  30days
+1  pandas  20000  40days
+  Courses    Fee Duration
+a   Spark  20000   30days
+b  pandas  20000   40days
+    Courses      Fee Duration  Discount
+r0    Spark  22000.0    30day      1000
+r1  PySpark  25000.0   50days      2300
+r2   Hadoop  23000.0   55days      1000
+r3   Python  24000.0   40days      1200
+r4   Pandas      NaN   60days      2500
+r5     None  25000.0    35day      1300
+r6    Spark  25000.0               1400
+r7   Python  22000.0   50days      1600

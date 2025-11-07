@@ -5,7 +5,7 @@ create access to HeavyAI without using Open OnDemand portal
 (https://rcood.rc.fas.harvard.edu/).
 
 The preferred and easier route is to use [Open
-OnDemand]9https://rcood.rc.fas.harvard.edu/pun/sys/dashboard).
+OnDemand](https://rcood.rc.fas.harvard.edu/pun/sys/dashboard).
 
 For more information see our [HeavyAI documentation](https://docs.rc.fas.harvard.edu/kb/heavyai/).
 
