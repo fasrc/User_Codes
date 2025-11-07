@@ -20,7 +20,7 @@ my_model_parms_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/model_parameters
 singularity exec \
      --nv \
      --bind $data_dir:/data \
-     /n/singularity_images/FAS/alphafold/alphafold_3.0.0.sif \
+     /n/singularity_images/FAS/alphafold/alphafold_3.0.1.sif \
      python /app/alphafold/run_alphafold.py \
      --json_path=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir/2pv7/2pv7_data.json \
      --model_dir=$my_model_parms_dir \

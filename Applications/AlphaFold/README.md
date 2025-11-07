@@ -2,13 +2,17 @@
 
 [See FASRC Docs](https://docs.rc.fas.harvard.edu/kb/alphafold/)
 
+This document contains example scripts to run:
+* [Alphafold 3](#alphafold-3)
+* [Alphafold 2](#alphafold-2)
+
 ## AlphaFold 3
 
 We recommend running [Alphafold3](https://github.com/google-deepmind/alphafold3)
 in two steps to better use cluster resources
 
-* Step 1: Run the data pipeline on a CPU partition
-* Step 2: Run inference on a GPU partition
+* [Step 1](#step-1-data-pipeline): Run the data pipeline on a CPU partition
+* [Step 2](#step-2-inference): Run inference on a GPU partition
 
 See [slurm
 partitions](https://docs.rc.fas.harvard.edu/kb/running-jobs/#Slurm_partitions)
@@ -18,7 +22,7 @@ for the specifics of each partition.
 
 See [FASRC docs](https://docs.rc.fas.harvard.edu/kb/alphafold/#Alphafold3-2).
 
-### Data pipeline
+### Step 1. Data pipeline
 
 Below you will find a slurm script example
 [`run_af3_data_pipeline.sh`](run_af3_data_pipeline.sh) that uses the input file
@@ -58,7 +62,7 @@ my_output_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir
 # run alphafold3
 singularity exec \
      --bind $data_dir:/data \
-     /n/singularity_images/FAS/alphafold/alphafold_3.0.0.sif \
+     /n/singularity_images/FAS/alphafold/alphafold_3.0.1.sif \
      python /app/alphafold/run_alphafold.py \
      --json_path=${my_input_dir}/alphafold_input.json \
      --model_dir=$my_model_parms_dir \
@@ -88,7 +92,7 @@ using 8 cores:
 
 **Note 2:** Both output and error will go to the `.out` file.
 
-### Inference
+### Step 2. Inference
 
 In the inference step, you will need to use the `_data.json` file that was
 produced during the data pipeline step. Below you will find a slurm script
@@ -125,7 +129,7 @@ my_model_parms_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/model_parameters
 singularity exec \
      --nv \
      --bind $data_dir:/data \
-     /n/singularity_images/FAS/alphafold/alphafold_3.0.0.sif \
+     /n/singularity_images/FAS/alphafold/alphafold_3.0.1.sif \
      python /app/alphafold/run_alphafold.py \
      --json_path=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir/2pv7/2pv7_data.json \
      --model_dir=$my_model_parms_dir \
@@ -186,7 +190,7 @@ sbatch --dependency=afterok:${SLURM_JOB_ID} <<END
 singularity exec \
      --nv \
      --bind $data_dir:/data \
-     /n/singularity_images/FAS/alphafold/alphafold_3.0.0.sif \
+     /n/singularity_images/FAS/alphafold/alphafold_3.0.1.sif \
      python /app/alphafold/run_alphafold.py \
      --json_path=${my_output_dir}/2pv7/2pv7_data.json \
      --model_dir=$my_model_parms_dir \
@@ -197,7 +201,7 @@ END
 # run data pipeline
 singularity exec \
      --bind $data_dir:/data \
-     /n/singularity_images/FAS/alphafold/alphafold_3.0.0.sif \
+     /n/singularity_images/FAS/alphafold/alphafold_3.0.1.sif \
      python /app/alphafold/run_alphafold.py \
      --json_path=${my_input_dir}/alphafold_input.json \
      --model_dir=$my_model_parms_dir \
