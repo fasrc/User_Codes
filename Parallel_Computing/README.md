@@ -4,6 +4,15 @@ Each directory contains complete working examples with compilation instructions,
 
 For general information about parallel computing on Harvard's cluster, see the [RC User Documentation](https://docs.rc.fas.harvard.edu/).
 
+## Quick Reference
+
+| Paradigm | Best For | Languages | Examples |
+|----------|----------|-----------|----------|
+| **MPI** | Multi-node, large scale | Fortran, C, C++, Python | Monte Carlo, Integration, Matrix ops |
+| **OpenMP** | Single-node, shared memory | C, Fortran | Thread scaling, Matrix diagonalization |
+| **Job Arrays** | Independent tasks | Any | Parameter sweeps, Multiple simulations |
+| **HDF5/NetCDF** | Large datasets | Fortran, C | Climate data, Scientific datasets |
+
 ## Core Parallel Computing Paradigms
 
 ### Distributed Memory Computing
@@ -45,12 +54,3 @@ Specialized libraries for parallel data access and scientific computing.
 - **[MATLAB](MATLAB/)**: Parallel toolbox examples with Monte Carlo simulations
 - **[Mathematica](Mathematica/)**: Parallel kernel computations  
 - **[STATA](STATA/)**: Statistical analysis parallelization
-
-## Quick Reference
-
-| Paradigm | Best For | Languages | Examples |
-|----------|----------|-----------|----------|
-| **MPI** | Multi-node, large scale | Fortran, C, C++, Python | Monte Carlo, Integration, Matrix ops |
-| **OpenMP** | Single-node, shared memory | C, Fortran | Thread scaling, Matrix diagonalization |
-| **Job Arrays** | Independent tasks | Any | Parameter sweeps, Multiple simulations |
-| **HDF5/NetCDF** | Large datasets | Fortran, C | Climate data, Scientific datasets |

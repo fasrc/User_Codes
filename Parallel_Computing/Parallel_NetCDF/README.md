@@ -1,5 +1,34 @@
-### Contents:
+# Parallel NetCDF Examples
 
-* Example1: Parallel NetCDF - write 2D data, a 6 x 12 grid, on 4 processors. Each processor will write it's rank to it's quarter of the array.
-* Example2: Parallel NetCDF - write 2D data, 10 x 10 array, on 10 processors. Each processor will write a row of the array.
-* Example3: Parallel NetCDF - read 2D array created in **Example2** with 10 processors .
+This collection provides practical examples for utilizing Parallel NetCDF for efficient parallel I/O operations in scientific computing.
+
+For general information about parallel computing on Harvard's cluster, see the [RC User Documentation on Parallel Computing](https://docs.rc.fas.harvard.edu/kb/parallel-computing/).
+
+## Parallel NetCDF Use Cases
+
+### Basic Parallel I/O Operations
+Fundamental examples demonstrating standard parallel file operations.
+
+- **[Example1](Example1/)**: Basic usage of Parallel NetCDF with SBATCH job submission for data writing and reading.  
+- **[Example2](Example2/)**: Advanced example with optimized I/O patterns and performance metrics.  
+- **[Example3](Example3/)**: Comprehensive demonstration including error handling and data integrity checks.
+
+### Advanced Parallel I/O Techniques
+In-depth examples focusing on complex data handling scenarios.
+
+- **[Example2](Example2/)**: Features a performance analysis of parallel writes and reads, showcasing scalability.  
+- **[Example3](Example3/)**: Illustrates multi-dimensional data management with Parallel NetCDF, emphasizing efficiency.
+
+## Code Files Overview
+
+### Example Scripts
+- **[simple_xy_par_wr.f90](./Example2/simple_xy_par_wr.f90)**: Fortran program for parallel writing of 2D arrays, adapted from the official NetCDF package.
+- **[simple_xy_par_rd.f90](./Example3/simple_xy_par_rd.f90)**: Fortran program for reading 2D arrays in parallel, ensuring data consistency.
+
+## Quick Reference
+
+| Example | Description | Language | Key Features |
+|---------|-------------|----------|--------------|
+| **[Example1](Example1/)** | Basic parallel I/O operations | Fortran | Simple read/write, SBATCH integration |
+| **[Example2](Example2/)**: | Optimized I/O with performance metrics | Fortran | Scalability analysis, advanced patterns |
+| **[Example3](Example3/)** | Multi-dimensional data handling | Fortran | Error handling, data integrity checks |

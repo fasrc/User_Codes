@@ -7,7 +7,7 @@
 #SBATCH -o AF3_dp_%j.out         # Both stdout and stderr files
 
 # (don't change this) set database directory
-data_dir=/n/holylfs04-ssd2/LABS/FAS/alphafold_databases/v3.0
+data_dir=/n/holylabs/rc_admin/Everyone/alphafold_databases/v3
 
 # (change this) set model parameters directory
 my_model_parms_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/model_parameters
@@ -21,7 +21,7 @@ my_output_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir
 # run alphafold3
 singularity exec \
      --bind $data_dir:/data \
-     /n/singularity_images/FAS/alphafold/alphafold_3.0.0.sif \
+     /n/singularity_images/FAS/alphafold/alphafold_3.0.1.sif \
      python /app/alphafold/run_alphafold.py \
      --json_path=${my_input_dir}/alphafold_input.json \
      --model_dir=$my_model_parms_dir \

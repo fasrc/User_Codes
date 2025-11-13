@@ -36,5 +36,9 @@ Typical #SBATCH lines include:<p>
 * https://docs.rc.fas.harvard.edu/kb/running-jobs/
 * https://slurm.schedmd.com/srun.html
 
+#### For more information on Slurm see User Docs: 
+[Convenient Slurm Commands](https://docs.rc.fas.harvard.edu/kb/convenient-slurm-commands/)
+
+
 #### More complex examples can be found here:
 https://github.com/fasrc/User_Codes

@@ -1,1 +1,0 @@
-Examples of numerical methods
