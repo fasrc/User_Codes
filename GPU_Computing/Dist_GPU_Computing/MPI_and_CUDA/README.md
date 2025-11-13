@@ -11,19 +11,19 @@ over the interval $[0, 1]$, which corresponds to the integral form of π.
 
 ## Build Instructions
 
-You can load the required software modules
+You need load the required software modules
 
 ```bash
 module load gcc/12.2.0-fasrc01 
 module load openmpi/5.0.5-fasrc02
 ```
-and compile the program using the included `Makefile`:
+and compile the program using the included `Makefile`. To compile the code in the terminal you should execute:
 
 ```bash
 make
 ```
 
-Alternatively, manually compile with:
+Alternatively, manually compile with the following command:
 
 ```bash
 nvcc -Xcompiler -fopenmp mpi_cuda.cu -o mpi_cuda.x -I${MPI_INCLUDE} -L${MPI_LIB} -lmpi -lgomp
