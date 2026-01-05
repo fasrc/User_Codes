@@ -12,5 +12,8 @@ mamba activate claude_env
 # set SSL_CERT_FILE with system's certificate
 export SSL_CERT_FILE='/etc/pki/tls/certs/ca-bundle.crt'
 
+# set ANTHROPIC_API_KEY to be read from the environment
+export ANTHROPIC_API_KEY='my-key'
+
 # run Claude example
 python claude_quickstart.py
