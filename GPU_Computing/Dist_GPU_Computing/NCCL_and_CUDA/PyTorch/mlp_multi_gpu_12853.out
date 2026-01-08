@@ -1,0 +1,40 @@
+Running: mlp_ddp.py
+Hello from rank 0 of 2 on holygpu7c26103.rc.fas.harvard.edu where there are 1 allocated GPUs per node. | (CUDA_VISIBLE_DEVICES=0)
+Hello from rank 1 of 2 on holygpu7c26104.rc.fas.harvard.edu where there are 1 allocated GPUs per node. | (CUDA_VISIBLE_DEVICES=0)
+Using GPU0 on Machine holygpu7c26104 (Rank 1)
+Group initialized? True
+Using GPU0 on Machine holygpu7c26103 (Rank 0)
+Parameter containing:
+tensor([[ 0.3933,  0.3099,  0.4018, -0.0318, -0.3403, -0.2626],
+        [-0.1082,  0.0552, -0.1326, -0.2352, -0.0331,  0.2575],
+        [ 0.3394, -0.2016, -0.2341, -0.0188,  0.1797,  0.1827],
+        [-0.1520,  0.1414, -0.0694, -0.0490, -0.3311,  0.2924]],
+       device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([-0.2879,  0.1017, -0.2043, -0.3442], device='cuda:0',
+       requires_grad=True)
+Parameter containing:
+tensor([[-0.0319,  0.1659, -0.4587,  0.0361],
+        [-0.1880, -0.0712, -0.2230, -0.0623]], device='cuda:0',
+       requires_grad=True)
+Parameter containing:
+tensor([ 0.4498, -0.4807], device='cuda:0', requires_grad=True)
+[GPU1] Total number of parameters in the model: 38
+Parameter containing:
+tensor([[ 0.3933,  0.3099,  0.4018, -0.0318, -0.3403, -0.2626],
+        [-0.1082,  0.0552, -0.1326, -0.2352, -0.0331,  0.2575],
+        [ 0.3394, -0.2016, -0.2341, -0.0188,  0.1797,  0.1827],
+        [-0.1520,  0.1414, -0.0694, -0.0490, -0.3311,  0.2924]],
+       device='cuda:0', requires_grad=True)
+Parameter containing:
+tensor([-0.2879,  0.1017, -0.2043, -0.3442], device='cuda:0',
+       requires_grad=True)
+Parameter containing:
+tensor([[-0.0319,  0.1659, -0.4587,  0.0361],
+        [-0.1880, -0.0712, -0.2230, -0.0623]], device='cuda:0',
+       requires_grad=True)
+Parameter containing:
+tensor([ 0.4498, -0.4807], device='cuda:0', requires_grad=True)
+[GPU0] Total number of parameters in the model: 38
+[GPU1] Epoch 0 | Batchsize: 32 | Steps: 16
+[GPU0] Epoch 0 | Batchsize: 32 | Steps: 16
