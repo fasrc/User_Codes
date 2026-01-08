@@ -2,6 +2,8 @@
 
 <img src="Images/parigp.png" alt="pari-logo" width="200"/>
 
+See our documentation on [User Docs for an overview of PARI/GP on Cannon](https://docs.rc.fas.harvard.edu/kb/parigp/).
+
 ## What is PARI/GP?
 
 From [PARI/GP docs](https://pari.math.u-bordeaux.fr/): "PARI/GP is a cross
@@ -13,67 +15,6 @@ algebraic numbers, etc., and a lot of transcendental functions as well as
 numerical sumation and integration routines.  PARI is also available as a C
 library to allow for faster computations."
 
-## PARI/GP in the FASRC Cannon cluster
-
-PARGI/GP is available through [FASRC
-Lmod](https://docs.rc.fas.harvard.edu/kb/modules-intro/). There is one release
-to run PARI/GP sequentially and another release to run in parallel through MPI.
-You can distinguish which module is which by their module dependencies. For
-example, as of August 2023, two `pari` modules are available:
-
-
-```
-[jharvard@boslogin04 ~]$ module spider pari
-
--------------------------------------------------------------------------------
-  pari:
--------------------------------------------------------------------------------
-    Description:
-      PARI/GP is a cross platform and open-source computer algebra system
-      designed for fast computations in number theory: factorizations, algebraic
-      number theory, elliptic curves, modular forms, L functions.
-
-     Versions:
-        pari/2.15.4-fasrc01
-        pari/2.15.4-fasrc02
-
--------------------------------------------------------------------------------
-  For detailed information about a specific "pari" package (including how to
-  load the modules) use the module's full name.  Note that names that have a
-  trailing (E) are extensions provided by other modules.
-  For example:
-
-     $ module spider pari/2.15.4-fasrc02
--------------------------------------------------------------------------------
-```
-
-The pari module compiled with **MPI** can only be loaded when the compilers gcc
-12 and openmpi 4.1.4 have been loaded as explained when you execute `module
-spider pari/2.15.4-fasrc02`:
-
-```
-[jharvard@boslogin04 ~]$ module spider pari/2.15.4-fasrc02
-
--------------------------------------------------------------------------------
-  pari: pari/2.15.4-fasrc02
--------------------------------------------------------------------------------
-    Description:
-      PARI/GP is a cross platform and open-source computer algebra system
-      designed for fast computations in number theory: factorizations, algebraic
-      number theory, elliptic curves, modular forms, L functions.
-
-
-    You will need to load all module(s) on any one of the lines below before the
-    "pari/2.15.4-fasrc02" module is available to load.
-
-      gcc/12.2.0-fasrc01  openmpi/4.1.4-fasrc01
-
-    Help:
-      pari-2.15.4-fasrc02
-      PARI/GP is a cross platform and open-source computer algebra system
-      designed for fast computations in number theory: factorizations, algebraic
-      number theory, elliptic curves, modular forms, L functions.
-```
 
 ## Examples
 
@@ -110,11 +51,7 @@ Goodbye!
 ```
 
 If you would like to submit a batch job, you can use the file
-`runscript_seq.sh` and a the PARI/GP file `seq_pari.gp`:
-
-https://github.com/fasrc/User_Codes/blob/f3015bf9076bef15cee9b3d09cb7bcd36134778a/Applications/PariGP/runscript_seq.sh#L1-L15
-
-https://github.com/fasrc/User_Codes/blob/f3015bf9076bef15cee9b3d09cb7bcd36134778a/Applications/PariGP/seq_pari.gp#L1-L3
+[`runscript_seq.sh` link](https://github.com/fasrc/User_Codes/blob/f3015bf9076bef15cee9b3d09cb7bcd36134778a/Applications/PariGP/runscript_seq.sh#L1-L15) and a the PARI/GP file [`seq_pari.gp` link](https://github.com/fasrc/User_Codes/blob/f3015bf9076bef15cee9b3d09cb7bcd36134778a/Applications/PariGP/seq_pari.gp#L1-L3):
 
 Then, you can submit the job with the command:
 
@@ -123,7 +60,6 @@ sbatch runscript_seq.sh
 ```
 
 ### Parallel
-
 Here, we show how to request an interactive job and run a `.gp` file interactively
 
 ```bash
@@ -188,23 +124,11 @@ Goodbye!
 ```
 
 If you would like to submit a batch job, you can use the file
-`runscript_par.sh` and a the PARI/GP file `par_pari.gp`:
-
-https://github.com/fasrc/User_Codes/blob/0837d5c42d02a487fce8e4e67e530335766d5d63/Applications/PariGP/runscript_par.sh#L1-L15
-
-https://github.com/fasrc/User_Codes/blob/0837d5c42d02a487fce8e4e67e530335766d5d63/Applications/PariGP/par_pari.gp#L1-L11
+[`runscript_par.sh` link](https://github.com/fasrc/User_Codes/blob/0837d5c42d02a487fce8e4e67e530335766d5d63/Applications/PariGP/runscript_par.sh#L1-L15) and a the PARI/GP file [`par_pari.gp` link](https://github.com/fasrc/User_Codes/blob/0837d5c42d02a487fce8e4e67e530335766d5d63/Applications/PariGP/par_pari.gp#L1-L11
+):
 
 Then, you can submit the job with the command:
 
 ```bash
 sbatch runscript_par.sh
 ```
-
-## Resources
-
-- [PARI/GP documentation](https://pari.math.u-bordeaux.fr/doc.html)
-- [Intro to GP programming
-    tutorial](https://pari.math.u-bordeaux.fr/Events/PARI2019b/talks/prog.pdf)
-- [Parallel GP
-    tutorial](https://pari.math.u-bordeaux.fr/Events/PARI2019/talks/parallel.pdf)
-
