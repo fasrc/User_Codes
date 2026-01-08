@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=ncclAllGather
-#SBATCH --output=ncclAllGather.out
-#SBATCH --error=ncclAllGather.err
+#SBATCH --job-name=ncclBcast
+#SBATCH --output=ncclBcast.out
+#SBATCH --error=ncclBcast.err
 #SBATCH --partition=gpu
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -14,6 +14,6 @@
 module load nvhpc/24.11-fasrc01 
 
 # Run the executable
-./ncclAllGather.x
+./ncclBcast.x
 
 

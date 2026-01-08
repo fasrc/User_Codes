@@ -1,16 +1,16 @@
 # Distributed GPU Collectives on Multiple Nodes (NCCL + CUDA)
 
-This repository contains **minimal, production-style examples** for running distributed GPU collectives across multiple nodes using **NCCL** and **CUDA** with three different bootstrapping strategies:
+Here we include **minimal, production-style examples** for running distributed GPU collectives across multiple nodes using **NCCL** and **CUDA** with three different bootstrapping strategies:
 
-1. **NCCL + CUDA + MPI** (MPI used only for process launch and `ncclUniqueId` broadcast)  
-2. **NCCL + CUDA (no MPI) using a shared file** to exchange `ncclUniqueId`  
-3. **NCCL + CUDA + PMIx** (MPI-free; PMIx handles rendezvous)
+* **NCCL + CUDA + MPI** (MPI used only for process launch and `ncclUniqueId` broadcast)  
+* **NCCL + CUDA (no MPI) using a shared file** to exchange `ncclUniqueId`  
+* **NCCL + CUDA + PMIx** (MPI-free; PMIx handles rendezvous)
 
 Each section lists the example codes, how to compile them, and example **Slurm** batch scripts to run on **2 nodes × 4 GPUs = 8 ranks**.
 
 ---
 
-## Prerequisites
+## Requirements
 
 - **CUDA Toolkit** (nvcc, libcudart)
 - **NCCL** library
@@ -19,11 +19,10 @@ Each section lists the example codes, how to compile them, and example **Slurm**
   - **MPI** (e.g., OpenMPI, MPICH, or vendor MPI) **or**
   - **Slurm + PMIx** (for the PMIx examples) **or**
   - **Slurm** only (for the shared-file example)
-- For the **shared-file** bootstrap: a **shared filesystem** visible to all nodes (e.g., `$SLURM_SUBMIT_DIR`, `$HOME` on a network FS)
 
 > **Device selection** follows the common “one process per GPU” pattern using the **local rank** on each node (e.g., `device = local_rank % cudaDeviceCount()`).
 
-## 1) NCCL + CUDA + MPI
+## 1. NCCL + CUDA + MPI
 
 **MPI is used only for**:
 - rank/world size discovery
@@ -181,9 +180,50 @@ srun -n 8 --mpi=pmix ./ncclReduceScatter_mpi.x
 > **mpirun alternative:**  
 > `mpirun -np 8 -N 4 ./ncclAllGather_mpi.x` (and similarly for other examples)
 
+### Submit the job to the queue
+
+The jobs are submitted to the available partitions as usual with the `sbatch` command, e.g.,
+
+```bash
+sbatch run_allgather_mpi.sbatch
+```
+
+### Example Output
+
+E.g.,
+
+```bash
+cat cat nccl_allgather_mpi.out 
+10.00   20.00   30.00   40.00   50.00   60.00   70.00   80.00
+
+This is rank 0, device 0
+10.00   20.00   30.00   40.00   50.00   60.00   70.00   80.00
+
+This is rank 1, device 1
+10.00   20.00   30.00   40.00   50.00   60.00   70.00   80.00
+
+This is rank 2, device 2
+10.00   20.00   30.00   40.00   50.00   60.00   70.00   80.00
+
+This is rank 3, device 3
+
+This is rank 4, device 0
+10.00   20.00   30.00   40.00   50.00   60.00   70.00   80.00
+10.00   20.00   30.00   40.00   50.00   60.00   70.00   80.00
+
+This is rank 5, device 1
+10.00   20.00   30.00   40.00   50.00   60.00   70.00   80.00
+
+This is rank 6, device 2
+10.00   20.00   30.00   40.00   50.00   60.00   70.00   80.00
+
+This is rank 7, device 3
+10.00   20.00   30.00   40.00   50.00   60.00   70.00   80.00
+```
+
 ---
 
-## 2) NCCL + CUDA (No MPI) — **Shared-File Bootstrap**
+## 2. NCCL + CUDA (No MPI) — **Shared-File Bootstrap**
 
 This approach uses **no MPI**. Rank discovery comes from environment variables (e.g., `SLURM_*` or `WORLD_SIZE`/`RANK`). Rank 0 calls `ncclGetUniqueId()` and writes the UID to a shared file; other ranks spin-wait for that file and read the UID. NCCL handles all inter/intra-node collectives.
 
@@ -221,7 +261,6 @@ export NCCL_IB_HCA=mlx5_0                           # adjust if using Infiniband
 export UCX_LOG_LEVEL=error
 
 module load nvhpc/24.11-fasrc01                      # NCCL and CUDA
-module load gcc/12.2.0-fasrc01 openmpi/4.1.5-fasrc03 # MPI
 
 srun -n 8 --export=ALL ./ncclAllGather_nompi.x
 ```
@@ -234,7 +273,7 @@ srun -n 8 --export=ALL ./ncclAllGather_nompi.x
 
 ---
 
-## 3) NCCL + CUDA + **PMIx** (No MPI)
+## 3. NCCL + CUDA + **PMIx** (No MPI)
 
 This approach uses **PMIx** (not MPI) to handle rendezvous and rank metadata. Rank 0 publishes the UID via `PMIx_Put` + `PMIx_Commit`; **all ranks** then call a **collecting fence** (`PMIX_COLLECT_DATA=true`), and non-root ranks retrieve the UID with `PMIx_Get` **targeting the publisher proc** (`{nspace, rank=0}`), which is required on some PMIx stacks.
 
@@ -274,11 +313,4 @@ module load nvhpc/24.11-fasrc01                      # NCCL and CUDA
 
 srun -n 8 --mpi=pmix ./ncclAllGather_pmix.x
 ```
-
-**Notes (PMIx)**
-
-- If `PMIx_Get("nccl_uid")` times out:  
-  1) Ensure a **collecting fence** (`PMIX_COLLECT_DATA=true`) runs **after** `PMIx_Put`/`PMIx_Commit`.  
-  2) **Query the publisher proc** (rank 0) in `PMIx_Get` rather than your own proc.  
-  3) Verify you are launching with the matching PMIx flavor (e.g., `--mpi=pmix_v3` or `pmix_v5`).
-- If your site restricts Put/Get, switch to `PMIx_Publish`/`PMIx_Lookup` or use the shared-file/TCP variant.
+---

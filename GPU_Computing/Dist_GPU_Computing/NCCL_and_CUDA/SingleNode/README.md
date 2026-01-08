@@ -1,4 +1,4 @@
-# Multi-GPU Computing with NCCL -- Single Node
+# Multi-GPU Computing with NCCL - Single Node
 
 NVIDIA Collective Communications Library (NCCL) and CUDA can be used together to efficiently implement multi-GPU communication and computation on a single node. NCCL provides optimized primitives for collective operations like `all-reduce`, `broadcast`, `reduce`, and `gather`, specifically tuned for NVIDIA GPUs and interconnects such as NVLink. When used in conjunction with CUDA, developers can offload computation to GPUs and use NCCL to synchronize and exchange data between them without needing to go through the CPU or host memory.
 
@@ -15,19 +15,19 @@ Here we include a collection of examples illustrating the use of NCCL on the FAS
 
 ## Compile
 
-All examples in this directory can be compiled using a `Singularity` container based on the NVIDIA CUDA 12.9 development image, which includes the required CUDA toolkit and NCCL libraries:
+All examples in this directory can be compiled using the [NVIDIA HPC Software Development Kit (SDK)](https://developer.nvidia.com/hpc-sdk), which includes the required CUDA toolkit and NCCL libraries. The NVIDIA SDK is available as a software module:
 
 ```bash
-singularity pull nccl_cuda_12.9.sif docker://nvcr.io/nvidia/cuda-dl-base:25.06-cuda12.9-devel-ubuntu24.04
+module load nvhpc/24.11-fasrc01
 ```
 
 From the folder containing your `.cu` files (e.g., `ncclAllGather.cu`, `ncclBcast.cu`, etc.), run the following:
 
 ```bash
-singularity exec --nv nccl_cuda_12.9.sif nvcc -o ncclAllGather.x ncclAllGather.cu -lnccl -Wno-deprecated-gpu-targets
-singularity exec --nv nccl_cuda_12.9.sif nvcc -o ncclBcast.x     ncclBcast.cu     -lnccl -Wno-deprecated-gpu-targets
-singularity exec --nv nccl_cuda_12.9.sif nvcc -o ncclReduce.x    ncclReduce.cu    -lnccl -Wno-deprecated-gpu-targets
-singularity exec --nv nccl_cuda_12.9.sif nvcc -o ncclReduceScatter.x ncclReduceScatter.cu -lnccl -Wno-deprecated-gpu-targets
+nvcc -o ncclAllGather.x ncclAllGather.cu -lnccl -Wno-deprecated-gpu-targets
+nvcc -o ncclBcast.x     ncclBcast.cu     -lnccl -Wno-deprecated-gpu-targets
+nvcc -o ncclReduce.x    ncclReduce.cu    -lnccl -Wno-deprecated-gpu-targets
+nvcc -o ncclReduceScatter.x ncclReduceScatter.cu -lnccl -Wno-deprecated-gpu-targets
 ```
 
 Each of these commands will produce a corresponding `.x` executable, e.g., `ncclAllGather.x`, ready to run on a GPU node.
@@ -185,8 +185,11 @@ int main(int argc, char* argv[]){
 #SBATCH --gres=gpu:4
 #SBATCH --time=00:10:00
 
-# Run the executable inside the container with GPU support
-singularity exec --nv nccl_cuda_12.9.sif ./ncclAllGather.x
+# Load the required software modules
+module load nvhpc/24.11-fasrc01 
+
+# Run the executable
+./ncclAllGather.x
 ```
 
 Run with:

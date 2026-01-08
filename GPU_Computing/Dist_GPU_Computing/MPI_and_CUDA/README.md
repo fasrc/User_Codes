@@ -11,19 +11,19 @@ over the interval $[0, 1]$, which corresponds to the integral form of π.
 
 ## Build Instructions
 
-You need load the required software modules
+To build the code, you need to load the required software modules
 
 ```bash
 module load gcc/12.2.0-fasrc01 
 module load openmpi/5.0.5-fasrc02
 ```
-and compile the program using the included `Makefile`. To compile the code in the terminal you should execute:
+and then compile the program using the included `Makefile`. To compile the code in the terminal you should execute the command:
 
 ```bash
 make
 ```
 
-Alternatively, manually compile with the following command:
+This will generate the executable `mpi_cuda.x`. Alternatively, you can compile the code manually with the command:
 
 ```bash
 nvcc -Xcompiler -fopenmp mpi_cuda.cu -o mpi_cuda.x -I${MPI_INCLUDE} -L${MPI_LIB} -lmpi -lgomp
@@ -31,6 +31,7 @@ nvcc -Xcompiler -fopenmp mpi_cuda.cu -o mpi_cuda.x -I${MPI_INCLUDE} -L${MPI_LIB}
 
 ## Example Makefile
 
+Here we include the `Makefile` used to compile the code:
 ```make
 # Compiler
 NVCC = nvcc
@@ -63,6 +64,8 @@ clean:
 ```
 
 ## Source code `mpi_cuda.cu`
+
+Below is the source code used in this example:
 
 ```c
 #include <stdio.h>
@@ -141,15 +144,15 @@ int main(int argc, char **argv) {
 
 ## Run Instructions
 
-Use the provided batch-job submission script `run.sbatch` to send the job to the queue:
+We include two batch-job submission scripts to run the code. The first script, `run_4.sbatch`, is used to run the code on 4 GPUs on a single node. The second script, `run_8.sbatch`, is used to run the code on 8 GPUs across 2 compute nodes. The jobs is submitted to the queue as usual with, e.g., 
 
 ```bash
-sbatch run.sbatch
+sbatch run_4.sbatch
 ```
 
-### Batch-job submission script (single node)
+#### Batch-job submission script (single node)
 
-The below script uses 4 GPUs on a single compute node.
+The below script uses 4 GPUs on a single compute node, `run_4.sbatch`
 
 ```bash
 #!/bin/bash
@@ -171,9 +174,9 @@ module load openmpi/5.0.5-fasrc02
 srun -n 4 --mpi=pmix ./mpi_cuda.x
 ```
 
-### Batch-job submission script (multi-node)
+#### Batch-job submission script (multi-node)
 
-The below script uses 8 GPUs on 2 compute nodes (4 GPUs/node).
+The below script uses 8 GPUs on 2 compute nodes (4 GPUs/node), `run_8.sbatch`
 
 ```bash
 #!/bin/bash
