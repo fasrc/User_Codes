@@ -14,6 +14,11 @@ installation.
   the cluster.
 * [Dynamite](Dynamite): Instructions to set up and execute Dynamite on
   the cluster.
+* [Gurobi](Gurobi): Examples to use the Gurobi optimization solver
+  with Python on the cluster.
+* [KHARMA](KHARMA): Instructions to compile and run KHARMA (Kokkos-based
+  High-order Adaptive Relativistic Magnetohydrodynamics Application) on
+  the cluster.
 * [Knitro](Knitro): Examples to use Knitro with Matlab, Python, and C
   on the cluster.
 * [LANDIS](LANDIS): Instructions to either install LANDIS or use its
