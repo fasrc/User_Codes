@@ -1,0 +1,33 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2025 The MathWorks, Inc.
+             R2025b Update 1 (25.2.0.3042426) 64-bit (glnxa64)
+                              October 3, 2025
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+          status: 'OPTIMAL'
+     versioninfo: [1×1 struct]
+         runtime: 0.0188
+            work: 1.3061e-05
+         memused: 3.8800e-06
+      maxmemused: 3.2860e-04
+          objval: 3
+               x: [3×1 double]
+           slack: [2×1 double]
+    poolobjbound: 3
+            pool: [1×2 struct]
+          mipgap: 0
+        objbound: 3
+       objboundc: 3
+       itercount: 0
+    baritercount: 0
+       nodecount: 0
+          maxvio: 0
+
+x 1
+y 0
+z 1
+Obj: 3.000000e+00
