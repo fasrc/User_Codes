@@ -3,3 +3,7 @@
 Large_Data_Processing_R/data_format/data/*
 __pycache__/
 .vscode
+*-command.sh
+*_best.md
+.claude
+CLAUDE.md
