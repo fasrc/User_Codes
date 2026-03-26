@@ -7,6 +7,7 @@ applications on the cluster.
 
 ### Contents:
 
+* [AITools](AITools)
 * [heavyAI](heavyAI)
 * [OpenAI](OpenAI)
 * [PyTorch](PyTorch)
