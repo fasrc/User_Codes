@@ -1,0 +1,8 @@
+NCCL on a single node - PI MC
+
+Modules:
+module load nvhpc/24.11-fasrc01
+
+Compile:
+nvcc -o nccl_pi_mc.x nccl_pi_mc.cu -lnccl
+

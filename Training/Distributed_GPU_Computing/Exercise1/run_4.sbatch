@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -N 2
+#SBATCH -N 1
 #SBATCH --ntasks-per-node=4
 #SBATCH --gres=gpu:4
 #SBATCH --mem-per-cpu=8G
@@ -14,4 +14,4 @@ export UCX_LOG_LEVEL=error
 module load gcc/12.2.0-fasrc01 
 module load openmpi/5.0.5-fasrc02
 
-srun -n 8 --mpi=pmix ./mpi_cuda.x 8000000000
+srun -n 4 --mpi=pmix ./mpi_cuda_pi.x 10000

@@ -1,0 +1,10 @@
+rank 0/1 | local_rank 0/1 | GPU 0 | samples = 10000000000000 | blocks = 3456 | threads/block = 1024 | total threads = 3538944 | hits = 7853981847049 | time = 45.151563 s
+
+========== FINAL RESULTS ==========
+Exact PI       = 3.14159265
+Estimated PI   = 3.14159274
+Absolute error = 8.52298068e-08
+Relative error = 2.71294901e-06 %
+Total hits     = 7853981847049
+Total samples  = 10000000000000
+Wall time      = 45.151563 s

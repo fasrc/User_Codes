@@ -1,0 +1,71 @@
+Running: mlp_ddp_v2.py
+Job ID         : 13356
+Node list      : holygpu7c[26103-26104]
+Num nodes      : 2
+Num tasks      : 2
+Tasks per node : 1
+GPUs per node  : 1
+MASTER_ADDR    : holygpu7c26103
+MASTER_PORT    : 39591
+
+============================================================
+Rank 0 of 2
+Host                : holygpu7c26103.rc.fas.harvard.edu
+Short host          : holygpu7c26103
+Local GPU assigned  : 0
+GPUs per node       : 1
+Visible CUDA devices: 0
+Process group init  : True
+============================================================
+
+============================================================
+Rank 1 of 2
+Host                : holygpu7c26104.rc.fas.harvard.edu
+Short host          : holygpu7c26104
+Local GPU assigned  : 0
+GPUs per node       : 1
+Visible CUDA devices: 0
+Process group init  : True
+============================================================
+[Rank 0 | GPU 0] Model Summary
+  Input features  : 6
+  Hidden units    : 4
+  Output features : 2
+  Total parameters: 38
+    - hidden_layer.weight: 24
+    - hidden_layer.bias  : 4
+    - output_layer.weight: 8
+    - output_layer.bias  : 2
+[Rank 1 | GPU 0] Model Summary
+  Input features  : 6
+  Hidden units    : 4
+  Output features : 2
+  Total parameters: 38
+    - hidden_layer.weight: 24
+    - hidden_layer.bias  : 4
+    - output_layer.weight: 8
+    - output_layer.bias  : 2
+[Rank 0 | GPU 0] Data Summary
+  Total dataset samples : 1024
+  Local batch size      : 32
+  Steps on this rank    : 16
+  World size            : 2
+  Effective global batch: 64
+  DataLoader workers    : 4
+[Rank 1 | GPU 0] Data Summary
+  Total dataset samples : 1024
+  Local batch size      : 32
+  Steps on this rank    : 16
+  World size            : 2
+  Effective global batch: 64
+  DataLoader workers    : 4
+[Rank 0 | GPU 0] Starting Epoch 0
+  Steps this epoch: 16
+[Rank 1 | GPU 0] Starting Epoch 0
+  Steps this epoch: 16
+[Rank 0 | GPU 0] Finished Epoch 0
+  Final local loss: 1.010284e+00
+[Rank 1 | GPU 0] Finished Epoch 0
+  Final local loss: 1.477400e+00
+[Rank 0 | GPU 0] Training complete on holygpu7c26103
+[Rank 1 | GPU 0] Training complete on holygpu7c26104

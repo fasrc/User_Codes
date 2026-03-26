@@ -1,0 +1,13 @@
+NCCL version 2.18.5+cuda12.2
+GPU 0/4 | samples=2500000000 | local hits=1963486240
+GPU 1/4 | samples=2500000000 | local hits=1963515235
+GPU 2/4 | samples=2500000000 | local hits=1963455274
+GPU 3/4 | samples=2500000000 | local hits=1963486136
+--------------------------------------------------
+Exact PI       = 3.14159265
+Estimated PI   = 3.14157715
+Absolute error = 0.00001550
+Relative error = 0.00049337 %
+Total hits     = 7853942885
+Total samples  = 10000000000
+Total time     = 28.467 ms

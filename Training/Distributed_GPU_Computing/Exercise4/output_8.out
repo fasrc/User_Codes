@@ -1,0 +1,17 @@
+rank 0/8 | local_rank 0/4 | GPU 0 | samples = 1250000000000 | blocks = 3456 | threads/block = 1024 | total threads = 3538944 | hits = 981747540162 | time = 5.748093 s
+rank 1/8 | local_rank 1/4 | GPU 1 | samples = 1250000000000 | blocks = 3456 | threads/block = 1024 | total threads = 3538944 | hits = 981747959763 | time = 5.748150 s
+rank 2/8 | local_rank 2/4 | GPU 2 | samples = 1250000000000 | blocks = 3456 | threads/block = 1024 | total threads = 3538944 | hits = 981748218555 | time = 5.748102 s
+rank 3/8 | local_rank 3/4 | GPU 3 | samples = 1250000000000 | blocks = 3456 | threads/block = 1024 | total threads = 3538944 | hits = 981747733647 | time = 5.748149 s
+rank 4/8 | local_rank 0/4 | GPU 0 | samples = 1250000000000 | blocks = 3456 | threads/block = 1024 | total threads = 3538944 | hits = 981748012275 | time = 5.748090 s
+rank 5/8 | local_rank 1/4 | GPU 1 | samples = 1250000000000 | blocks = 3456 | threads/block = 1024 | total threads = 3538944 | hits = 981747129961 | time = 5.748145 s
+rank 6/8 | local_rank 2/4 | GPU 2 | samples = 1250000000000 | blocks = 3456 | threads/block = 1024 | total threads = 3538944 | hits = 981748096166 | time = 5.748099 s
+rank 7/8 | local_rank 3/4 | GPU 3 | samples = 1250000000000 | blocks = 3456 | threads/block = 1024 | total threads = 3538944 | hits = 981747197711 | time = 5.748145 s
+
+========== FINAL RESULTS ==========
+Exact PI       = 3.14159265
+Estimated PI   = 3.14159276
+Absolute error = 1.01706207e-07
+Relative error = 3.23740912e-06 %
+Total hits     = 7853981888240
+Total samples  = 10000000000000
+Wall time      = 5.748150 s

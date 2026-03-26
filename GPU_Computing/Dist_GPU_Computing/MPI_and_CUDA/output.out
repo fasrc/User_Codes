@@ -1,9 +1,9 @@
-myid = 0: device used = 0; partial pi = 0.497427
-PI = 3.141578
-myid = 2: device used = 2; partial pi = 0.455174
-myid = 7: device used = 3; partial pi = 0.266264
-myid = 6: device used = 2; partial pi = 0.301313
-myid = 4: device used = 0; partial pi = 0.379798
-myid = 5: device used = 1; partial pi = 0.339609
-myid = 1: device used = 1; partial pi = 0.482504
-myid = 3: device used = 3; partial pi = 0.419490
+rank 5/8 | local_rank 1/4 | GPU 1 | local bins = 1000000000 | compute blocks = 318 | threads/block = 768 | total threads = 244224 | partial pi = 0.339607173798888
+rank 4/8 | local_rank 0/4 | GPU 0 | local bins = 1000000000 | compute blocks = 318 | threads/block = 768 | total threads = 244224 | partial pi = 0.379806825371025
+rank 6/8 | local_rank 2/4 | GPU 2 | local bins = 1000000000 | compute blocks = 318 | threads/block = 768 | total threads = 244224 | partial pi = 0.301315563313360
+rank 7/8 | local_rank 3/4 | GPU 3 | local bins = 1000000000 | compute blocks = 318 | threads/block = 768 | total threads = 244224 | partial pi = 0.266272655103295
+rank 2/8 | local_rank 2/4 | GPU 2 | local bins = 1000000000 | compute blocks = 318 | threads/block = 768 | total threads = 244224 | partial pi = 0.455168028574832
+rank 1/8 | local_rank 1/4 | GPU 1 | local bins = 1000000000 | compute blocks = 318 | threads/block = 768 | total threads = 244224 | partial pi = 0.482494674320411
+rank 0/8 | local_rank 0/4 | GPU 0 | local bins = 1000000000 | compute blocks = 318 | threads/block = 768 | total threads = 244224 | partial pi = 0.497419978187046
+Final PI = 3.141592653589794
+rank 3/8 | local_rank 3/4 | GPU 3 | local bins = 1000000000 | compute blocks = 318 | threads/block = 768 | total threads = 244224 | partial pi = 0.419507754920936
