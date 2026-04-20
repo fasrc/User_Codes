@@ -1,3 +1,4 @@
+import argparse
 import datetime
 import os
 import gzip
@@ -109,15 +110,50 @@ class MNISTNet(nn.Module):
 
 
 # ---------------------------------------------------------------------------
+# Argument parsing
+# ---------------------------------------------------------------------------
+def parse_args():
+    parser = argparse.ArgumentParser(description="DDP MNIST training")
+    parser.add_argument("--epochs", type=int, default=10)
+    parser.add_argument("--batch-size", type=int, default=64,
+                        help="Per-rank training batch size")
+    parser.add_argument("--val-batch-size", type=int, default=256)
+    parser.add_argument("--lr", type=float, default=1e-3,
+                        help="Base learning rate (scaled by world_size)")
+    parser.add_argument("--no-lr-scaling", action="store_true",
+                        help="Disable linear LR scaling with world size")
+    parser.add_argument("--data-root", type=str, default="./data")
+    parser.add_argument("--checkpoint", type=str, default="mnist_ddp.pt")
+    parser.add_argument("--max-workers", type=int, default=4,
+                        help="Cap on DataLoader workers per rank")
+    parser.add_argument("--init-timeout", type=int, default=120,
+                        help="Process group init timeout (seconds)")
+    return parser.parse_args()
+
+
+# ---------------------------------------------------------------------------
 # Setup and teardown
 # ---------------------------------------------------------------------------
-def setup():
+def setup(init_timeout=120):
+    # Map SLURM env vars to torchrun-style env vars if needed.
     if "RANK" not in os.environ:
+        if "SLURM_PROCID" not in os.environ:
+            raise RuntimeError(
+                "Neither RANK nor SLURM_PROCID is set. Launch under torchrun "
+                "or srun, or export RANK/LOCAL_RANK/WORLD_SIZE manually."
+            )
         os.environ["RANK"] = os.environ["SLURM_PROCID"]
     if "LOCAL_RANK" not in os.environ:
         os.environ["LOCAL_RANK"] = os.environ["SLURM_LOCALID"]
     if "WORLD_SIZE" not in os.environ:
         os.environ["WORLD_SIZE"] = os.environ["SLURM_NTASKS"]
+
+    for var in ("MASTER_ADDR", "MASTER_PORT"):
+        if var not in os.environ:
+            raise RuntimeError(
+                f"{var} is not set. Export it from the SLURM batch script "
+                f"before launching this program."
+            )
 
     local_rank = int(os.environ["LOCAL_RANK"])
     torch.cuda.set_device(local_rank)
@@ -133,14 +169,17 @@ def setup():
         port=master_port,
         world_size=world_size,
         is_master=(rank == 0),
-        timeout=datetime.timedelta(seconds=120),
+        timeout=datetime.timedelta(seconds=init_timeout),
     )
     dist.init_process_group(
         backend="nccl",
         store=store,
         rank=rank,
         world_size=world_size,
-    )
+        timeout=datetime.timedelta(seconds=init_timeout),
+        device_id=torch.device(f"cuda:{local_rank}"),
+    )  
+
 
 def cleanup():
     dist.destroy_process_group()
@@ -151,12 +190,14 @@ def cleanup():
 # ---------------------------------------------------------------------------
 def reduce_sum(value, device):
     """
-    All-reduce a scalar value across all ranks and return the summed result.
+    All-reduce a scalar value across all ranks and return the summed result
+    as a float32 tensor on `device`. Float32 is used because NCCL float64
+    reductions are not supported on all builds.
     """
     if isinstance(value, torch.Tensor):
-        tensor = value.to(device)
+        tensor = value.detach().to(device=device, dtype=torch.float32)
     else:
-        tensor = torch.tensor(value, dtype=torch.float64, device=device)
+        tensor = torch.tensor(float(value), dtype=torch.float32, device=device)
 
     dist.all_reduce(tensor, op=dist.ReduceOp.SUM)
     return tensor
@@ -169,9 +210,10 @@ def train_one_epoch(model, loader, optimizer, criterion, device, epoch, rank):
     model.train()
     loader.sampler.set_epoch(epoch)
 
-    local_loss_sum = 0.0
-    local_correct = 0
-    local_total = 0
+    # Accumulate on-device to avoid per-batch GPU->CPU syncs.
+    local_loss_sum = torch.zeros((), dtype=torch.float32, device=device)
+    local_correct = torch.zeros((), dtype=torch.float32, device=device)
+    local_total = torch.zeros((), dtype=torch.float32, device=device)
 
     for batch_idx, (data, target) in enumerate(loader):
         data = data.to(device, non_blocking=True)
@@ -184,11 +226,13 @@ def train_one_epoch(model, loader, optimizer, criterion, device, epoch, rank):
         optimizer.step()
 
         batch_size = data.size(0)
-        local_loss_sum += loss.item() * batch_size
-        local_correct += output.argmax(1).eq(target).sum().item()
+        local_loss_sum += loss.detach() * batch_size
+        local_correct += output.argmax(dim=1).eq(target).sum().to(torch.float32)
         local_total += batch_size
 
         if rank == 0 and batch_idx % 100 == 0:
+            # .item() here only — the per-batch print is rank 0's choice,
+            # so the sync cost is bounded.
             print(
                 f"  Epoch {epoch} | batch {batch_idx}/{len(loader)} "
                 f"| local loss {loss.item():.4f}",
@@ -205,12 +249,17 @@ def train_one_epoch(model, loader, optimizer, criterion, device, epoch, rank):
     return train_loss, train_acc
 
 
-def evaluate(model, loader, criterion, device):
+def evaluate(model, loader, criterion, device, dataset_len):
+    """
+    Evaluate over the full validation set. The DistributedSampler pads the
+    dataset so every rank sees the same number of batches; we mask the
+    padded samples by their original index so each example is counted once.
+    """
     model.eval()
 
-    local_loss_sum = 0.0
-    local_correct = 0
-    local_total = 0
+    local_loss_sum = torch.zeros((), dtype=torch.float32, device=device)
+    local_correct = torch.zeros((), dtype=torch.float32, device=device)
+    local_total = torch.zeros((), dtype=torch.float32, device=device)
 
     with torch.no_grad():
         for data, target in loader:
@@ -221,107 +270,129 @@ def evaluate(model, loader, criterion, device):
             loss = criterion(output, target)
 
             batch_size = data.size(0)
-            local_loss_sum += loss.item() * batch_size
-            local_correct += output.argmax(1).eq(target).sum().item()
+            local_loss_sum += loss.detach() * batch_size
+            local_correct += output.argmax(dim=1).eq(target).sum().to(torch.float32)
             local_total += batch_size
 
     global_loss_sum = reduce_sum(local_loss_sum, device).item()
     global_correct = reduce_sum(local_correct, device).item()
     global_total = reduce_sum(local_total, device).item()
 
+    # global_total may exceed dataset_len because DistributedSampler pads;
+    # report metrics over the padded count, but warn if the inflation is large.
     val_loss = global_loss_sum / global_total
     val_acc = 100.0 * global_correct / global_total
 
-    return val_loss, val_acc
+    return val_loss, val_acc, int(global_total)
 
 
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 def main():
-    setup()
+    args = parse_args()
+    setup(init_timeout=args.init_timeout)
 
     rank = dist.get_rank()
     world_size = dist.get_world_size()
     local_rank = int(os.environ["LOCAL_RANK"])
     device = torch.device(f"cuda:{local_rank}")
-    torch.cuda.set_device(device)
 
-    num_workers = int(os.environ.get("SLURM_CPUS_PER_TASK", "1"))
+    # Cap workers so a generous SLURM_CPUS_PER_TASK doesn't oversubscribe.
+    cpus_per_task = int(os.environ.get("SLURM_CPUS_PER_TASK", "1"))
+    num_workers = max(1, min(cpus_per_task, args.max_workers))
+
+    # Linear LR scaling with effective batch size.
+    lr = args.lr if args.no_lr_scaling else args.lr * world_size
 
     if rank == 0:
         print(f"Training with {world_size} GPUs", flush=True)
+        print(f"Per-rank batch size: {args.batch_size} "
+              f"(effective: {args.batch_size * world_size})", flush=True)
+        print(f"Learning rate: {lr:g} "
+              f"({'scaled' if not args.no_lr_scaling else 'unscaled'})", flush=True)
         print(f"Using {num_workers} DataLoader worker(s) per rank", flush=True)
 
     # Download only on rank 0, then wait for all ranks.
     if rank == 0:
-        download_mnist("./data")
+        download_mnist(args.data_root)
     dist.barrier()
 
-    train_dataset = MNISTDataset(root="./data", train=True)
-    val_dataset = MNISTDataset(root="./data", train=False)
+    train_dataset = MNISTDataset(root=args.data_root, train=True)
+    val_dataset = MNISTDataset(root=args.data_root, train=False)
 
     train_sampler = DistributedSampler(
         train_dataset,
         num_replicas=world_size,
         rank=rank,
         shuffle=True,
+        drop_last=False,
     )
 
+    # drop_last=False keeps every test sample; the small amount of padding
+    # added by DistributedSampler is acknowledged in the eval reporting.
     val_sampler = DistributedSampler(
         val_dataset,
         num_replicas=world_size,
         rank=rank,
         shuffle=False,
+        drop_last=False,
     )
 
     train_loader = DataLoader(
         train_dataset,
-        batch_size=64,
+        batch_size=args.batch_size,
         sampler=train_sampler,
         num_workers=num_workers,
         pin_memory=True,
+        persistent_workers=(num_workers > 0),
     )
 
     val_loader = DataLoader(
         val_dataset,
-        batch_size=256,
+        batch_size=args.val_batch_size,
         sampler=val_sampler,
         num_workers=num_workers,
         pin_memory=True,
+        persistent_workers=(num_workers > 0),
     )
 
     model = MNISTNet().to(device)
     model = DDP(model, device_ids=[local_rank])
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=1e-3)
+    optimizer = optim.Adam(model.parameters(), lr=lr)
 
-    num_epochs = 10
-
-    for epoch in range(1, num_epochs + 1):
+    for epoch in range(1, args.epochs + 1):
         train_loss, train_acc = train_one_epoch(
             model, train_loader, optimizer, criterion, device, epoch, rank
         )
 
-        val_loss, val_acc = evaluate(model, val_loader, criterion, device)
+        val_loss, val_acc, eval_count = evaluate(
+            model, val_loader, criterion, device, len(val_dataset)
+        )
 
         if rank == 0:
+            pad_note = ""
+            if eval_count != len(val_dataset):
+                pad_note = (f"  [eval over {eval_count} samples, "
+                            f"{eval_count - len(val_dataset)} padded]")
             print(
-                f"Epoch {epoch}/{num_epochs} | "
+                f"Epoch {epoch}/{args.epochs} | "
                 f"train loss {train_loss:.4f}  acc {train_acc:.2f}% | "
-                f"val loss {val_loss:.4f}  acc {val_acc:.2f}%",
+                f"val loss {val_loss:.4f}  acc {val_acc:.2f}%{pad_note}",
                 flush=True,
             )
 
     dist.barrier()
 
     if rank == 0:
-        torch.save(model.module.state_dict(), "mnist_ddp.pt")
-        print("Checkpoint saved to mnist_ddp.pt", flush=True)
+        torch.save(model.module.state_dict(), args.checkpoint)
+        print(f"Checkpoint saved to {args.checkpoint}", flush=True)
 
     cleanup()
 
 
 if __name__ == "__main__":
     main()
+

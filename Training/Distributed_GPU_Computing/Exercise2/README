@@ -1,12 +1,22 @@
+# Problem - Scaling on a single node
+
 Compute pi vi MC. Scaling exercise, 1, 2, 4, GPUs on a single node
 
-Modules:
+# Modules
+
 module load gcc/12.2.0-fasrc01 
 module load openmpi/5.0.5-fasrc02
 
-Compile:
-nvcc -O3 -ccbin mpicxx -o mpi_cuda.x mpi_cuda.cu
+# Compile
+
+nvcc -O3 -ccbin mpicxx -o mpi_cuda_pi_mc.x mpi_cuda_pi_mc.cu
 
 or
 
 make
+
+# Submit
+
+sbatch run_1.sbatch
+sbatch run_2.sbatch
+sbatch run_4.sbatch

@@ -1,8 +1,20 @@
+# Problem
+
 NCCL on a single node - PI MC
 
-Modules:
+# Modules
+
 module load nvhpc/24.11-fasrc01
 
-Compile:
+# Compile
+
 nvcc -o nccl_pi_mc.x nccl_pi_mc.cu -lnccl
+
+or
+
+make
+
+# Submit
+
+sbatch run.sbatch
 

@@ -1,0 +1,12 @@
+rank 0/4 | local_rank 0/4 | GPU 0 | bins = 2500 | blocks = 4 | threads/block = 768 | total threads = 3072 | partial pi = 0.979914653245634
+rank 1/4 | local_rank 1/4 | GPU 1 | bins = 2500 | blocks = 4 | threads/block = 768 | total threads = 3072 | partial pi = 0.874675783824257
+rank 2/4 | local_rank 2/4 | GPU 2 | bins = 2500 | blocks = 4 | threads/block = 768 | total threads = 3072 | partial pi = 0.719413999127246
+rank 3/4 | local_rank 3/4 | GPU 3 | bins = 2500 | blocks = 4 | threads/block = 768 | total threads = 3072 | partial pi = 0.567588218225989
+
+========== FINAL RESULTS ==========
+Exact PI       = 3.14159265
+Computed PI    = 3.14159265
+Absolute error = 8.33333846e-10
+Relative error = 2.65258402e-08 %
+Total bins     = 10000
+Wall time      = 0.000136 s

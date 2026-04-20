@@ -1,12 +1,17 @@
-Running: mlp_ddp_v2.py
-Job ID         : 13356
+Running: mlp_ddp.py
+Python binary  : /n/holylfs06/LABS/rc_admin/Lab/pkrastev/conda/pt2.5.0_cuda12.4/bin/python
+Job ID         : 13702
 Node list      : holygpu7c[26103-26104]
 Num nodes      : 2
 Num tasks      : 2
 Tasks per node : 1
+CPUs per task  : 4
 GPUs per node  : 1
-MASTER_ADDR    : holygpu7c26103
-MASTER_PORT    : 39591
+MASTER_ADDR    : 10.31.179.36
+MASTER_PORT    : 43202
+WORLD_SIZE     : 2
+Script         : mlp_ddp.py
+Script args    : 
 
 ============================================================
 Rank 0 of 2
@@ -51,21 +56,25 @@ Process group init  : True
   Steps on this rank    : 16
   World size            : 2
   Effective global batch: 64
-  DataLoader workers    : 4
+  DataLoader workers    : 2
 [Rank 1 | GPU 0] Data Summary
   Total dataset samples : 1024
   Local batch size      : 32
   Steps on this rank    : 16
   World size            : 2
   Effective global batch: 64
-  DataLoader workers    : 4
+  DataLoader workers    : 2
 [Rank 0 | GPU 0] Starting Epoch 0
   Steps this epoch: 16
 [Rank 1 | GPU 0] Starting Epoch 0
   Steps this epoch: 16
 [Rank 0 | GPU 0] Finished Epoch 0
-  Final local loss: 1.010284e+00
+  First local loss: 9.202328e-01
+  Final local loss: 1.041560e+00
+  Mean local loss : 1.132705e+00
 [Rank 1 | GPU 0] Finished Epoch 0
-  Final local loss: 1.477400e+00
+  First local loss: 1.371476e+00
+  Final local loss: 1.329003e+00
+  Mean local loss : 1.203457e+00
 [Rank 0 | GPU 0] Training complete on holygpu7c26103
 [Rank 1 | GPU 0] Training complete on holygpu7c26104
