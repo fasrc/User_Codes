@@ -1,0 +1,48 @@
+# Login to Cannon
+ssh <username>@login.rc.fas.harvard.edu
+
+# Check current location & change if desired for this training:
+pwd
+cd <desired-location>
+
+# Clone FASRC User Codes repository: https://github.com/fasrc/User_Codes/tree/master
+SSH - git clone git@github.com:fasrc/User_Codes.git  
+HTTPS - git clone https://github.com/fasrc/User_Codes.git
+
+# Create a training folder & go to that folder:
+mkdir python-training
+cd python-training
+
+# Copy Python folders from the User Codes directory: 
+cp -r ../User_Codes/Languages/Python .
+cp -r ../User_Codes/Parallel_Computing/Python/Python-Multiprocessing-Tutorial .
+
+# Go to a compute node
+salloc -p test --nodes=1 --cpus-per-task=2 --mem=12GB --time=01:00:00
+
+# Create a vanilla mamba environment on a desired location
+module load python
+mamba create --prefix=/n/holylabs/LABS/<desired-folder>/multiproc_env python=3.11 -y
+
+# Create a vanilla mamba environment on default $HOME
+module load python
+mamba create --name multiproc_env python=3.11 -y
+
+# Activate the environment based on the location
+mamba activate /n/holylabs/LABS/<desired-folder>/multiproc_env
+
+#OR
+mamba activate multiproc_env
+
+# Install relevant packages
+mamba install numpy pandas matplotlib -y
+pip install jupyterlab swifter
+
+# Deactivate environment
+mamba deactivate
+
+# Go to the Multiprocessing Tutorial folder
+cd Python-Multiprocessing-Tutorial
+
+# Submit job
+sbatch run_multiproc.sbatch
