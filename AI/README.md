@@ -8,8 +8,6 @@ these applications.
 ### Contents:
 
 * [AITools](AITools)
-  - [Jupyter-AI Extension](AITools)
-  - [Ollama](ollama)
 * [Anthropic](Anthropic)
 * [heavyAI](heavyAI)
 * [OpenAI](OpenAI)
