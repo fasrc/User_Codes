@@ -8,6 +8,7 @@ these applications.
 ### Contents:
 
 * [AITools](AITools)
+* [Anthropic](Anthropic)
 * [heavyAI](heavyAI)
 * [OpenAI](OpenAI)
 * [PyTorch](PyTorch)
