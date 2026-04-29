@@ -12,3 +12,4 @@ applications on the cluster.
 * [OpenAI](OpenAI)
 * [PyTorch](PyTorch)
 * [TensorFlow](Tensorflow)
+* [Ollama](ollama.md)
