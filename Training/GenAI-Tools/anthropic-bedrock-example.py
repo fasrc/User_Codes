@@ -8,7 +8,6 @@ BASE = "https://go.apis.huit.harvard.edu/ais-bedrock-llm/v2"
 MODEL = "us.anthropic.claude-haiku-4-5-20251001-v1:0"
 
 huit_bedrock_api_key = getpass.getpass('Enter your HUIT API key for AWS Bedrock: ')
-Enter your HUIT API key for AWS Bedrock:
 os.environ['HARVARD_API_PORTAL_KEY'] = huit_bedrock_api_key
 
 def ask_ai(prompt):
