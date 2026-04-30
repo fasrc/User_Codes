@@ -2,16 +2,16 @@
 {
     "name": "AI Developer tools and RStudio Server",
 	"image":"ghcr.io/rocker-org/devcontainer/tidyverse:4",
-//  "remoteUser": "root",
+    "remoteUser": "root",
 	"features": {
 		"ghcr.io/jsburckhardt/devcontainer-features/codex:1": {},
 		"ghcr.io/devcontainers-extra/features/claude-code:2": {},
 		"ghcr.io/devcontainers/features/copilot-cli:1": {}
 	},
-	"postCreateCommand": "printf 'copilot-enabled=1\nsession-default-working-dir=/workspaces/User_Codes/Training/GenAI-Tools\n' >> /etc/rstudio/rsession.conf && python3 -m pip install --user --no-cache-dir jupyterlab 'jupyter-ai[magics]'",
+	"postCreateCommand": "printf 'copilot-enabled=1\nsession-default-working-dir=/workspaces/User_Codes/Training/GenAI-Tools\n' >> /etc/rstudio/rsession.conf && python3 -m pip install --break-system-packages --no-cache-dir jupyterlab 'jupyter-ai[magics]'",
 	"postAttachCommand": {
       "rstudio-start": "pgrep -f 'rserver' >/dev/null || rserver --auth-minimum-user-id 0 --auth-none=1",
-      "jupyter-start": "pgrep -f 'jupyter-lab.*--port=8888' >/dev/null || ~/.local/bin/jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --IdentityProvider.token='' --ServerApp.password='' --ServerApp.root_dir=/workspaces/User_Codes/Training/GenAI-Tools"
+      "jupyter-start": "pgrep -f 'jupyter-lab.*--port=8888' >/dev/null || jupyter lab --allow-root --ip=0.0.0.0 --port=8888 --no-browser --IdentityProvider.token='' --ServerApp.password='' --ServerApp.root_dir=/workspaces/User_Codes/Training/GenAI-Tools"
     },
 	"forwardPorts": [
 		8787,
