@@ -5,44 +5,53 @@ ssh <username>@login.rc.fas.harvard.edu
 pwd
 cd <desired-location>
 
-# Clone FASRC User Codes repository: https://github.com/fasrc/User_Codes/tree/master
-SSH - git clone git@github.com:fasrc/User_Codes.git  
+# Clone FASRC User_Codes repository: https://github.com/fasrc/User_Codes/tree/master
 HTTPS - git clone https://github.com/fasrc/User_Codes.git
 
-# Create a training folder & go to that folder:
-mkdir python-training
-cd python-training
-
-# Copy Python folders from the User Codes directory: 
-cp -r ../User_Codes/Languages/Python .
-cp -r ../User_Codes/Parallel_Computing/Python/Python-Multiprocessing-Tutorial .
+# In <desired-location>, go to GenAI-Tools folder in User_Codes:
+cd User_Codes/Training/GenAI-Tools
 
 # Go to a compute node
-salloc -p test --nodes=1 --cpus-per-task=2 --mem=12GB --time=01:00:00
+salloc --partition test --nodes=1 --cpus-per-task=2 --mem=8GB --time=01:00:00
 
-# Create a vanilla mamba environment on a desired location
+# Load the latest/ default Python module & disable ~/.local from being used:
 module load python
-mamba create --prefix=/n/holylabs/LABS/<desired-folder>/multiproc_env python=3.11 -y
+export PYTHONNOUSERSITE=yes
 
-# Create a vanilla mamba environment on default $HOME
-module load python
-mamba create --name multiproc_env python=3.11 -y
+# Create a mamba environment & install openai python API library:
+mamba create -n openai_env openai
 
-# Activate the environment based on the location
-mamba activate /n/holylabs/LABS/<desired-folder>/multiproc_env
+# Activate mamba environment
+mamba activate openai_env
 
-#OR
-mamba activate multiproc_env
+# Replace my_key with your lab’s registered key
+export OPENAI_API_KEY='my_key'
 
-# Install relevant packages
-mamba install numpy pandas matplotlib -y
-pip install jupyterlab swifter
+# Set SSL_CERT_FILE with system's certificate
+export SSL_CERT_FILE='/etc/pki/tls/certs/ca-bundle.crt'
+
+# Run OpenAI example
+python openai-test.py
 
 # Deactivate environment
 mamba deactivate
 
-# Go to the Multiprocessing Tutorial folder
-cd Python-Multiprocessing-Tutorial
+# Create a vanilla mamba environment with latest Python version:
+mamba create -n claude_env python -y
 
-# Submit job
-sbatch run_multiproc.sbatch
+# Activate env & install Anthropic API Python library
+mamba activate claude_env
+pip install anthropic
+
+# Run Anthropic example
+python anthropic-bedrock-example.py
+
+# Deactivate environment
+mamba deactivate
+
+# Create vanilla mamba env, with Python version 3.13, in your lab folder:
+mamba create -y -p /n/holylabs/<PI_lab>/Lab/jupyter-ai-liteenv python=3.13
+
+# Activate env & install packages:
+mamba activate /n/holylabs/<PI_lab>/Lab/jupyter-ai-liteenv
+pip install ipykernel 'jupyter-ai==3.0.0b9' 'jupyter-ai-magics==3.0.0b7' boto3
