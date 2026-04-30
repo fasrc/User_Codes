@@ -1,0 +1,31 @@
+// https://rocker-project.org/images/devcontainer/images.html
+{
+    "name": "AI Developer tools and RStudio Server",
+	"image":"ghcr.io/rocker-org/devcontainer/tidyverse:4",
+	"remoteUser": "root",
+	"features": {
+		"ghcr.io/jsburckhardt/devcontainer-features/codex:1": {},
+		"ghcr.io/devcontainers-extra/features/claude-code:2": {},
+		"ghcr.io/devcontainers/features/copilot-cli:1": {}
+	},
+	"postCreateCommand": "echo 'copilot-enabled=1' >> /etc/rstudio/rsession.conf",
+	"postAttachCommand": {
+		"rstudio-start": "rserver --auth-minimum-user-id 0 --auth-none=1"
+	},
+	"forwardPorts": [
+		8787
+	],
+	"portsAttributes": {
+		"8787": {
+			"label": "RStudio IDE"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"anthropic.claude-code",
+				"openai.chatgpt"
+			]
+		}
+	}
+}
