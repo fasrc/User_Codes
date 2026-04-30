@@ -8,7 +8,7 @@
 		"ghcr.io/devcontainers-extra/features/claude-code:2": {},
 		"ghcr.io/devcontainers/features/copilot-cli:1": {}
 	},
-	"postCreateCommand": "echo 'copilot-enabled=1' >> /etc/rstudio/rsession.conf",
+	"postCreateCommand": "printf 'copilot-enabled=1\nsession-default-working-dir=/workspaces/User_Codes/Training/GenAI-Tools\n' >> /etc/rstudio/rsession.conf",
 	"postAttachCommand": {
 		"rstudio-start": "rserver --auth-minimum-user-id 0 --auth-none=1"
 	},
