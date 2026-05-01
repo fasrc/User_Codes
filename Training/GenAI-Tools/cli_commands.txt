@@ -55,3 +55,12 @@ mamba create -y -p /n/holylabs/<PI_lab>/Lab/jupyter-ai-liteenv python=3.13
 # Activate env & install packages:
 mamba activate /n/holylabs/<PI_lab>/Lab/jupyter-ai-liteenv
 pip install ipykernel 'jupyter-ai==3.0.0b9' 'jupyter-ai-magics==3.0.0b7' boto3
+
+# Activate pre-created OpenAI environment:
+mamba activate /n/netscratch/rc_admin/Everyone/genai-training/openai_env
+
+# Activate pre-created Claude env:
+mamba activate /n/netscratch/rc_admin/Everyone/genai-training/claude_env
+
+# Activate pre-created Jupyter-AI env:
+mamba activate /n/netscratch/rc_admin/Everyone/genai-training/jupyter-ai-liteenv
