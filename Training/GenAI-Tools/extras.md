@@ -1,4 +1,4 @@
-# GenAI-Tools Workshop -- Supplement
+# GenAI-Tools Workshop -- Extras
 
 ## Generate an API key for an OpenAI services
 Generate API key for OpenAI in the [Harvard API Portal](https://portal.apis.huit.harvard.edu/)
