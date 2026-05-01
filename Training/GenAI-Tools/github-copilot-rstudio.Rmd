@@ -1,0 +1,158 @@
+---
+title: "GitHub Copilot and chattr"
+---
+
+# I. GitHub Copilot
+
+RStudio Server has integrated support for GitHub Copilot for GenAI code generation.
+
+HUIT provides GitHub Copilot for Business to Harvard users for \$19/month.
+
+**Only GitHub Copilot for Business from HUIT may be used with Level 2 or Level 3 data** (GitHub Copilot free / for students is Level 1 only)
+
+## Overview
+
+GitHub Copilot for Business in RStudio Server can help in two main ways:
+
+1.  **Code Completion**: Copilot suggests code inline as you type (aka inline suggestions), which you can accept or refine.
+2.  **Questions**: You can ask Copilot coding questions, such as what a block of code does, how to fix an error, or how to write a function.
+
+Documentation: <https://docs.posit.co/ide/user/ide/guide/tools/copilot.html>
+
+There is no agentic AI development mode (e.g., as with Claude Code or Codex, or GitHub Copilot in VS Code) with GitHub Copilot for RStudio Server. The [GitHub Copilot CLI](https://github.com/features/copilot/cli) can be used for agentic development from the RStudio Server terminal.
+
+## Setup
+
+1.  Obtain GitHub Copilot for Business license
+
+Submit a ticket to HUIT requesting access. Upon approval, you will be invited to a HUIT-managed GitHub organization that grants access to GitHub Copilot for Business.
+
+2.  Setup in RStudio Server
+
+See [Setup](https://docs.posit.co/ide/user/ide/guide/tools/copilot.html#setup) in the Rstudio User guide (note the FASRC RStudio Server OOD app already has `copilot-enabled=1` in /etc/rstudio/rsession.conf).
+
+## Example - Code Completion
+
+Load the "datasets" library from base R
+
+```{r}
+library(datasets)
+```
+
+Put your cursor at the end of the line in the code chunk below and see what Copilot suggests
+
+```{r}
+plot(mtcars$wt, mtcars$mpg, 
+```
+
+## Example - Questions
+
+Put your cursor after the "#a:" below.
+After the ghost text appears, press <tab> to accept
+
+#q: what is 2+2?
+#a:
+
+## Limitations
+* Code completions do not work in visual mode (only source mode is supported): https://github.com/rstudio/rstudio/issues/13427
+* RStudio Server 2024.12.0 doesn't support code completions in .qmd files after they are saved: https://github.com/rstudio/rstudio/issues/15539
+
+# II. chattr
+
+[chattr](https://mlverse.github.io/chattr/) is an R library maintained by POSIT that interacts with LLMs. It is meant for exploratory data analysis in R. chattr can generate code based on prompts, and is more powerful than GitHub Copilot "questions" mode in RStudio Server.
+
+chattr: \* Has access to objects in your R environment \* Can generate code based on structure of R objects
+
+## Setup
+
+1.  Obtain API key
+
+To use chattr with research code/data, use [HUIT-managed AI APIs](https://www.huit.harvard.edu/ai-developer-tools), such as:
+
+-   \[AWS Bedrock\] (https://portal.apis.huit.harvard.edu/docs/ais-bedrock-llm/1/overview)
+    -   Also used for Claude Code
+-   [OpenAI for Community Developers](https://portal.apis.huit.harvard.edu/docs/ais-openai-direct-limited/1/overview) (HarvardKey sign in required)
+    -   Free for FAS and HUIT staff (\$10/month limit)
+    -   Also used for Codex
+
+This demo assumes an API key for OpenAI for Community Developers has been obtained through the HUIT API portal.
+
+2.  Set environment variables
+
+For an OpenAI-backed demo, put your API key in `.Renviron` instead of hard-coding it in the document:
+
+```{r eval=FALSE}
+# Run once to open your .Renviron file
+usethis::edit_r_environ()
+```
+
+Set the following environment variables in \~/.Renviron:
+
+```         
+OPENAI_API_KEY=<your API key here>
+OPENAI_BASE_URL=https://go.apis.huit.harvard.edu/ais-openai-direct-limited-schools/v1/
+```
+
+3.  Restart R (Session \> Restart R) for the changes to take effect.
+
+4.  Install chattr package
+
+```{r, eval=FALSE}
+# repos override needed by FASRC RStudio Server w/ R <= 4.4 to get version >= 0.3
+install.packages("chattr", repos="cran.r-project.org") 
+
+# FASRC RStudio Server >= 4.5
+#install.packages("chattr")
+
+```
+
+5.  Configure chattr to use an OpenAI model from a custom endpoint URL.
+
+```{r}
+library(chattr)
+# base_url = NULL makes ellmer use the OPENAI_BASE_URL environment variable
+chattr_use(ellmer::chat_openai_compatible(base_url = NULL, model="gpt-5"))
+```
+
+## Example
+
+`chattr` can include information about data frames in your workspace. This uses tokens ($=\$\$$). For a focused demo, send only one data frame and no files:
+
+```{r eval=FALSE}
+chattr_defaults(
+  max_data_frames = 1,
+  max_data_files = 0
+)
+```
+
+```{r}
+library(datasets)
+(cars_tbl <- tibble::as_tibble(mtcars, rownames = "model"))
+```
+
+## Preview the prompt before sending it
+
+This is a good habit when you are working with private data or trying to keep prompts compact.
+
+```{r, eval=FALSE}
+chattr(
+  "Using the mtcars data set, suggest three useful analyses for a first-pass exploratory review. Provide output in a short bulleted list.")
+)
+```
+
+<put cursor below here before running the above code chunk>
+
+```{r, eval=FALSE}
+chattr(
+  "Using the cars_tbl data frame, generate tidyverse code
+  that performs the following analyses:
+  <copy/paste output of previous code chunk here>
+  "
+)
+```
+
+Put your cursor in the empty code chunk below before running the above prompt
+
+```{r}
+
+```
