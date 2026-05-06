@@ -8,7 +8,7 @@
 #SBATCH -o %x_%j.out # Standard out goes to this file
 #SBATCH -e %x_%j.err # Standard err goes to this file
 # Commands to run go on next lines:
-module load intel/17.0.4-fasrc01 R/3.5.0-fasrc01
+module load intel/25.2.1-fasrc01 R/4.5.1-fasrc01
 chmod u+x ./hello.R
 ./hello.R    # Run R hello world.
 
