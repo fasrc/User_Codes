@@ -31,6 +31,7 @@ echo "Running: $SCRIPT"
 # FASRC-recommended pattern: load the module that provides conda, then
 # source conda's hook explicitly so `conda activate` works in non-interactive
 # SLURM shells.
+#CONDA_ENV=/n/netscratch/rc_admin/Everyone/dist-gpu-training/pt2.9.1_cuda12.9
 CONDA_ENV=/n/holylfs06/LABS/rc_admin/Lab/pkrastev/conda/pt2.5.0_cuda12.4
 
 module load python/3.13.12-fasrc01

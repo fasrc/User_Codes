@@ -9,4 +9,4 @@ Computed PI    = 3.14159265
 Absolute error = 8.33333846e-10
 Relative error = 2.65258402e-08 %
 Total bins     = 10000
-Wall time      = 0.000136 s
+Wall time      = 0.000135 s

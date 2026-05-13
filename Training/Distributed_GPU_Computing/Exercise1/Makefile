@@ -22,4 +22,4 @@ $(TARGET): $(SRC)
 
 # Clean rule
 clean:
-	rm -f $(TARGET) *.err *.out
+	rm -f $(TARGET) *.x *.err 
