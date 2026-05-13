@@ -1,0 +1,57 @@
+Enter your HUIT API key for AWS Bedrock: 
+# Simple Function to Add Two Numbers
+
+Here are a few ways to implement this:
+
+## 1. **Basic Function**
+```python
+def add(a, b):
+    """Add two numbers and return the result."""
+    return a + b
+
+# Usage
+result = add(5, 3)
+print(result)  # Output: 8
+```
+
+## 2. **Function with Type Hints** (Python 3.5+)
+```python
+def add(a: int, b: int) -> int:
+    """Add two integers and return the result."""
+    return a + b
+
+# Usage
+result = add(10, 20)
+print(result)  # Output: 30
+```
+
+## 3. **Function That Supports Multiple Types**
+```python
+def add(a, b):
+    """Add two numbers (int, float, or complex)."""
+    if isinstance(a, (int, float, complex)) and isinstance(b, (int, float, complex)):
+        return a + b
+    else:
+        raise TypeError("Both arguments must be numbers")
+
+# Usage
+print(add(5, 3))        # Output: 8
+print(add(5.5, 2.5))    # Output: 8.0
+print(add(1+2j, 3+4j))  # Output: (4+6j)
+```
+
+## 4. **Function with Input Validation**
+```python
+def add(a, b):
+    """Add two numbers with validation."""
+    try:
+        return a + b
+    except TypeError:
+        return "Error: Please provide valid numbers"
+
+# Usage
+print(add(7, 3))      # Output: 10
+print(add("5", 3))    # Output: Error message
+```
+
+Choose the version that best fits your needs! The basic function is perfect for simple cases, while the others offer more robustness and features.

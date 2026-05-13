@@ -1,0 +1,66 @@
+# Login to Cannon
+ssh <username>@login.rc.fas.harvard.edu
+
+# Check current location & change if desired for this training:
+pwd
+cd <desired-location>
+
+# Clone FASRC User_Codes repository: https://github.com/fasrc/User_Codes/tree/master
+HTTPS - git clone https://github.com/fasrc/User_Codes.git
+
+# In <desired-location>, go to GenAI-Tools folder in User_Codes:
+cd User_Codes/Training/GenAI-Tools
+
+# Go to a compute node
+salloc --partition test --nodes=1 --cpus-per-task=2 --mem=8GB --time=01:00:00
+
+# Load the latest/ default Python module & disable ~/.local from being used:
+module load python
+export PYTHONNOUSERSITE=yes
+
+# Create a mamba environment & install openai python API library:
+mamba create -n openai_env openai
+
+# Activate mamba environment
+mamba activate openai_env
+
+# Replace my_key with your lab’s registered key
+export OPENAI_API_KEY='my_key'
+
+# Set SSL_CERT_FILE with system's certificate
+export SSL_CERT_FILE='/etc/pki/tls/certs/ca-bundle.crt'
+
+# Run OpenAI example
+python openai-test.py
+
+# Deactivate environment
+mamba deactivate
+
+# Create a vanilla mamba environment with latest Python version:
+mamba create -n claude_env python -y
+
+# Activate env & install Anthropic API Python library
+mamba activate claude_env
+pip install anthropic
+
+# Run Anthropic example
+python anthropic-bedrock-example.py
+
+# Deactivate environment
+mamba deactivate
+
+# Create vanilla mamba env, with Python version 3.13, in your lab folder:
+mamba create -y -p /n/holylabs/<PI_lab>/Lab/jupyter-ai-liteenv python=3.13
+
+# Activate env & install packages:
+mamba activate /n/holylabs/<PI_lab>/Lab/jupyter-ai-liteenv
+pip install ipykernel 'jupyter-ai==3.0.0b9' 'jupyter-ai-magics==3.0.0b7' boto3
+
+# Activate pre-created OpenAI environment:
+mamba activate /n/netscratch/rc_admin/Everyone/genai-training/openai_env
+
+# Activate pre-created Claude env:
+mamba activate /n/netscratch/rc_admin/Everyone/genai-training/claude_env
+
+# Activate pre-created Jupyter-AI env:
+mamba activate /n/netscratch/rc_admin/Everyone/genai-training/jupyter-ai-liteenv
