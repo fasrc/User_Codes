@@ -1,0 +1,24 @@
+# Problem
+
+PyTorch Multi-GPU MLP with DDP
+
+# PyTorch Conda Environment with GPU support
+
+# Start an interactive session
+salloc -p gpu -t 0-06:00 --mem=8000 --gres=gpu:1
+
+# Load a Python module
+module load python
+
+# Create a conda environment
+mamba create -n pt2.9.1_cuda12.9 pip wheel
+
+# Activate the conda environment
+source activate pt2.9.1_cuda12.9
+
+# Install PyTorch with GPU support
+pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu129
+
+# Submit (NOTE: edit the run.sbatch submission script to activate your conda env)
+
+sbatch run.sbatch mlp_ddp.py
