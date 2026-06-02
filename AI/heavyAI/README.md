@@ -4,9 +4,6 @@ In this document you will find instructions to submit a batch job that will
 create access to HeavyAI without using Open OnDemand portal
 (https://rcood.rc.fas.harvard.edu/).
 
-The preferred and easier route is to use [Open
-OnDemand](https://rcood.rc.fas.harvard.edu/pun/sys/dashboard).
-
 For more information see our [HeavyAI documentation](https://docs.rc.fas.harvard.edu/kb/heavyai/).
 
 ### Singularity images
