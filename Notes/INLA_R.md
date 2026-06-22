@@ -2,11 +2,12 @@
 
 INLA needs to be installed with the correct version, otherwise the installation
 may look correct, but loading the package will crash. For more details, see
-[INLA install doc](https://www.r-inla.org/download-install) under section
+[INLA install doc](https://www.r-inla.org/download/) under section
 "Version Compatibility".
 
 | R version | INLA version |
 | --------  | ------------ |
+| 4.5       | 25.04.29     |
 | 4.4       | 24.05.10     |
 | 4.3       | 23.05.30     |
 | 4.2       | 22.05.07     |
