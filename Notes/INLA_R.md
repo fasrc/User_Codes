@@ -30,7 +30,7 @@ Which would you like to update?
  3: None
 ```
 
-Select 3!
+Select 2!
 
 ```R
 > library(INLA)
