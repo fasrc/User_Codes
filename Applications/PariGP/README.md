@@ -64,8 +64,8 @@ Here, we show how to request an interactive job and run a `.gp` file interactive
 
 ```bash
 [jharvard@boslogin04 ~]$ salloc -p test --mem 12G -t 01:00:00 -c 4
-[jharvard@holy2c02302 ~]$ module load module load gcc/12.2.0-fasrc01  openmpi/4.1.4-fasrc01 pari/2.15.4-fasrc02
-[jharvard@holy2c02302 ~]$ srun -n $SLURM_CPUS_PER_TASK --mpi=pmix gp < par_pari.gp
+[jharvard@holy2c02302 ~]$ module load gcc/12.2.0-fasrc01  openmpi/4.1.4-fasrc01 pari/2.15.4-fasrc02
+[jharvard@holy2c02302 ~]$ srun -c $SLURM_CPUS_PER_TASK --mpi=pmix gp < par_pari.gp
                   GP/PARI CALCULATOR Version 2.15.4 (released)
           amd64 running linux (x86-64/GMP-6.2.1 kernel) 64-bit version
                 compiled: Aug  1 2023, gcc version 12.2.0 (GCC)
