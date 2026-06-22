@@ -133,7 +133,7 @@ all: $(TARGET)
 
 # Build rule
 $(TARGET): $(SRC)
-        $(NVCC) $(NVCC_FLAGS) -o $(TARGET) $(SRC)
+        $(NVCC) $(NVCC_FLAGS) -o $(TARGET) $(SRC) -lcudart -lcuda
 
 # Clean rule
 clean:
@@ -143,7 +143,7 @@ clean:
 You could also compile the code directly with:
 
 ```bash
-nvcc -O3 -ccbin mpicxx -o mpi_cuda_pi.x mpi_cuda_pi.cu
+nvcc -O3 -ccbin mpicxx -o mpi_cuda_pi.x mpi_cuda_pi.cu -lcudart -lcuda
 ```
 
 ---

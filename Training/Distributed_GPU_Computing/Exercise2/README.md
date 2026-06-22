@@ -83,7 +83,7 @@ make
 or manually:
 
 ```bash
-nvcc -O3 -ccbin mpicxx -o mpi_cuda_pi_mc.x mpi_cuda_pi_mc.cu
+nvcc -O3 -ccbin mpicxx -o mpi_cuda_pi_mc.x mpi_cuda_pi_mc.cu -lcudart -lcuda
 ```
 
 ### Makefile
@@ -109,7 +109,7 @@ all: $(TARGET)
 
 # Build rule
 $(TARGET): $(SRC)
-	$(NVCC) $(NVCC_FLAGS) -o $(TARGET) $(SRC)
+	$(NVCC) $(NVCC_FLAGS) -o $(TARGET) $(SRC) -lcudart -lcuda
 
 # Clean rule
 clean:

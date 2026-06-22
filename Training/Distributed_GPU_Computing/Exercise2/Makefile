@@ -18,7 +18,7 @@ all: $(TARGET)
 
 # Build rule
 $(TARGET): $(SRC)
-	$(NVCC) $(NVCC_FLAGS) -o $(TARGET) $(SRC)
+	$(NVCC) $(NVCC_FLAGS) -o $(TARGET) $(SRC) -lcudart -lcuda
 
 # Clean rule
 clean:

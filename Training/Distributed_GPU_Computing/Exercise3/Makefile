@@ -19,4 +19,4 @@ $(TARGET): $(SRC)
 
 # Clean rule
 clean:
-	rm -f $(TARGET)
+	rm -f $(TARGET) *.err

@@ -1,0 +1,51 @@
+Python binary  : /n/netscratch/rc_admin/Everyone/dist-gpu-training/pt2.9.1_cuda12.9/bin/python
+Job ID         : 14612
+Node list      : holygpu7c[26103-26104]
+Num nodes      : 2
+Num tasks      : 8
+Tasks per node : 4
+CPUs per task  : 8
+MASTER_ADDR    : 10.31.179.36
+MASTER_PORT    : 44112
+WORLD_SIZE     : 8
+Script         : train_mnist_ddp.py
+Script args    : 
+Training with 8 GPUs
+Per-rank batch size: 64 (effective: 512)
+Learning rate: 0.008 (scaled)
+Using 4 DataLoader worker(s) per rank
+Downloading train_images...
+Downloading train_labels...
+Downloading test_images...
+Downloading test_labels...
+  Epoch 1 | batch 0/118 | local loss 2.3098
+  Epoch 1 | batch 100/118 | local loss 0.1018
+Epoch 1/10 | train loss 0.4493  acc 87.97% | val loss 0.0789  acc 97.61%
+  Epoch 2 | batch 0/118 | local loss 0.1136
+  Epoch 2 | batch 100/118 | local loss 0.1215
+Epoch 2/10 | train loss 0.1322  acc 95.90% | val loss 0.0582  acc 98.00%
+  Epoch 3 | batch 0/118 | local loss 0.2023
+  Epoch 3 | batch 100/118 | local loss 0.0749
+Epoch 3/10 | train loss 0.1133  acc 96.44% | val loss 0.0479  acc 98.38%
+  Epoch 4 | batch 0/118 | local loss 0.1856
+  Epoch 4 | batch 100/118 | local loss 0.0566
+Epoch 4/10 | train loss 0.0969  acc 96.92% | val loss 0.0464  acc 98.52%
+  Epoch 5 | batch 0/118 | local loss 0.1748
+  Epoch 5 | batch 100/118 | local loss 0.0505
+Epoch 5/10 | train loss 0.0871  acc 97.27% | val loss 0.0414  acc 98.67%
+  Epoch 6 | batch 0/118 | local loss 0.0568
+  Epoch 6 | batch 100/118 | local loss 0.0213
+Epoch 6/10 | train loss 0.0780  acc 97.59% | val loss 0.0358  acc 98.88%
+  Epoch 7 | batch 0/118 | local loss 0.0891
+  Epoch 7 | batch 100/118 | local loss 0.1431
+Epoch 7/10 | train loss 0.0734  acc 97.74% | val loss 0.0389  acc 98.72%
+  Epoch 8 | batch 0/118 | local loss 0.0190
+  Epoch 8 | batch 100/118 | local loss 0.0127
+Epoch 8/10 | train loss 0.0678  acc 97.90% | val loss 0.0315  acc 98.88%
+  Epoch 9 | batch 0/118 | local loss 0.0723
+  Epoch 9 | batch 100/118 | local loss 0.1147
+Epoch 9/10 | train loss 0.0659  acc 97.95% | val loss 0.0437  acc 98.59%
+  Epoch 10 | batch 0/118 | local loss 0.0186
+  Epoch 10 | batch 100/118 | local loss 0.0043
+Epoch 10/10 | train loss 0.0661  acc 97.96% | val loss 0.0328  acc 98.86%
+Checkpoint saved to mnist_ddp.pt
