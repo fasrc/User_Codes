@@ -12,7 +12,7 @@
 
 # Commands to run go on next lines
 # Start by loading module(s) for your application:
-load     # put my application module(s) here
+module load     # put my application module(s) here
 
 # Run the application
 
