@@ -1,6 +1,9 @@
 # CYANA
 
-This software is for use of Prof. Victoria D'Souza's lab.
+The [CYANA](https://cyana.org/wiki/Main_Page) is for use of Prof. Victoria
+D'Souza's lab.
+
+See [CYANA FASRC Docs](https://docs.rc.fas.harvard.edu/kb/cyana/).
 
 ## Version 2.1
 
@@ -13,5 +16,3 @@ we built a Singularity container to run CYANA 3.98. The container was built on
 `builds01` with the [cyana_intel_impi_v17.def](cyana_intel_impi_v17.def) file.
 
 To submit a job, use file [cyana_multi_node_v17.sh](cyana_multi_node_v17.sh). 
-
-
