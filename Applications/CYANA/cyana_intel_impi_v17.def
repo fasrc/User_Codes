@@ -1,0 +1,202 @@
+Bootstrap: docker
+From: rockylinux:9
+
+# ----------------------------------------------------------------------------
+# CYANA container (MPI via Intel MPI, launched with Slurm PMIx)
+#
+#   OS        : Rocky Linux 9
+#   Compilers : Intel oneAPI 2025.2  (icx / icpx / ifx, compiler build 25.2.1)
+#   MPI       : Intel MPI 2021.16    (CYANAs cyanaexe.ifx-openmpi links
+#               libmpi.so.12 in /opt/intel/oneapi/mpi/2021.16)
+#   PMIx      : OpenPMIx 5.0.1 built from source into /opt/pmix.
+#               Rationale: Intel MPI 2021.16 needs the PMIx 5.0 ABI (symbols
+#               like PMIx_Value_load that EPELs 4.2.x PMIx lacks), and 5.0.1
+#               exactly matches the host Slurm PMIx server, so `srun --mpi=pmix`
+#               wires the ranks together cleanly.
+#   App       : CYANA 3.98.15
+#
+# Build with:
+#   singularity build --fakeroot cyana_intel_impi_v16.sif cyana_intel_impi_v16.def
+#
+# Launch: see cyana_multi_node.sh (srun --mpi=pmix + I_MPI_PMI_LIBRARY).
+# ----------------------------------------------------------------------------
+
+%files
+    ../cyana-3.98.15bin-260126VictoriaDSouza.tgz /opt
+
+%environment
+    # Eastern Time (handles EST/EDT automatically). glibc honors TZ first.
+    export TZ=America/New_York
+
+    # Intel oneAPI compilers + Intel MPI runtime (sets PATH for mpirun/mpiexec,
+    # LD_LIBRARY_PATH for libmpi.so.12, and the I_MPI_* variables).
+    . /opt/intel/oneapi/setvars.sh --force > /dev/null 2>&1 || true
+
+    # PMIx 5.0.1 (built from source) - provides libpmix.so for Intel MPIs PMIx
+    export PMIX_DIR=/opt/pmix
+    export PATH="$PMIX_DIR/bin:$PATH"
+    export LD_LIBRARY_PATH="$PMIX_DIR/lib:$LD_LIBRARY_PATH"
+
+    # intel oneAPI locations (explicit, in case setvars is skipped)
+    export INTEL_HOME=/opt/intel/oneapi/
+    export INTEL_LIB=$INTEL_HOME/compiler/2025.2/lib/
+    export INTEL_COMPOSER_INCLUDE=$INTEL_HOME/compiler/2025.2/include
+    export TBB_HOME=$INTEL_HOME/tbb/2022.2
+    export PATH="$INTEL_HOME/compiler/2025.2/bin:$PATH"
+    export LD_LIBRARY_PATH="$INTEL_HOME/compiler/2025.2/lib:$LD_LIBRARY_PATH"
+    export LIBRARY_PATH="$INTEL_HOME/compiler/2025.2/lib:$LIBRARY_PATH"
+    export CPATH="$INTEL_HOME/compiler/2025.2/include:$CPATH"
+    export FPATH="$INTEL_HOME/compiler/2025.2/include:$FPATH"
+    export MANPATH="$INTEL_HOME/compiler/2025.2/share/man:$MANPATH"
+
+    # Intel MPI ships its own libfabric in a SEPARATE opt/libfabric dir that the
+    # manual paths above miss. Put it on the loader path and select it, or
+    # MPI_Init fails with "failed to load libfabric.so.1: ... No such file".
+    export I_MPI_OFI_LIBRARY_INTERNAL=1
+    export FI_PROVIDER_PATH="$INTEL_HOME/mpi/2021.16/opt/mpi/libfabric/lib/prov"
+    export LD_LIBRARY_PATH="$INTEL_HOME/mpi/2021.16/opt/mpi/libfabric/lib/:$LD_LIBRARY_PATH"
+    export LD_LIBRARY_PATH="$INTEL_HOME/mpi/2021.16/lib:$LD_LIBRARY_PATH"
+
+    # cyana built into /opt/cyana-3.98.15
+    # CYANALIB is the variable the cyana wrapper exports (${PROG}LIB with
+    # PROG=CYANA) and that the executable reads to locate etc/license, lib/, etc.
+    export CYANALIB=/opt/cyana-3.98.15
+    export PATH="/opt/cyana-3.98.15:$PATH"
+    export LD_LIBRARY_PATH="/opt/cyana-3.98.15/lib:$LD_LIBRARY_PATH"
+    export LIBRARY_PATH="/opt/cyana-3.98.15/lib:$LIBRARY_PATH"
+
+    # Note: I_MPI_PMI_LIBRARY / I_MPI_PMI are set only in the srun launch (see
+    # cyana_multi_node.sh) so single-node `mpirun` (Hydra) still works.
+
+
+%post
+    set -e
+
+    # untar cyana
+    echo "extracting cyana..."
+    cd /opt
+    tar xvf cyana-3.98.15bin-260126VictoriaDSouza.tgz
+    chown -R root:root cyana-3.98.15
+    chmod 755 cyana-3.98.15
+    rm -rf cyana-3.98.15bin-260126VictoriaDSouza.tgz
+
+    echo "Enabling CRB + EPEL (for -devel dependencies)..."
+    dnf -y install dnf-plugins-core
+    dnf config-manager --set-enabled crb
+    dnf -y install epel-release
+
+    echo "Installing base tools and PMIx build dependencies on Rocky Linux 9..."
+    dnf -y update
+    dnf -y install \
+        wget tar gzip bzip2 file which diffutils \
+        procps-ng findutils tzdata iputils \
+        vim nano emacs \
+        gcc gcc-c++ gcc-gfortran make \
+        perl \
+        libevent-devel hwloc-devel zlib-devel \
+        munge munge-devel
+    #  libevent-devel / hwloc-devel / zlib-devel are needed to build PMIx.
+    #  munge / munge-devel let PMIx build the psec:munge component, which the
+    #  host PMIx server requires for authentication (without it the client fails
+    #  the security handshake: "Framework: psec / Component: munge / not found").
+    #  (No pmix/pmix-devel from EPEL: that ships PMIx 4.2.x, which lacks the
+    #   PMIx 5.0 ABI Intel MPI 2021.16 requires - it was the cause of the
+    #   "PMIx_Value_load not found" failure.)
+
+    echo "Setting container timezone to US Eastern (America/New_York)..."
+    ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
+    echo "America/New_York" > /etc/timezone
+
+    echo "Building OpenPMIx 5.0.1 from source (matches host PMIx 5.0.1)..."
+    export PMIX_VERSION=5.0.1
+    export PMIX_DIR=/opt/pmix
+    export PMIX_URL="https://github.com/openpmix/openpmix/releases/download/v${PMIX_VERSION}/pmix-${PMIX_VERSION}.tar.bz2"
+    mkdir -p /tmp/pmix
+    cd /tmp/pmix
+    wget -O pmix-${PMIX_VERSION}.tar.bz2 "$PMIX_URL"
+    tar xjf pmix-${PMIX_VERSION}.tar.bz2
+    cd pmix-${PMIX_VERSION}
+    # Build with the system gcc against system libevent/hwloc/zlib.
+    ./configure --prefix="$PMIX_DIR" --with-munge
+    make -j"$(nproc)"
+    make install
+    cd /
+    rm -rf /tmp/pmix
+
+    #  Note: Intel RPMs do not carry a correct g++ dependency, so gcc-c++ is
+    #  installed explicitly above (must match the gcc version) or icx/icpx will
+    #  fail with "<C++ header> file not found".
+
+    echo "Configuring the Intel oneAPI YUM/DNF repository..."
+    tee /etc/yum.repos.d/oneAPI.repo > /dev/null << 'EOF'
+[oneAPI]
+name=Intel(R) oneAPI repository
+baseurl=https://yum.repos.intel.com/oneapi
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://yum.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB
+EOF
+
+    echo "Installing Intel oneAPI compilers 2025.2 and Intel MPI 2021.16..."
+    dnf -y install \
+        intel-oneapi-compiler-dpcpp-cpp-2025.2.1 \
+        intel-oneapi-compiler-fortran-2025.2.1 \
+        intel-oneapi-mpi-2021.16 \
+        intel-oneapi-mpi-devel-2021.16
+
+    # ------ Sanity checks ------
+    test -e /opt/intel/oneapi/mpi/2021.16/lib/libmpi.so.12 \
+        && echo "OK: Intel MPI 2021.16 present" \
+        || { echo "ERROR: /opt/intel/oneapi/mpi/2021.16 missing"; exit 1; }
+    # Locate Intel MPI's bundled libfabric so the %environment path is correct:
+    echo "libfabric.so.1 in image:"
+    find /opt/intel/oneapi/mpi -name 'libfabric.so.1' -print \
+        || { echo "ERROR: Intel MPI libfabric.so.1 not found"; exit 1; }
+    test -r /opt/cyana-3.98.15/etc/license \
+        && echo "OK: CYANA license file present" \
+        || { echo "ERROR: CYANA license file missing"; exit 1; }
+    test -e /opt/pmix/lib/libpmix.so \
+        && echo "OK: PMIx built" \
+        || { echo "ERROR: /opt/pmix/lib/libpmix.so missing"; exit 1; }
+    # Confirm the PMIx 5.0 symbol Intel MPI needs is now exported:
+    nm -D /opt/pmix/lib/libpmix.so | grep -q PMIx_Value_load \
+        && echo "OK: PMIx_Value_load exported" \
+        || { echo "ERROR: PMIx_Value_load missing from libpmix.so"; exit 1; }
+    echo "PMIx version in image:"; /opt/pmix/bin/pmix_info | grep -E '^ *PMIX:' || true
+    # Confirm the munge psec component built (needed to match the host server):
+    /opt/pmix/bin/pmix_info | grep -q 'psec: munge' \
+        && echo "OK: PMIx psec:munge present" \
+        || { echo "ERROR: PMIx built without munge psec"; exit 1; }
+
+
+%labels
+    OS        Rocky Linux 9
+    Compiler  Intel oneAPI 2025.2 (icx/icpx/ifx, build 25.2.1)
+    MPI       Intel MPI 2021.16
+    PMIx      OpenPMIx 5.0.1 (source build, /opt/pmix) for srun --mpi=pmix
+    App       CYANA 3.98.15
+
+%help
+    CYANA 3.98.15 container using Intel MPI 2021.16, launched with Slurm PMIx.
+    PMIx 5.0.1 is built into /opt/pmix (matches the host PMIx 5.0.1 server and
+    provides the PMIx 5.0 ABI Intel MPI needs).
+
+    MULTI NODE (recommended - works single-node too):
+        export I_MPI_FABRICS=shm:ofi
+        export FI_PROVIDER=tcp            # correctness first; IB provider later
+        export PMIX_MCA_gds=hash
+        export SINGULARITYENV_CYANALIB=/opt/cyana-3.98.15
+        export SINGULARITYENV_CYANAARG=CALC
+        export SINGULARITYENV_I_MPI_PMI_LIBRARY=/opt/pmix/lib/libpmix.so
+        export SINGULARITYENV_I_MPI_PMI=pmix
+        export SINGULARITYENV_I_MPI_FABRICS=$I_MPI_FABRICS
+        export SINGULARITYENV_FI_PROVIDER=$FI_PROVIDER
+        export SINGULARITYENV_PMIX_MCA_gds=$PMIX_MCA_gds
+        srun -n $SLURM_NTASKS --mpi=pmix \
+            singularity exec cyana_intel_impi_v16.sif \
+            /opt/cyana-3.98.15/cyanaexe.ifx-openmpi > CALC.cya.out
+
+    Add SINGULARITYENV_I_MPI_DEBUG=6 to confirm "PMI API: pmix" and rank/size.
+
+    Serial (no-MPI) executable in this image: cyanaexe.linux64-ifx
