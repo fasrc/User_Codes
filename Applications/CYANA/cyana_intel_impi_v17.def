@@ -4,6 +4,7 @@ From: rockylinux:9
 # ----------------------------------------------------------------------------
 # CYANA container (MPI via Intel MPI, launched with Slurm PMIx)
 #
+#   Dependency: must have cyana binary files
 #   OS        : Rocky Linux 9
 #   Compilers : Intel oneAPI 2025.2  (icx / icpx / ifx, compiler build 25.2.1)
 #   MPI       : Intel MPI 2021.16    (CYANAs cyanaexe.ifx-openmpi links
@@ -16,7 +17,7 @@ From: rockylinux:9
 #   App       : CYANA 3.98.15
 #
 # Build with:
-#   singularity build --fakeroot cyana_intel_impi_v16.sif cyana_intel_impi_v16.def
+#   sudo singularity build cyana_intel_impi_v17.sif cyana_intel_impi_v17.def
 #
 # Launch: see cyana_multi_node.sh (srun --mpi=pmix + I_MPI_PMI_LIBRARY).
 # ----------------------------------------------------------------------------
@@ -171,6 +172,7 @@ EOF
 
 
 %labels
+    Author    paula_sanematsu@g.harvard.edu with Claude assistance
     OS        Rocky Linux 9
     Compiler  Intel oneAPI 2025.2 (icx/icpx/ifx, build 25.2.1)
     MPI       Intel MPI 2021.16
