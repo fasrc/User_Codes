@@ -1,22 +1,22 @@
 Running: mlp_ddp.py
 Python binary  : /n/netscratch/rc_admin/Everyone/dist-gpu-training/pt2.9.1_cuda12.9/bin/python
-Job ID         : 14611
-Node list      : holygpu7c[26103-26104]
+Job ID         : 24159484
+Node list      : holygpu8a[22104-22105]
 Num nodes      : 2
 Num tasks      : 2
 Tasks per node : 1
 CPUs per task  : 4
 GPUs per node  : 1
-MASTER_ADDR    : 10.31.179.36
-MASTER_PORT    : 44111
+MASTER_ADDR    : 10.31.182.108
+MASTER_PORT    : 48984
 WORLD_SIZE     : 2
 Script         : mlp_ddp.py
 Script args    : 
 
 ============================================================
 Rank 0 of 2
-Host                : holygpu7c26103.rc.fas.harvard.edu
-Short host          : holygpu7c26103
+Host                : holygpu8a22104.rc.fas.harvard.edu
+Short host          : holygpu8a22104
 Local GPU assigned  : 0
 GPUs per node       : 1
 Visible CUDA devices: 0
@@ -25,8 +25,8 @@ Process group init  : True
 
 ============================================================
 Rank 1 of 2
-Host                : holygpu7c26104.rc.fas.harvard.edu
-Short host          : holygpu7c26104
+Host                : holygpu8a22105.rc.fas.harvard.edu
+Short host          : holygpu8a22105
 Local GPU assigned  : 0
 GPUs per node       : 1
 Visible CUDA devices: 0
@@ -76,5 +76,5 @@ Process group init  : True
   First local loss: 1.371476e+00
   Final local loss: 1.329003e+00
   Mean local loss : 1.203457e+00
-[Rank 0 | GPU 0] Training complete on holygpu7c26103
-[Rank 1 | GPU 0] Training complete on holygpu7c26104
+[Rank 0 | GPU 0] Training complete on holygpu8a22104
+[Rank 1 | GPU 0] Training complete on holygpu8a22105

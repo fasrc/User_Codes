@@ -9,6 +9,7 @@
 #SBATCH --time=00:20:00
 #SBATCH --mem=64G
 #SBATCH --partition=gpu
+#SBATCH --reservation=workshop
 
 # Fail fast on errors, undefined variables, and broken pipes.
 set -euo pipefail

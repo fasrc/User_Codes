@@ -8,6 +8,7 @@
 #SBATCH -p gpu
 #SBATCH -o output_4.out
 #SBATCH -e error_4.err
+#SBATCH --reservation=workshop
 
 export UCX_TLS=^gdr_copy
 export UCX_LOG_LEVEL=error

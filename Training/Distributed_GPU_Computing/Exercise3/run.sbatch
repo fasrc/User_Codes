@@ -9,6 +9,7 @@
 #SBATCH --mem=4G
 #SBATCH --gres=gpu:4
 #SBATCH --time=00:10:00
+#SBATCH --reservation=workshop
 
 # Load the required software modules
 module load nvhpc/24.11-fasrc01
