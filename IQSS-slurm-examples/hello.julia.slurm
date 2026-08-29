@@ -8,7 +8,7 @@
 #SBATCH -o %x_%j.out # Standard out goes to this file
 #SBATCH -e %x_%j.err # Standard err goes to this file
 # Commands to run go on next lines:
-module load julia/1.1.1-fasrc01
+module load julia/1.0.0-ncf
 chmod u+x ./hello.jl
 ./hello.jl
 

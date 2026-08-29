@@ -9,7 +9,7 @@
 #SBATCH -e %x_%j.err # Standard err goes to this file
 # Commands to run go on next lines:
 
-module load mathematica/11.3.0-fasrc01
+module load mathematica/13.3.0-fasrc01
 math -noprompt -run "<< ./hello.math" # Run mathematica hello world.
 
 # To submit the job:
