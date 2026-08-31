@@ -1,0 +1,79 @@
+- pi_naive.c
+
+module load gcc
+
+gcc \
+    -std=c11 \
+    -O2 \
+    -Wall \
+    -Wextra \
+    -pedantic \
+    -o pi_naive \
+    pi_naive.c \
+    -lm
+
+./pi_naive \
+    --darts 50000000 \
+    --seed 42 \
+    --report-every 1000000 \
+    --sleep 1
+
+- pi_checkpoint.c
+
+gcc \
+    -std=c11 \
+    -O2 \
+    -Wall \
+    -Wextra \
+    -pedantic \
+    -o pi_checkpoint \
+    pi_checkpoint.c \
+    -lm
+
+mkdir -p checkpoints
+
+./pi_checkpoint \
+    --darts 50000000 \
+    --seed 42 \
+    --report-every 1000000 \
+    --checkpoint-every 5000000 \
+    --checkpoint-file checkpoints/pi_checkpoint.bin \
+    --sleep 1
+
+Ctrl-C
+
+./pi_checkpoint \
+    --darts 50000000 \
+    --seed 42 \
+    --report-every 1000000 \
+    --checkpoint-every 5000000 \
+    --checkpoint-file checkpoints/pi_checkpoint.bin \
+    --sleep 1 \
+    --resume
+
+- pi_signal.c
+
+gcc \
+    -std=c11 \
+    -O2 \
+    -Wall \
+    -Wextra \
+    -pedantic \
+    -o pi_signal \
+    pi_signal.c \
+    -lm
+
+kill -USR1 PID 
+
+./pi_signal \
+    --darts 100000000 \
+    --seed 42 \
+    --report-every 1000000 \
+    --checkpoint-every 0 \
+    --checkpoint-file checkpoints/pi_signal.bin \
+    --sleep 1 \
+    --resume
+
+- pi_requeue.c
+
+
