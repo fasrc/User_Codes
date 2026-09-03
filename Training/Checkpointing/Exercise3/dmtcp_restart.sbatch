@@ -1,11 +1,9 @@
 #!/bin/bash
-
 #SBATCH --job-name=dmtcp-restart
-#SBATCH --partition=test
+#SBATCH --partition=rc-testing
 #SBATCH --time=00:03:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=1G
-
 #SBATCH --output=dmtcp_restart_%j.out
 #SBATCH --error=dmtcp_restart_%j.err
 

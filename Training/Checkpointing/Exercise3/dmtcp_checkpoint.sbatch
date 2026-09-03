@@ -1,11 +1,9 @@
 #!/bin/bash
-
 #SBATCH --job-name=dmtcp-ckpt
-#SBATCH --partition=test
+#SBATCH --partition=rc-testing
 #SBATCH --time=00:03:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=1G
-
 #SBATCH --output=dmtcp_ckpt_%j.out
 #SBATCH --error=dmtcp_ckpt_%j.err
 
@@ -55,6 +53,6 @@ echo "============================================================"
 #
 dmtcp_launch \
     --join-coordinator \
-    ../long_run \
+    ../long_run.x \
     --iterations 600 \
     --sleep-ms 1000

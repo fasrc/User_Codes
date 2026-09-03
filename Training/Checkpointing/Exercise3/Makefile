@@ -17,4 +17,5 @@ clean:
 	rm -f ckpt_*.dmtcp
 	rm -f dmtcp_restart_*.sh
 	rm -f coordinator.port
+	rm -rf checkpoints/
 
