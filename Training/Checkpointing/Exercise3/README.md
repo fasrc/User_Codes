@@ -19,8 +19,8 @@ DMTCP supports a variety of applications, frameworks and programming languages i
 | `dmtcp_checkpoint.sbatch` | Runs the application under DMTCP and creates periodic checkpoints |
 | `dmtcp_restart.sbatch` | Restarts the application from the most recent DMTCP checkpoint |
 | `dmtcp_auto_requeue.sbatch` | Optional: automated checkpoint/requeue/restart example |
+| `dmtcp_auto_15135.out` | Example output from an automated checkpoint/requeue/restart run |
 
----
 
 ## Setup
 
@@ -107,7 +107,7 @@ Ctrl-C
 Run it again:
 
 ```bash
-./long_run --iterations 100 --sleep-ms 1000
+./long_run.x --iterations 100 --sleep-ms 1000
 ```
 
 It starts again from iteration 1.
@@ -128,6 +128,8 @@ From another shell in the same allocation, request a checkpoint:
 module load dmtcp/4.1.0-fasrc01
 dmtcp_command --checkpoint
 ```
+
+>**Note:** You can use <br> `scontrol show job <JOBID> | grep -oP 'BatchHost=\K\w+'` <br> to display the node where the job ran and then `ssh` to it.
 
 DMTCP creates checkpoint files such as:
 
@@ -180,13 +182,11 @@ The first batch script starts the application under DMTCP and creates periodic c
 
 ```bash
 #!/bin/bash
-
 #SBATCH --job-name=dmtcp-ckpt
-#SBATCH --partition=test
+#SBATCH --partition=rc-testing
 #SBATCH --time=00:03:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=1G
-
 #SBATCH --output=dmtcp_ckpt_%j.out
 #SBATCH --error=dmtcp_ckpt_%j.err
 
@@ -197,15 +197,24 @@ module load dmtcp
 mkdir -p checkpoints
 cd checkpoints
 
+#
+# Use a random coordinator port to avoid collisions with other users.
+#
 PORT_FILE="${SLURM_TMPDIR:-/tmp}/dmtcp_port_${SLURM_JOB_ID}"
 rm -f "$PORT_FILE"
 
+#
+# Start a DMTCP coordinator and checkpoint once every 60 seconds.
+#
 dmtcp_coordinator \
     --daemon \
     --port 0 \
     --port-file "$PORT_FILE" \
     --interval 60
 
+#
+# Wait for the coordinator to write its port number.
+#
 while [[ ! -s "$PORT_FILE" ]]; do
     sleep 0.1
 done
@@ -222,9 +231,12 @@ echo "Coordinator port : ${DMTCP_COORD_PORT}"
 echo "Start            : $(date)"
 echo "============================================================"
 
+#
+# The application itself contains NO checkpointing code.
+#
 dmtcp_launch \
     --join-coordinator \
-    ../long_run \
+    ../long_run.x \
     --iterations 600 \
     --sleep-ms 1000
 ```
@@ -278,13 +290,11 @@ The restart job starts a new Slurm allocation and resumes from the most recent s
 
 ```bash
 #!/bin/bash
-
 #SBATCH --job-name=dmtcp-restart
-#SBATCH --partition=test
+#SBATCH --partition=rc-testing
 #SBATCH --time=00:03:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=1G
-
 #SBATCH --output=dmtcp_restart_%j.out
 #SBATCH --error=dmtcp_restart_%j.err
 
@@ -303,6 +313,10 @@ fi
 PORT_FILE="${SLURM_TMPDIR:-/tmp}/dmtcp_port_${SLURM_JOB_ID}"
 rm -f "$PORT_FILE"
 
+#
+# Start a fresh coordinator for this new allocation.
+# Continue making checkpoints every 60 seconds.
+#
 dmtcp_coordinator \
     --daemon \
     --port 0 \
@@ -325,6 +339,9 @@ echo "Coordinator port : ${DMTCP_COORD_PORT}"
 echo "Restart          : $(date)"
 echo "============================================================"
 
+#
+# Resume from the most recent successful DMTCP checkpoint.
+#
 ./dmtcp_restart_script.sh
 ```
 
@@ -358,8 +375,6 @@ iteration ≈ 122
 ```
 
 The restart job is a new Slurm job and may run on a different compute node.
-
----
 
 # 4. Optional: Automated Checkpoint/Restart with Requeue
 
@@ -426,100 +441,89 @@ to:
 ```text
 automated checkpoint/restart
 ```
-
----
-
-## Comparing Application-Level Checkpointing and DMTCP
-
-| Application checkpointing | DMTCP |
-|---|---|
-| Application explicitly saves state | Application does not need checkpoint code |
-| Saves selected variables | Saves process/runtime state |
-| Usually smaller checkpoints | Usually larger checkpoints |
-| Requires source-code changes | No source-code changes |
-| Application controls restart logic | DMTCP reconstructs process state |
-
-In Exercises 1 and 2, we asked:
-
-> What application state is required to continue the calculation?
-
-With DMTCP, the question becomes:
-
-> What process state must be restored to recreate the running application?
-
----
-
-## Key Concepts
-
-- **Transparent checkpoint/restart** — the application does not need checkpoint-specific source code.
-
-- **DMTCP coordinator** — coordinates checkpointing and restart for DMTCP-managed processes.
-
-- **`dmtcp_launch`** — starts an application under DMTCP control.
-
-- **`dmtcp_command --checkpoint`** — requests a checkpoint.
-
-- **`dmtcp_restart_script.sh`** — restarts from the latest successful checkpoint set.
-
-- **Periodic checkpointing** — the coordinator can create checkpoints automatically at a specified interval.
-
-- **Checkpoint interval** — work completed after the last checkpoint but before termination may need to be repeated.
-
-- **Batch restart** — a new Slurm job can restart a previously checkpointed application.
-
----
-
-## Cleanup
-
-Remove generated checkpoint files:
-
-```bash
-rm -rf checkpoints/*
-```
-
-Remove Slurm logs:
-
-```bash
-rm -f dmtcp_ckpt_*.out
-rm -f dmtcp_ckpt_*.err
-
-rm -f dmtcp_restart_*.out
-rm -f dmtcp_restart_*.err
-
-rm -f dmtcp_auto_*.out
-rm -f dmtcp_auto_*.err
-```
-
-Rebuild:
-
-```bash
-make clean
-make
-```
-
----
-
-## Summary
-
-The progression in this exercise is:
+## Example output from Automated C/R with Re-queue
 
 ```text
-Normal application
-       |
-       v
-DMTCP interactive checkpoint/restart
-       |
-       v
-Batch checkpoint job
-       |
-       v
-Batch restart job
-       |
-       v
-Optional automated requeue workflow
+$ cat dmtcp_auto_15135.out 
+============================================================
+DMTCP automatic checkpoint/restart
+============================================================
+Job ID        : 15135
+Restart count : 0
+Node          : holy7c26506.rc.fas.harvard.edu
+Time          : Thu Sep  3 14:20:44 EDT 2026
+============================================================
+Starting new DMTCP computation.
+============================================================
+DMTCP long-running demo application
+============================================================
+PID            : 40000
+Host           : holy7c26506.rc.fas.harvard.edu
+Iterations     : 600
+Sleep/iter     : 1000 ms
+Checkpoint code: NONE
+============================================================
+iteration =    1   accumulator = 1.00000000
+iteration =    2   accumulator = 2.41421356
+...
+iteration =  113   accumulator = 805.91542424
+iteration =  114   accumulator = 816.59250249
+
+USR1 received at Thu Sep  3 14:22:39 EDT 2026
+Creating final checkpoint...
+iteration =  115   accumulator = 827.31630779
+Checkpoint complete.
+Requeueing job 15135...
+============================================================
+DMTCP automatic checkpoint/restart
+============================================================
+Job ID        : 15135
+Restart count : 1
+Node          : holy7c26506.rc.fas.harvard.edu
+Time          : Thu Sep  3 14:25:07 EDT 2026
+============================================================
+Restarting DMTCP computation.
+iteration =   63   accumulator = 337.13065543
+iteration =   64   accumulator = 345.13065543
+iteration =   65   accumulator = 353.19291317
+...
+iteration =  212   accumulator = 2064.91948071
+iteration =  213   accumulator = 2079.51400023
+
+USR1 received at Thu Sep  3 14:30:40 EDT 2026
+Creating final checkpoint...
+Checkpoint complete.
+Requeueing job 15135...
+============================================================
+DMTCP automatic checkpoint/restart
+============================================================
+Job ID        : 15135
+Restart count : 3
+Node          : holy7c26506.rc.fas.harvard.edu
+Time          : Thu Sep  3 14:33:08 EDT 2026
+============================================================
+Restarting DMTCP computation.
+iteration =  185   accumulator = 1684.11060850
+iteration =  186   accumulator = 1697.74879020
+iteration =  187   accumulator = 1711.42358453
+...
+iteration =  596   accumulator = 9712.14323876
+iteration =  597   accumulator = 9736.57682221
+iteration =  598   accumulator = 9761.03086073
+iteration =  599   accumulator = 9785.50533723
+iteration =  600   accumulator = 9810.00023466
+============================================================
+Calculation complete
+Final iteration   : 600
+Final accumulator : 9810.00023466
+============================================================
+
+Application finished with status 0.
+End: Thu Sep  3 14:57:59 EDT 2026
 ```
 
-The main lesson is:
+## References:
 
-> **DMTCP provides transparent checkpoint/restart without requiring application-level checkpoint code.**
-
+* [DMTCP website](http://dmtcp.sourceforge.net/index.html)
+* [DMTCP github](https://github.com/dmtcp/dmtcp/blob/master/QUICK-START.md)
+* [NERSC: DMTCP user training slides  (Nov. 2019)](https://wayback.archive-it.org/23486/https://www.nersc.gov/user-training-on-checkpointing-and-restarting-jobs-using-dmtcp-on-november-6-2019/)  

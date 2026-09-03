@@ -1,14 +1,11 @@
 #!/bin/bash
-
 #SBATCH --job-name=dmtcp-auto
-#SBATCH --partition=serial_requeue
+#SBATCH --partition=rc-testing
 #SBATCH --time=00:03:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=1G
-
 #SBATCH --output=dmtcp_auto_%j.out
 #SBATCH --error=dmtcp_auto_%j.err
-
 #SBATCH --signal=B:USR1@60
 #SBATCH --requeue
 #SBATCH --open-mode=append
@@ -87,7 +84,7 @@ if [[ ${SLURM_RESTART_COUNT:-0} -eq 0 ]]; then
 
     dmtcp_launch \
         --join-coordinator \
-        ../long_run \
+        ../long_run.x \
         --iterations 600 \
         --sleep-ms 1000 &
 

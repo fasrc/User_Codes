@@ -1,0 +1,1030 @@
+============================================================
+DMTCP automatic checkpoint/restart
+============================================================
+Job ID        : 15135
+Restart count : 0
+Node          : holy7c26506.rc.fas.harvard.edu
+Time          : Thu Sep  3 14:20:44 EDT 2026
+============================================================
+Starting new DMTCP computation.
+============================================================
+DMTCP long-running demo application
+============================================================
+PID            : 40000
+Host           : holy7c26506.rc.fas.harvard.edu
+Iterations     : 600
+Sleep/iter     : 1000 ms
+Checkpoint code: NONE
+============================================================
+iteration =    1   accumulator = 1.00000000
+iteration =    2   accumulator = 2.41421356
+iteration =    3   accumulator = 4.14626437
+iteration =    4   accumulator = 6.14626437
+iteration =    5   accumulator = 8.38233235
+iteration =    6   accumulator = 10.83182209
+iteration =    7   accumulator = 13.47757340
+iteration =    8   accumulator = 16.30600053
+iteration =    9   accumulator = 19.30600053
+iteration =   10   accumulator = 22.46827819
+iteration =   11   accumulator = 25.78490298
+iteration =   12   accumulator = 29.24900459
+iteration =   13   accumulator = 32.85455587
+iteration =   14   accumulator = 36.59621325
+iteration =   15   accumulator = 40.46919660
+iteration =   16   accumulator = 44.46919660
+iteration =   17   accumulator = 48.59230223
+iteration =   18   accumulator = 52.83494291
+iteration =   19   accumulator = 57.19384186
+iteration =   20   accumulator = 61.66597781
+iteration =   21   accumulator = 66.24855351
+iteration =   22   accumulator = 70.93896927
+iteration =   23   accumulator = 75.73480079
+iteration =   24   accumulator = 80.63378028
+iteration =   25   accumulator = 85.63378028
+iteration =   26   accumulator = 90.73279979
+iteration =   27   accumulator = 95.92895221
+iteration =   28   accumulator = 101.22045483
+iteration =   29   accumulator = 106.60561964
+iteration =   30   accumulator = 112.08284522
+iteration =   31   accumulator = 117.65060958
+iteration =   32   accumulator = 123.30746383
+iteration =   33   accumulator = 129.05202647
+iteration =   34   accumulator = 134.88297837
+iteration =   35   accumulator = 140.79905815
+iteration =   36   accumulator = 146.79905815
+iteration =   37   accumulator = 152.88182068
+iteration =   38   accumulator = 159.04623469
+iteration =   39   accumulator = 165.29123268
+iteration =   40   accumulator = 171.61578800
+iteration =   41   accumulator = 178.01891224
+iteration =   42   accumulator = 184.49965294
+iteration =   43   accumulator = 191.05709146
+iteration =   44   accumulator = 197.69034105
+iteration =   45   accumulator = 204.39854498
+iteration =   46   accumulator = 211.18087496
+iteration =   47   accumulator = 218.03652956
+iteration =   48   accumulator = 224.96473279
+iteration =   49   accumulator = 231.96473279
+iteration =   50   accumulator = 239.03580060
+iteration =   51   accumulator = 246.17722903
+iteration =   52   accumulator = 253.38833158
+iteration =   53   accumulator = 260.66844147
+iteration =   54   accumulator = 268.01691070
+iteration =   55   accumulator = 275.43310919
+iteration =   56   accumulator = 282.91642396
+iteration =   57   accumulator = 290.46625840
+iteration =   58   accumulator = 298.08203150
+iteration =   59   accumulator = 305.76317725
+iteration =   60   accumulator = 313.50914394
+iteration =   61   accumulator = 321.31939362
+iteration =   62   accumulator = 329.19340149
+iteration =   63   accumulator = 337.13065543
+iteration =   64   accumulator = 345.13065543
+iteration =   65   accumulator = 353.19291317
+iteration =   66   accumulator = 361.31695158
+iteration =   67   accumulator = 369.50230435
+iteration =   68   accumulator = 377.74851560
+iteration =   69   accumulator = 386.05513946
+iteration =   70   accumulator = 394.42173973
+iteration =   71   accumulator = 402.84788950
+iteration =   72   accumulator = 411.33317088
+iteration =   73   accumulator = 419.87717462
+iteration =   74   accumulator = 428.47949989
+iteration =   75   accumulator = 437.13975393
+iteration =   76   accumulator = 445.85755181
+iteration =   77   accumulator = 454.63251620
+iteration =   78   accumulator = 463.46427707
+iteration =   79   accumulator = 472.35247149
+iteration =   80   accumulator = 481.29674340
+iteration =   81   accumulator = 490.29674340
+iteration =   82   accumulator = 499.35212853
+iteration =   83   accumulator = 508.46256211
+iteration =   84   accumulator = 517.62771350
+iteration =   85   accumulator = 526.84725796
+iteration =   86   accumulator = 536.12087646
+iteration =   87   accumulator = 545.44825551
+iteration =   88   accumulator = 554.82908703
+iteration =   89   accumulator = 564.26306816
+iteration =   90   accumulator = 573.74990114
+iteration =   91   accumulator = 583.28929316
+iteration =   92   accumulator = 592.88095620
+iteration =   93   accumulator = 602.52460696
+iteration =   94   accumulator = 612.21996668
+iteration =   95   accumulator = 621.96676102
+iteration =   96   accumulator = 631.76471999
+iteration =   97   accumulator = 641.61357780
+iteration =   98   accumulator = 651.51307273
+iteration =   99   accumulator = 661.46294710
+iteration =  100   accumulator = 671.46294710
+iteration =  101   accumulator = 681.51282272
+iteration =  102   accumulator = 691.61232766
+iteration =  103   accumulator = 701.76121923
+iteration =  104   accumulator = 711.95925825
+iteration =  105   accumulator = 722.20620902
+iteration =  106   accumulator = 732.50183916
+iteration =  107   accumulator = 742.84591959
+iteration =  108   accumulator = 753.23822444
+iteration =  109   accumulator = 763.67853095
+iteration =  110   accumulator = 774.16661943
+iteration =  111   accumulator = 784.70227318
+iteration =  112   accumulator = 795.28527843
+iteration =  113   accumulator = 805.91542424
+iteration =  114   accumulator = 816.59250249
+
+USR1 received at Thu Sep  3 14:22:39 EDT 2026
+Creating final checkpoint...
+iteration =  115   accumulator = 827.31630779
+Checkpoint complete.
+Requeueing job 15135...
+============================================================
+DMTCP automatic checkpoint/restart
+============================================================
+Job ID        : 15135
+Restart count : 1
+Node          : holy7c26506.rc.fas.harvard.edu
+Time          : Thu Sep  3 14:25:07 EDT 2026
+============================================================
+Restarting DMTCP computation.
+iteration =   63   accumulator = 337.13065543
+iteration =   64   accumulator = 345.13065543
+iteration =   65   accumulator = 353.19291317
+iteration =   66   accumulator = 361.31695158
+iteration =   67   accumulator = 369.50230435
+iteration =   68   accumulator = 377.74851560
+iteration =   69   accumulator = 386.05513946
+iteration =   70   accumulator = 394.42173973
+iteration =   71   accumulator = 402.84788950
+iteration =   72   accumulator = 411.33317088
+iteration =   73   accumulator = 419.87717462
+iteration =   74   accumulator = 428.47949989
+iteration =   75   accumulator = 437.13975393
+iteration =   76   accumulator = 445.85755181
+iteration =   77   accumulator = 454.63251620
+iteration =   78   accumulator = 463.46427707
+iteration =   79   accumulator = 472.35247149
+iteration =   80   accumulator = 481.29674340
+iteration =   81   accumulator = 490.29674340
+iteration =   82   accumulator = 499.35212853
+iteration =   83   accumulator = 508.46256211
+iteration =   84   accumulator = 517.62771350
+iteration =   85   accumulator = 526.84725796
+iteration =   86   accumulator = 536.12087646
+iteration =   87   accumulator = 545.44825551
+iteration =   88   accumulator = 554.82908703
+iteration =   89   accumulator = 564.26306816
+iteration =   90   accumulator = 573.74990114
+iteration =   91   accumulator = 583.28929316
+iteration =   92   accumulator = 592.88095620
+iteration =   93   accumulator = 602.52460696
+iteration =   94   accumulator = 612.21996668
+iteration =   95   accumulator = 621.96676102
+iteration =   96   accumulator = 631.76471999
+iteration =   97   accumulator = 641.61357780
+iteration =   98   accumulator = 651.51307273
+iteration =   99   accumulator = 661.46294710
+iteration =  100   accumulator = 671.46294710
+iteration =  101   accumulator = 681.51282272
+iteration =  102   accumulator = 691.61232766
+iteration =  103   accumulator = 701.76121923
+iteration =  104   accumulator = 711.95925825
+iteration =  105   accumulator = 722.20620902
+iteration =  106   accumulator = 732.50183916
+iteration =  107   accumulator = 742.84591959
+iteration =  108   accumulator = 753.23822444
+iteration =  109   accumulator = 763.67853095
+iteration =  110   accumulator = 774.16661943
+iteration =  111   accumulator = 784.70227318
+iteration =  112   accumulator = 795.28527843
+iteration =  113   accumulator = 805.91542424
+iteration =  114   accumulator = 816.59250249
+iteration =  115   accumulator = 827.31630779
+iteration =  116   accumulator = 838.08663740
+iteration =  117   accumulator = 848.90329123
+iteration =  118   accumulator = 859.76607172
+iteration =  119   accumulator = 870.67478383
+iteration =  120   accumulator = 881.62923498
+iteration =  121   accumulator = 892.62923498
+iteration =  122   accumulator = 903.67459600
+iteration =  123   accumulator = 914.76513251
+iteration =  124   accumulator = 925.90066123
+iteration =  125   accumulator = 937.08100112
+iteration =  126   accumulator = 948.30597328
+iteration =  127   accumulator = 959.57540095
+iteration =  128   accumulator = 970.88910945
+iteration =  129   accumulator = 982.24692614
+iteration =  130   accumulator = 993.64868039
+iteration =  131   accumulator = 1005.09420353
+iteration =  132   accumulator = 1016.58332883
+iteration =  133   accumulator = 1028.11589142
+iteration =  134   accumulator = 1039.69172832
+iteration =  135   accumulator = 1051.31067836
+iteration =  136   accumulator = 1062.97258215
+iteration =  137   accumulator = 1074.67728206
+iteration =  138   accumulator = 1086.42462219
+iteration =  139   accumulator = 1098.21444831
+iteration =  140   accumulator = 1110.04660788
+iteration =  141   accumulator = 1121.92094996
+iteration =  142   accumulator = 1133.83732525
+iteration =  143   accumulator = 1145.79558600
+iteration =  144   accumulator = 1157.79558600
+iteration =  145   accumulator = 1169.83718057
+iteration =  146   accumulator = 1181.92022655
+iteration =  147   accumulator = 1194.04458220
+iteration =  148   accumulator = 1206.21010726
+iteration =  149   accumulator = 1218.41666288
+iteration =  150   accumulator = 1230.66411159
+iteration =  151   accumulator = 1242.95231732
+iteration =  152   accumulator = 1255.28114532
+
+USR1 received at Thu Sep  3 14:26:40 EDT 2026
+Creating final checkpoint...
+Checkpoint complete.
+Requeueing job 15135...
+============================================================
+DMTCP automatic checkpoint/restart
+============================================================
+Job ID        : 15135
+Restart count : 2
+Node          : holy7c26506.rc.fas.harvard.edu
+Time          : Thu Sep  3 14:29:07 EDT 2026
+============================================================
+Restarting DMTCP computation.
+iteration =  124   accumulator = 925.90066123
+iteration =  125   accumulator = 937.08100112
+iteration =  126   accumulator = 948.30597328
+iteration =  127   accumulator = 959.57540095
+iteration =  128   accumulator = 970.88910945
+iteration =  129   accumulator = 982.24692614
+iteration =  130   accumulator = 993.64868039
+iteration =  131   accumulator = 1005.09420353
+iteration =  132   accumulator = 1016.58332883
+iteration =  133   accumulator = 1028.11589142
+iteration =  134   accumulator = 1039.69172832
+iteration =  135   accumulator = 1051.31067836
+iteration =  136   accumulator = 1062.97258215
+iteration =  137   accumulator = 1074.67728206
+iteration =  138   accumulator = 1086.42462219
+iteration =  139   accumulator = 1098.21444831
+iteration =  140   accumulator = 1110.04660788
+iteration =  141   accumulator = 1121.92094996
+iteration =  142   accumulator = 1133.83732525
+iteration =  143   accumulator = 1145.79558600
+iteration =  144   accumulator = 1157.79558600
+iteration =  145   accumulator = 1169.83718057
+iteration =  146   accumulator = 1181.92022655
+iteration =  147   accumulator = 1194.04458220
+iteration =  148   accumulator = 1206.21010726
+iteration =  149   accumulator = 1218.41666288
+iteration =  150   accumulator = 1230.66411159
+iteration =  151   accumulator = 1242.95231732
+iteration =  152   accumulator = 1255.28114532
+iteration =  153   accumulator = 1267.65046220
+iteration =  154   accumulator = 1280.06013585
+iteration =  155   accumulator = 1292.51003544
+iteration =  156   accumulator = 1305.00003144
+iteration =  157   accumulator = 1317.52999553
+iteration =  158   accumulator = 1330.09980062
+iteration =  159   accumulator = 1342.70932083
+iteration =  160   accumulator = 1355.35843147
+iteration =  161   accumulator = 1368.04700901
+iteration =  162   accumulator = 1380.77493107
+iteration =  163   accumulator = 1393.54207641
+iteration =  164   accumulator = 1406.34832488
+iteration =  165   accumulator = 1419.19355746
+iteration =  166   accumulator = 1432.07765619
+iteration =  167   accumulator = 1445.00050417
+iteration =  168   accumulator = 1457.96198557
+iteration =  169   accumulator = 1470.96198557
+iteration =  170   accumulator = 1484.00039038
+iteration =  171   accumulator = 1497.07708721
+iteration =  172   accumulator = 1510.19196426
+iteration =  173   accumulator = 1523.34491070
+iteration =  174   accumulator = 1536.53581665
+iteration =  175   accumulator = 1549.76457321
+iteration =  176   accumulator = 1563.03107237
+iteration =  177   accumulator = 1576.33520707
+iteration =  178   accumulator = 1589.67687113
+iteration =  179   accumulator = 1603.05595929
+iteration =  180   accumulator = 1616.47236716
+iteration =  181   accumulator = 1629.92599120
+iteration =  182   accumulator = 1643.41672877
+iteration =  183   accumulator = 1656.94447802
+iteration =  184   accumulator = 1670.50913799
+iteration =  185   accumulator = 1684.11060850
+iteration =  186   accumulator = 1697.74879020
+iteration =  187   accumulator = 1711.42358453
+iteration =  188   accumulator = 1725.13489373
+iteration =  189   accumulator = 1738.88262081
+iteration =  190   accumulator = 1752.66666957
+iteration =  191   accumulator = 1766.48694453
+iteration =  192   accumulator = 1780.34335099
+iteration =  193   accumulator = 1794.23579498
+iteration =  194   accumulator = 1808.16418325
+iteration =  195   accumulator = 1822.12842330
+iteration =  196   accumulator = 1836.12842330
+iteration =  197   accumulator = 1850.16409215
+iteration =  198   accumulator = 1864.23533942
+iteration =  199   accumulator = 1878.34207540
+iteration =  200   accumulator = 1892.48421103
+iteration =  201   accumulator = 1906.66165791
+iteration =  202   accumulator = 1920.87432831
+iteration =  203   accumulator = 1935.12213516
+iteration =  204   accumulator = 1949.40499202
+iteration =  205   accumulator = 1963.72281308
+iteration =  206   accumulator = 1978.07551317
+iteration =  207   accumulator = 1992.46300774
+iteration =  208   accumulator = 2006.88521285
+iteration =  209   accumulator = 2021.34204514
+iteration =  210   accumulator = 2035.83342189
+iteration =  211   accumulator = 2050.35926093
+iteration =  212   accumulator = 2064.91948071
+iteration =  213   accumulator = 2079.51400023
+
+USR1 received at Thu Sep  3 14:30:40 EDT 2026
+Creating final checkpoint...
+Checkpoint complete.
+Requeueing job 15135...
+============================================================
+DMTCP automatic checkpoint/restart
+============================================================
+Job ID        : 15135
+Restart count : 3
+Node          : holy7c26506.rc.fas.harvard.edu
+Time          : Thu Sep  3 14:33:08 EDT 2026
+============================================================
+Restarting DMTCP computation.
+iteration =  185   accumulator = 1684.11060850
+iteration =  186   accumulator = 1697.74879020
+iteration =  187   accumulator = 1711.42358453
+iteration =  188   accumulator = 1725.13489373
+iteration =  189   accumulator = 1738.88262081
+iteration =  190   accumulator = 1752.66666957
+iteration =  191   accumulator = 1766.48694453
+iteration =  192   accumulator = 1780.34335099
+iteration =  193   accumulator = 1794.23579498
+iteration =  194   accumulator = 1808.16418325
+iteration =  195   accumulator = 1822.12842330
+iteration =  196   accumulator = 1836.12842330
+iteration =  197   accumulator = 1850.16409215
+iteration =  198   accumulator = 1864.23533942
+iteration =  199   accumulator = 1878.34207540
+iteration =  200   accumulator = 1892.48421103
+iteration =  201   accumulator = 1906.66165791
+iteration =  202   accumulator = 1920.87432831
+iteration =  203   accumulator = 1935.12213516
+iteration =  204   accumulator = 1949.40499202
+iteration =  205   accumulator = 1963.72281308
+iteration =  206   accumulator = 1978.07551317
+iteration =  207   accumulator = 1992.46300774
+iteration =  208   accumulator = 2006.88521285
+iteration =  209   accumulator = 2021.34204514
+iteration =  210   accumulator = 2035.83342189
+iteration =  211   accumulator = 2050.35926093
+iteration =  212   accumulator = 2064.91948071
+iteration =  213   accumulator = 2079.51400023
+iteration =  214   accumulator = 2094.14273907
+iteration =  215   accumulator = 2108.80561737
+iteration =  216   accumulator = 2123.50255582
+iteration =  217   accumulator = 2138.23347569
+iteration =  218   accumulator = 2152.99829875
+iteration =  219   accumulator = 2167.79694733
+iteration =  220   accumulator = 2182.62934431
+iteration =  221   accumulator = 2197.49541306
+iteration =  222   accumulator = 2212.39507748
+iteration =  223   accumulator = 2227.32826201
+iteration =  224   accumulator = 2242.29489155
+iteration =  225   accumulator = 2257.29489155
+iteration =  226   accumulator = 2272.32818793
+iteration =  227   accumulator = 2287.39470710
+iteration =  228   accumulator = 2302.49437597
+iteration =  229   accumulator = 2317.62712192
+iteration =  230   accumulator = 2332.79287281
+iteration =  231   accumulator = 2347.99155697
+iteration =  232   accumulator = 2363.22310318
+iteration =  233   accumulator = 2378.48744070
+iteration =  234   accumulator = 2393.78449924
+iteration =  235   accumulator = 2409.11420896
+iteration =  236   accumulator = 2424.47650045
+iteration =  237   accumulator = 2439.87130477
+iteration =  238   accumulator = 2455.29855339
+iteration =  239   accumulator = 2470.75817823
+iteration =  240   accumulator = 2486.25011161
+iteration =  241   accumulator = 2501.77428631
+iteration =  242   accumulator = 2517.33063549
+iteration =  243   accumulator = 2532.91909276
+iteration =  244   accumulator = 2548.53959211
+iteration =  245   accumulator = 2564.19206796
+iteration =  246   accumulator = 2579.87645510
+iteration =  247   accumulator = 2595.59268874
+iteration =  248   accumulator = 2611.34070449
+iteration =  249   accumulator = 2627.12043833
+iteration =  250   accumulator = 2642.93182663
+iteration =  251   accumulator = 2658.77480615
+iteration =  252   accumulator = 2674.64931401
+iteration =  253   accumulator = 2690.55528773
+iteration =  254   accumulator = 2706.49266519
+iteration =  255   accumulator = 2722.46138461
+iteration =  256   accumulator = 2738.46138461
+iteration =  257   accumulator = 2754.49260415
+iteration =  258   accumulator = 2770.55498255
+iteration =  259   accumulator = 2786.64845949
+iteration =  260   accumulator = 2802.77297499
+iteration =  261   accumulator = 2818.92846941
+iteration =  262   accumulator = 2835.11488347
+iteration =  263   accumulator = 2851.33215821
+iteration =  264   accumulator = 2867.58023502
+iteration =  265   accumulator = 2883.85905561
+iteration =  266   accumulator = 2900.16856204
+iteration =  267   accumulator = 2916.50869668
+iteration =  268   accumulator = 2932.87940223
+iteration =  269   accumulator = 2949.28062169
+iteration =  270   accumulator = 2965.71229842
+iteration =  271   accumulator = 2982.17437605
+iteration =  272   accumulator = 2998.66679855
+iteration =  273   accumulator = 3015.18951020
+
+USR1 received at Thu Sep  3 14:34:39 EDT 2026
+Creating final checkpoint...
+Checkpoint complete.
+Requeueing job 15135...
+============================================================
+DMTCP automatic checkpoint/restart
+============================================================
+Job ID        : 15135
+Restart count : 4
+Node          : holy7c26506.rc.fas.harvard.edu
+Time          : Thu Sep  3 14:37:08 EDT 2026
+============================================================
+Restarting DMTCP computation.
+iteration =  246   accumulator = 2579.87645510
+iteration =  247   accumulator = 2595.59268874
+iteration =  248   accumulator = 2611.34070449
+iteration =  249   accumulator = 2627.12043833
+iteration =  250   accumulator = 2642.93182663
+iteration =  251   accumulator = 2658.77480615
+iteration =  252   accumulator = 2674.64931401
+iteration =  253   accumulator = 2690.55528773
+iteration =  254   accumulator = 2706.49266519
+iteration =  255   accumulator = 2722.46138461
+iteration =  256   accumulator = 2738.46138461
+iteration =  257   accumulator = 2754.49260415
+iteration =  258   accumulator = 2770.55498255
+iteration =  259   accumulator = 2786.64845949
+iteration =  260   accumulator = 2802.77297499
+iteration =  261   accumulator = 2818.92846941
+iteration =  262   accumulator = 2835.11488347
+iteration =  263   accumulator = 2851.33215821
+iteration =  264   accumulator = 2867.58023502
+iteration =  265   accumulator = 2883.85905561
+iteration =  266   accumulator = 2900.16856204
+iteration =  267   accumulator = 2916.50869668
+iteration =  268   accumulator = 2932.87940223
+iteration =  269   accumulator = 2949.28062169
+iteration =  270   accumulator = 2965.71229842
+iteration =  271   accumulator = 2982.17437605
+iteration =  272   accumulator = 2998.66679855
+iteration =  273   accumulator = 3015.18951020
+iteration =  274   accumulator = 3031.74245555
+iteration =  275   accumulator = 3048.32557950
+iteration =  276   accumulator = 3064.93882723
+iteration =  277   accumulator = 3081.58214421
+iteration =  278   accumulator = 3098.25547621
+iteration =  279   accumulator = 3114.95876930
+iteration =  280   accumulator = 3131.69196983
+iteration =  281   accumulator = 3148.45502444
+iteration =  282   accumulator = 3165.24788006
+iteration =  283   accumulator = 3182.07048391
+iteration =  284   accumulator = 3198.92278345
+iteration =  285   accumulator = 3215.80472647
+iteration =  286   accumulator = 3232.71626099
+iteration =  287   accumulator = 3249.65733534
+iteration =  288   accumulator = 3266.62789809
+iteration =  289   accumulator = 3283.62789809
+iteration =  290   accumulator = 3300.65728445
+iteration =  291   accumulator = 3317.71600656
+iteration =  292   accumulator = 3334.80401405
+iteration =  293   accumulator = 3351.92125682
+iteration =  294   accumulator = 3369.06768502
+iteration =  295   accumulator = 3386.24324906
+iteration =  296   accumulator = 3403.44789959
+iteration =  297   accumulator = 3420.68158753
+iteration =  298   accumulator = 3437.94426403
+iteration =  299   accumulator = 3455.23588050
+iteration =  300   accumulator = 3472.55638858
+iteration =  301   accumulator = 3489.90574015
+iteration =  302   accumulator = 3507.28388735
+iteration =  303   accumulator = 3524.69078253
+iteration =  304   accumulator = 3542.12637831
+iteration =  305   accumulator = 3559.59062750
+iteration =  306   accumulator = 3577.08348319
+iteration =  307   accumulator = 3594.60489866
+iteration =  308   accumulator = 3612.15482743
+iteration =  309   accumulator = 3629.73322326
+iteration =  310   accumulator = 3647.34004012
+iteration =  311   accumulator = 3664.97523221
+iteration =  312   accumulator = 3682.63875394
+iteration =  313   accumulator = 3700.33055996
+iteration =  314   accumulator = 3718.05060510
+iteration =  315   accumulator = 3735.79884445
+iteration =  316   accumulator = 3753.57523329
+iteration =  317   accumulator = 3771.37972710
+iteration =  318   accumulator = 3789.21228160
+iteration =  319   accumulator = 3807.07285270
+iteration =  320   accumulator = 3824.96139652
+iteration =  321   accumulator = 3842.87786939
+iteration =  322   accumulator = 3860.82222783
+iteration =  323   accumulator = 3878.79442859
+iteration =  324   accumulator = 3896.79442859
+iteration =  325   accumulator = 3914.82218497
+iteration =  326   accumulator = 3932.87765505
+iteration =  327   accumulator = 3950.96079637
+iteration =  328   accumulator = 3969.07156665
+iteration =  329   accumulator = 3987.20992380
+iteration =  330   accumulator = 4005.37582592
+iteration =  331   accumulator = 4023.56923132
+iteration =  332   accumulator = 4041.79009848
+iteration =  333   accumulator = 4060.03838607
+iteration =  334   accumulator = 4078.31405295
+
+USR1 received at Thu Sep  3 14:38:39 EDT 2026
+Creating final checkpoint...
+Checkpoint complete.
+Requeueing job 15135...
+============================================================
+DMTCP automatic checkpoint/restart
+============================================================
+Job ID        : 15135
+Restart count : 5
+Node          : holy7c26506.rc.fas.harvard.edu
+Time          : Thu Sep  3 14:41:08 EDT 2026
+============================================================
+Restarting DMTCP computation.
+iteration =  307   accumulator = 3594.60489866
+iteration =  308   accumulator = 3612.15482743
+iteration =  309   accumulator = 3629.73322326
+iteration =  310   accumulator = 3647.34004012
+iteration =  311   accumulator = 3664.97523221
+iteration =  312   accumulator = 3682.63875394
+iteration =  313   accumulator = 3700.33055996
+iteration =  314   accumulator = 3718.05060510
+iteration =  315   accumulator = 3735.79884445
+iteration =  316   accumulator = 3753.57523329
+iteration =  317   accumulator = 3771.37972710
+iteration =  318   accumulator = 3789.21228160
+iteration =  319   accumulator = 3807.07285270
+iteration =  320   accumulator = 3824.96139652
+iteration =  321   accumulator = 3842.87786939
+iteration =  322   accumulator = 3860.82222783
+iteration =  323   accumulator = 3878.79442859
+iteration =  324   accumulator = 3896.79442859
+iteration =  325   accumulator = 3914.82218497
+iteration =  326   accumulator = 3932.87765505
+iteration =  327   accumulator = 3950.96079637
+iteration =  328   accumulator = 3969.07156665
+iteration =  329   accumulator = 3987.20992380
+iteration =  330   accumulator = 4005.37582592
+iteration =  331   accumulator = 4023.56923132
+iteration =  332   accumulator = 4041.79009848
+iteration =  333   accumulator = 4060.03838607
+iteration =  334   accumulator = 4078.31405295
+iteration =  335   accumulator = 4096.61705817
+iteration =  336   accumulator = 4114.94736095
+iteration =  337   accumulator = 4133.30492070
+iteration =  338   accumulator = 4151.68969701
+iteration =  339   accumulator = 4170.10164965
+iteration =  340   accumulator = 4188.54073856
+iteration =  341   accumulator = 4207.00692388
+iteration =  342   accumulator = 4225.50016589
+iteration =  343   accumulator = 4244.02042506
+iteration =  344   accumulator = 4262.56766205
+iteration =  345   accumulator = 4281.14183767
+iteration =  346   accumulator = 4299.74291291
+iteration =  347   accumulator = 4318.37084892
+iteration =  348   accumulator = 4337.02560703
+iteration =  349   accumulator = 4355.70714872
+iteration =  350   accumulator = 4374.41543566
+iteration =  351   accumulator = 4393.15042965
+iteration =  352   accumulator = 4411.91209269
+iteration =  353   accumulator = 4430.70038692
+iteration =  354   accumulator = 4449.51527464
+iteration =  355   accumulator = 4468.35671832
+iteration =  356   accumulator = 4487.22468059
+iteration =  357   accumulator = 4506.11912421
+iteration =  358   accumulator = 4525.04001214
+iteration =  359   accumulator = 4543.98730746
+iteration =  360   accumulator = 4562.96097342
+iteration =  361   accumulator = 4581.96097342
+iteration =  362   accumulator = 4600.98727101
+iteration =  363   accumulator = 4620.03982990
+iteration =  364   accumulator = 4639.11861393
+iteration =  365   accumulator = 4658.22358710
+iteration =  366   accumulator = 4677.35471357
+iteration =  367   accumulator = 4696.51195763
+iteration =  368   accumulator = 4715.69528372
+iteration =  369   accumulator = 4734.90465644
+iteration =  370   accumulator = 4754.14004050
+iteration =  371   accumulator = 4773.40140078
+iteration =  372   accumulator = 4792.68870230
+iteration =  373   accumulator = 4812.00191022
+iteration =  374   accumulator = 4831.34098983
+iteration =  375   accumulator = 4850.70590656
+iteration =  376   accumulator = 4870.09662599
+iteration =  377   accumulator = 4889.51311383
+iteration =  378   accumulator = 4908.95533592
+iteration =  379   accumulator = 4928.42325825
+iteration =  380   accumulator = 4947.91684694
+iteration =  381   accumulator = 4967.43606824
+iteration =  382   accumulator = 4986.98088853
+iteration =  383   accumulator = 5006.55127432
+iteration =  384   accumulator = 5026.14719226
+iteration =  385   accumulator = 5045.76860913
+iteration =  386   accumulator = 5065.41549183
+iteration =  387   accumulator = 5085.08780741
+iteration =  388   accumulator = 5104.78552301
+iteration =  389   accumulator = 5124.50860593
+iteration =  390   accumulator = 5144.25702359
+iteration =  391   accumulator = 5164.03074353
+iteration =  392   accumulator = 5183.82973340
+iteration =  393   accumulator = 5203.65396100
+iteration =  394   accumulator = 5223.50339424
+
+USR1 received at Thu Sep  3 14:42:39 EDT 2026
+Creating final checkpoint...
+Checkpoint complete.
+Requeueing job 15135...
+============================================================
+DMTCP automatic checkpoint/restart
+============================================================
+Job ID        : 15135
+Restart count : 6
+Node          : holy7c26506.rc.fas.harvard.edu
+Time          : Thu Sep  3 14:45:08 EDT 2026
+============================================================
+Restarting DMTCP computation.
+iteration =  368   accumulator = 4715.69528372
+iteration =  369   accumulator = 4734.90465644
+iteration =  370   accumulator = 4754.14004050
+iteration =  371   accumulator = 4773.40140078
+iteration =  372   accumulator = 4792.68870230
+iteration =  373   accumulator = 4812.00191022
+iteration =  374   accumulator = 4831.34098983
+iteration =  375   accumulator = 4850.70590656
+iteration =  376   accumulator = 4870.09662599
+iteration =  377   accumulator = 4889.51311383
+iteration =  378   accumulator = 4908.95533592
+iteration =  379   accumulator = 4928.42325825
+iteration =  380   accumulator = 4947.91684694
+iteration =  381   accumulator = 4967.43606824
+iteration =  382   accumulator = 4986.98088853
+iteration =  383   accumulator = 5006.55127432
+iteration =  384   accumulator = 5026.14719226
+iteration =  385   accumulator = 5045.76860913
+iteration =  386   accumulator = 5065.41549183
+iteration =  387   accumulator = 5085.08780741
+iteration =  388   accumulator = 5104.78552301
+iteration =  389   accumulator = 5124.50860593
+iteration =  390   accumulator = 5144.25702359
+iteration =  391   accumulator = 5164.03074353
+iteration =  392   accumulator = 5183.82973340
+iteration =  393   accumulator = 5203.65396100
+iteration =  394   accumulator = 5223.50339424
+iteration =  395   accumulator = 5243.37800116
+iteration =  396   accumulator = 5263.27774990
+iteration =  397   accumulator = 5283.20260874
+iteration =  398   accumulator = 5303.15254609
+iteration =  399   accumulator = 5323.12753044
+iteration =  400   accumulator = 5343.12753044
+iteration =  401   accumulator = 5363.15251484
+iteration =  402   accumulator = 5383.20245249
+iteration =  403   accumulator = 5403.27731239
+iteration =  404   accumulator = 5423.37706363
+iteration =  405   accumulator = 5443.50167543
+iteration =  406   accumulator = 5463.65111711
+iteration =  407   accumulator = 5483.82535811
+iteration =  408   accumulator = 5504.02436799
+iteration =  409   accumulator = 5524.24811641
+iteration =  410   accumulator = 5544.49657314
+iteration =  411   accumulator = 5564.76970807
+iteration =  412   accumulator = 5585.06749120
+iteration =  413   accumulator = 5605.38989263
+iteration =  414   accumulator = 5625.73688258
+iteration =  415   accumulator = 5646.10843137
+iteration =  416   accumulator = 5666.50450942
+iteration =  417   accumulator = 5686.92508728
+iteration =  418   accumulator = 5707.37013558
+iteration =  419   accumulator = 5727.83962507
+iteration =  420   accumulator = 5748.33352660
+iteration =  421   accumulator = 5768.85181113
+iteration =  422   accumulator = 5789.39444972
+iteration =  423   accumulator = 5809.96141352
+iteration =  424   accumulator = 5830.55267380
+iteration =  425   accumulator = 5851.16820193
+iteration =  426   accumulator = 5871.80796937
+iteration =  427   accumulator = 5892.47194769
+iteration =  428   accumulator = 5913.16010855
+iteration =  429   accumulator = 5933.87242373
+iteration =  430   accumulator = 5954.60886508
+iteration =  431   accumulator = 5975.36940458
+iteration =  432   accumulator = 5996.15401427
+iteration =  433   accumulator = 6016.96266631
+iteration =  434   accumulator = 6037.79533297
+iteration =  435   accumulator = 6058.65198658
+iteration =  436   accumulator = 6079.53259960
+iteration =  437   accumulator = 6100.43714456
+iteration =  438   accumulator = 6121.36559410
+iteration =  439   accumulator = 6142.31792094
+iteration =  440   accumulator = 6163.29409790
+iteration =  441   accumulator = 6184.29409790
+iteration =  442   accumulator = 6205.31789394
+iteration =  443   accumulator = 6226.36545912
+iteration =  444   accumulator = 6247.43676663
+iteration =  445   accumulator = 6268.53178974
+iteration =  446   accumulator = 6289.65050182
+iteration =  447   accumulator = 6310.79287633
+iteration =  448   accumulator = 6331.95888682
+iteration =  449   accumulator = 6353.14850692
+iteration =  450   accumulator = 6374.36171036
+iteration =  451   accumulator = 6395.59847094
+iteration =  452   accumulator = 6416.85876256
+iteration =  453   accumulator = 6438.14255922
+iteration =  454   accumulator = 6459.44983497
+iteration =  455   accumulator = 6480.78056398
+iteration =  456   accumulator = 6502.13472048
+
+USR1 received at Thu Sep  3 14:46:39 EDT 2026
+Creating final checkpoint...
+Checkpoint complete.
+Requeueing job 15135...
+============================================================
+DMTCP automatic checkpoint/restart
+============================================================
+Job ID        : 15135
+Restart count : 7
+Node          : holy7c26506.rc.fas.harvard.edu
+Time          : Thu Sep  3 14:49:08 EDT 2026
+============================================================
+Restarting DMTCP computation.
+iteration =  429   accumulator = 5933.87242373
+iteration =  430   accumulator = 5954.60886508
+iteration =  431   accumulator = 5975.36940458
+iteration =  432   accumulator = 5996.15401427
+iteration =  433   accumulator = 6016.96266631
+iteration =  434   accumulator = 6037.79533297
+iteration =  435   accumulator = 6058.65198658
+iteration =  436   accumulator = 6079.53259960
+iteration =  437   accumulator = 6100.43714456
+iteration =  438   accumulator = 6121.36559410
+iteration =  439   accumulator = 6142.31792094
+iteration =  440   accumulator = 6163.29409790
+iteration =  441   accumulator = 6184.29409790
+iteration =  442   accumulator = 6205.31789394
+iteration =  443   accumulator = 6226.36545912
+iteration =  444   accumulator = 6247.43676663
+iteration =  445   accumulator = 6268.53178974
+iteration =  446   accumulator = 6289.65050182
+iteration =  447   accumulator = 6310.79287633
+iteration =  448   accumulator = 6331.95888682
+iteration =  449   accumulator = 6353.14850692
+iteration =  450   accumulator = 6374.36171036
+iteration =  451   accumulator = 6395.59847094
+iteration =  452   accumulator = 6416.85876256
+iteration =  453   accumulator = 6438.14255922
+iteration =  454   accumulator = 6459.44983497
+iteration =  455   accumulator = 6480.78056398
+iteration =  456   accumulator = 6502.13472048
+iteration =  457   accumulator = 6523.51227881
+iteration =  458   accumulator = 6544.91321337
+iteration =  459   accumulator = 6566.33749865
+iteration =  460   accumulator = 6587.78510924
+iteration =  461   accumulator = 6609.25601980
+iteration =  462   accumulator = 6630.75020506
+iteration =  463   accumulator = 6652.26763985
+iteration =  464   accumulator = 6673.80829908
+iteration =  465   accumulator = 6695.37215773
+iteration =  466   accumulator = 6716.95919087
+iteration =  467   accumulator = 6738.56937366
+iteration =  468   accumulator = 6760.20268131
+iteration =  469   accumulator = 6781.85908914
+iteration =  470   accumulator = 6803.53857253
+iteration =  471   accumulator = 6825.24110694
+iteration =  472   accumulator = 6846.96666793
+iteration =  473   accumulator = 6868.71523110
+iteration =  474   accumulator = 6890.48677215
+iteration =  475   accumulator = 6912.28126687
+iteration =  476   accumulator = 6934.09869110
+iteration =  477   accumulator = 6955.93902077
+iteration =  478   accumulator = 6977.80223188
+iteration =  479   accumulator = 6999.68830051
+iteration =  480   accumulator = 7021.59720281
+iteration =  481   accumulator = 7043.52891501
+iteration =  482   accumulator = 7065.48341341
+iteration =  483   accumulator = 7087.46067438
+iteration =  484   accumulator = 7109.46067438
+iteration =  485   accumulator = 7131.48338993
+iteration =  486   accumulator = 7153.52879761
+iteration =  487   accumulator = 7175.59687410
+iteration =  488   accumulator = 7197.68759614
+iteration =  489   accumulator = 7219.80094052
+iteration =  490   accumulator = 7241.93688415
+iteration =  491   accumulator = 7264.09540395
+iteration =  492   accumulator = 7286.27647696
+iteration =  493   accumulator = 7308.48008028
+iteration =  494   accumulator = 7330.70619105
+iteration =  495   accumulator = 7352.95478651
+iteration =  496   accumulator = 7375.22584396
+iteration =  497   accumulator = 7397.51934077
+iteration =  498   accumulator = 7419.83525437
+iteration =  499   accumulator = 7442.17356228
+iteration =  500   accumulator = 7464.53424205
+iteration =  501   accumulator = 7486.91727134
+iteration =  502   accumulator = 7509.32262784
+iteration =  503   accumulator = 7531.75028933
+iteration =  504   accumulator = 7554.20023365
+iteration =  505   accumulator = 7576.67243871
+iteration =  506   accumulator = 7599.16688247
+iteration =  507   accumulator = 7621.68354296
+iteration =  508   accumulator = 7644.22239830
+iteration =  509   accumulator = 7666.78342665
+iteration =  510   accumulator = 7689.36660623
+iteration =  511   accumulator = 7711.97191534
+iteration =  512   accumulator = 7734.59933234
+iteration =  513   accumulator = 7757.24883564
+iteration =  514   accumulator = 7779.92040374
+iteration =  515   accumulator = 7802.61401518
+iteration =  516   accumulator = 7825.32964856
+iteration =  517   accumulator = 7848.06728256
+
+USR1 received at Thu Sep  3 14:50:39 EDT 2026
+Creating final checkpoint...
+Checkpoint complete.
+Requeueing job 15135...
+============================================================
+DMTCP automatic checkpoint/restart
+============================================================
+Job ID        : 15135
+Restart count : 8
+Node          : holy7c26506.rc.fas.harvard.edu
+Time          : Thu Sep  3 14:53:08 EDT 2026
+============================================================
+Restarting DMTCP computation.
+iteration =  490   accumulator = 7241.93688415
+iteration =  491   accumulator = 7264.09540395
+iteration =  492   accumulator = 7286.27647696
+iteration =  493   accumulator = 7308.48008028
+iteration =  494   accumulator = 7330.70619105
+iteration =  495   accumulator = 7352.95478651
+iteration =  496   accumulator = 7375.22584396
+iteration =  497   accumulator = 7397.51934077
+iteration =  498   accumulator = 7419.83525437
+iteration =  499   accumulator = 7442.17356228
+iteration =  500   accumulator = 7464.53424205
+iteration =  501   accumulator = 7486.91727134
+iteration =  502   accumulator = 7509.32262784
+iteration =  503   accumulator = 7531.75028933
+iteration =  504   accumulator = 7554.20023365
+iteration =  505   accumulator = 7576.67243871
+iteration =  506   accumulator = 7599.16688247
+iteration =  507   accumulator = 7621.68354296
+iteration =  508   accumulator = 7644.22239830
+iteration =  509   accumulator = 7666.78342665
+iteration =  510   accumulator = 7689.36660623
+iteration =  511   accumulator = 7711.97191534
+iteration =  512   accumulator = 7734.59933234
+iteration =  513   accumulator = 7757.24883564
+iteration =  514   accumulator = 7779.92040374
+iteration =  515   accumulator = 7802.61401518
+iteration =  516   accumulator = 7825.32964856
+iteration =  517   accumulator = 7848.06728256
+iteration =  518   accumulator = 7870.82689592
+iteration =  519   accumulator = 7893.60846742
+iteration =  520   accumulator = 7916.41197592
+iteration =  521   accumulator = 7939.23740034
+iteration =  522   accumulator = 7962.08471966
+iteration =  523   accumulator = 7984.95391291
+iteration =  524   accumulator = 8007.84495919
+iteration =  525   accumulator = 8030.75783767
+iteration =  526   accumulator = 8053.69252755
+iteration =  527   accumulator = 8076.64900812
+iteration =  528   accumulator = 8099.62725870
+iteration =  529   accumulator = 8122.62725870
+iteration =  530   accumulator = 8145.64898757
+iteration =  531   accumulator = 8168.69242481
+iteration =  532   accumulator = 8191.75755000
+iteration =  533   accumulator = 8214.84434276
+iteration =  534   accumulator = 8237.95278278
+iteration =  535   accumulator = 8261.08284979
+iteration =  536   accumulator = 8284.23452360
+iteration =  537   accumulator = 8307.40778405
+iteration =  538   accumulator = 8330.60261106
+iteration =  539   accumulator = 8353.81898459
+iteration =  540   accumulator = 8377.05688467
+iteration =  541   accumulator = 8400.31629137
+iteration =  542   accumulator = 8423.59718482
+iteration =  543   accumulator = 8446.89954522
+iteration =  544   accumulator = 8470.22335280
+iteration =  545   accumulator = 8493.56858786
+iteration =  546   accumulator = 8516.93523075
+iteration =  547   accumulator = 8540.32326188
+iteration =  548   accumulator = 8563.73266170
+iteration =  549   accumulator = 8587.16341072
+iteration =  550   accumulator = 8610.61548952
+iteration =  551   accumulator = 8634.08887871
+iteration =  552   accumulator = 8657.58355896
+iteration =  553   accumulator = 8681.09951099
+iteration =  554   accumulator = 8704.63671559
+iteration =  555   accumulator = 8728.19515356
+iteration =  556   accumulator = 8751.77480581
+iteration =  557   accumulator = 8775.37565325
+iteration =  558   accumulator = 8798.99767687
+iteration =  559   accumulator = 8822.64085771
+iteration =  560   accumulator = 8846.30517684
+iteration =  561   accumulator = 8869.99061541
+iteration =  562   accumulator = 8893.69715459
+iteration =  563   accumulator = 8917.42477562
+iteration =  564   accumulator = 8941.17345980
+iteration =  565   accumulator = 8964.94318845
+iteration =  566   accumulator = 8988.73394295
+iteration =  567   accumulator = 9012.54570475
+iteration =  568   accumulator = 9036.37845533
+iteration =  569   accumulator = 9060.23217621
+iteration =  570   accumulator = 9084.10684898
+iteration =  571   accumulator = 9108.00245527
+iteration =  572   accumulator = 9131.91897676
+iteration =  573   accumulator = 9155.85639517
+iteration =  574   accumulator = 9179.81469227
+iteration =  575   accumulator = 9203.79384989
+iteration =  576   accumulator = 9227.79384989
+iteration =  577   accumulator = 9251.81467418
+iteration =  578   accumulator = 9275.85630475
+
+USR1 received at Thu Sep  3 14:54:39 EDT 2026
+Creating final checkpoint...
+Checkpoint complete.
+Requeueing job 15135...
+============================================================
+DMTCP automatic checkpoint/restart
+============================================================
+Job ID        : 15135
+Restart count : 9
+Node          : holy7c26506.rc.fas.harvard.edu
+Time          : Thu Sep  3 14:57:08 EDT 2026
+============================================================
+Restarting DMTCP computation.
+iteration =  551   accumulator = 8634.08887871
+iteration =  552   accumulator = 8657.58355896
+iteration =  553   accumulator = 8681.09951099
+iteration =  554   accumulator = 8704.63671559
+iteration =  555   accumulator = 8728.19515356
+iteration =  556   accumulator = 8751.77480581
+iteration =  557   accumulator = 8775.37565325
+iteration =  558   accumulator = 8798.99767687
+iteration =  559   accumulator = 8822.64085771
+iteration =  560   accumulator = 8846.30517684
+iteration =  561   accumulator = 8869.99061541
+iteration =  562   accumulator = 8893.69715459
+iteration =  563   accumulator = 8917.42477562
+iteration =  564   accumulator = 8941.17345980
+iteration =  565   accumulator = 8964.94318845
+iteration =  566   accumulator = 8988.73394295
+iteration =  567   accumulator = 9012.54570475
+iteration =  568   accumulator = 9036.37845533
+iteration =  569   accumulator = 9060.23217621
+iteration =  570   accumulator = 9084.10684898
+iteration =  571   accumulator = 9108.00245527
+iteration =  572   accumulator = 9131.91897676
+iteration =  573   accumulator = 9155.85639517
+iteration =  574   accumulator = 9179.81469227
+iteration =  575   accumulator = 9203.79384989
+iteration =  576   accumulator = 9227.79384989
+iteration =  577   accumulator = 9251.81467418
+iteration =  578   accumulator = 9275.85630475
+iteration =  579   accumulator = 9299.91872358
+iteration =  580   accumulator = 9324.00191273
+iteration =  581   accumulator = 9348.10585432
+iteration =  582   accumulator = 9372.23053048
+iteration =  583   accumulator = 9396.37592342
+iteration =  584   accumulator = 9420.54201537
+iteration =  585   accumulator = 9444.72878861
+iteration =  586   accumulator = 9468.93622549
+iteration =  587   accumulator = 9493.16430836
+iteration =  588   accumulator = 9517.41301967
+iteration =  589   accumulator = 9541.68234187
+iteration =  590   accumulator = 9565.97225747
+iteration =  591   accumulator = 9590.28274903
+iteration =  592   accumulator = 9614.61379916
+iteration =  593   accumulator = 9638.96539048
+iteration =  594   accumulator = 9663.33750569
+iteration =  595   accumulator = 9687.73012753
+iteration =  596   accumulator = 9712.14323876
+iteration =  597   accumulator = 9736.57682221
+iteration =  598   accumulator = 9761.03086073
+iteration =  599   accumulator = 9785.50533723
+iteration =  600   accumulator = 9810.00023466
+============================================================
+Calculation complete
+Final iteration   : 600
+Final accumulator : 9810.00023466
+============================================================
+
+Application finished with status 0.
+End: Thu Sep  3 14:57:59 EDT 2026
