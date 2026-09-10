@@ -1,0 +1,309 @@
+============================================================
+MANA automatic checkpoint/restart
+============================================================
+Job ID        : 15250
+Restart count : 0
+Node          : holy7c26401.rc.fas.harvard.edu
+Start         : Wed Sep  9 23:10:42 EDT 2026
+============================================================
+First execution: starting a new MPI calculation.
+*** Coordinator/job information written to /n/home06/pkrastev/.mana-slurm-15250.rc
+============================================================
+MPI Monte Carlo Pi
+============================================================
+MPI ranks          : 4
+Total darts        : 3000000000
+Base seed          : 12345
+Report every       : 5000000 local darts
+Sleep after report : 1000 ms
+============================================================
+Progress:   0.67%  darts=20000000  pi=3.1416424000  error=+4.975e-05  elapsed=0.03 s
+Progress:   1.33%  darts=40000000  pi=3.1413395000  error=-2.532e-04  elapsed=1.05 s
+Progress:   2.00%  darts=60000000  pi=3.1413490000  error=-2.437e-04  elapsed=2.08 s
+Progress:   2.67%  darts=80000000  pi=3.1414128500  error=-1.798e-04  elapsed=3.10 s
+Progress:   3.33%  darts=100000000  pi=3.1414525200  error=-1.401e-04  elapsed=4.13 s
+Progress:   4.00%  darts=120000000  pi=3.1415419667  error=-5.069e-05  elapsed=5.16 s
+Progress:   4.67%  darts=140000000  pi=3.1415732857  error=-1.937e-05  elapsed=6.18 s
+Progress:   5.33%  darts=160000000  pi=3.1415585250  error=-3.413e-05  elapsed=7.21 s
+Progress:   6.00%  darts=180000000  pi=3.1415993778  error=+6.724e-06  elapsed=8.24 s
+Progress:   6.67%  darts=200000000  pi=3.1416564400  error=+6.379e-05  elapsed=9.26 s
+Progress:   7.33%  darts=220000000  pi=3.1415964909  error=+3.837e-06  elapsed=10.29 s
+Progress:   8.00%  darts=240000000  pi=3.1416401500  error=+4.750e-05  elapsed=11.31 s
+Progress:   8.67%  darts=260000000  pi=3.1416156923  error=+2.304e-05  elapsed=12.34 s
+Progress:   9.33%  darts=280000000  pi=3.1416204429  error=+2.779e-05  elapsed=13.37 s
+Progress:  10.00%  darts=300000000  pi=3.1416058000  error=+1.315e-05  elapsed=14.39 s
+Progress:  10.67%  darts=320000000  pi=3.1416087250  error=+1.607e-05  elapsed=15.42 s
+Progress:  11.33%  darts=340000000  pi=3.1415853765  error=-7.277e-06  elapsed=16.44 s
+Progress:  12.00%  darts=360000000  pi=3.1415809444  error=-1.171e-05  elapsed=17.47 s
+Progress:  12.67%  darts=380000000  pi=3.1415722421  error=-2.041e-05  elapsed=18.50 s
+Progress:  13.33%  darts=400000000  pi=3.1415842000  error=-8.454e-06  elapsed=19.52 s
+Progress:  14.00%  darts=420000000  pi=3.1415783714  error=-1.428e-05  elapsed=20.55 s
+Progress:  14.67%  darts=440000000  pi=3.1415728455  error=-1.981e-05  elapsed=21.57 s
+Progress:  15.33%  darts=460000000  pi=3.1415538435  error=-3.881e-05  elapsed=22.60 s
+Progress:  16.00%  darts=480000000  pi=3.1415621000  error=-3.055e-05  elapsed=23.63 s
+Progress:  16.67%  darts=500000000  pi=3.1415656960  error=-2.696e-05  elapsed=24.65 s
+Progress:  17.33%  darts=520000000  pi=3.1415413692  error=-5.128e-05  elapsed=25.68 s
+Progress:  18.00%  darts=540000000  pi=3.1415339704  error=-5.868e-05  elapsed=26.71 s
+Progress:  18.67%  darts=560000000  pi=3.1415138071  error=-7.885e-05  elapsed=27.73 s
+Progress:  19.33%  darts=580000000  pi=3.1415021034  error=-9.055e-05  elapsed=28.76 s
+Progress:  20.00%  darts=600000000  pi=3.1414939000  error=-9.875e-05  elapsed=29.78 s
+Progress:  20.67%  darts=620000000  pi=3.1414932968  error=-9.936e-05  elapsed=30.81 s
+Progress:  21.33%  darts=640000000  pi=3.1414972188  error=-9.543e-05  elapsed=31.84 s
+Progress:  22.00%  darts=660000000  pi=3.1414931515  error=-9.950e-05  elapsed=32.86 s
+Progress:  22.67%  darts=680000000  pi=3.1414715059  error=-1.211e-04  elapsed=33.89 s
+Progress:  23.33%  darts=700000000  pi=3.1414812914  error=-1.114e-04  elapsed=34.91 s
+Progress:  24.00%  darts=720000000  pi=3.1414739000  error=-1.188e-04  elapsed=35.94 s
+Progress:  24.67%  darts=740000000  pi=3.1414692108  error=-1.234e-04  elapsed=36.97 s
+Progress:  25.33%  darts=760000000  pi=3.1414656789  error=-1.270e-04  elapsed=37.99 s
+Progress:  26.00%  darts=780000000  pi=3.1414624718  error=-1.302e-04  elapsed=39.02 s
+Progress:  26.67%  darts=800000000  pi=3.1414546750  error=-1.380e-04  elapsed=40.05 s
+Progress:  27.33%  darts=820000000  pi=3.1414575366  error=-1.351e-04  elapsed=41.07 s
+Progress:  28.00%  darts=840000000  pi=3.1414618143  error=-1.308e-04  elapsed=42.10 s
+Progress:  28.67%  darts=860000000  pi=3.1414658326  error=-1.268e-04  elapsed=43.12 s
+Progress:  29.33%  darts=880000000  pi=3.1414737045  error=-1.189e-04  elapsed=44.15 s
+Progress:  30.00%  darts=900000000  pi=3.1414853378  error=-1.073e-04  elapsed=45.18 s
+Progress:  30.67%  darts=920000000  pi=3.1415016652  error=-9.099e-05  elapsed=46.20 s
+Progress:  31.33%  darts=940000000  pi=3.1415045064  error=-8.815e-05  elapsed=47.23 s
+Progress:  32.00%  darts=960000000  pi=3.1415070125  error=-8.564e-05  elapsed=48.25 s
+Progress:  32.67%  darts=980000000  pi=3.1415048286  error=-8.783e-05  elapsed=49.28 s
+Progress:  33.33%  darts=1000000000  pi=3.1415067680  error=-8.589e-05  elapsed=50.31 s
+Progress:  34.00%  darts=1020000000  pi=3.1415095922  error=-8.306e-05  elapsed=51.33 s
+Progress:  34.67%  darts=1040000000  pi=3.1415256154  error=-6.704e-05  elapsed=52.36 s
+Progress:  35.33%  darts=1060000000  pi=3.1415226792  error=-6.997e-05  elapsed=53.38 s
+Progress:  36.00%  darts=1080000000  pi=3.1415294222  error=-6.323e-05  elapsed=54.41 s
+Progress:  36.67%  darts=1100000000  pi=3.1415411418  error=-5.151e-05  elapsed=55.44 s
+Progress:  37.33%  darts=1120000000  pi=3.1415350429  error=-5.761e-05  elapsed=56.46 s
+Progress:  38.00%  darts=1140000000  pi=3.1415541719  error=-3.848e-05  elapsed=57.49 s
+Progress:  38.67%  darts=1160000000  pi=3.1415529379  error=-3.972e-05  elapsed=58.51 s
+Progress:  39.33%  darts=1180000000  pi=3.1415640441  error=-2.861e-05  elapsed=59.54 s
+Progress:  40.00%  darts=1200000000  pi=3.1415618500  error=-3.080e-05  elapsed=60.57 s
+Progress:  40.67%  darts=1220000000  pi=3.1415579508  error=-3.470e-05  elapsed=65.14 s
+Progress:  41.33%  darts=1240000000  pi=3.1415572903  error=-3.536e-05  elapsed=66.16 s
+Progress:  42.00%  darts=1260000000  pi=3.1415560127  error=-3.664e-05  elapsed=67.19 s
+Progress:  42.67%  darts=1280000000  pi=3.1415633344  error=-2.932e-05  elapsed=68.21 s
+Progress:  43.33%  darts=1300000000  pi=3.1415725692  error=-2.008e-05  elapsed=69.24 s
+Progress:  44.00%  darts=1320000000  pi=3.1415790939  error=-1.356e-05  elapsed=70.27 s
+Progress:  44.67%  darts=1340000000  pi=3.1415729463  error=-1.971e-05  elapsed=71.29 s
+Progress:  45.33%  darts=1360000000  pi=3.1415829618  error=-9.692e-06  elapsed=72.32 s
+Progress:  46.00%  darts=1380000000  pi=3.1415849130  error=-7.741e-06  elapsed=73.35 s
+Progress:  46.67%  darts=1400000000  pi=3.1415875714  error=-5.082e-06  elapsed=74.37 s
+Progress:  47.33%  darts=1420000000  pi=3.1416002930  error=+7.639e-06  elapsed=75.40 s
+Progress:  48.00%  darts=1440000000  pi=3.1416031500  error=+1.050e-05  elapsed=76.42 s
+
+Progress:  48.67%  darts=1460000000  pi=3.1416158055  error=+2.315e-05  elapsed=77.45 s
+USR1 received at Wed Sep  9 23:12:01 EDT 2026
+Requesting a final MANA checkpoint...
+Checkpoint completed at Wed Sep  9 23:12:01 EDT 2026
+Requeueing Slurm job 15250...
+============================================================
+MANA automatic checkpoint/restart
+============================================================
+Job ID        : 15250
+Restart count : 1
+Node          : holy7c26401.rc.fas.harvard.edu
+Start         : Wed Sep  9 23:14:31 EDT 2026
+============================================================
+Requeued execution: restarting from the latest MANA checkpoint.
+*** Coordinator/job information written to /n/home06/pkrastev/.mana-slurm-15250.rc
+Progress:  40.67%  darts=1220000000  pi=3.1415579508  error=-3.470e-05  elapsed=230.84 s
+Progress:  41.33%  darts=1240000000  pi=3.1415572903  error=-3.536e-05  elapsed=231.87 s
+Progress:  42.00%  darts=1260000000  pi=3.1415560127  error=-3.664e-05  elapsed=232.90 s
+Progress:  42.67%  darts=1280000000  pi=3.1415633344  error=-2.932e-05  elapsed=233.92 s
+Progress:  43.33%  darts=1300000000  pi=3.1415725692  error=-2.008e-05  elapsed=234.95 s
+Progress:  44.00%  darts=1320000000  pi=3.1415790939  error=-1.356e-05  elapsed=235.97 s
+Progress:  44.67%  darts=1340000000  pi=3.1415729463  error=-1.971e-05  elapsed=237.00 s
+Progress:  45.33%  darts=1360000000  pi=3.1415829618  error=-9.692e-06  elapsed=238.03 s
+Progress:  46.00%  darts=1380000000  pi=3.1415849130  error=-7.741e-06  elapsed=239.05 s
+Progress:  46.67%  darts=1400000000  pi=3.1415875714  error=-5.082e-06  elapsed=240.08 s
+Progress:  47.33%  darts=1420000000  pi=3.1416002930  error=+7.639e-06  elapsed=241.10 s
+Progress:  48.00%  darts=1440000000  pi=3.1416031500  error=+1.050e-05  elapsed=242.13 s
+Progress:  48.67%  darts=1460000000  pi=3.1416158055  error=+2.315e-05  elapsed=243.16 s
+Progress:  49.33%  darts=1480000000  pi=3.1416002838  error=+7.630e-06  elapsed=244.18 s
+Progress:  50.00%  darts=1500000000  pi=3.1415999680  error=+7.314e-06  elapsed=245.21 s
+Progress:  50.67%  darts=1520000000  pi=3.1415980605  error=+5.407e-06  elapsed=246.24 s
+Progress:  51.33%  darts=1540000000  pi=3.1415946234  error=+1.970e-06  elapsed=247.26 s
+Progress:  52.00%  darts=1560000000  pi=3.1416007513  error=+8.098e-06  elapsed=248.29 s
+Progress:  52.67%  darts=1580000000  pi=3.1415901975  error=-2.456e-06  elapsed=249.31 s
+Progress:  53.33%  darts=1600000000  pi=3.1415863950  error=-6.259e-06  elapsed=250.34 s
+Progress:  54.00%  darts=1620000000  pi=3.1415890617  error=-3.592e-06  elapsed=251.37 s
+Progress:  54.67%  darts=1640000000  pi=3.1415946610  error=+2.007e-06  elapsed=252.39 s
+Progress:  55.33%  darts=1660000000  pi=3.1415954964  error=+2.843e-06  elapsed=253.42 s
+Progress:  56.00%  darts=1680000000  pi=3.1415983976  error=+5.744e-06  elapsed=254.44 s
+Progress:  56.67%  darts=1700000000  pi=3.1416039482  error=+1.129e-05  elapsed=255.47 s
+Progress:  57.33%  darts=1720000000  pi=3.1416066698  error=+1.402e-05  elapsed=256.50 s
+Progress:  58.00%  darts=1740000000  pi=3.1416089494  error=+1.630e-05  elapsed=257.52 s
+Progress:  58.67%  darts=1760000000  pi=3.1416083432  error=+1.569e-05  elapsed=258.55 s
+Progress:  59.33%  darts=1780000000  pi=3.1416064202  error=+1.377e-05  elapsed=259.58 s
+Progress:  60.00%  darts=1800000000  pi=3.1416010400  error=+8.386e-06  elapsed=260.60 s
+Progress:  60.67%  darts=1820000000  pi=3.1415998330  error=+7.179e-06  elapsed=261.63 s
+Progress:  61.33%  darts=1840000000  pi=3.1415995978  error=+6.944e-06  elapsed=262.65 s
+Progress:  62.00%  darts=1860000000  pi=3.1415971935  error=+4.540e-06  elapsed=263.68 s
+Progress:  62.67%  darts=1880000000  pi=3.1415948298  error=+2.176e-06  elapsed=264.71 s
+Progress:  63.33%  darts=1900000000  pi=3.1416047789  error=+1.213e-05  elapsed=265.73 s
+Progress:  64.00%  darts=1920000000  pi=3.1416034917  error=+1.084e-05  elapsed=266.76 s
+Progress:  64.67%  darts=1940000000  pi=3.1416068660  error=+1.421e-05  elapsed=267.78 s
+Progress:  65.33%  darts=1960000000  pi=3.1416080061  error=+1.535e-05  elapsed=268.81 s
+Progress:  66.00%  darts=1980000000  pi=3.1416089859  error=+1.633e-05  elapsed=269.84 s
+Progress:  66.67%  darts=2000000000  pi=3.1416089360  error=+1.628e-05  elapsed=270.86 s
+Progress:  67.33%  darts=2020000000  pi=3.1416039050  error=+1.125e-05  elapsed=271.89 s
+Progress:  68.00%  darts=2040000000  pi=3.1416002098  error=+7.556e-06  elapsed=272.91 s
+Progress:  68.67%  darts=2060000000  pi=3.1416010699  error=+8.416e-06  elapsed=273.94 s
+Progress:  69.33%  darts=2080000000  pi=3.1415959731  error=+3.319e-06  elapsed=274.97 s
+Progress:  70.00%  darts=2100000000  pi=3.1415957219  error=+3.068e-06  elapsed=275.99 s
+Progress:  70.67%  darts=2120000000  pi=3.1415894642  error=-3.189e-06  elapsed=277.02 s
+Progress:  71.33%  darts=2140000000  pi=3.1415880131  error=-4.641e-06  elapsed=278.05 s
+Progress:  72.00%  darts=2160000000  pi=3.1415858574  error=-6.796e-06  elapsed=279.07 s
+Progress:  72.67%  darts=2180000000  pi=3.1415838073  error=-8.846e-06  elapsed=280.10 s
+Progress:  73.33%  darts=2200000000  pi=3.1415845127  error=-8.141e-06  elapsed=281.12 s
+Progress:  74.00%  darts=2220000000  pi=3.1415891387  error=-3.515e-06  elapsed=282.15 s
+Progress:  74.67%  darts=2240000000  pi=3.1415874607  error=-5.193e-06  elapsed=283.18 s
+Progress:  75.33%  darts=2260000000  pi=3.1415901770  error=-2.477e-06  elapsed=284.20 s
+Progress:  76.00%  darts=2280000000  pi=3.1415946719  error=+2.018e-06  elapsed=285.23 s
+Progress:  76.67%  darts=2300000000  pi=3.1415949530  error=+2.299e-06  elapsed=286.25 s
+Progress:  77.33%  darts=2320000000  pi=3.1415938448  error=+1.191e-06  elapsed=287.28 s
+
+USR1 received at Wed Sep  9 23:15:31 EDT 2026
+Requesting a final MANA checkpoint...
+Checkpoint completed at Wed Sep  9 23:15:31 EDT 2026
+Requeueing Slurm job 15250...
+============================================================
+MANA automatic checkpoint/restart
+============================================================
+Job ID        : 15250
+Restart count : 2
+Node          : holy7c26401.rc.fas.harvard.edu
+Start         : Wed Sep  9 23:18:11 EDT 2026
+============================================================
+Requeued execution: restarting from the latest MANA checkpoint.
+*** Coordinator/job information written to /n/home06/pkrastev/.mana-slurm-15250.rc
+Progress:  40.67%  darts=1220000000  pi=3.1415579508  error=-3.470e-05  elapsed=449.30 s
+Progress:  41.33%  darts=1240000000  pi=3.1415572903  error=-3.536e-05  elapsed=450.33 s
+Progress:  42.00%  darts=1260000000  pi=3.1415560127  error=-3.664e-05  elapsed=451.36 s
+Progress:  42.67%  darts=1280000000  pi=3.1415633344  error=-2.932e-05  elapsed=452.38 s
+Progress:  43.33%  darts=1300000000  pi=3.1415725692  error=-2.008e-05  elapsed=453.41 s
+Progress:  44.00%  darts=1320000000  pi=3.1415790939  error=-1.356e-05  elapsed=454.43 s
+Progress:  44.67%  darts=1340000000  pi=3.1415729463  error=-1.971e-05  elapsed=455.46 s
+Progress:  45.33%  darts=1360000000  pi=3.1415829618  error=-9.692e-06  elapsed=456.49 s
+Progress:  46.00%  darts=1380000000  pi=3.1415849130  error=-7.741e-06  elapsed=457.51 s
+Progress:  46.67%  darts=1400000000  pi=3.1415875714  error=-5.082e-06  elapsed=458.54 s
+Progress:  47.33%  darts=1420000000  pi=3.1416002930  error=+7.639e-06  elapsed=459.56 s
+Progress:  48.00%  darts=1440000000  pi=3.1416031500  error=+1.050e-05  elapsed=460.59 s
+Progress:  48.67%  darts=1460000000  pi=3.1416158055  error=+2.315e-05  elapsed=461.62 s
+Progress:  49.33%  darts=1480000000  pi=3.1416002838  error=+7.630e-06  elapsed=462.64 s
+Progress:  50.00%  darts=1500000000  pi=3.1415999680  error=+7.314e-06  elapsed=463.67 s
+Progress:  50.67%  darts=1520000000  pi=3.1415980605  error=+5.407e-06  elapsed=464.69 s
+Progress:  51.33%  darts=1540000000  pi=3.1415946234  error=+1.970e-06  elapsed=465.72 s
+Progress:  52.00%  darts=1560000000  pi=3.1416007513  error=+8.098e-06  elapsed=466.75 s
+Progress:  52.67%  darts=1580000000  pi=3.1415901975  error=-2.456e-06  elapsed=467.77 s
+Progress:  53.33%  darts=1600000000  pi=3.1415863950  error=-6.259e-06  elapsed=468.80 s
+Progress:  54.00%  darts=1620000000  pi=3.1415890617  error=-3.592e-06  elapsed=469.83 s
+Progress:  54.67%  darts=1640000000  pi=3.1415946610  error=+2.007e-06  elapsed=470.85 s
+Progress:  55.33%  darts=1660000000  pi=3.1415954964  error=+2.843e-06  elapsed=471.88 s
+Progress:  56.00%  darts=1680000000  pi=3.1415983976  error=+5.744e-06  elapsed=472.90 s
+Progress:  56.67%  darts=1700000000  pi=3.1416039482  error=+1.129e-05  elapsed=473.93 s
+Progress:  57.33%  darts=1720000000  pi=3.1416066698  error=+1.402e-05  elapsed=474.96 s
+Progress:  58.00%  darts=1740000000  pi=3.1416089494  error=+1.630e-05  elapsed=475.98 s
+Progress:  58.67%  darts=1760000000  pi=3.1416083432  error=+1.569e-05  elapsed=477.01 s
+Progress:  59.33%  darts=1780000000  pi=3.1416064202  error=+1.377e-05  elapsed=478.03 s
+Progress:  60.00%  darts=1800000000  pi=3.1416010400  error=+8.386e-06  elapsed=479.06 s
+Progress:  60.67%  darts=1820000000  pi=3.1415998330  error=+7.179e-06  elapsed=480.09 s
+Progress:  61.33%  darts=1840000000  pi=3.1415995978  error=+6.944e-06  elapsed=481.11 s
+Progress:  62.00%  darts=1860000000  pi=3.1415971935  error=+4.540e-06  elapsed=482.14 s
+Progress:  62.67%  darts=1880000000  pi=3.1415948298  error=+2.176e-06  elapsed=483.17 s
+Progress:  63.33%  darts=1900000000  pi=3.1416047789  error=+1.213e-05  elapsed=484.19 s
+Progress:  64.00%  darts=1920000000  pi=3.1416034917  error=+1.084e-05  elapsed=485.22 s
+Progress:  64.67%  darts=1940000000  pi=3.1416068660  error=+1.421e-05  elapsed=486.24 s
+Progress:  65.33%  darts=1960000000  pi=3.1416080061  error=+1.535e-05  elapsed=487.27 s
+Progress:  66.00%  darts=1980000000  pi=3.1416089859  error=+1.633e-05  elapsed=488.30 s
+Progress:  66.67%  darts=2000000000  pi=3.1416089360  error=+1.628e-05  elapsed=489.32 s
+Progress:  67.33%  darts=2020000000  pi=3.1416039050  error=+1.125e-05  elapsed=490.35 s
+Progress:  68.00%  darts=2040000000  pi=3.1416002098  error=+7.556e-06  elapsed=491.37 s
+Progress:  68.67%  darts=2060000000  pi=3.1416010699  error=+8.416e-06  elapsed=492.40 s
+Progress:  69.33%  darts=2080000000  pi=3.1415959731  error=+3.319e-06  elapsed=493.43 s
+Progress:  70.00%  darts=2100000000  pi=3.1415957219  error=+3.068e-06  elapsed=494.45 s
+Progress:  70.67%  darts=2120000000  pi=3.1415894642  error=-3.189e-06  elapsed=495.48 s
+Progress:  71.33%  darts=2140000000  pi=3.1415880131  error=-4.641e-06  elapsed=496.51 s
+Progress:  72.00%  darts=2160000000  pi=3.1415858574  error=-6.796e-06  elapsed=497.53 s
+Progress:  72.67%  darts=2180000000  pi=3.1415838073  error=-8.846e-06  elapsed=498.56 s
+Progress:  73.33%  darts=2200000000  pi=3.1415845127  error=-8.141e-06  elapsed=499.58 s
+Progress:  74.00%  darts=2220000000  pi=3.1415891387  error=-3.515e-06  elapsed=500.61 s
+Progress:  74.67%  darts=2240000000  pi=3.1415874607  error=-5.193e-06  elapsed=501.64 s
+Progress:  75.33%  darts=2260000000  pi=3.1415901770  error=-2.477e-06  elapsed=502.66 s
+Progress:  76.00%  darts=2280000000  pi=3.1415946719  error=+2.018e-06  elapsed=503.69 s
+Progress:  76.67%  darts=2300000000  pi=3.1415949530  error=+2.299e-06  elapsed=504.71 s
+Progress:  77.33%  darts=2320000000  pi=3.1415938448  error=+1.191e-06  elapsed=505.74 s
+Progress:  78.00%  darts=2340000000  pi=3.1415941778  error=+1.524e-06  elapsed=506.77 s
+Progress:  78.67%  darts=2360000000  pi=3.1415921678  error=-4.858e-07  elapsed=507.79 s
+Progress:  79.33%  darts=2380000000  pi=3.1415915294  error=-1.124e-06  elapsed=508.82 s
+Progress:  80.00%  darts=2400000000  pi=3.1415892667  error=-3.387e-06  elapsed=509.84 s
+Progress:  80.67%  darts=2420000000  pi=3.1415854694  error=-7.184e-06  elapsed=514.53 s
+Progress:  81.33%  darts=2440000000  pi=3.1415873574  error=-5.296e-06  elapsed=515.56 s
+Progress:  82.00%  darts=2460000000  pi=3.1415859431  error=-6.711e-06  elapsed=516.59 s
+Progress:  82.67%  darts=2480000000  pi=3.1415824597  error=-1.019e-05  elapsed=517.61 s
+Progress:  83.33%  darts=2500000000  pi=3.1415780880  error=-1.457e-05  elapsed=518.64 s
+Progress:  84.00%  darts=2520000000  pi=3.1415786905  error=-1.396e-05  elapsed=519.67 s
+Progress:  84.67%  darts=2540000000  pi=3.1415817748  error=-1.088e-05  elapsed=520.69 s
+Progress:  85.33%  darts=2560000000  pi=3.1415842875  error=-8.366e-06  elapsed=521.72 s
+Progress:  86.00%  darts=2580000000  pi=3.1415835442  error=-9.109e-06  elapsed=522.74 s
+Progress:  86.67%  darts=2600000000  pi=3.1415779954  error=-1.466e-05  elapsed=523.77 s
+Progress:  87.33%  darts=2620000000  pi=3.1415755435  error=-1.711e-05  elapsed=524.80 s
+Progress:  88.00%  darts=2640000000  pi=3.1415789985  error=-1.366e-05  elapsed=525.82 s
+Progress:  88.67%  darts=2660000000  pi=3.1415826256  error=-1.003e-05  elapsed=526.85 s
+
+USR1 received at Wed Sep  9 23:19:31 EDT 2026
+Requesting a final MANA checkpoint...
+Checkpoint completed at Wed Sep  9 23:19:31 EDT 2026
+Requeueing Slurm job 15250...
+============================================================
+MANA automatic checkpoint/restart
+============================================================
+Job ID        : 15250
+Restart count : 3
+Node          : holy7c26401.rc.fas.harvard.edu
+Start         : Wed Sep  9 23:22:02 EDT 2026
+============================================================
+Requeued execution: restarting from the latest MANA checkpoint.
+*** Coordinator/job information written to /n/home06/pkrastev/.mana-slurm-15250.rc
+Progress:  80.67%  darts=2420000000  pi=3.1415854694  error=-7.184e-06  elapsed=680.98 s
+Progress:  81.33%  darts=2440000000  pi=3.1415873574  error=-5.296e-06  elapsed=682.00 s
+Progress:  82.00%  darts=2460000000  pi=3.1415859431  error=-6.711e-06  elapsed=683.03 s
+Progress:  82.67%  darts=2480000000  pi=3.1415824597  error=-1.019e-05  elapsed=684.05 s
+Progress:  83.33%  darts=2500000000  pi=3.1415780880  error=-1.457e-05  elapsed=685.08 s
+Progress:  84.00%  darts=2520000000  pi=3.1415786905  error=-1.396e-05  elapsed=686.11 s
+Progress:  84.67%  darts=2540000000  pi=3.1415817748  error=-1.088e-05  elapsed=687.13 s
+Progress:  85.33%  darts=2560000000  pi=3.1415842875  error=-8.366e-06  elapsed=688.16 s
+Progress:  86.00%  darts=2580000000  pi=3.1415835442  error=-9.109e-06  elapsed=689.19 s
+Progress:  86.67%  darts=2600000000  pi=3.1415779954  error=-1.466e-05  elapsed=690.21 s
+Progress:  87.33%  darts=2620000000  pi=3.1415755435  error=-1.711e-05  elapsed=691.24 s
+Progress:  88.00%  darts=2640000000  pi=3.1415789985  error=-1.366e-05  elapsed=692.26 s
+Progress:  88.67%  darts=2660000000  pi=3.1415826256  error=-1.003e-05  elapsed=693.29 s
+Progress:  89.33%  darts=2680000000  pi=3.1415899537  error=-2.700e-06  elapsed=694.32 s
+Progress:  90.00%  darts=2700000000  pi=3.1415874622  error=-5.191e-06  elapsed=695.34 s
+Progress:  90.67%  darts=2720000000  pi=3.1415871338  error=-5.520e-06  elapsed=696.37 s
+Progress:  91.33%  darts=2740000000  pi=3.1415934861  error=+8.325e-07  elapsed=697.39 s
+Progress:  92.00%  darts=2760000000  pi=3.1415941261  error=+1.472e-06  elapsed=698.42 s
+Progress:  92.67%  darts=2780000000  pi=3.1415938820  error=+1.228e-06  elapsed=699.45 s
+Progress:  93.33%  darts=2800000000  pi=3.1415956300  error=+2.976e-06  elapsed=700.47 s
+Progress:  94.00%  darts=2820000000  pi=3.1415970851  error=+4.432e-06  elapsed=701.50 s
+Progress:  94.67%  darts=2840000000  pi=3.1415980592  error=+5.406e-06  elapsed=702.52 s
+Progress:  95.33%  darts=2860000000  pi=3.1415957063  error=+3.053e-06  elapsed=703.55 s
+Progress:  96.00%  darts=2880000000  pi=3.1415960819  error=+3.428e-06  elapsed=704.58 s
+Progress:  96.67%  darts=2900000000  pi=3.1415950538  error=+2.400e-06  elapsed=705.60 s
+Progress:  97.33%  darts=2920000000  pi=3.1415935438  error=+8.902e-07  elapsed=706.63 s
+Progress:  98.00%  darts=2940000000  pi=3.1415886476  error=-4.006e-06  elapsed=707.66 s
+Progress:  98.67%  darts=2960000000  pi=3.1415872054  error=-5.448e-06  elapsed=708.68 s
+Progress:  99.33%  darts=2980000000  pi=3.1415879933  error=-4.660e-06  elapsed=709.71 s
+Progress: 100.00%  darts=3000000000  pi=3.1415881573  error=-4.496e-06  elapsed=710.74 s
+
+============================================================
+Finished
+============================================================
+Darts       : 3000000000
+Inside      : 2356191118
+Pi estimate : 3.141588157333
+Pi true     : 3.141592653590
+Error       : -4.496256e-06
+Elapsed     : 711.737 s
+============================================================
+
+Application finished with status 0 at Wed Sep  9 23:22:35 EDT 2026

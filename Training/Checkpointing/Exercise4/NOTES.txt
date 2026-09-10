@@ -1,0 +1,20 @@
+# Setup
+module load gcc/15.2.0-fasrc01 
+module load mpich/5.0.0-fasrc01
+source /n/holylabs/rc_admin/Everyone/checkpoint-training/setup_mana.sh 
+
+# Compile native MPI code
+make
+
+# Test bative MPI code
+srun --mpi=pmix -n 4 ./pi_mpi.x --darts 100000000
+
+# --- Checkpointing ---
+mkdir checkpoints
+mana_coordinator -i15
+srun --mpi=pmix -n 4   mana_launch --ckptdir checkpoints ./pi_mpi_mana.x  --darts 1000000000  --report-every 5000000  --sleep-ms 1000
+
+# --- Restart ---
+cd checkpoints
+mana_coordinator -i15
+srun --mpi=pmix -n 4 mana_restart
