@@ -1,0 +1,31 @@
+# --- Modules ---
+module load gcc/15.2.0-fasrc01 openmpi/5.0.10-fasrc01
+
+# --- Compile ---
+cmake -DCMAKE_INSTALL_PREFIX=/n/holylabs/rc_admin/Everyone/checkpoint-training/gromacs/sw  \
+      -DCMAKE_C_COMPILER=mpicc  \
+      -DCMAKE_CXX_COMPILER=mpicxx \
+      -DGMX_MPI=ON \
+      -DGMX_OPENMP=ON \
+      -DGMX_GPU=OFF \
+      -DGMX_BUILD_OWN_FFTW=ON \
+      -DGMX_SIMD=AVX2_256  \
+      -DCMAKE_BUILD_TYPE=Release ..
+
+# --- Copy input files ---
+cp /path/to/gromacs-2026.3/tests/physicalvalidation/systems/\
+int_water_md-vv_verlet_settle_pme_pme/input/{system.gro,system.mdp,system.top} \
+.
+
+# --- Modify "system.mdp" ---
+nsteps = 5000000
+
+# --- Generate *.tpr file ---
+gmx_mpi grompp -f system.mdp -c system.gro -p system.top -o md.tpr
+
+# --- Run ---
+mpirun -np 4 gmx_mpi mdrun -deffnm md -cpt 0.1
+
+# --- Restart ---
+mpirun -np  4 gmx_mpi mdrun  -deffnm md -cpi md.cpt -cpt 0.1
+

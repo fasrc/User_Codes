@@ -1,0 +1,6137 @@
+                      :-) GROMACS - gmx mdrun, 2026.3 (-:
+
+Copyright 1991-2026 The GROMACS Authors.
+GROMACS is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License
+as published by the Free Software Foundation; either version 2.1
+of the License, or (at your option) any later version.
+
+                         Current GROMACS contributors:
+       Mark Abraham           Andrey Alekseenko           Brian Andrews       
+        Paul Bauer              Cathrine Bergh              Hugh Bird         
+      Eliane Briand               Ania Brown                Yiqi Chen         
+      Mahesh Doijade            Giacomo Fiorin          Stefan Fleischmann    
+      Sergey Gorelov         Gilles Gouaillardet            Alan Gray         
+   Farzaneh Jalalypour         Petter Johansson          Carsten Kutzner      
+    Grzegorz Łazarski         Justin A. Lemkul          Magnus Lundborg      
+        Julio Maia               Pascal Merz             Vedran Miletić      
+      Dmitry Morozov           Lukas Müllender           Szilárd Páll      
+ Andrea Pasquadibisceglie     Michele Pellegrino         Nicola Piasentin     
+     Daniele Rapetti         Muhammad Umair Sadiq         Hubert Santuz       
+      Michael Shirts           Tatiana Shugaeva          Alexey Shvetsov      
+     Bálint Soproni            Philip Turner            Alessandra Villa     
+        Yang Zhang        
+
+                         Previous GROMACS contributors:
+        Emile Apol             Rossen Apostolov           James Barnett       
+      Vladimir Basov        Herman J.C. Berendsen          Par Bjelkmar       
+      Christian Blau          Viacheslav Bolnykh            Kevin Boyd        
+    Aldert van Buuren          Carlo Camilloni           Rudi van Drunen      
+      Anton Feenstra           Oliver Fleetwood            Vytas Gapsys       
+       Gaurav Garg             Gerrit Groenhof            Bert de Groot       
+      Anca Hamuraru           Vincent Hindriksen          Victor Holanda      
+     M. Eric Irrgang           Aleksei Iupinov              Joe Jordan        
+    Christoph Junghans        Prashanth Kanduri        Dimitrios Karkoulis    
+       Peter Kasson             Sebastian Kehl           Sebastian Keller     
+        Jiri Kraus               Per Larsson              Viveca Lindahl      
+      Erik Marklund           Pieter Meulenhoff           Teemu Murtola       
+       Julien Nabet              Sander Pronk             Roland Schulz       
+      Alfons Sijbers         David van der Spoel          Peter Tieleman      
+      Carsten Uphoff             Jon Vincent             Teemu Virolainen     
+    Christian Wennberg     Sebastian Wingbermühle         Maarten Wolf       
+      Artem Zhmurov       
+
+                  Coordinated by the GROMACS project leaders:
+                           Berk Hess and Erik Lindahl
+
+GROMACS:      gmx mdrun, version 2026.3
+Executable:   /n/holylabs/rc_admin/Everyone/checkpoint-training/gromacs/sw/bin/gmx_mpi
+Data prefix:  /n/holylabs/rc_admin/Everyone/checkpoint-training/gromacs/sw
+Working dir:  /n/home06/pkrastev/Computer/User_Codes/Training/Checkpointing/Exercise5
+Process ID:   2928453
+Command line:
+  gmx_mpi mdrun -deffnm md -cpt 0.1 -maxh 0.025
+
+GROMACS version:     2026.3
+Precision:           mixed
+Memory model:        64 bit
+MPI library:         MPI
+MPI version:         Open MPI v5.0.10, package: Open MPI pedmon@builds01.rc.fas.harvard.edu Distribution, ident: 5.0.10, repo rev: v5.0.10, Feb 23, 2026
+OpenMP support:      enabled (GMX_OPENMP_MAX_THREADS = 128)
+GPU support:         disabled
+SIMD instructions:   AVX2_256
+CPU FFT library:     fftw-3.3.10-sse2-avx-avx2-avx2_128
+GPU FFT library:     none
+Multi-GPU FFT:       none
+RDTSCP:              enabled
+TNG support:         enabled
+Hwloc support:       disabled
+Tracing support:     disabled
+Colvars support:     enabled (version 2025-10-13)
+CP2K support:        disabled
+Torch support:       disabled
+Plumed support:      enabled
+C compiler:          /n/sw/helmod-rocky8/apps/Comp/gcc/15.2.0-fasrc01/openmpi/5.0.10-fasrc01/bin/mpicc GNU 15.2.0
+C compiler flags:    -fexcess-precision=fast -funroll-all-loops -mavx2 -mfma -Wno-missing-field-initializers -O3 -DNDEBUG
+C++ compiler:        /n/sw/helmod-rocky8/apps/Comp/gcc/15.2.0-fasrc01/openmpi/5.0.10-fasrc01/bin/mpicxx GNU 15.2.0
+C++ compiler flags:  -fexcess-precision=fast -funroll-all-loops -mavx2 -mfma -Wno-missing-field-initializers -Wno-stringop-truncation -Wno-old-style-cast -Wno-cast-qual -Wno-suggest-override -Wno-suggest-destructor-override -Wno-zero-as-null-pointer-constant -Wno-cast-function-type-strict SHELL:-fopenmp -O3 -DNDEBUG
+BLAS library:        External - detected on the system
+LAPACK library:      External - detected on the system
+
+
+Running on 1 node with total 4 cores, 4 processing units
+Hardware detected on host holy7c26401.rc.fas.harvard.edu (the node of MPI rank 0):
+  CPU info:
+    Vendor: Intel
+    Brand:  Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz
+    Family: 6   Model: 106   Stepping: 6
+    Features: aes apic avx avx2 avx512f avx512cd avx512bw avx512vl avx512secondFMA clfsh cmov cx8 cx16 f16c fma htt intel lahf mmx msr nonstop_tsc pcid pclmuldq pdcm pdpe1gb popcnt pse rdrnd rdtscp sha sse2 sse3 sse4.1 sse4.2 ssse3 tdt x2apic
+    Number of AVX-512 FMA units: 2
+  Hardware topology: Basic
+    Packages, cores, and logical processors:
+    [indices refer to OS logical processors]
+      Package  0: [   0] [   1]
+      Package  1: [  32] [  33]
+    CPU limit set by OS: -1   Recommended max number of threads: 4
+
+Likely fastest SIMD instructions supported by all nodes: AVX_512
+SIMD instructions selected at compile time:              AVX2_256
+Merely a note: it is unfortunately hard to know for sure which SIMD
+instructions will perform best on this hardware. For non-GPU runs
+on Intel CPUs with dual AVX-512 units, using AVX-512 can be good,
+while AVX2 is often better for runs also using a GPU. Typically
+this is just a few percent, so don't worry unless you are tuning.
+
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+M. J. Abraham, T. Murtola, R. Schulz, S. Páll, J. C. Smith, B. Hess, E.
+Lindahl
+GROMACS: High performance molecular simulations through multi-level
+parallelism from laptops to supercomputers
+SoftwareX (2015)
+https://doi.org/10.1016/j.softx.2015.06.001
+-------- -------- --- Thank You --- -------- --------
+
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+S. Páll, M. J. Abraham, C. Kutzner, B. Hess, E. Lindahl
+Tackling Exascale Software Challenges in Molecular Dynamics Simulations with
+GROMACS
+In S. Markidis & E. Laure (Eds.), Solving Software Challenges for Exascale (2015)
+https://doi.org/10.1007/978-3-319-15976-8_1
+-------- -------- --- Thank You --- -------- --------
+
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+S. Pronk, S. Páll, R. Schulz, P. Larsson, P. Bjelkmar, R. Apostolov, M. R.
+Shirts, J. C. Smith, P. M. Kasson, D. van der Spoel, B. Hess, E. Lindahl
+GROMACS 4.5: a high-throughput and highly parallel open source molecular
+simulation toolkit
+Bioinformatics (2013)
+https://doi.org/10.1093/bioinformatics/btt055
+-------- -------- --- Thank You --- -------- --------
+
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+B. Hess, C. Kutzner, D. van der Spoel, E. Lindahl
+GROMACS 4: Algorithms for highly efficient, load-balanced, and scalable
+molecular simulation
+J. Chem. Theory Comput. (2008)
+https://doi.org/10.1021/ct700301q
+-------- -------- --- Thank You --- -------- --------
+
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+D. van der Spoel, E. Lindahl, B. Hess, G. Groenhof, A. E. Mark, H. J. C.
+Berendsen
+GROMACS: Fast, Flexible and Free
+J. Comp. Chem. (2005)
+https://doi.org/10.1002/jcc.20291
+-------- -------- --- Thank You --- -------- --------
+
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+E. Lindahl, B. Hess, D. van der Spoel
+GROMACS 3.0: A package for molecular simulation and trajectory analysis
+J. Mol. Mod. (2001)
+https://doi.org/10.1007/s008940100045
+-------- -------- --- Thank You --- -------- --------
+
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+H. J. C. Berendsen, D. van der Spoel and R. van Drunen
+GROMACS: A message-passing parallel molecular dynamics implementation
+Comp. Phys. Comm. (1995)
+https://doi.org/10.1016/0010-4655(95)00042-E
+-------- -------- --- Thank You --- -------- --------
+
+
+++++ PLEASE CITE THE DOI FOR THIS VERSION OF GROMACS ++++
+https://doi.org/10.5281/zenodo.20845217
+-------- -------- --- Thank You --- -------- --------
+
+
+The number of OpenMP threads was set by environment variable OMP_NUM_THREADS to 1
+
+Input Parameters:
+   integrator                     = md-vv
+   tinit                          = 0
+   dt                             = 0.001
+   nsteps                         = 5000000
+   init-step                      = 0
+   simulation-part                = 1
+   mts                            = false
+   mass-repartition-factor        = 1
+   comm-mode                      = Linear
+   nstcomm                        = 100
+   bd-fric                        = 0
+   ld-seed                        = -76572801
+   emtol                          = 10
+   emstep                         = 0.01
+   niter                          = 20
+   fcstep                         = 0
+   nstcgsteep                     = 1000
+   nbfgscorr                      = 10
+   rtpi                           = 0.05
+   nstxout                        = 0
+   nstvout                        = 0
+   nstfout                        = 0
+   nstlog                         = 1000
+   nstcalcenergy                  = 1
+   nstenergy                      = 1
+   nstxout-compressed             = 0
+   compressed-x-precision         = 1000
+   cutoff-scheme                  = Verlet
+   nstlist                        = 10
+   pbc                            = xyz
+   periodic-molecules             = false
+   verlet-buffer-tolerance        = 1e-10
+   verlet-buffer-pressure-tolerance = 0.5
+   rlist                          = 1.092
+   coulombtype                    = PME
+   coulomb-modifier               = Potential-shift
+   rcoulomb-switch                = 0
+   rcoulomb                       = 1
+   epsilon-r                      = 1
+   epsilon-rf                     = inf
+   vdw-type                       = PME
+   vdw-modifier                   = Potential-shift
+   rvdw-switch                    = 0
+   rvdw                           = 1
+   DispCorr                       = No
+   table-extension                = 1
+   fourierspacing                 = 0.05
+   fourier-nx                     = 64
+   fourier-ny                     = 64
+   fourier-nz                     = 64
+   pme-order                      = 4
+   ewald-rtol                     = 1e-05
+   ewald-rtol-lj                  = 0.001
+   lj-pme-comb-rule               = Geometric
+   ewald-geometry                 = 3d
+   epsilon-surface                = 0
+   ensemble-temperature-setting   = not available
+   tcoupl                         = No
+   nsttcouple                     = -1
+   nh-chain-length                = 0
+   print-nose-hoover-chain-variables = false
+   pcoupl                         = No
+   refcoord-scaling               = No
+   posres-com: not available
+   posres-comB: not available
+   QMMM                           = false
+qm-opts:
+   ngQM                           = 0
+   constraint-algorithm           = Lincs
+   continuation                   = false
+   Shake-SOR                      = false
+   shake-tol                      = 0.0001
+   lincs-order                    = 4
+   lincs-iter                     = 1
+   lincs-warnangle                = 30
+   nwall                          = 0
+   wall-type                      = 9-3
+   wall-r-linpot                  = -1
+   wall-atomtype[0]               = -1
+   wall-atomtype[1]               = -1
+   wall-density[0]                = 0
+   wall-density[1]                = 0
+   wall-ewald-zfac                = 3
+   pull                           = false
+   awh                            = false
+   rotation                       = false
+   interactiveMD                  = false
+   disre                          = No
+   disre-weighting                = Conservative
+   disre-mixed                    = false
+   dr-fc                          = 1000
+   dr-tau                         = 0
+   nstdisreout                    = 100
+   orire-fc                       = 0
+   orire-tau                      = 0
+   nstorireout                    = 100
+   free-energy                    = no
+   cos-acceleration               = 0
+   deform (3x3):
+      deform[    0]={ 0.00000e+00,  0.00000e+00,  0.00000e+00}
+      deform[    1]={ 0.00000e+00,  0.00000e+00,  0.00000e+00}
+      deform[    2]={ 0.00000e+00,  0.00000e+00,  0.00000e+00}
+   simulated-tempering            = false
+   swapcoords                     = no
+   userint1                       = 0
+   userint2                       = 0
+   userint3                       = 0
+   userint4                       = 0
+   userreal1                      = 0
+   userreal2                      = 0
+   userreal3                      = 0
+   userreal4                      = 0
+   applied-forces:
+     electric-field:
+       x:
+         E0                       = 0
+         omega                    = 0
+         t0                       = 0
+         sigma                    = 0
+       y:
+         E0                       = 0
+         omega                    = 0
+         t0                       = 0
+         sigma                    = 0
+       z:
+         E0                       = 0
+         omega                    = 0
+         t0                       = 0
+         sigma                    = 0
+     density-guided-simulation:
+       active                     = false
+       group                      = protein
+       similarity-measure         = inner-product
+       atom-spreading-weight      = unity
+       force-constant             = 1e+09
+       gaussian-transform-spreading-width = 0.2
+       gaussian-transform-spreading-range-in-multiples-of-width = 4
+       reference-density-filename = reference.mrc
+       nst                        = 1
+       normalize-densities        = true
+       adaptive-force-scaling     = false
+       adaptive-force-scaling-time-constant = 4
+       shift-vector               = 
+       transformation-matrix      = 
+     qmmm-cp2k:
+       active                     = false
+       qmgroup                    = System
+       qmmethod                   = PBE
+       qmfilenames                = 
+       qmcharge                   = 0
+       qmmultiplicity             = 1
+     colvars:
+       active                     = false
+       configfile                 = 
+       seed                       = -1
+     nnpot:
+       active                     = false
+       modelfile                  = model.pt
+       input-group                = System
+       link-type                  = H
+       link-distance              = 0.1
+       pair-cutoff                = 0
+       embedding                  = mechanical
+       nnp-charge                 = 0
+       model-input1               = 
+       model-input2               = 
+       model-input3               = 
+       model-input4               = 
+       model-input5               = 
+       model-input6               = 
+       model-input7               = 
+       model-input8               = 
+       model-input9               = 
+   fast-multipole-method:
+     fmm:
+       backend                    = inactive
+       exafmm-order               = 6
+       exafmm-direct-range        = 2
+       exafmm-direct-provider     = GROMACS
+       exafmm-tree-type           = uniform
+       exafmm-tree-depth          = 0
+       exafmm-max-particles-per-cell = 0
+       fmsolvr-order              = 8
+       fmsolvr-direct-range       = 1
+       fmsolvr-direct-provider    = FMM
+       fmsolvr-dipole-compensation = true
+       fmsolvr-tree-depth         = 3
+       fmsolvr-sparse             = false
+grpopts:
+   nrdf:        5397
+   ref-t:           0
+   tau-t:           0
+annealing:          No
+annealing-npoints:           0
+   acc:	           0           0           0
+   nfreeze:           N           N           N
+   energygrp-flags[  0]: 0
+
+Can not increase nstlist because an NVE ensemble is used
+
+Initializing Domain Decomposition on 4 ranks
+Dynamic load balancing: auto
+Using update groups, nr 900, average size 3.0 atoms, max. radius 0.078 nm
+Minimum cell size due to atom displacement: 0.092 nm
+Scaling the initial minimum size with 1/0.8 (option -dds) = 1.25
+Using 0 separate PME ranks because: there are too few total ranks for efficient splitting
+Optimizing the DD grid for 4 cells with a minimum initial size of 0.115 nm
+The maximum allowed number of cells is: X 26 Y 26 Z 26
+Domain decomposition grid 4 x 1 x 1, separate PME ranks 0
+PME domain decomposition: 4 x 1 x 1
+Domain decomposition rank 0, coordinates 0 0 0
+
+The initial number of communication pulses is: X 2
+The initial domain decomposition cell size is: X 0.75 nm
+
+When dynamic load balancing gets turned on, these settings will change to:
+The maximum number of communication pulses is: X 3
+The minimum size for domain decomposition cells is 0.416 nm
+The requested allowed shrink of DD cells (option -dds) is: 0.80
+The allowed shrink of domain decomposition cells is: X 0.55
+
+Local state does not use filler particles
+
+Using 4 MPI processes
+
+Non-default thread affinity set, disabling internal thread affinity
+
+Using 1 OpenMP thread per MPI process
+
+System total charge: 0.000
+Will do PME sum in reciprocal space for LJ dispersion interactions.
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+U. Essmann, L. Perera, M. L. Berkowitz, T. Darden, H. Lee, L. G. Pedersen 
+A smooth particle mesh Ewald method
+J. Chem. Phys. (1995)
+https://doi.org/10.1063/1.470117
+-------- -------- --- Thank You --- -------- --------
+
+Using a Gaussian width (1/beta) of 0.298423 nm for LJ Ewald
+Will do PME sum in reciprocal space for electrostatic interactions.
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+U. Essmann, L. Perera, M. L. Berkowitz, T. Darden, H. Lee, L. G. Pedersen 
+A smooth particle mesh Ewald method
+J. Chem. Phys. (1995)
+https://doi.org/10.1063/1.470117
+-------- -------- --- Thank You --- -------- --------
+
+Using a Gaussian width (1/beta) of 0.320163 nm for Ewald
+Potential shift: LJ r^-12: -1.000e+00 r^-6: -1.000e-03, Ewald -1.000e-05
+Initialized non-bonded Coulomb Ewald tables, spacing: 9.33e-04 size: 1073
+
+Using shifted Lennard-Jones, switch between 0 and 1 nm
+
+
+Using SIMD4xM 4x8 nonbonded short-range kernels
+
+Using a 4x8 pair-list setup:
+  updated every 10 steps, buffer 0.092 nm, rlist 1.092 nm
+
+The average pressure is off by at most 0.00 bar due to missing LJ interactions
+Removing pbc first time
+
+Linking all bonded interactions to atoms
+
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+S. Miyamoto, P. A. Kollman
+SETTLE: An Analytical Version of the SHAKE and RATTLE Algorithms for Rigid
+Water Models
+J. Comp. Chem. (1992)
+https://doi.org/10.1002/jcc.540130805
+-------- -------- --- Thank You --- -------- --------
+
+
+Using the modular simulator.
+
+Intra-simulation communication will occur every 1 steps.
+There are: 2700 Atoms
+Center of mass motion removal mode is Linear
+We have the following groups for center of mass motion removal:
+  0:  rest
+
+Started mdrun on rank 0 Wed Sep 16 22:46:59 2026
+
+Atom distribution over 4 domains: av 675 stddev 17 min 657 max 699
+
+Constraining the starting coordinates (step 0)
+RMS relative constraint deviation after constraining: 0.00e+00
+Initial temperature: 309.564 K
+           Step           Time
+              0        0.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    6.42161e+03   -3.90030e+04    2.58169e+02   -2.60149e+03   -3.49247e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    6.94556e+03   -2.79792e+04    3.09564e+02   -2.25867e+03
+
+
+DD  step -1 load imb.: force  8.4%
+
+DD  step -1 load imb.: force  7.8%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  7.6%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  5.4%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  6.1%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  0.5%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  0.6%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  0.5%
+
+DD  step -1 load imb.: force  8.8%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  0.2%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  0.3%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  5.9%
+
+DD  step -1 load imb.: force  8.1%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  7.5%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  3.2%
+           Step           Time
+           1000        1.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    8.00491e+03   -4.09816e+04    2.59098e+02   -2.60871e+03   -3.53263e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.34587e+03   -2.79805e+04    3.27406e+02    7.81716e+02
+
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force 16.6%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  8.5%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  4.8%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  4.9%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  6.9%
+
+DD  step -1 load imb.: force  5.7%
+
+DD  step -1 load imb.: force  6.5%
+
+DD  step -1 load imb.: force  5.4%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  5.2%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  6.6%
+
+DD  step -1 load imb.: force  5.7%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  5.9%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  4.8%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  8.2%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  5.0%
+
+DD  step -1 load imb.: force  5.5%
+
+DD  step -1 load imb.: force  4.8%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.6%
+Writing checkpoint, step 1660 at Wed Sep 16 22:47:05 2026
+
+
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  5.4%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  5.5%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  1.4%
+           Step           Time
+           2000        2.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.68142e+03   -4.02858e+04    2.32293e+02   -2.60976e+03   -3.49819e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.00112e+03   -2.79807e+04    3.12041e+02    3.14432e+02
+
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  5.0%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  4.8%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  5.9%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force 11.5%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  0.3%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  0.4%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  3.2%
+           Step           Time
+           3000        3.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.70166e+03   -4.06075e+04    2.61939e+02   -2.60685e+03   -3.52507e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.26942e+03   -2.79813e+04    3.23999e+02    2.31999e+02
+
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  5.4%
+
+DD  step -1 load imb.: force  6.9%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force 12.5%
+
+DD  step -1 load imb.: force 13.2%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  4.9%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  1.9%
+Writing checkpoint, step 3310 at Wed Sep 16 22:47:11 2026
+
+
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  7.5%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  0.4%
+
+DD  step -1 load imb.: force  0.3%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force 12.5%
+
+DD  step -1 load imb.: force  9.9%
+
+DD  step -1 load imb.: force 14.0%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  7.2%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  4.9%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  4.9%
+
+DD  step -1 load imb.: force  4.9%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  4.6%
+           Step           Time
+           4000        4.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.93266e+03   -4.08528e+04    2.14994e+02   -2.60415e+03   -3.53093e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.32694e+03   -2.79823e+04    3.26562e+02    5.25231e+02
+
+
+DD  step -1 load imb.: force  6.4%
+
+DD  step -1 load imb.: force 15.2%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  5.4%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  4.8%
+
+DD  step -1 load imb.: force  6.2%
+
+DD  step -1 load imb.: force  6.7%
+
+DD  step -1 load imb.: force  6.8%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  0.6%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  5.0%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force 13.2%
+
+DD  step -1 load imb.: force 10.9%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  5.0%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  6.3%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  5.2%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  7.4%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.6%
+Writing checkpoint, step 4950 at Wed Sep 16 22:47:17 2026
+
+
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  4.0%
+           Step           Time
+           5000        5.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.96927e+03   -4.07296e+04    2.51323e+02   -2.60818e+03   -3.51171e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.13486e+03   -2.79823e+04    3.18001e+02    8.46665e+02
+
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  5.0%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  8.4%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  0.6%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  0.6%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  5.5%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  6.1%
+
+DD  step -1 load imb.: force  6.1%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  5.4%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force 11.3%
+
+DD  step -1 load imb.: force 12.3%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force 15.6%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  6.3%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  2.6%
+           Step           Time
+           6000        6.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.70138e+03   -4.05653e+04    2.10930e+02   -2.60721e+03   -3.52602e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.27679e+03   -2.79834e+04    3.24327e+02    2.35334e+02
+
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  5.0%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  9.1%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  0.5%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  9.0%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  8.0%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  5.5%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  3.5%
+Writing checkpoint, step 6590 at Wed Sep 16 22:47:23 2026
+
+
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  5.0%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  5.7%
+
+DD  step -1 load imb.: force  6.1%
+
+DD  step -1 load imb.: force  5.2%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  4.0%
+           Step           Time
+           7000        7.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.64247e+03   -4.03817e+04    2.29997e+02   -2.60292e+03   -3.51122e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.12806e+03   -2.79841e+04    3.17698e+02    4.87885e+01
+
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  6.7%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  8.2%
+
+DD  step -1 load imb.: force 11.4%
+
+DD  step -1 load imb.: force  7.8%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  0.4%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  4.9%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  4.2%
+           Step           Time
+           8000        8.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.83807e+03   -4.07856e+04    2.24966e+02   -2.60411e+03   -3.53267e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.34189e+03   -2.79848e+04    3.27229e+02    3.53240e+02
+
+
+DD  step -1 load imb.: force  6.7%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  0.6%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  3.0%
+Writing checkpoint, step 8230 at Wed Sep 16 22:47:29 2026
+
+
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  0.1%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  6.4%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  4.8%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  4.9%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  7.0%
+
+DD  step -1 load imb.: force  6.9%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force 13.7%
+
+DD  step -1 load imb.: force  9.1%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  3.6%
+           Step           Time
+           9000        9.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.36798e+03   -3.99780e+04    2.42900e+02   -2.60493e+03   -3.49720e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    6.98744e+03   -2.79846e+04    3.11431e+02   -3.17165e+02
+
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  5.9%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force 14.3%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  5.5%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  0.5%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  0.3%
+
+DD  step -1 load imb.: force  0.5%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  0.4%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  6.4%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.1%
+Writing checkpoint, step 9870 at Wed Sep 16 22:47:35 2026
+
+
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  5.6%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.8%
+           Step           Time
+          10000       10.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.49208e+03   -4.03629e+04    2.48904e+02   -2.60213e+03   -3.52241e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.23808e+03   -2.79860e+04    3.22602e+02   -3.58558e+02
+
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  4.9%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  9.0%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  5.8%
+
+DD  step -1 load imb.: force  5.6%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force 11.1%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force 10.8%
+
+DD  step -1 load imb.: force  5.8%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  0.2%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  6.4%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  5.8%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  5.8%
+
+DD  step -1 load imb.: force  5.4%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  5.2%
+           Step           Time
+          11000       11.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.78459e+03   -4.05442e+04    2.48156e+02   -2.60719e+03   -3.51186e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.13209e+03   -2.79866e+04    3.17878e+02    4.24992e+02
+
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  6.9%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  6.6%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force 11.0%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  4.9%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  5.7%
+
+DD  step -1 load imb.: force  0.5%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force 12.3%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.7%
+Writing checkpoint, step 11510 at Wed Sep 16 22:47:41 2026
+
+
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  5.2%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  5.2%
+
+DD  step -1 load imb.: force 11.1%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  8.8%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  2.1%
+           Step           Time
+          12000       12.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.80934e+03   -4.06422e+04    2.37796e+02   -2.60422e+03   -3.51993e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.21211e+03   -2.79871e+04    3.21444e+02    4.06722e+02
+
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  5.8%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force 11.0%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  5.6%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  5.2%
+
+DD  step -1 load imb.: force  4.8%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  8.8%
+
+DD  step -1 load imb.: force 12.3%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  8.7%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  6.8%
+
+DD  step -1 load imb.: force  6.9%
+
+DD  step -1 load imb.: force  6.3%
+
+DD  step -1 load imb.: force  6.2%
+
+DD  step -1 load imb.: force  5.5%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.5%
+           Step           Time
+          13000       13.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.54605e+03   -4.04046e+04    2.31374e+02   -2.60335e+03   -3.52305e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.24242e+03   -2.79881e+04    3.22795e+02   -1.07039e+02
+
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  1.5%
+Writing checkpoint, step 13150 at Wed Sep 16 22:47:47 2026
+
+
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  7.2%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force 11.9%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  5.2%
+
+DD  step -1 load imb.: force 13.5%
+
+DD  step -1 load imb.: force  9.8%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  6.6%
+
+DD  step -1 load imb.: force  6.5%
+
+DD  step -1 load imb.: force 19.9%
+
+DD  step -1 load imb.: force  7.0%
+
+DD  step -1 load imb.: force  6.1%
+
+DD  step -1 load imb.: force  3.0%
+           Step           Time
+          14000       14.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.74278e+03   -4.04326e+04    2.51204e+02   -2.60414e+03   -3.50428e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.05448e+03   -2.79883e+04    3.14419e+02    2.95059e+02
+
+
+DD  step -1 load imb.: force  9.8%
+
+DD  step -1 load imb.: force 10.0%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  0.4%
+
+DD  step -1 load imb.: force  0.5%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  0.4%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  0.5%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  6.8%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  6.9%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  5.6%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  6.0%
+
+DD  step -1 load imb.: force  7.0%
+
+DD  step -1 load imb.: force  6.0%
+
+DD  step -1 load imb.: force  6.2%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  5.0%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  6.3%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.0%
+Writing checkpoint, step 14790 at Wed Sep 16 22:47:53 2026
+
+
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  6.7%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  0.3%
+           Step           Time
+          15000       15.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.68770e+03   -4.04753e+04    2.32038e+02   -2.60495e+03   -3.51605e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.17141e+03   -2.79891e+04    3.19630e+02    7.80409e+01
+
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  4.8%
+
+DD  step -1 load imb.: force  4.8%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  0.5%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force 20.5%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  0.4%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  8.3%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.5%
+           Step           Time
+          16000       16.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.89351e+03   -4.06783e+04    2.51859e+02   -2.60505e+03   -3.51380e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.14815e+03   -2.79898e+04    3.18593e+02    5.39085e+02
+
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  0.1%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force 10.6%
+
+DD  step -1 load imb.: force  5.8%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  0.5%
+Writing checkpoint, step 16430 at Wed Sep 16 22:47:59 2026
+
+
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force 15.8%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  5.0%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  0.6%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  0.5%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  0.6%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  1.2%
+           Step           Time
+          17000       17.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    8.17059e+03   -4.09508e+04    2.45234e+02   -2.60882e+03   -3.51438e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.15352e+03   -2.79903e+04    3.18833e+02    1.24282e+03
+
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force 22.0%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  8.1%
+
+DD  step -1 load imb.: force 11.4%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  6.8%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  4.9%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  5.8%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  6.9%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  6.4%
+
+DD  step -1 load imb.: force  6.7%
+
+DD  step -1 load imb.: force  5.6%
+
+DD  step -1 load imb.: force  6.0%
+
+DD  step -1 load imb.: force  7.7%
+
+DD  step -1 load imb.: force  5.7%
+
+DD  step -1 load imb.: force  6.5%
+
+DD  step -1 load imb.: force  5.9%
+
+DD  step -1 load imb.: force  8.9%
+
+DD  step -1 load imb.: force  8.2%
+
+DD  step -1 load imb.: force  6.8%
+
+DD  step -1 load imb.: force  5.7%
+
+DD  step -1 load imb.: force  7.3%
+
+DD  step -1 load imb.: force  7.4%
+
+DD  step -1 load imb.: force  7.5%
+
+DD  step -1 load imb.: force  5.3%
+           Step           Time
+          18000       18.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.79661e+03   -4.06680e+04    2.24735e+02   -2.60860e+03   -3.52553e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.26432e+03   -2.79910e+04    3.23771e+02    3.74092e+02
+
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  7.9%
+
+DD  step -1 load imb.: force  7.4%
+Writing checkpoint, step 18060 at Wed Sep 16 22:48:05 2026
+
+
+
+DD  step -1 load imb.: force  7.7%
+
+DD  step -1 load imb.: force  7.3%
+
+DD  step -1 load imb.: force  7.2%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  7.0%
+
+DD  step -1 load imb.: force  4.8%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  5.7%
+
+DD  step -1 load imb.: force  6.2%
+
+DD  step -1 load imb.: force  5.7%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  5.7%
+
+DD  step -1 load imb.: force  5.6%
+
+DD  step -1 load imb.: force  7.2%
+
+DD  step -1 load imb.: force  6.0%
+
+DD  step -1 load imb.: force  6.8%
+
+DD  step -1 load imb.: force  5.4%
+
+DD  step -1 load imb.: force  6.0%
+
+DD  step -1 load imb.: force  6.9%
+
+DD  step -1 load imb.: force  6.9%
+
+DD  step -1 load imb.: force  7.0%
+
+DD  step -1 load imb.: force  6.7%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  4.8%
+
+DD  step -1 load imb.: force  9.4%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  6.0%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  6.5%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  5.7%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  4.8%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  5.6%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  6.0%
+
+DD  step -1 load imb.: force  6.0%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  6.8%
+
+DD  step -1 load imb.: force  6.2%
+
+DD  step -1 load imb.: force  5.0%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  5.7%
+
+DD  step -1 load imb.: force  5.9%
+
+DD  step -1 load imb.: force  5.0%
+
+DD  step -1 load imb.: force  5.4%
+
+DD  step -1 load imb.: force  5.4%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  5.7%
+
+DD  step -1 load imb.: force  6.5%
+
+DD  step -1 load imb.: force  7.5%
+
+DD  step -1 load imb.: force  6.7%
+
+DD  step -1 load imb.: force 11.0%
+
+DD  step -1 load imb.: force  8.0%
+
+DD  step -1 load imb.: force  6.6%
+
+DD  step -1 load imb.: force  7.6%
+
+DD  step -1 load imb.: force  8.1%
+
+DD  step -1 load imb.: force  7.5%
+
+DD  step -1 load imb.: force  5.8%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  6.7%
+
+DD  step -1 load imb.: force  6.0%
+
+DD  step -1 load imb.: force  6.8%
+
+DD  step -1 load imb.: force  6.5%
+
+DD  step -1 load imb.: force  8.3%
+           Step           Time
+          19000       19.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    8.20129e+03   -4.10519e+04    2.22913e+02   -2.61005e+03   -3.52377e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.24550e+03   -2.79922e+04    3.22933e+02    1.08048e+03
+
+
+DD  step -1 load imb.: force  8.6%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  5.0%
+
+DD  step -1 load imb.: force  6.9%
+
+DD  step -1 load imb.: force  7.5%
+
+DD  step -1 load imb.: force  8.0%
+
+DD  step -1 load imb.: force  5.2%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  4.9%
+
+DD  step -1 load imb.: force  6.7%
+
+DD  step -1 load imb.: force  5.9%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  4.9%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  5.5%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force 13.9%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  6.3%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  4.9%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  5.4%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  5.5%
+
+DD  step -1 load imb.: force  5.4%
+
+DD  step -1 load imb.: force  6.7%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  5.4%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  5.8%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  5.0%
+
+DD  step -1 load imb.: force  6.2%
+Writing checkpoint, step 19700 at Wed Sep 16 22:48:11 2026
+
+
+
+DD  step -1 load imb.: force  8.0%
+
+DD  step -1 load imb.: force  8.9%
+
+DD  step -1 load imb.: force  7.3%
+
+DD  step -1 load imb.: force  7.1%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  6.2%
+
+DD  step -1 load imb.: force  7.6%
+
+DD  step -1 load imb.: force  7.7%
+
+DD  step -1 load imb.: force  6.2%
+
+DD  step -1 load imb.: force  7.1%
+
+DD  step -1 load imb.: force  6.8%
+
+DD  step -1 load imb.: force  6.4%
+
+DD  step -1 load imb.: force  5.6%
+
+DD  step -1 load imb.: force  5.9%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  6.8%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  2.9%
+           Step           Time
+          20000       20.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.87698e+03   -4.08262e+04    2.44927e+02   -2.60548e+03   -3.53097e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.31743e+03   -2.79923e+04    3.26138e+02    4.80425e+02
+
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  3.9%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  0.4%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  6.4%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  4.1%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  5.1%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  0.4%
+
+DD  step -1 load imb.: force  0.6%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  3.9%
+           Step           Time
+          21000       21.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.60761e+03   -4.05669e+04    2.42703e+02   -2.60516e+03   -3.53217e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.32837e+03   -2.79934e+04    3.26626e+02   -1.45219e+02
+
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  6.6%
+
+DD  step -1 load imb.: force  5.6%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  4.0%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  4.6%
+
+DD  step -1 load imb.: force  6.2%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  5.2%
+
+DD  step -1 load imb.: force  4.9%
+Writing checkpoint, step 21350 at Wed Sep 16 22:48:17 2026
+
+
+
+DD  step -1 load imb.: force  5.9%
+
+DD  step -1 load imb.: force  5.4%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  5.7%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  2.6%
+           Step           Time
+          22000       22.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    8.11328e+03   -4.09593e+04    2.40021e+02   -2.60628e+03   -3.52122e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.21861e+03   -2.79936e+04    3.21734e+02    1.09955e+03
+
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  4.5%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  2.9%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  0.7%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  0.6%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  3.7%
+
+DD  step -1 load imb.: force  4.7%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  1.9%
+Writing checkpoint, step 23000 at Wed Sep 16 22:48:23 2026
+
+
+
+DD  step -1 load imb.: force  3.9%
+           Step           Time
+          23000       23.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.90474e+03   -4.09211e+04    2.17494e+02   -2.60664e+03   -3.54055e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.41098e+03   -2.79945e+04    3.30308e+02    5.62940e+02
+
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  7.3%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  5.3%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  0.5%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  0.2%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  1.1%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.0%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  4.4%
+
+DD  step -1 load imb.: force  0.9%
+
+DD  step -1 load imb.: force  6.2%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  9.6%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.6%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  3.3%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  3.5%
+
+DD  step -1 load imb.: force  3.4%
+
+DD  step -1 load imb.: force  3.2%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.2%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  0.6%
+
+DD  step -1 load imb.: force  0.2%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.2%
+
+DD  step -1 load imb.: force  1.4%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  4.3%
+
+DD  step -1 load imb.: force 10.2%
+           Step           Time
+          24000       24.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.76749e+03   -4.06995e+04    2.78501e+02   -2.60358e+03   -3.52571e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.26189e+03   -2.79953e+04    3.23663e+02    2.17551e+02
+
+
+DD  step -1 load imb.: force  8.4%
+
+DD  step -1 load imb.: force  6.8%
+
+DD  step -1 load imb.: force  2.6%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  1.8%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  8.8%
+
+DD  step -1 load imb.: force  1.6%
+
+DD  step -1 load imb.: force  2.3%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  2.1%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  0.8%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  2.5%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  3.0%
+
+DD  step -1 load imb.: force  1.9%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.5%
+
+DD  step -1 load imb.: force  2.7%
+
+DD  step -1 load imb.: force  1.7%
+
+DD  step -1 load imb.: force  5.0%
+
+DD  step -1 load imb.: force  1.3%
+
+DD  step -1 load imb.: force  2.8%
+
+DD  step -1 load imb.: force  2.0%
+
+DD  step -1 load imb.: force  2.4%
+
+DD  step -1 load imb.: force  3.1%
+
+DD  step -1 load imb.: force  4.2%
+
+DD  step -1 load imb.: force  3.8%
+
+DD  step -1 load imb.: force  3.5%
+
+Step 24390: Run time exceeded 0.025 hours, will terminate the run within 10 steps
+
+DD  step -1 load imb.: force  2.4%
+Writing checkpoint, step 24400 at Wed Sep 16 22:48:28 2026
+
+
+
+Reading checkpoint file md.cpt
+  file generated by:     /n/holylabs/rc_admin/Everyone/checkpoint-training/gromacs/sw/bin/gmx_mpi
+  file generated at:     Wed Sep 16 22:48:28 2026
+
+  GROMACS double prec.:  0
+  simulation part #:     1
+  step:                  24400
+  time:                  24.400000
+
+
+
+-----------------------------------------------------------
+Restarting from checkpoint, appending to previous log file.
+
+                      :-) GROMACS - gmx mdrun, 2026.3 (-:
+
+Executable:   /n/holylabs/rc_admin/Everyone/checkpoint-training/gromacs/sw/bin/gmx_mpi
+Data prefix:  /n/holylabs/rc_admin/Everyone/checkpoint-training/gromacs/sw
+Working dir:  /n/home06/pkrastev/Computer/User_Codes/Training/Checkpointing/Exercise5
+Process ID:   2931657
+Command line:
+  gmx_mpi mdrun -deffnm md -cpi md.cpt -cpt 0.1 -maxh 0.025
+
+GROMACS version:     2026.3
+Precision:           mixed
+Memory model:        64 bit
+MPI library:         MPI
+MPI version:         Open MPI v5.0.10, package: Open MPI pedmon@builds01.rc.fas.harvard.edu Distribution, ident: 5.0.10, repo rev: v5.0.10, Feb 23, 2026
+OpenMP support:      enabled (GMX_OPENMP_MAX_THREADS = 128)
+GPU support:         disabled
+SIMD instructions:   AVX2_256
+CPU FFT library:     fftw-3.3.10-sse2-avx-avx2-avx2_128
+GPU FFT library:     none
+Multi-GPU FFT:       none
+RDTSCP:              enabled
+TNG support:         enabled
+Hwloc support:       disabled
+Tracing support:     disabled
+Colvars support:     enabled (version 2025-10-13)
+CP2K support:        disabled
+Torch support:       disabled
+Plumed support:      enabled
+C compiler:          /n/sw/helmod-rocky8/apps/Comp/gcc/15.2.0-fasrc01/openmpi/5.0.10-fasrc01/bin/mpicc GNU 15.2.0
+C compiler flags:    -fexcess-precision=fast -funroll-all-loops -mavx2 -mfma -Wno-missing-field-initializers -O3 -DNDEBUG
+C++ compiler:        /n/sw/helmod-rocky8/apps/Comp/gcc/15.2.0-fasrc01/openmpi/5.0.10-fasrc01/bin/mpicxx GNU 15.2.0
+C++ compiler flags:  -fexcess-precision=fast -funroll-all-loops -mavx2 -mfma -Wno-missing-field-initializers -Wno-stringop-truncation -Wno-old-style-cast -Wno-cast-qual -Wno-suggest-override -Wno-suggest-destructor-override -Wno-zero-as-null-pointer-constant -Wno-cast-function-type-strict SHELL:-fopenmp -O3 -DNDEBUG
+BLAS library:        External - detected on the system
+LAPACK library:      External - detected on the system
+
+Can not increase nstlist because an NVE ensemble is used
+
+Initializing Domain Decomposition on 4 ranks
+Dynamic load balancing: auto
+Using update groups, nr 900, average size 3.0 atoms, max. radius 0.078 nm
+Minimum cell size due to atom displacement: 0.092 nm
+Scaling the initial minimum size with 1/0.8 (option -dds) = 1.25
+Using 0 separate PME ranks because: there are too few total ranks for efficient splitting
+Optimizing the DD grid for 4 cells with a minimum initial size of 0.115 nm
+The maximum allowed number of cells is: X 26 Y 26 Z 26
+Domain decomposition grid 4 x 1 x 1, separate PME ranks 0
+PME domain decomposition: 4 x 1 x 1
+Domain decomposition rank 0, coordinates 0 0 0
+
+The initial number of communication pulses is: X 2
+The initial domain decomposition cell size is: X 0.75 nm
+
+When dynamic load balancing gets turned on, these settings will change to:
+The maximum number of communication pulses is: X 3
+The minimum size for domain decomposition cells is 0.416 nm
+The requested allowed shrink of DD cells (option -dds) is: 0.80
+The allowed shrink of domain decomposition cells is: X 0.55
+
+Local state does not use filler particles
+
+Using 4 MPI processes
+
+Non-default thread affinity set, disabling internal thread affinity
+
+Using 1 OpenMP thread per MPI process
+
+System total charge: 0.000
+Will do PME sum in reciprocal space for LJ dispersion interactions.
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+U. Essmann, L. Perera, M. L. Berkowitz, T. Darden, H. Lee, L. G. Pedersen 
+A smooth particle mesh Ewald method
+J. Chem. Phys. (1995)
+https://doi.org/10.1063/1.470117
+-------- -------- --- Thank You --- -------- --------
+
+Using a Gaussian width (1/beta) of 0.298423 nm for LJ Ewald
+Will do PME sum in reciprocal space for electrostatic interactions.
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+U. Essmann, L. Perera, M. L. Berkowitz, T. Darden, H. Lee, L. G. Pedersen 
+A smooth particle mesh Ewald method
+J. Chem. Phys. (1995)
+https://doi.org/10.1063/1.470117
+-------- -------- --- Thank You --- -------- --------
+
+Using a Gaussian width (1/beta) of 0.320163 nm for Ewald
+Potential shift: LJ r^-12: -1.000e+00 r^-6: -1.000e-03, Ewald -1.000e-05
+Initialized non-bonded Coulomb Ewald tables, spacing: 9.33e-04 size: 1073
+
+Using shifted Lennard-Jones, switch between 0 and 1 nm
+
+
+Using SIMD4xM 4x8 nonbonded short-range kernels
+
+Using a 4x8 pair-list setup:
+  updated every 10 steps, buffer 0.092 nm, rlist 1.092 nm
+
+The average pressure is off by at most 0.00 bar due to missing LJ interactions
+
+Linking all bonded interactions to atoms
+
+
+++++ PLEASE READ AND CITE THE FOLLOWING REFERENCE ++++
+S. Miyamoto, P. A. Kollman
+SETTLE: An Analytical Version of the SHAKE and RATTLE Algorithms for Rigid
+Water Models
+J. Comp. Chem. (1992)
+https://doi.org/10.1002/jcc.540130805
+-------- -------- --- Thank You --- -------- --------
+
+
+Using the modular simulator.
+
+Intra-simulation communication will occur every 1 steps.
+There are: 2700 Atoms
+Center of mass motion removal mode is Linear
+We have the following groups for center of mass motion removal:
+  0:  rest
+
+Started mdrun on rank 0 Wed Sep 16 23:03:24 2026
+
+Atom distribution over 4 domains: av 675 stddev 23 min 648 max 711
+
+DD  step 24399 load imb.: force  7.7%
+           Step           Time
+          25000       25.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.75406e+03   -4.05648e+04    2.19541e+02   -2.60581e+03   -3.51970e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.20148e+03   -2.79955e+04    3.20971e+02    3.05409e+02
+
+
+step 24400 Turning on dynamic load balancing, because the performance loss due to load imbalance is 2.1 %.
+Writing checkpoint, step 25980 at Wed Sep 16 23:03:30 2026
+
+
+26
+
+           Step           Time
+          26000       26.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.73907e+03   -4.04632e+04    2.49732e+02   -2.60435e+03   -3.50787e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.08306e+03   -2.79956e+04    3.15693e+02    2.92444e+02
+
+           Step           Time
+          27000       27.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.75102e+03   -4.06533e+04    2.46920e+02   -2.60632e+03   -3.52616e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.26433e+03   -2.79973e+04    3.23772e+02    2.79366e+02
+
+Writing checkpoint, step 27570 at Wed Sep 16 23:03:36 2026
+
+
+           Step           Time
+          28000       28.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.77681e+03   -4.05811e+04    2.37119e+02   -2.60524e+03   -3.51725e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.17514e+03   -2.79973e+04    3.19797e+02    3.53473e+02
+
+           Step           Time
+          29000       29.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.66307e+03   -4.03981e+04    2.26143e+02   -2.60685e+03   -3.51157e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.11742e+03   -2.79983e+04    3.17224e+02    1.36356e+02
+
+Writing checkpoint, step 29150 at Wed Sep 16 23:03:42 2026
+
+
+           Step           Time
+          30000       30.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.58076e+03   -4.01444e+04    2.23249e+02   -2.60607e+03   -3.49464e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    6.94794e+03   -2.79985e+04    3.09670e+02    1.74748e+02
+
+Writing checkpoint, step 30740 at Wed Sep 16 23:03:48 2026
+
+
+           Step           Time
+          31000       31.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.92373e+03   -4.07270e+04    2.28401e+02   -2.60500e+03   -3.51799e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.18022e+03   -2.79997e+04    3.20023e+02    6.04673e+02
+
+           Step           Time
+          32000       32.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.46973e+03   -4.02104e+04    2.56495e+02   -2.60554e+03   -3.50897e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.08971e+03   -2.80000e+04    3.15989e+02   -2.65487e+02
+
+Writing checkpoint, step 32320 at Wed Sep 16 23:03:54 2026
+
+
+           Step           Time
+          33000       33.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.74286e+03   -4.06496e+04    2.40547e+02   -2.60701e+03   -3.52732e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.27230e+03   -2.80009e+04    3.24127e+02    2.58768e+02
+
+Writing checkpoint, step 33900 at Wed Sep 16 23:04:00 2026
+
+
+           Step           Time
+          34000       34.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.86013e+03   -4.07391e+04    2.38371e+02   -2.60956e+03   -3.52501e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.24868e+03   -2.80014e+04    3.23074e+02    5.83557e+02
+
+           Step           Time
+          35000       35.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.90643e+03   -4.07840e+04    2.48313e+02   -2.60529e+03   -3.52345e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.23238e+03   -2.80021e+04    3.22348e+02    5.42020e+02
+
+Writing checkpoint, step 35480 at Wed Sep 16 23:04:06 2026
+
+
+           Step           Time
+          36000       36.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.66945e+03   -4.03984e+04    2.47581e+02   -2.60256e+03   -3.50840e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.08115e+03   -2.80028e+04    3.15607e+02    4.40185e+01
+
+           Step           Time
+          37000       37.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.96668e+03   -4.08441e+04    2.79712e+02   -2.60543e+03   -3.52031e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.19952e+03   -2.80036e+04    3.20883e+02    6.43230e+02
+
+Writing checkpoint, step 37060 at Wed Sep 16 23:04:12 2026
+
+
+           Step           Time
+          38000       38.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.78343e+03   -4.05182e+04    2.46883e+02   -2.60817e+03   -3.50961e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.09214e+03   -2.80039e+04    3.16097e+02    4.45657e+02
+
+Writing checkpoint, step 38650 at Wed Sep 16 23:04:18 2026
+
+
+           Step           Time
+          39000       39.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.58799e+03   -4.04286e+04    2.21831e+02   -2.60265e+03   -3.52214e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.21630e+03   -2.80051e+04    3.21631e+02   -1.83900e+02
+
+           Step           Time
+          40000       40.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.51366e+03   -4.02167e+04    2.33345e+02   -2.60765e+03   -3.50774e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.07203e+03   -2.80053e+04    3.15201e+02   -1.91117e+02
+
+Writing checkpoint, step 40230 at Wed Sep 16 23:04:24 2026
+
+
+           Step           Time
+          41000       41.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.97463e+03   -4.06613e+04    2.50918e+02   -2.60441e+03   -3.50402e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.03428e+03   -2.80059e+04    3.13518e+02    7.47697e+02
+
+Writing checkpoint, step 41810 at Wed Sep 16 23:04:30 2026
+
+
+           Step           Time
+          42000       42.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    8.09981e+03   -4.10672e+04    2.55368e+02   -2.60703e+03   -3.53190e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.31208e+03   -2.80069e+04    3.25900e+02    9.95960e+02
+
+           Step           Time
+          43000       43.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.87253e+03   -4.07313e+04    2.33717e+02   -2.60105e+03   -3.52261e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.21863e+03   -2.80075e+04    3.21735e+02    4.11992e+02
+
+Writing checkpoint, step 43400 at Wed Sep 16 23:04:36 2026
+
+
+           Step           Time
+          44000       44.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.80812e+03   -4.06825e+04    2.29616e+02   -2.60769e+03   -3.52524e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.24421e+03   -2.80082e+04    3.22875e+02    3.25064e+02
+
+Writing checkpoint, step 44980 at Wed Sep 16 23:04:42 2026
+
+
+           Step           Time
+          45000       45.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    8.07988e+03   -4.08585e+04    2.31792e+02   -2.60434e+03   -3.51511e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.14243e+03   -2.80087e+04    3.18339e+02    1.02683e+03
+
+           Step           Time
+          46000       46.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.82569e+03   -4.06127e+04    2.51283e+02   -2.60591e+03   -3.51417e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.13280e+03   -2.80089e+04    3.17909e+02    5.45668e+02
+
+Writing checkpoint, step 46570 at Wed Sep 16 23:04:48 2026
+
+
+           Step           Time
+          47000       47.00000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.98952e+03   -4.08097e+04    2.69553e+02   -2.60734e+03   -3.51580e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.14787e+03   -2.80101e+04    3.18581e+02    7.90871e+02
+
+
+Step 47910: Run time exceeded 0.025 hours, will terminate the run within 10 steps
+Writing checkpoint, step 47920 at Wed Sep 16 23:04:54 2026
+
+
+           Step           Time
+          47920       47.92000
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.66623e+03   -4.06443e+04    2.49415e+02   -2.60203e+03   -3.53306e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.31974e+03   -2.80109e+04    3.26241e+02   -6.12945e+01
+
+
+Energy conservation over simulation part #2 of length 23.52 ps, time 24.4 to 47.92 ps
+  Conserved energy drift: -2.49e-04 kJ/mol/ps per atom
+
+	<======  ###############  ==>
+	<====  A V E R A G E S  ====>
+	<==  ###############  ======>
+
+	Statistics over 23521 steps using 23521 frames
+
+   Energies (kJ/mol)
+        LJ (SR)   Coulomb (SR)   Coul. recip.      LJ recip.      Potential
+    7.76558e+03   -4.05777e+04    2.41709e+02   -2.60588e+03   -3.51763e+04
+    Kinetic En.   Total Energy    Temperature Pressure (bar)
+    7.17333e+03   -2.80030e+04    3.19716e+02    2.99717e+02
+
+   Total Virial (kJ/mol)
+    2.16692e+03   -1.34631e-01   -1.56251e+01
+   -1.91853e-01    2.13765e+03    7.95433e+00
+   -1.58845e+01    7.77123e+00    2.12951e+03
+
+   Pressure (bar)
+    2.63874e+02    7.88238e-01    1.42148e+01
+    8.57837e-01    3.13329e+02   -2.16935e+00
+    1.45303e+01   -1.94665e+00    3.21948e+02
+
+
+	M E G A - F L O P S   A C C O U N T I N G
+
+ NB=Group-cutoff nonbonded kernels    NxN=N-by-N cluster Verlet kernels
+ RF=Reaction-Field  VdW=Van der Waals  QSTab=quadratic-spline table
+ W3=SPC/TIP3p  W4=TIP4p (single or pairs)
+ V&F=Potential and force  V=Potential only  F=Force only
+
+ Computing:                               M-Number         M-Flops  % Flops
+-----------------------------------------------------------------------------
+ Pair Search distance check            2752.037224       24768.335     0.3
+ NxN Ewald Elec. + LJ [V&F]           19564.149104     2738980.875    32.7
+ NxN Ewald Elec. [V&F]                18538.704400     1557251.170    18.6
+ Calc Weights                           190.520100        6858.724     0.1
+ Spread Q Bspline                      8128.857600       16257.715     0.2
+ Gather F Bspline                      8128.857600       48773.146     0.6
+ 3D-FFT                              443944.009728     3551552.078    42.4
+ Solve PME                             6358.573056      406948.676     4.9
+ Reset In Box                             6.350400          19.051     0.0
+ CG-CoM                                   6.353100          19.059     0.0
+ Virial                                  67.740480        1219.329     0.0
+ Stop-CM                                  0.637200           6.372     0.0
+ Calc-Ekin                               63.506700        1714.681     0.0
+ Constraint-V                            63.506700         571.560     0.0
+ Constraint-Vir                          63.506700        1524.161     0.0
+ Settle                                  42.337800       15664.986     0.2
+-----------------------------------------------------------------------------
+ Total                                                 8372129.916   100.0
+-----------------------------------------------------------------------------
+
+
+    D O M A I N   D E C O M P O S I T I O N   S T A T I S T I C S
+
+ av. #atoms communicated per step for force:  2 x 4202.0
+
+
+Dynamic load balancing report:
+ DLB was turned on during the run due to measured imbalance.
+ Average load imbalance: 3.4%.
+ The balanceable part of the MD step is 21%, load imbalance is computed from this.
+ Part of the total run time spent waiting due to load imbalance: 0.7%.
+ Steps where the load balancing was limited by -rdd, -rcon and/or -dds: X 0 %
+
+
+      R E A L   C Y C L E   A N D   T I M E   A C C O U N T I N G
+
+On 4 MPI ranks
+
+ Activity:              Num   Num      Call    Wall time         Giga-Cycles
+                        Ranks Threads  Count      (s)         total sum    %
+--------------------------------------------------------------------------------
+ Domain decomp.            4    1       2352       0.556          5.772   0.6
+ DD comm. load             4    1       2255       0.004          0.037   0.0
+ DD comm. bounds           4    1       2253       0.821          8.517   0.9
+ Neighbor search           4    1       2353       2.078         21.555   2.3
+ Comm. coord.              4    1      21168       0.296          3.073   0.3
+ Force                     4    1      23521      19.538        202.712  21.9
+ Wait + Comm. F            4    1      23521       0.285          2.961   0.3
+ PME mesh                  4    1      23521      64.222        666.319  71.9
+ NB X/F buffer ops.        4    1      68210       0.155          1.610   0.2
+ Update                    4    1      47042       0.050          0.521   0.1
+ Constraints               4    1      47042       0.270          2.797   0.3
+ Kinetic energy            4    1      23521       0.094          0.974   0.1
+ Comm. energies            4    1      47042       0.239          2.477   0.3
+ Rest                                              0.666          6.908   0.7
+--------------------------------------------------------------------------------
+ Total                                            89.273        926.232 100.0
+--------------------------------------------------------------------------------
+ Breakdown of PME mesh activities
+--------------------------------------------------------------------------------
+ PME redist. X/F           4    1      70563       3.168         32.873   3.5
+ PME spread                4    1      47042       2.953         30.638   3.3
+ PME gather                4    1      47042       2.545         26.408   2.9
+ PME 3D-FFT                4    1      94084      23.814        247.075  26.7
+ PME 3D-FFT Comm.          4    1      94084       8.743         90.706   9.8
+ PME solve LJ              4    1      23521      16.137        167.429  18.1
+ PME solve Elec            4    1      23521       6.822         70.785   7.6
+--------------------------------------------------------------------------------
+
+               Core t (s)   Wall t (s)        (%)
+       Time:      357.080       89.273      400.0
+                 (ns/day)    (hour/ns)    (ms/step)  (Matom*steps/s) 
+Performance:       22.764        1.054        3.795            0.711 
+Finished mdrun on rank 0 Wed Sep 16 23:04:54 2026
+

@@ -1,0 +1,39 @@
+                      :-) GROMACS - gmx mdrun, 2026.3 (-:
+
+Executable:   /n/holylabs/rc_admin/Everyone/checkpoint-training/gromacs/sw/bin/gmx_mpi
+Data prefix:  /n/holylabs/rc_admin/Everyone/checkpoint-training/gromacs/sw
+Working dir:  /n/home06/pkrastev/Computer/User_Codes/Training/Checkpointing/Exercise5
+Command line:
+  gmx_mpi mdrun -deffnm md -cpt 0.1 -maxh 0.025
+
+Compiled SIMD is AVX2_256, but CPU also supports AVX_512 (see log).
+Reading file md.tpr, VERSION 2026.3 (single precision)
+Can not increase nstlist because an NVE ensemble is used
+Using 4 MPI processes
+
+Non-default thread affinity set, disabling internal thread affinity
+
+Using 1 OpenMP thread per MPI process
+
+
+Back Off! I just backed up md.edr to ./#md.edr.1#
+starting mdrun 'Pure Water'
+5000000 steps,   5000.0 ps.
+
+Step 24390: Run time exceeded 0.025 hours, will terminate the run within 10 steps
+
+
+Dynamic load balancing report:
+ DLB was off during the run due to low measured imbalance.
+ Average load imbalance: 3.1%.
+ The balanceable part of the MD step is 21%, load imbalance is computed from this.
+ Part of the total run time spent waiting due to load imbalance: 0.6%.
+
+
+               Core t (s)   Wall t (s)        (%)
+       Time:      357.081       89.273      400.0
+                 (ns/day)    (hour/ns)    (ms/step)  (Matom*steps/s) 
+Performance:       23.616        1.016        3.659            0.738 
+
+GROMACS reminds you: "Pump Up the Volume Along With the Tempo" (Jazzy Jeff)
+

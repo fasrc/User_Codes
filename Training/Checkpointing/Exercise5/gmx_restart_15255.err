@@ -1,0 +1,38 @@
+                      :-) GROMACS - gmx mdrun, 2026.3 (-:
+
+Executable:   /n/holylabs/rc_admin/Everyone/checkpoint-training/gromacs/sw/bin/gmx_mpi
+Data prefix:  /n/holylabs/rc_admin/Everyone/checkpoint-training/gromacs/sw
+Working dir:  /n/home06/pkrastev/Computer/User_Codes/Training/Checkpointing/Exercise5
+Command line:
+  gmx_mpi mdrun -deffnm md -cpi md.cpt -cpt 0.1 -maxh 0.025
+
+Compiled SIMD is AVX2_256, but CPU also supports AVX_512 (see log).
+Reading file md.tpr, VERSION 2026.3 (single precision)
+Can not increase nstlist because an NVE ensemble is used
+Using 4 MPI processes
+
+Non-default thread affinity set, disabling internal thread affinity
+
+Using 1 OpenMP thread per MPI process
+
+starting mdrun 'Pure Water'
+5000000 steps,   5000.0 ps (continuing from step 24400,     24.4 ps).
+
+Step 47910: Run time exceeded 0.025 hours, will terminate the run within 10 steps
+
+
+Dynamic load balancing report:
+ DLB was turned on during the run due to measured imbalance.
+ Average load imbalance: 3.4%.
+ The balanceable part of the MD step is 21%, load imbalance is computed from this.
+ Part of the total run time spent waiting due to load imbalance: 0.7%.
+ Steps where the load balancing was limited by -rdd, -rcon and/or -dds: X 0 %
+
+
+               Core t (s)   Wall t (s)        (%)
+       Time:      357.080       89.273      400.0
+                 (ns/day)    (hour/ns)    (ms/step)  (Matom*steps/s) 
+Performance:       22.764        1.054        3.795            0.711 
+
+GROMACS reminds you: "It Just Tastes Better" (Burger King)
+
