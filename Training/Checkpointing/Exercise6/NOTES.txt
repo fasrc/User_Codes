@@ -1,0 +1,56 @@
+mamba create --prefix=/n/holylabs/rc_admin/Everyone/checkpoint-training/pt2.14.0_cuda13.2 pip wheel -y
+mamba activate /n/holylabs/rc_admin/Everyone/checkpoint-training/pt2.14.0_cuda13.2
+pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu132
+pip3 install numpy scipy pandas matplotlib seaborn h5py jupyterlab  scikit-learn
+mamba install -c conda-forge jupyterlab-spellchecker -y
+
+- Part A — Naive training
+  No checkpointing
+
+module load python
+mamba activate /n/holylabs/rc_admin/Everyone/checkpoint-training/pt2.14.0_cuda13.2
+python mnist_naive.py --epochs 10 --batch-size 128
+
+- Part B — Basic checkpoint
+  model + optimizer + epoch
+
+module load python
+mamba activate /n/holylabs/rc_admin/Everyone/checkpoint-training/pt2.14.0_cuda13.2
+python mnist_checkpoint.py --epochs 10
+
+INTERUPT
+  control + C
+
+RESTART
+  python mnist_checkpoint.py --epochs 10 --resume
+
+- Part C — Complete training checkpoint
+  model
+  optimizer
+  scheduler
+  epoch
+  best validation loss
+  early-stopping counter
+  RNG state
+
+module load python
+mamba activate /n/holylabs/rc_admin/Everyone/checkpoint-training/pt2.14.0_cuda13.2
+rm -f mnist_complete.pt
+
+python mnist_complete_checkpoint.py \
+    --device cuda \
+    --epochs 30 \
+    --sleep 2
+
+INTERUPT
+  control + C
+
+RESTART
+  
+python mnist_complete_checkpoint.py \
+    --device cpu \
+    --epochs 30 \
+    --resume
+
+- Part D — Slurm restart/requeue
+  automatic resume
