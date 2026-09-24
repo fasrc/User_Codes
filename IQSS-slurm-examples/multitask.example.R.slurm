@@ -11,8 +11,8 @@
 # Commands to run go on next lines:
 
 module purge > /dev/null 2>&1
-module load gcc/7.1.0-fasrc01 R/3.5.0-fasrc01
-module load intel/17.0.4-fasrc01 R/3.5.0-fasrc01
+module load gcc/15.2.0-fasrc01 R/4.5.1-fasrc01
+module load intel/25.2.1-fasrc01 R/4.5.1-fasrc01
 chmod u+x multitask.example.R 
 ./multitask.example.R "${SLURM_ARRAY_TASK_ID}"   # Run R hello world.
 
