@@ -1,0 +1,24 @@
+#!/bin/bash
+#SBATCH --job-name=pi-requeue
+#SBATCH --partition=rc-testing
+#SBATCH --time=00:30:00
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=1G
+#SBATCH --output=pi_requeue_%j.out
+#SBATCH --error=pi_requeue_%j.err
+#SBATCH --open-mode=append
+#SBATCH --requeue
+
+module load python
+
+echo "Job ID        : ${SLURM_JOB_ID}"
+echo "Restart count : ${SLURM_RESTART_COUNT:-0}"
+
+# No --resume needed: pi_requeue.py loads a checkpoint automatically if one
+# exists. Do NOT add --fresh here; it would discard the checkpoint on requeue.
+srun python pi_requeue.py \
+    --darts 1000000000 \
+    --seed 42 \
+    --report-every 1000000 \
+    --checkpoint-every 5000000 \
+    --checkpoint-file checkpoints/pi_requeue.pkl

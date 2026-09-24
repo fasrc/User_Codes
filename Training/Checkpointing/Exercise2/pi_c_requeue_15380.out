@@ -1,0 +1,394 @@
+============================================================
+Starting C automatic-requeue example
+============================================================
+Job ID        : 15380
+Restart count : 0
+Node          : holy7c26504.rc.fas.harvard.edu
+Time          : Wed Sep 23 21:08:29 EDT 2026
+============================================================
+========================================================================
+Monte Carlo Pi - C Slurm Requeue Example
+========================================================================
+Slurm job ID        : 15380
+Slurm restart count : 0
+Checkpoint file     : checkpoints/pi_requeue.bin
+========================================================================
+
+No checkpoint found.
+Starting a new calculation.
+
+darts =      1000000 / 250000000   pi = 3.14330800   error = 1.715e-03   elapsed = 0.01 s
+darts =      2000000 / 250000000   pi = 3.14220000   error = 6.073e-04   elapsed = 1.01 s
+darts =      3000000 / 250000000   pi = 3.14184267   error = 2.500e-04   elapsed = 2.02 s
+darts =      4000000 / 250000000   pi = 3.14236800   error = 7.753e-04   elapsed = 3.02 s
+darts =      5000000 / 250000000   pi = 3.14191920   error = 3.265e-04   elapsed = 4.03 s
+  --> periodic checkpoint saved at dart 5000000
+darts =      6000000 / 250000000   pi = 3.14158200   error = 1.065e-05   elapsed = 5.05 s
+darts =      7000000 / 250000000   pi = 3.14163257   error = 3.992e-05   elapsed = 6.06 s
+darts =      8000000 / 250000000   pi = 3.14161250   error = 1.985e-05   elapsed = 7.06 s
+darts =      9000000 / 250000000   pi = 3.14169200   error = 9.935e-05   elapsed = 8.07 s
+darts =     10000000 / 250000000   pi = 3.14165520   error = 6.255e-05   elapsed = 9.08 s
+  --> periodic checkpoint saved at dart 10000000
+darts =     11000000 / 250000000   pi = 3.14182327   error = 2.306e-04   elapsed = 10.10 s
+darts =     12000000 / 250000000   pi = 3.14163700   error = 4.435e-05   elapsed = 11.10 s
+darts =     13000000 / 250000000   pi = 3.14175877   error = 1.661e-04   elapsed = 12.11 s
+darts =     14000000 / 250000000   pi = 3.14190429   error = 3.116e-04   elapsed = 13.12 s
+darts =     15000000 / 250000000   pi = 3.14174187   error = 1.492e-04   elapsed = 14.12 s
+  --> periodic checkpoint saved at dart 15000000
+darts =     16000000 / 250000000   pi = 3.14176325   error = 1.706e-04   elapsed = 15.14 s
+darts =     17000000 / 250000000   pi = 3.14179624   error = 2.036e-04   elapsed = 16.15 s
+darts =     18000000 / 250000000   pi = 3.14190956   error = 3.169e-04   elapsed = 17.15 s
+darts =     19000000 / 250000000   pi = 3.14180232   error = 2.097e-04   elapsed = 18.16 s
+darts =     20000000 / 250000000   pi = 3.14176360   error = 1.709e-04   elapsed = 19.17 s
+  --> periodic checkpoint saved at dart 20000000
+darts =     21000000 / 250000000   pi = 3.14184343   error = 2.508e-04   elapsed = 20.19 s
+darts =     22000000 / 250000000   pi = 3.14176455   error = 1.719e-04   elapsed = 21.19 s
+darts =     23000000 / 250000000   pi = 3.14178070   error = 1.880e-04   elapsed = 22.20 s
+darts =     24000000 / 250000000   pi = 3.14167800   error = 8.535e-05   elapsed = 23.21 s
+darts =     25000000 / 250000000   pi = 3.14159408   error = 1.426e-06   elapsed = 24.21 s
+  --> periodic checkpoint saved at dart 25000000
+darts =     26000000 / 250000000   pi = 3.14152385   error = 6.881e-05   elapsed = 25.23 s
+darts =     27000000 / 250000000   pi = 3.14140756   error = 1.851e-04   elapsed = 26.24 s
+darts =     28000000 / 250000000   pi = 3.14136886   error = 2.238e-04   elapsed = 27.24 s
+darts =     29000000 / 250000000   pi = 3.14136428   error = 2.284e-04   elapsed = 28.25 s
+darts =     30000000 / 250000000   pi = 3.14128520   error = 3.075e-04   elapsed = 29.26 s
+  --> periodic checkpoint saved at dart 30000000
+darts =     31000000 / 250000000   pi = 3.14131032   error = 2.823e-04   elapsed = 30.28 s
+darts =     32000000 / 250000000   pi = 3.14138387   error = 2.088e-04   elapsed = 31.29 s
+darts =     33000000 / 250000000   pi = 3.14130121   error = 2.914e-04   elapsed = 32.29 s
+darts =     34000000 / 250000000   pi = 3.14135106   error = 2.416e-04   elapsed = 33.30 s
+darts =     35000000 / 250000000   pi = 3.14137086   error = 2.218e-04   elapsed = 34.30 s
+  --> periodic checkpoint saved at dart 35000000
+darts =     36000000 / 250000000   pi = 3.14138211   error = 2.105e-04   elapsed = 35.33 s
+darts =     37000000 / 250000000   pi = 3.14141351   error = 1.791e-04   elapsed = 36.33 s
+darts =     38000000 / 250000000   pi = 3.14145105   error = 1.416e-04   elapsed = 37.34 s
+darts =     39000000 / 250000000   pi = 3.14147467   error = 1.180e-04   elapsed = 38.34 s
+darts =     40000000 / 250000000   pi = 3.14150020   error = 9.245e-05   elapsed = 39.35 s
+  --> periodic checkpoint saved at dart 40000000
+darts =     41000000 / 250000000   pi = 3.14143298   error = 1.597e-04   elapsed = 40.37 s
+darts =     42000000 / 250000000   pi = 3.14146657   error = 1.261e-04   elapsed = 41.38 s
+darts =     43000000 / 250000000   pi = 3.14146158   error = 1.311e-04   elapsed = 42.38 s
+darts =     44000000 / 250000000   pi = 3.14149209   error = 1.006e-04   elapsed = 43.39 s
+darts =     45000000 / 250000000   pi = 3.14147582   error = 1.168e-04   elapsed = 44.40 s
+  --> periodic checkpoint saved at dart 45000000
+darts =     46000000 / 250000000   pi = 3.14154270   error = 4.996e-05   elapsed = 45.42 s
+darts =     47000000 / 250000000   pi = 3.14156800   error = 2.465e-05   elapsed = 46.42 s
+darts =     48000000 / 250000000   pi = 3.14155658   error = 3.607e-05   elapsed = 47.43 s
+darts =     49000000 / 250000000   pi = 3.14158620   error = 6.450e-06   elapsed = 48.44 s
+darts =     50000000 / 250000000   pi = 3.14155768   error = 3.497e-05   elapsed = 49.44 s
+  --> periodic checkpoint saved at dart 50000000
+darts =     51000000 / 250000000   pi = 3.14151106   error = 8.159e-05   elapsed = 50.46 s
+darts =     52000000 / 250000000   pi = 3.14153192   error = 6.073e-05   elapsed = 51.47 s
+darts =     53000000 / 250000000   pi = 3.14152747   error = 6.518e-05   elapsed = 52.47 s
+darts =     54000000 / 250000000   pi = 3.14156467   error = 2.799e-05   elapsed = 53.48 s
+darts =     55000000 / 250000000   pi = 3.14152378   error = 6.887e-05   elapsed = 54.49 s
+  --> periodic checkpoint saved at dart 55000000
+darts =     56000000 / 250000000   pi = 3.14152836   error = 6.430e-05   elapsed = 55.51 s
+darts =     57000000 / 250000000   pi = 3.14160288   error = 1.022e-05   elapsed = 56.51 s
+darts =     58000000 / 250000000   pi = 3.14165683   error = 6.417e-05   elapsed = 57.52 s
+darts =     59000000 / 250000000   pi = 3.14165817   error = 6.552e-05   elapsed = 58.53 s
+darts =     60000000 / 250000000   pi = 3.14163453   error = 4.188e-05   elapsed = 59.53 s
+  --> periodic checkpoint saved at dart 60000000
+darts =     61000000 / 250000000   pi = 3.14163187   error = 3.922e-05   elapsed = 60.55 s
+darts =     62000000 / 250000000   pi = 3.14164077   error = 4.812e-05   elapsed = 61.56 s
+darts =     63000000 / 250000000   pi = 3.14162463   error = 3.198e-05   elapsed = 62.57 s
+darts =     64000000 / 250000000   pi = 3.14164919   error = 5.653e-05   elapsed = 63.57 s
+darts =     65000000 / 250000000   pi = 3.14160548   error = 1.282e-05   elapsed = 64.58 s
+  --> periodic checkpoint saved at dart 65000000
+darts =     66000000 / 250000000   pi = 3.14159618   error = 3.528e-06   elapsed = 65.60 s
+darts =     67000000 / 250000000   pi = 3.14156090   error = 3.176e-05   elapsed = 66.60 s
+darts =     68000000 / 250000000   pi = 3.14158500   error = 7.654e-06   elapsed = 67.61 s
+darts =     69000000 / 250000000   pi = 3.14160817   error = 1.552e-05   elapsed = 68.61 s
+darts =     70000000 / 250000000   pi = 3.14164411   error = 5.146e-05   elapsed = 69.62 s
+  --> periodic checkpoint saved at dart 70000000
+darts =     71000000 / 250000000   pi = 3.14164473   error = 5.208e-05   elapsed = 70.64 s
+darts =     72000000 / 250000000   pi = 3.14166967   error = 7.701e-05   elapsed = 71.65 s
+darts =     73000000 / 250000000   pi = 3.14170115   error = 1.085e-04   elapsed = 72.65 s
+darts =     74000000 / 250000000   pi = 3.14168173   error = 8.908e-05   elapsed = 73.66 s
+darts =     75000000 / 250000000   pi = 3.14169589   error = 1.032e-04   elapsed = 74.67 s
+  --> periodic checkpoint saved at dart 75000000
+darts =     76000000 / 250000000   pi = 3.14172632   error = 1.337e-04   elapsed = 75.69 s
+darts =     77000000 / 250000000   pi = 3.14173735   error = 1.447e-04   elapsed = 76.69 s
+darts =     78000000 / 250000000   pi = 3.14171928   error = 1.266e-04   elapsed = 77.70 s
+darts =     79000000 / 250000000   pi = 3.14171737   error = 1.247e-04   elapsed = 78.71 s
+darts =     80000000 / 250000000   pi = 3.14169875   error = 1.061e-04   elapsed = 79.71 s
+  --> periodic checkpoint saved at dart 80000000
+darts =     81000000 / 250000000   pi = 3.14166509   error = 7.243e-05   elapsed = 80.73 s
+darts =     82000000 / 250000000   pi = 3.14162220   error = 2.954e-05   elapsed = 81.74 s
+darts =     83000000 / 250000000   pi = 3.14159692   error = 4.262e-06   elapsed = 82.75 s
+darts =     84000000 / 250000000   pi = 3.14159062   error = 2.035e-06   elapsed = 83.75 s
+darts =     85000000 / 250000000   pi = 3.14161798   error = 2.532e-05   elapsed = 84.76 s
+  --> periodic checkpoint saved at dart 85000000
+darts =     86000000 / 250000000   pi = 3.14161767   error = 2.502e-05   elapsed = 85.78 s
+darts =     87000000 / 250000000   pi = 3.14160060   error = 7.944e-06   elapsed = 86.78 s
+darts =     88000000 / 250000000   pi = 3.14164841   error = 5.576e-05   elapsed = 87.79 s
+darts =     89000000 / 250000000   pi = 3.14164031   error = 4.766e-05   elapsed = 88.80 s
+darts =     90000000 / 250000000   pi = 3.14162769   error = 3.504e-05   elapsed = 89.80 s
+  --> periodic checkpoint saved at dart 90000000
+darts =     91000000 / 250000000   pi = 3.14161266   error = 2.001e-05   elapsed = 90.83 s
+darts =     92000000 / 250000000   pi = 3.14162587   error = 3.322e-05   elapsed = 91.83 s
+darts =     93000000 / 250000000   pi = 3.14165617   error = 6.352e-05   elapsed = 92.84 s
+darts =     94000000 / 250000000   pi = 3.14164923   error = 5.658e-05   elapsed = 93.84 s
+darts =     95000000 / 250000000   pi = 3.14165992   error = 6.726e-05   elapsed = 94.85 s
+  --> periodic checkpoint saved at dart 95000000
+darts =     96000000 / 250000000   pi = 3.14166179   error = 6.914e-05   elapsed = 95.87 s
+darts =     97000000 / 250000000   pi = 3.14165266   error = 6.001e-05   elapsed = 96.88 s
+darts =     98000000 / 250000000   pi = 3.14164367   error = 5.102e-05   elapsed = 97.88 s
+
+============================================================
+SIGUSR1 received: Wed Sep 23 21:10:07 EDT 2026
+Preparing to requeue job 15380
+============================================================
+Latest checkpoint:
+-rw-r--r--. 1 pkrastev rc_admin 64 Sep 23 21:10 checkpoints/pi_requeue.bin
+Requesting requeue...
+============================================================
+Starting C automatic-requeue example
+============================================================
+Job ID        : 15380
+Restart count : 1
+Node          : holy7c26504.rc.fas.harvard.edu
+Time          : Wed Sep 23 21:12:36 EDT 2026
+============================================================
+========================================================================
+Monte Carlo Pi - C Slurm Requeue Example
+========================================================================
+Slurm job ID        : 15380
+Slurm restart count : 1
+Checkpoint file     : checkpoints/pi_requeue.bin
+========================================================================
+
+CHECKPOINT FOUND - AUTOMATIC RESTART
+Completed darts  : 98000001
+Inside circle    : 76970270
+Previous runtime : 98.00 s
+
+darts =     99000000 / 250000000   pi = 3.14165087   error = 5.822e-05   elapsed = 98.01 s
+darts =    100000000 / 250000000   pi = 3.14164108   error = 4.843e-05   elapsed = 99.01 s
+  --> periodic checkpoint saved at dart 100000000
+darts =    101000000 / 250000000   pi = 3.14165236   error = 5.970e-05   elapsed = 100.03 s
+darts =    102000000 / 250000000   pi = 3.14161357   error = 2.092e-05   elapsed = 101.04 s
+darts =    103000000 / 250000000   pi = 3.14161526   error = 2.261e-05   elapsed = 102.04 s
+darts =    104000000 / 250000000   pi = 3.14161638   error = 2.373e-05   elapsed = 103.05 s
+darts =    105000000 / 250000000   pi = 3.14163722   error = 4.457e-05   elapsed = 104.06 s
+  --> periodic checkpoint saved at dart 105000000
+darts =    106000000 / 250000000   pi = 3.14161683   error = 2.418e-05   elapsed = 105.08 s
+darts =    107000000 / 250000000   pi = 3.14158662   error = 6.037e-06   elapsed = 106.08 s
+darts =    108000000 / 250000000   pi = 3.14159785   error = 5.198e-06   elapsed = 107.09 s
+darts =    109000000 / 250000000   pi = 3.14161424   error = 2.158e-05   elapsed = 108.09 s
+darts =    110000000 / 250000000   pi = 3.14163302   error = 4.036e-05   elapsed = 109.10 s
+  --> periodic checkpoint saved at dart 110000000
+darts =    111000000 / 250000000   pi = 3.14164270   error = 5.005e-05   elapsed = 110.12 s
+darts =    112000000 / 250000000   pi = 3.14165993   error = 6.727e-05   elapsed = 111.13 s
+darts =    113000000 / 250000000   pi = 3.14166881   error = 7.616e-05   elapsed = 112.13 s
+darts =    114000000 / 250000000   pi = 3.14166235   error = 6.970e-05   elapsed = 113.14 s
+darts =    115000000 / 250000000   pi = 3.14165071   error = 5.806e-05   elapsed = 114.15 s
+  --> periodic checkpoint saved at dart 115000000
+darts =    116000000 / 250000000   pi = 3.14164679   error = 5.414e-05   elapsed = 115.17 s
+darts =    117000000 / 250000000   pi = 3.14164451   error = 5.186e-05   elapsed = 116.17 s
+darts =    118000000 / 250000000   pi = 3.14163725   error = 4.460e-05   elapsed = 117.18 s
+darts =    119000000 / 250000000   pi = 3.14163160   error = 3.894e-05   elapsed = 118.18 s
+darts =    120000000 / 250000000   pi = 3.14164540   error = 5.275e-05   elapsed = 119.19 s
+  --> periodic checkpoint saved at dart 120000000
+darts =    121000000 / 250000000   pi = 3.14166734   error = 7.469e-05   elapsed = 120.21 s
+darts =    122000000 / 250000000   pi = 3.14167669   error = 8.403e-05   elapsed = 121.22 s
+darts =    123000000 / 250000000   pi = 3.14167398   error = 8.133e-05   elapsed = 122.22 s
+darts =    124000000 / 250000000   pi = 3.14168997   error = 9.731e-05   elapsed = 123.23 s
+darts =    125000000 / 250000000   pi = 3.14168883   error = 9.618e-05   elapsed = 124.24 s
+  --> periodic checkpoint saved at dart 125000000
+darts =    126000000 / 250000000   pi = 3.14169559   error = 1.029e-04   elapsed = 125.26 s
+darts =    127000000 / 250000000   pi = 3.14170283   error = 1.102e-04   elapsed = 126.26 s
+darts =    128000000 / 250000000   pi = 3.14170434   error = 1.117e-04   elapsed = 127.27 s
+darts =    129000000 / 250000000   pi = 3.14169383   error = 1.012e-04   elapsed = 128.27 s
+darts =    130000000 / 250000000   pi = 3.14169246   error = 9.981e-05   elapsed = 129.28 s
+  --> periodic checkpoint saved at dart 130000000
+darts =    131000000 / 250000000   pi = 3.14169289   error = 1.002e-04   elapsed = 130.30 s
+darts =    132000000 / 250000000   pi = 3.14169588   error = 1.032e-04   elapsed = 131.31 s
+darts =    133000000 / 250000000   pi = 3.14169089   error = 9.823e-05   elapsed = 132.32 s
+darts =    134000000 / 250000000   pi = 3.14167149   error = 7.884e-05   elapsed = 133.32 s
+darts =    135000000 / 250000000   pi = 3.14165345   error = 6.080e-05   elapsed = 134.33 s
+  --> periodic checkpoint saved at dart 135000000
+darts =    136000000 / 250000000   pi = 3.14164112   error = 4.846e-05   elapsed = 135.35 s
+darts =    137000000 / 250000000   pi = 3.14163764   error = 4.498e-05   elapsed = 136.36 s
+darts =    138000000 / 250000000   pi = 3.14164174   error = 4.909e-05   elapsed = 137.36 s
+darts =    139000000 / 250000000   pi = 3.14163191   error = 3.926e-05   elapsed = 138.37 s
+darts =    140000000 / 250000000   pi = 3.14162666   error = 3.400e-05   elapsed = 139.37 s
+  --> periodic checkpoint saved at dart 140000000
+darts =    141000000 / 250000000   pi = 3.14162352   error = 3.086e-05   elapsed = 140.39 s
+darts =    142000000 / 250000000   pi = 3.14159163   error = 1.020e-06   elapsed = 141.40 s
+darts =    143000000 / 250000000   pi = 3.14160252   error = 9.864e-06   elapsed = 142.41 s
+darts =    144000000 / 250000000   pi = 3.14161631   error = 2.365e-05   elapsed = 143.41 s
+darts =    145000000 / 250000000   pi = 3.14160463   error = 1.198e-05   elapsed = 144.42 s
+  --> periodic checkpoint saved at dart 145000000
+darts =    146000000 / 250000000   pi = 3.14160888   error = 1.622e-05   elapsed = 145.44 s
+darts =    147000000 / 250000000   pi = 3.14161053   error = 1.788e-05   elapsed = 146.45 s
+darts =    148000000 / 250000000   pi = 3.14160130   error = 8.644e-06   elapsed = 147.45 s
+darts =    149000000 / 250000000   pi = 3.14158736   error = 5.298e-06   elapsed = 148.46 s
+darts =    150000000 / 250000000   pi = 3.14159464   error = 1.986e-06   elapsed = 149.46 s
+  --> periodic checkpoint saved at dart 150000000
+darts =    151000000 / 250000000   pi = 3.14161060   error = 1.794e-05   elapsed = 150.49 s
+darts =    152000000 / 250000000   pi = 3.14161900   error = 2.635e-05   elapsed = 151.49 s
+darts =    153000000 / 250000000   pi = 3.14162400   error = 3.135e-05   elapsed = 152.50 s
+darts =    154000000 / 250000000   pi = 3.14162049   error = 2.784e-05   elapsed = 153.50 s
+darts =    155000000 / 250000000   pi = 3.14162222   error = 2.957e-05   elapsed = 154.51 s
+  --> periodic checkpoint saved at dart 155000000
+darts =    156000000 / 250000000   pi = 3.14160654   error = 1.388e-05   elapsed = 155.53 s
+darts =    157000000 / 250000000   pi = 3.14161050   error = 1.784e-05   elapsed = 156.54 s
+darts =    158000000 / 250000000   pi = 3.14160276   error = 1.011e-05   elapsed = 157.55 s
+darts =    159000000 / 250000000   pi = 3.14159937   error = 6.717e-06   elapsed = 158.55 s
+darts =    160000000 / 250000000   pi = 3.14160892   error = 1.627e-05   elapsed = 159.56 s
+  --> periodic checkpoint saved at dart 160000000
+darts =    161000000 / 250000000   pi = 3.14162316   error = 3.050e-05   elapsed = 160.58 s
+darts =    162000000 / 250000000   pi = 3.14162128   error = 2.863e-05   elapsed = 161.58 s
+darts =    163000000 / 250000000   pi = 3.14162643   error = 3.378e-05   elapsed = 162.59 s
+darts =    164000000 / 250000000   pi = 3.14162678   error = 3.413e-05   elapsed = 163.60 s
+darts =    165000000 / 250000000   pi = 3.14161743   error = 2.478e-05   elapsed = 164.60 s
+  --> periodic checkpoint saved at dart 165000000
+darts =    166000000 / 250000000   pi = 3.14162287   error = 3.021e-05   elapsed = 165.62 s
+darts =    167000000 / 250000000   pi = 3.14161090   error = 1.824e-05   elapsed = 166.63 s
+darts =    168000000 / 250000000   pi = 3.14161626   error = 2.361e-05   elapsed = 167.63 s
+darts =    169000000 / 250000000   pi = 3.14159591   error = 3.252e-06   elapsed = 168.64 s
+darts =    170000000 / 250000000   pi = 3.14160026   error = 7.605e-06   elapsed = 169.64 s
+  --> periodic checkpoint saved at dart 170000000
+darts =    171000000 / 250000000   pi = 3.14160346   error = 1.081e-05   elapsed = 170.66 s
+darts =    172000000 / 250000000   pi = 3.14159826   error = 5.602e-06   elapsed = 171.67 s
+darts =    173000000 / 250000000   pi = 3.14160745   error = 1.479e-05   elapsed = 172.68 s
+darts =    174000000 / 250000000   pi = 3.14160041   error = 7.760e-06   elapsed = 173.68 s
+darts =    175000000 / 250000000   pi = 3.14158990   error = 2.756e-06   elapsed = 174.69 s
+  --> periodic checkpoint saved at dart 175000000
+darts =    176000000 / 250000000   pi = 3.14158639   error = 6.267e-06   elapsed = 175.71 s
+darts =    177000000 / 250000000   pi = 3.14156972   error = 2.294e-05   elapsed = 176.72 s
+darts =    178000000 / 250000000   pi = 3.14156031   error = 3.234e-05   elapsed = 177.72 s
+darts =    179000000 / 250000000   pi = 3.14155084   error = 4.182e-05   elapsed = 178.73 s
+darts =    180000000 / 250000000   pi = 3.14155991   error = 3.274e-05   elapsed = 179.73 s
+  --> periodic checkpoint saved at dart 180000000
+darts =    181000000 / 250000000   pi = 3.14156110   error = 3.155e-05   elapsed = 180.75 s
+darts =    182000000 / 250000000   pi = 3.14157084   error = 2.182e-05   elapsed = 181.76 s
+darts =    183000000 / 250000000   pi = 3.14157082   error = 2.183e-05   elapsed = 182.77 s
+darts =    184000000 / 250000000   pi = 3.14157504   error = 1.761e-05   elapsed = 183.77 s
+darts =    185000000 / 250000000   pi = 3.14158802   error = 4.632e-06   elapsed = 184.78 s
+  --> periodic checkpoint saved at dart 185000000
+darts =    186000000 / 250000000   pi = 3.14159587   error = 3.217e-06   elapsed = 185.80 s
+darts =    187000000 / 250000000   pi = 3.14159968   error = 7.026e-06   elapsed = 186.81 s
+darts =    188000000 / 250000000   pi = 3.14160164   error = 8.985e-06   elapsed = 187.81 s
+
+============================================================
+SIGUSR1 received: Wed Sep 23 21:14:07 EDT 2026
+Preparing to requeue job 15380
+============================================================
+Latest checkpoint:
+-rw-r--r--. 1 pkrastev rc_admin 64 Sep 23 21:14 checkpoints/pi_requeue.bin
+Requesting requeue...
+============================================================
+Starting C automatic-requeue example
+============================================================
+Job ID        : 15380
+Restart count : 2
+Node          : holy7c26504.rc.fas.harvard.edu
+Time          : Wed Sep 23 21:16:36 EDT 2026
+============================================================
+========================================================================
+Monte Carlo Pi - C Slurm Requeue Example
+========================================================================
+Slurm job ID        : 15380
+Slurm restart count : 2
+Checkpoint file     : checkpoints/pi_requeue.bin
+========================================================================
+
+CHECKPOINT FOUND - AUTOMATIC RESTART
+Completed darts  : 188000001
+Inside circle    : 147655278
+Previous runtime : 188.11 s
+
+darts =    189000000 / 250000000   pi = 3.14159018   error = 2.474e-06   elapsed = 188.12 s
+darts =    190000000 / 250000000   pi = 3.14157989   error = 1.276e-05   elapsed = 189.12 s
+  --> periodic checkpoint saved at dart 190000000
+darts =    191000000 / 250000000   pi = 3.14158559   error = 7.062e-06   elapsed = 190.15 s
+darts =    192000000 / 250000000   pi = 3.14158500   error = 7.654e-06   elapsed = 191.15 s
+darts =    193000000 / 250000000   pi = 3.14158276   error = 9.897e-06   elapsed = 192.16 s
+darts =    194000000 / 250000000   pi = 3.14157489   error = 1.777e-05   elapsed = 193.17 s
+darts =    195000000 / 250000000   pi = 3.14157766   error = 1.499e-05   elapsed = 194.17 s
+  --> periodic checkpoint saved at dart 195000000
+darts =    196000000 / 250000000   pi = 3.14156998   error = 2.267e-05   elapsed = 195.20 s
+darts =    197000000 / 250000000   pi = 3.14157340   error = 1.925e-05   elapsed = 196.21 s
+darts =    198000000 / 250000000   pi = 3.14157459   error = 1.807e-05   elapsed = 197.22 s
+darts =    199000000 / 250000000   pi = 3.14156597   error = 2.668e-05   elapsed = 198.22 s
+darts =    200000000 / 250000000   pi = 3.14156602   error = 2.663e-05   elapsed = 199.23 s
+  --> periodic checkpoint saved at dart 200000000
+darts =    201000000 / 250000000   pi = 3.14156320   error = 2.945e-05   elapsed = 200.25 s
+darts =    202000000 / 250000000   pi = 3.14154685   error = 4.580e-05   elapsed = 201.26 s
+darts =    203000000 / 250000000   pi = 3.14153968   error = 5.297e-05   elapsed = 202.26 s
+darts =    204000000 / 250000000   pi = 3.14154092   error = 5.173e-05   elapsed = 203.27 s
+darts =    205000000 / 250000000   pi = 3.14153438   error = 5.827e-05   elapsed = 204.27 s
+  --> periodic checkpoint saved at dart 205000000
+darts =    206000000 / 250000000   pi = 3.14151959   error = 7.306e-05   elapsed = 205.29 s
+darts =    207000000 / 250000000   pi = 3.14152238   error = 7.028e-05   elapsed = 206.30 s
+darts =    208000000 / 250000000   pi = 3.14153067   error = 6.198e-05   elapsed = 207.31 s
+darts =    209000000 / 250000000   pi = 3.14153516   error = 5.750e-05   elapsed = 208.31 s
+darts =    210000000 / 250000000   pi = 3.14153501   error = 5.764e-05   elapsed = 209.32 s
+  --> periodic checkpoint saved at dart 210000000
+darts =    211000000 / 250000000   pi = 3.14152601   error = 6.664e-05   elapsed = 210.34 s
+darts =    212000000 / 250000000   pi = 3.14152589   error = 6.677e-05   elapsed = 211.35 s
+darts =    213000000 / 250000000   pi = 3.14153735   error = 5.530e-05   elapsed = 212.35 s
+darts =    214000000 / 250000000   pi = 3.14153680   error = 5.585e-05   elapsed = 213.36 s
+darts =    215000000 / 250000000   pi = 3.14154019   error = 5.247e-05   elapsed = 214.36 s
+  --> periodic checkpoint saved at dart 215000000
+darts =    216000000 / 250000000   pi = 3.14154694   error = 4.571e-05   elapsed = 215.38 s
+darts =    217000000 / 250000000   pi = 3.14155006   error = 4.259e-05   elapsed = 216.39 s
+darts =    218000000 / 250000000   pi = 3.14155739   error = 3.526e-05   elapsed = 217.40 s
+darts =    219000000 / 250000000   pi = 3.14155596   error = 3.669e-05   elapsed = 218.40 s
+darts =    220000000 / 250000000   pi = 3.14155875   error = 3.391e-05   elapsed = 219.41 s
+  --> periodic checkpoint saved at dart 220000000
+darts =    221000000 / 250000000   pi = 3.14156862   error = 2.404e-05   elapsed = 220.43 s
+darts =    222000000 / 250000000   pi = 3.14156014   error = 3.251e-05   elapsed = 221.44 s
+darts =    223000000 / 250000000   pi = 3.14155591   error = 3.674e-05   elapsed = 222.44 s
+darts =    224000000 / 250000000   pi = 3.14155602   error = 3.664e-05   elapsed = 223.45 s
+darts =    225000000 / 250000000   pi = 3.14155492   error = 3.774e-05   elapsed = 224.46 s
+  --> periodic checkpoint saved at dart 225000000
+darts =    226000000 / 250000000   pi = 3.14155297   error = 3.968e-05   elapsed = 225.48 s
+darts =    227000000 / 250000000   pi = 3.14155346   error = 3.919e-05   elapsed = 226.48 s
+darts =    228000000 / 250000000   pi = 3.14155404   error = 3.862e-05   elapsed = 227.49 s
+darts =    229000000 / 250000000   pi = 3.14155734   error = 3.531e-05   elapsed = 228.50 s
+darts =    230000000 / 250000000   pi = 3.14155551   error = 3.714e-05   elapsed = 229.50 s
+  --> periodic checkpoint saved at dart 230000000
+darts =    231000000 / 250000000   pi = 3.14155711   error = 3.555e-05   elapsed = 230.52 s
+darts =    232000000 / 250000000   pi = 3.14156748   error = 2.517e-05   elapsed = 231.53 s
+darts =    233000000 / 250000000   pi = 3.14155837   error = 3.428e-05   elapsed = 232.53 s
+darts =    234000000 / 250000000   pi = 3.14156154   error = 3.112e-05   elapsed = 233.54 s
+darts =    235000000 / 250000000   pi = 3.14155683   error = 3.582e-05   elapsed = 234.55 s
+  --> periodic checkpoint saved at dart 235000000
+darts =    236000000 / 250000000   pi = 3.14155815   error = 3.450e-05   elapsed = 235.57 s
+darts =    237000000 / 250000000   pi = 3.14154736   error = 4.529e-05   elapsed = 236.57 s
+darts =    238000000 / 250000000   pi = 3.14154509   error = 4.756e-05   elapsed = 237.58 s
+darts =    239000000 / 250000000   pi = 3.14154740   error = 4.526e-05   elapsed = 238.59 s
+darts =    240000000 / 250000000   pi = 3.14155878   error = 3.387e-05   elapsed = 239.59 s
+  --> periodic checkpoint saved at dart 240000000
+darts =    241000000 / 250000000   pi = 3.14156242   error = 3.023e-05   elapsed = 240.61 s
+darts =    242000000 / 250000000   pi = 3.14155372   error = 3.893e-05   elapsed = 241.62 s
+darts =    243000000 / 250000000   pi = 3.14155256   error = 4.009e-05   elapsed = 242.62 s
+darts =    244000000 / 250000000   pi = 3.14154595   error = 4.670e-05   elapsed = 243.63 s
+darts =    245000000 / 250000000   pi = 3.14153683   error = 5.582e-05   elapsed = 244.64 s
+  --> periodic checkpoint saved at dart 245000000
+darts =    246000000 / 250000000   pi = 3.14154111   error = 5.155e-05   elapsed = 245.66 s
+darts =    247000000 / 250000000   pi = 3.14153402   error = 5.863e-05   elapsed = 246.66 s
+darts =    248000000 / 250000000   pi = 3.14152526   error = 6.740e-05   elapsed = 247.67 s
+darts =    249000000 / 250000000   pi = 3.14152606   error = 6.660e-05   elapsed = 248.67 s
+darts =    250000000 / 250000000   pi = 3.14152810   error = 6.456e-05   elapsed = 249.68 s
+  --> periodic checkpoint saved at dart 250000000
+
+========================================================================
+CALCULATION COMPLETE
+========================================================================
+Estimated pi       : 3.1415280960
+Reference pi       : 3.1415926536
+Absolute error     : 6.455759e-05
+Total elapsed time : 250.70 s
+========================================================================
+
+============================================================
+Application completed normally
+============================================================
+Job ID        : 15380
+Restart count : 2
+Time          : Wed Sep 23 21:17:39 EDT 2026
+============================================================

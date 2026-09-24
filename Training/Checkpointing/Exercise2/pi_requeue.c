@@ -69,7 +69,7 @@ typedef struct {
 
 
 /* ------------------------------------------------------------------ */
-/* Signal handling                                                    */
+/* Signal handling                                                     */
 /* ------------------------------------------------------------------ */
 
 static void signal_handler(int signum)
@@ -105,8 +105,22 @@ static void install_signal_handlers(void)
 }
 
 
+static const char *signal_name(int signum)
+{
+    if (signum == SIGUSR1) {
+        return "SIGUSR1";
+    }
+
+    if (signum == SIGTERM) {
+        return "SIGTERM";
+    }
+
+    return "UNKNOWN";
+}
+
+
 /* ------------------------------------------------------------------ */
-/* RNG                                                                */
+/* RNG                                                                 */
 /* ------------------------------------------------------------------ */
 
 static uint64_t rng_next(uint64_t *state)
@@ -131,7 +145,7 @@ static double rng_uniform(uint64_t *state)
 
 
 /* ------------------------------------------------------------------ */
-/* Timing                                                             */
+/* Timing                                                              */
 /* ------------------------------------------------------------------ */
 
 static double wall_time(void)
@@ -175,7 +189,7 @@ static void sleep_seconds(double seconds)
 
 
 /* ------------------------------------------------------------------ */
-/* Checkpoint I/O                                                     */
+/* Checkpoint I/O                                                      */
 /* ------------------------------------------------------------------ */
 
 static void initialize_checkpoint(checkpoint_t *checkpoint)
@@ -300,7 +314,7 @@ static checkpoint_t load_checkpoint(const char *filename)
 
 
 /* ------------------------------------------------------------------ */
-/* CLI                                                                */
+/* CLI                                                                 */
 /* ------------------------------------------------------------------ */
 
 static uint64_t parse_uint64(
@@ -441,12 +455,27 @@ static options_t parse_args(int argc, char **argv)
         }
     }
 
+    if (options.darts == 0) {
+        fprintf(stderr, "--darts must be > 0\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (options.seed == 0) {
+        fprintf(stderr, "--seed must be nonzero\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if (options.sleep_seconds < 0.0) {
+        fprintf(stderr, "--sleep cannot be negative\n");
+        exit(EXIT_FAILURE);
+    }
+
     return options;
 }
 
 
 /* ------------------------------------------------------------------ */
-/* Main                                                               */
+/* Main                                                                */
 /* ------------------------------------------------------------------ */
 
 int main(int argc, char **argv)
@@ -587,9 +616,11 @@ int main(int argc, char **argv)
                 start_time;
 
             printf(
-                "\nSignal %d received. "
+                "\nSignal received: %s\n",
+                signal_name(received_signal)
+            );
+            printf(
                 "Saving checkpoint at dart %" PRIu64 "...\n",
-                (int) received_signal,
                 i
             );
 
@@ -615,15 +646,22 @@ int main(int argc, char **argv)
                 4.0 * (double) inside_circle /
                 (double) i;
 
+            const double elapsed =
+                previous_elapsed +
+                wall_time() -
+                start_time;
+
             printf(
                 "darts = %12" PRIu64
                 " / %" PRIu64
                 "   pi = %.8f"
-                "   error = %.3e\n",
+                "   error = %.3e"
+                "   elapsed = %.2f s\n",
                 i,
                 options.darts,
                 pi_estimate,
-                fabs(pi_estimate - PI_TRUE)
+                fabs(pi_estimate - PI_TRUE),
+                elapsed
             );
 
             fflush(stdout);

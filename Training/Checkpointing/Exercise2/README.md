@@ -2,1004 +2,348 @@
 
 ## Introduction
 
-This exercise extends the checkpoint/restart concepts introduced in Exercise 1 to the C programming language.
+This exercise repeats Exercise 1 in C, where details that Python hides become
+explicit: the layout of the saved state, the file writes, and the signal
+handling. The pattern is the same:
 
-As before, the example is a Monte Carlo estimate of $\pi$: random points $(x,y)$ are thrown into a unit square, and the fraction landing inside the unit circle ($x^2+y^2 \leq 1$) converges to $\pi/4$:
+```
+compute → checkpoint → compute → [interruption] → restart → load checkpoint → continue
+```
+
+The vehicle is again a Monte Carlo estimate of $\pi$: random points $(x, y)$ are
+thrown into a unit square, and the fraction landing inside the unit circle
+($x^2 + y^2 \le 1$) converges to $\pi / 4$:
 
 $$
 \pi \approx 4 \times \frac{\text{points inside circle}}{\text{total points}}
 $$
 
-The same calculation is hardened through four progressively more robust versions:
+The same calculation is hardened in four steps: no checkpointing, periodic
+checkpointing, signal-aware checkpointing, and automatic restart on the CANNON
+`serial_requeue` partition. The first two run **interactively**, the last two
+in **batch** mode.
 
-1. `pi_naive.c` — no checkpointing
-2. `pi_checkpoint.c` — periodic application-level checkpointing
-3. `pi_signal.c` — signal-aware checkpointing
-4. `pi_requeue.c` — automatic checkpoint/restart for the CANNON `serial_requeue` partition
+Checkpointing is done at the application level: the program periodically writes
+a C structure (`checkpoint_t`) to a binary file with `fwrite()`, and on restart
+reads it back and continues from the next dart. The checkpoint holds a magic
+string and version number, the number of completed darts, the number inside the
+circle, the random-number generator state, the total darts and seed (validated
+on resume), and the elapsed runtime.
 
-The underlying workflow is the same as in the Python exercise:
+Key ideas along the way:
 
-```text
-compute → checkpoint → compute → [interruption]
-        → restart → load checkpoint → continue computing
-```
-
-The C examples expose some lower-level details that Python normally hides, including:
-
-- explicit representation of application state
-- binary checkpoint files
-- random-number generator state
-- `fflush()` and `fsync()`
-- atomic `rename()`
-- Unix signal handling with `sigaction()`
-- `volatile sig_atomic_t` flags
+- **Explicit RNG state** — the `xorshift64*` generator used here has a single
+  `uint64_t` state, so a resumed run reproduces the exact random sequence of an
+  uninterrupted run.
+- **Atomic writes** — write to a temporary file, `fflush()`, `fsync()`,
+  `fclose()`, then `rename()`, so a crash mid-write never corrupts the last good
+  checkpoint.
+- **Signal-safe handlers** — the handler only sets `volatile sig_atomic_t`
+  flags; all checkpoint I/O happens later in the main loop.
+- **Portability** — writing a raw structure is simple but not a portable
+  production format (padding, byte order, layout changes); real applications
+  often use an explicit format or a library such as HDF5.
 
 ---
 
 ## Content
 
-| File | Description |
-|---|---|
-| `pi_naive.c` | Baseline Monte Carlo calculation with no checkpointing |
-| `pi_checkpoint.c` | Adds periodic binary checkpointing and manual `--resume` |
-| `pi_signal.c` | Adds safe handling of `SIGUSR1` and `SIGTERM` |
-| `pi_signal.sbatch` | Slurm script requesting an early `SIGUSR1` warning |
-| `pi_requeue.c` | Adds automatic checkpoint discovery and restart |
-| `pi_requeue.sbatch` | Slurm script for the CANNON `serial_requeue` partition |
-| `Makefile` | Builds all four C programs |
+| File | Description | Mode |
+|------|-------------|------|
+| `pi_naive.c` | Baseline, no checkpointing | Interactive |
+| `pi_checkpoint.c` | Periodic, atomic binary checkpoints; manual `--resume` | Interactive |
+| `pi_signal.c` | Adds `SIGUSR1`/`SIGTERM` handling that checkpoints on scheduler warning | Batch |
+| `pi_signal.sbatch` | Starts a new `pi_signal` run with `--signal=USR1@60` | Batch |
+| `pi_signal_restart.sbatch` | Restarts `pi_signal` from its checkpoint (`--resume`) | Batch |
+| `pi_c_signal_15366.out` | Example output of the first `pi_signal.sbatch` run (stopped by `SIGUSR1` at 106,000,001 darts) | Batch |
+| `pi_c_signal_restart_15367.out` | Example output of the `pi_signal_restart.sbatch` run (resumed from that checkpoint, stopped by `SIGUSR1` at 223,000,001 darts) | Batch |
+| `pi_requeue.c` | Finds an existing checkpoint automatically on startup | Batch |
+| `pi_requeue.sbatch` | Runs `pi_requeue` with `--requeue`; traps `SIGUSR1` (`--signal=B:USR1@60`) and requeues itself | Batch |
+| `pi_c_requeue_15380.out` | Example output of a `pi_requeue.sbatch` run that was requeued twice (restarted from checkpoints at 98,000,001 and 188,000,001 darts) and then completed | Batch |
+| `Makefile` | Builds the four programs (`make clean` removes them and the checkpoints) | — |
 
 ---
 
 ## Workflow
 
-### 1. No checkpointing — `pi_naive.c`
-
-The baseline program keeps all of its computational state only in process memory.
-
-The important state consists of:
-
-```text
-completed darts
-darts inside the circle
-random-number generator state
-```
-
-If the process terminates, all unfinished work is lost.
-
-Unlike the Python version, the C example uses a small deterministic `xorshift64*` pseudorandom-number generator rather than the standard `rand()` function.
-
-Its complete internal state is represented by a single integer:
-
-```c
-uint64_t rng_state;
-```
-
-This makes it straightforward to save and restore the exact random sequence in the checkpointed versions.
-
----
-
-### 2. Periodic checkpointing — `pi_checkpoint.c`
-
-The second version introduces an explicit checkpoint structure:
-
-```c
-typedef struct {
-    char magic[8];
-    uint32_t version;
-
-    uint64_t completed_darts;
-    uint64_t inside_circle;
-    uint64_t rng_state;
-
-    uint64_t total_darts;
-    uint64_t seed;
-
-    double elapsed_seconds;
-} checkpoint_t;
-```
-
-Every `--checkpoint-every` darts, this state is saved to a binary checkpoint file.
-
-The checkpoint therefore contains everything required to continue the calculation:
-
-```text
-progress
-numerical state
-RNG state
-run configuration
-elapsed runtime
-```
-
-As in the Python example, checkpoints are written using a temporary-file/atomic-replacement pattern:
-
-```text
-write pi_checkpoint.bin.tmp
-        ↓
-      fflush()
-        ↓
-       fsync()
-        ↓
-      fclose()
-        ↓
-      rename()
-        ↓
-pi_checkpoint.bin
-```
-
-The existing checkpoint is not overwritten until the new checkpoint has been written successfully.
-
-On restart, the `--resume` option loads the checkpoint and continues from the next dart.
-
-Because `rng_state` is restored along with the counters, the resumed calculation continues the same pseudorandom-number sequence that an uninterrupted calculation would have produced.
-
-> In this workshop example, the C structure is written directly to a binary file. This is convenient for demonstrating checkpointing, but direct structure serialization is not a fully portable production file format. Padding, byte order, data representation, and version compatibility should be considered in production applications.
-
----
-
-### 3. Signal-aware checkpointing — `pi_signal.c`
-
-The third version adds Unix signal handling.
-
-Slurm can request that a signal be delivered shortly before a job reaches its wall-time limit:
-
-```bash
-#SBATCH --signal=USR1@60
-```
-
-The program installs handlers for:
-
-```text
-SIGUSR1
-SIGTERM
-```
-
-The important C-specific pattern is that the signal handler performs no checkpoint I/O.
-
-Instead, it only sets flags:
-
-```c
-static volatile sig_atomic_t stop_requested = 0;
-static volatile sig_atomic_t received_signal = 0;
-
-static void signal_handler(int signum)
-{
-    stop_requested = 1;
-    received_signal = signum;
-}
-```
-
-The normal program flow later checks the flag:
-
-```text
-Slurm / Unix
-      |
-      | signal
-      v
-signal handler
-      |
-      | set flag
-      v
-main computation
-      |
-      | reach safe point
-      v
-save checkpoint
-      |
-      v
-exit cleanly
-```
-
-This avoids performing complex operations such as `printf()`, `fwrite()`, or memory allocation directly from the signal handler.
-
-The main loop performs checkpoint I/O only after reaching a well-defined safe point between Monte Carlo iterations.
-
----
-
-### 4. Automatic restart — `pi_requeue.c`
-
-The final version is designed specifically for the CANNON `serial_requeue` partition.
-
-Jobs running on `serial_requeue` may be preempted and requeued. Periodic checkpoints therefore act as the primary protection against losing completed work.
-
-Unlike the previous checkpointed programs, `pi_requeue.c` does not require:
-
-```text
---resume
-```
-
-At startup, it automatically checks whether a checkpoint exists:
-
-```text
-program starts
-      |
-      v
-checkpoint exists?
-     / \
-   no   yes
-   |     |
-new run  load checkpoint
-           |
-           v
-        continue
-```
-
-A Slurm requeue restarts the batch script from the beginning. When `pi_requeue.c` starts again, it finds the existing checkpoint and automatically resumes the computation.
-
-The program also reports:
-
-```text
-SLURM_JOB_ID
-SLURM_RESTART_COUNT
-```
-
-so that requeue events are visible in the job output.
-
-Periodic checkpoints remain the safety mechanism even if a preemption occurs without enough advance warning to write a final checkpoint.
-
----
-
-## Running
-
 ### Setup
 
-Load the GNU compiler available on CANNON:
+Steps 1 and 2 run on a compute node, not a login node. The programs must be
+built before any batch job is submitted:
 
 ```bash
-module load gcc
-```
-
-To inspect available versions:
-
-```bash
-module spider gcc
-```
-
-For reproducible builds, a specific GCC version can also be loaded explicitly.
-
-Compile the programs before running them:
-
-```bash
-make
-```
-
-This should create:
-
-```text
-pi_naive
-pi_checkpoint
-pi_signal
-pi_requeue
-```
-
-You can also compile an individual program manually. For example:
-
-```bash
-gcc \
-    -std=c11 \
-    -O2 \
-    -Wall \
-    -Wextra \
-    -pedantic \
-    -o pi_naive \
-    pi_naive.c \
-    -lm
-```
-
-Create a directory for checkpoint files:
-
-```bash
-mkdir -p checkpoints
-```
-
-The first two examples should be run interactively on a compute node:
-
-```bash
-salloc \
-    --partition=test \
-    --time=00:20:00 \
-    --cpus-per-task=1 \
-    --mem=1G
-```
-
-If needed after entering the allocation:
-
-```bash
-module load gcc
-```
-
----
-
-### 1. `pi_naive.c` — interactive
-
-Run:
-
-```bash
-./pi_naive \
-    --darts 50000000 \
-    --seed 42 \
-    --report-every 1000000 \
-    --sleep 1
-```
-
-The `--sleep` option artificially slows the demonstration so that the program is easy to interrupt.
-
-You should see output similar to:
-
-```text
-darts =      1000000 / 50000000   pi = ...
-darts =      2000000 / 50000000   pi = ...
-darts =      3000000 / 50000000   pi = ...
-```
-
-After several reports, press:
-
-```text
-Ctrl-C
-```
-
-Run the same command again.
-
-The calculation begins again at dart 1 because no state was persisted.
-
----
-
-### 2. `pi_checkpoint.c` — interactive
-
-First remove any previous checkpoint:
-
-```bash
-rm -f \
-    checkpoints/pi_checkpoint.bin \
-    checkpoints/pi_checkpoint.bin.tmp
-```
-
-Start the calculation:
-
-```bash
-./pi_checkpoint \
-    --darts 50000000 \
-    --seed 42 \
-    --report-every 1000000 \
-    --checkpoint-every 5000000 \
-    --checkpoint-file checkpoints/pi_checkpoint.bin \
-    --sleep 1
-```
-
-Every five million darts, the program should report:
-
-```text
---> checkpoint saved at dart 5000000
-```
-
-followed later by:
-
-```text
---> checkpoint saved at dart 10000000
-```
-
-and so on.
-
-Inspect the binary checkpoint:
-
-```bash
-ls -lh checkpoints/pi_checkpoint.bin
-```
-
-After at least two checkpoints have been written, press:
-
-```text
-Ctrl-C
-```
-
-Suppose the calculation is interrupted at approximately 13 million darts:
-
-```text
-0M ----- 5M ----- 10M ----- 13M
-         CKPT      CKPT       X
-                    ^
-                    |
-              last checkpoint
-```
-
-The work between 10 million and 13 million darts is lost, but the first 10 million darts are preserved.
-
-Resume with the same parameters plus `--resume`:
-
-```bash
-./pi_checkpoint \
-    --darts 50000000 \
-    --seed 42 \
-    --report-every 1000000 \
-    --checkpoint-every 5000000 \
-    --checkpoint-file checkpoints/pi_checkpoint.bin \
-    --sleep 1 \
-    --resume
-```
-
-You should see something similar to:
-
-```text
-========================================================================
-Restarting from checkpoint
-========================================================================
-Completed darts  : 10000000
-Inside circle    : ...
-Previous runtime : ...
-========================================================================
-```
-
-The program continues from the next dart instead of starting again from the beginning.
-
----
-
-### 3. `pi_signal.c` — interactive and `sbatch`
-
-#### Interactive signal test
-
-Remove any previous checkpoint:
-
-```bash
-rm -f \
-    checkpoints/pi_signal.bin \
-    checkpoints/pi_signal.bin.tmp
-```
-
-Start the program in the background:
-
-```bash
-./pi_signal \
-    --darts 100000000 \
-    --seed 42 \
-    --report-every 1000000 \
-    --checkpoint-every 0 \
-    --checkpoint-file checkpoints/pi_signal.bin \
-    --sleep 1 &
-```
-
-Capture its process ID:
-
-```bash
-PID=$!
-echo $PID
-```
-
-Allow the program to run briefly:
-
-```bash
-sleep 10
-```
-
-Then send `SIGUSR1`:
-
-```bash
-kill -USR1 $PID
-```
-
-Wait for the program to terminate:
-
-```bash
-wait $PID
-```
-
-Because:
-
-```bash
---checkpoint-every 0
-```
-
-disables periodic checkpointing, the resulting checkpoint was produced specifically in response to the signal.
-
-You should see output similar to:
-
-```text
-Signal received: SIGUSR1
-Checkpointing at dart ...
-Checkpoint saved: checkpoints/pi_signal.bin
-Exiting cleanly.
-```
-
-Resume with:
-
-```bash
-./pi_signal \
-    --darts 100000000 \
-    --seed 42 \
-    --report-every 1000000 \
-    --checkpoint-every 0 \
-    --checkpoint-file checkpoints/pi_signal.bin \
-    --sleep 1 \
-    --resume
-```
-
----
-
-#### Slurm signal test
-
-The same mechanism can be demonstrated through `pi_signal.sbatch`:
-
-```bash
-#!/bin/bash
-
-#SBATCH --job-name=pi-c-signal
-#SBATCH --partition=test
-#SBATCH --time=00:03:00
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=1G
-
-#SBATCH --output=pi_c_signal_%j.out
-#SBATCH --error=pi_c_signal_%j.err
-
-#SBATCH --signal=USR1@60
-
-set -euo pipefail
-
-module load gcc
-
-mkdir -p checkpoints
-
-echo "Job ID : ${SLURM_JOB_ID}"
-echo "Node   : $(hostname)"
-echo "Start  : $(date)"
-
-srun ./pi_signal \
-    --darts 10000000000 \
-    --seed 42 \
-    --report-every 1000000 \
-    --checkpoint-every 0 \
-    --checkpoint-file checkpoints/pi_signal.bin
-
-echo "End: $(date)"
-```
-
-Remove any existing checkpoint:
-
-```bash
-rm -f \
-    checkpoints/pi_signal.bin \
-    checkpoints/pi_signal.bin.tmp
-```
-
-Submit:
-
-```bash
-sbatch pi_signal.sbatch
-```
-
-Monitor:
-
-```bash
-squeue -u $USER
-```
-
-Follow the output:
-
-```bash
-tail -f pi_c_signal_JOBID.out
-```
-
-Replace `JOBID` with the actual Slurm job ID.
-
-The directive:
-
-```bash
-#SBATCH --signal=USR1@60
-```
-
-requests that Slurm send `SIGUSR1` as the job approaches its wall-time limit.
-
-The application detects that signal at a safe point, saves a checkpoint, and exits cleanly.
-
-This is a planned scheduler warning and should not be confused with unexpected preemption.
-
----
-
-### 4. `pi_requeue.c` — `sbatch` only
-
-> **This example is designed specifically for the CANNON `serial_requeue` partition.**
-
-The batch script is:
-
-```bash
-#!/bin/bash
-
-#SBATCH --job-name=pi-c-requeue
-#SBATCH --partition=serial_requeue
-#SBATCH --time=00:30:00
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=1G
-
-#SBATCH --output=pi_c_requeue_%j.out
-#SBATCH --error=pi_c_requeue_%j.err
-
-#SBATCH --open-mode=append
-#SBATCH --requeue
-
-set -euo pipefail
-
-module load gcc
-
-mkdir -p checkpoints
-
-echo "============================================================"
-echo "Starting C requeue example"
-echo "============================================================"
-echo "Job ID        : ${SLURM_JOB_ID}"
-echo "Restart count : ${SLURM_RESTART_COUNT:-0}"
-echo "Node          : $(hostname)"
-echo "Time          : $(date)"
-echo "============================================================"
-
-srun ./pi_requeue \
-    --darts 1000000000 \
-    --seed 42 \
-    --report-every 1000000 \
-    --checkpoint-every 5000000 \
-    --checkpoint-file checkpoints/pi_requeue.bin
-
-echo
-echo "Batch script finished: $(date)"
-```
-
-Compile the program before submitting the batch job:
-
-```bash
+salloc --partition=test --time=00:20:00 --cpus-per-task=1 --mem=1G
 module load gcc
 make
+mkdir -p checkpoints
 ```
 
-Do not compile inside the batch script.
+`make` creates `pi_naive`, `pi_checkpoint`, `pi_signal` and `pi_requeue`. In all
+examples `--sleep 1` slows the loop so there is time to interrupt it.
 
-Before the initial submission, remove any checkpoint from an earlier run:
+### 1. No checkpointing — `pi_naive.c` (interactive)
+
+Progress lives only in process memory, so an interruption loses everything.
+
+1. Start the calculation:
+
+   ```bash
+   ./pi_naive \
+       --darts 50000000 \
+       --seed 42 \
+       --report-every 1000000 \
+       --sleep 1
+   ```
+
+   ```
+   ...
+   darts =      1000000 / 50000000   pi = 3.14330800   error = 1.715e-03   elapsed = 0.01 s
+   darts =      2000000 / 50000000   pi = 3.14220000   error = 6.073e-04   elapsed = 1.02 s
+   darts =      3000000 / 50000000   pi = 3.14184267   error = 2.500e-04   elapsed = 2.04 s
+   darts =      4000000 / 50000000   pi = 3.14236800   error = 7.753e-04   elapsed = 3.05 s
+   darts =      5000000 / 50000000   pi = 3.14191920   error = 3.265e-04   elapsed = 4.07 s
+   ...
+   ```
+
+2. Press `Ctrl-C` after a few progress reports.
+3. Rerun the same command. It starts again from dart 1 — nothing was saved.
+
+### 2. Periodic checkpointing — `pi_checkpoint.c` (interactive)
+
+Every `--checkpoint-every` darts the program saves the `checkpoint_t` structure
+to a binary file. On restart, `--resume` loads it and continues with the next
+dart.
+
+1. Remove any old checkpoint:
+
+   ```bash
+   rm -f checkpoints/pi_checkpoint.bin checkpoints/pi_checkpoint.bin.tmp
+   ```
+
+2. Start the calculation:
+
+   ```bash
+   ./pi_checkpoint \
+       --darts 50000000 \
+       --seed 42 \
+       --report-every 1000000 \
+       --checkpoint-every 5000000 \
+       --checkpoint-file checkpoints/pi_checkpoint.bin \
+       --sleep 1
+   ```
+
+   ```
+   ...
+   darts =      5000000 / 50000000   pi = 3.14191920   error = 3.265e-04   elapsed = 4.07 s
+     --> checkpoint saved at dart 5000000
+   darts =      6000000 / 50000000   pi = 3.14158200   error = 1.065e-05   elapsed = 5.09 s
+   ...
+   ```
+
+3. After at least two checkpoints (10,000,000 darts), inspect the file
+   (`ls -l checkpoints/pi_checkpoint.bin`) and press `Ctrl-C`. Work done after
+   the last checkpoint is lost, for example darts 10,000,001–13,000,000 if the
+   interruption comes at 13 million.
+4. Resume with the same parameters plus `--resume`:
+
+   ```bash
+   ./pi_checkpoint \
+       --darts 50000000 \
+       --seed 42 \
+       --report-every 1000000 \
+       --checkpoint-every 5000000 \
+       --checkpoint-file checkpoints/pi_checkpoint.bin \
+       --sleep 1 \
+       --resume
+   ```
+
+   ```
+   ========================================================================
+   Restarting from checkpoint
+   ========================================================================
+   Completed darts  : 10000000
+   Inside circle    : 7854138
+   Previous runtime : 10.15 s
+   ========================================================================
+
+   darts =     11000000 / 50000000   pi = 3.14182327   error = 2.306e-04   elapsed = 10.16 s
+   ...
+   ```
+
+   The run continues from the checkpoint instead of dart 1, and the values match
+   the uninterrupted run (the `pi` at 11,000,000 darts is identical). The
+   checkpoint must match `--darts` and `--seed`, otherwise the program refuses to
+   resume.
+
+### 3. Signal-aware checkpointing — `pi_signal.c` (batch)
+
+SLURM can warn a job before its time limit with a Unix signal
+(`#SBATCH --signal=USR1@60` → `SIGUSR1` 60 s before the limit). The program
+installs handlers for `SIGUSR1` and `SIGTERM` with `sigaction()`. A handler only
+sets a flag; the main loop sees it at a safe point between darts, saves a
+checkpoint and exits cleanly:
+
+```
+SLURM → SIGUSR1 → handler sets flag → main loop saves checkpoint → clean exit
+```
+
+`--checkpoint-every 0` disables periodic checkpoints, so the checkpoint below
+comes only from the signal. Without throttling, the C program would finish
+10 billion darts in under a minute, so `--sleep 1` paces it at about
+one million darts per second. The job then cannot finish within its 3 minutes,
+and the signal arrives after about 2 minutes.
+
+1. Clean up and submit the first run (`pi_signal.sbatch`):
+
+   ```bash
+   rm -f checkpoints/pi_signal.bin checkpoints/pi_signal.bin.tmp
+   sbatch pi_signal.sbatch
+   ```
+
+2. Follow the job (replace `JOBID` with the job ID printed by `sbatch`):
+
+   ```bash
+   squeue -u $USER
+   tail -f pi_c_signal_JOBID.out
+   ```
+
+3. After about 2 minutes the signal arrives and the job exits cleanly:
+
+   ```
+   ...
+   darts =    ... / 10000000000   pi = ...   error = ...   elapsed = ... s
+
+   Signal received: SIGUSR1
+   Checkpointing at dart ...
+   Checkpoint saved: checkpoints/pi_signal.bin
+   Exiting cleanly.
+   ```
+
+4. Confirm the checkpoint exists, then submit the restart script
+   (`pi_signal_restart.sbatch`). It is identical except for `--resume`:
+
+   ```bash
+   ls -l checkpoints/pi_signal.bin
+   sbatch pi_signal_restart.sbatch
+   tail -f pi_c_signal_restart_JOBID.out
+   ```
+
+   ```
+   ========================================================================
+   Restarting from checkpoint
+   ========================================================================
+   Completed darts  : ...
+   Inside circle    : ...
+   Previous runtime : ... s
+   ========================================================================
+   ```
+
+   The restarted job also runs until its own `SIGUSR1`, saving a new
+   checkpoint. Repeat step 4 as needed.
+
+### 4. Automatic restart — `pi_requeue.c` (batch)
+
+SLURM restarts a requeued job from the top of the batch script, so `pi_requeue`
+looks for a checkpoint on startup and loads it if present — no `--resume`
+needed. `SLURM_RESTART_COUNT` (0 on the first run, incremented on each requeue)
+makes restarts visible in the log. `--requeue` permits requeueing and
+`--open-mode=append` keeps the output file across restarts.
+
+`pi_requeue.sbatch` also triggers the requeue itself, so the whole cycle runs
+without manual steps. `#SBATCH --signal=B:USR1@60` sends `SIGUSR1` to the batch
+shell 60 s before the 3-minute time limit; a `trap` handler in the script
+reports the latest checkpoint and calls `scontrol requeue`. `pi_requeue`
+receives `SIGTERM` from the requeue and saves a checkpoint before stopping. The
+application runs in the background under `srun` so the shell can receive the
+signal:
+
+```
+SIGUSR1 → batch-script trap → scontrol requeue → job back in queue
+    → batch script restarts → checkpoint found → computation continues
+```
+
+The job throws 250 million darts, checkpoints every 5 million, and uses
+`--sleep 1` to run at about one million darts per second. It needs about 4
+minutes, so it is requeued about twice before it completes. The script runs in
+`rc-testing` so the short time limit shows this quickly; for real runs use
+`--partition=serial_requeue`, where SLURM also requeues the job on preemption.
+
+1. Clean up and submit `pi_requeue.sbatch`:
+
+   ```bash
+   rm -f checkpoints/pi_requeue.bin checkpoints/pi_requeue.bin.tmp
+   JOBID=$(sbatch --parsable pi_requeue.sbatch)
+   squeue -j $JOBID
+   tail -f pi_c_requeue_${JOBID}.out
+   ```
+
+   ```
+   Restart count : 0
+   ...
+   No checkpoint found.
+   Starting a new calculation.
+   ```
+
+2. After about 2 minutes the batch script receives `SIGUSR1` and requeues the
+   job:
+
+   ```
+   SIGUSR1 received: Wed Sep 23 21:10:07 EDT 2026
+   Preparing to requeue job 15380
+   Latest checkpoint:
+   -rw-r--r--. 1 pkrastev rc_admin 64 Sep 23 21:10 checkpoints/pi_requeue.bin
+   Requesting requeue...
+   ```
+
+3. The job returns to the queue. When it runs again, the same output file shows
+   the automatic restart:
+
+   ```
+   Slurm job ID        : 15380
+   Slurm restart count : 1
+   Checkpoint file     : checkpoints/pi_requeue.bin
+   ========================================================================
+
+   CHECKPOINT FOUND - AUTOMATIC RESTART
+   Completed darts  : 98000001
+   Inside circle    : 76970270
+   Previous runtime : 98.00 s
+
+   darts =     99000000 / 250000000   pi = 3.14165087   error = 5.822e-05   elapsed = 98.01 s
+   ```
+
+   The job resumed at dart 98,000,001, not at a periodic checkpoint, because the
+   `SIGTERM` sent by the requeue made `pi_requeue` save its current state. After
+   an unannounced preemption it would resume from the last periodic checkpoint.
+
+4. The cycle repeats until the calculation completes. Confirm the number of
+   restarts:
+
+   ```bash
+   sacct -j $JOBID -X -o JobID,State,Elapsed,Restarts
+   ```
+
+   ```
+   ========================================================================
+   CALCULATION COMPLETE
+   ========================================================================
+   ...
+   Application completed normally
+   Restart count : 2
+   ```
+
+   To requeue by hand instead, run `scontrol requeue $JOBID` while the job is
+   running.
+
+> **Do not add `--fresh` to `pi_requeue.sbatch`.** Every requeue reruns the
+> script from the top, so a hardcoded `--fresh` would discard the checkpoint the
+> restarted job needs. To start a genuinely new run, delete the checkpoint
+> *before the initial submission*.
+
+### Cleanup
 
 ```bash
-rm -f \
-    checkpoints/pi_requeue.bin \
-    checkpoints/pi_requeue.bin.tmp
+make clean
+rm -f pi_c_signal_*.out pi_c_signal_*.err pi_c_signal_restart_*.out pi_c_signal_restart_*.err
+rm -f pi_c_requeue_*.out pi_c_requeue_*.err
 ```
-
-Submit and save the job ID:
-
-```bash
-JOBID=$(sbatch --parsable pi_requeue.sbatch)
-echo $JOBID
-```
-
-Check its state:
-
-```bash
-squeue -j $JOBID
-```
-
-Follow the output:
-
-```bash
-tail -f pi_c_requeue_${JOBID}.out
-```
-
-Initially, the program should report:
-
-```text
-Slurm restart count : 0
-
-No checkpoint found.
-Starting a new calculation.
-```
-
-As the calculation progresses, periodic checkpoints appear:
-
-```text
---> periodic checkpoint saved at dart 5000000
-```
-
----
-
-#### Simulate a requeue
-
-Wait until at least one checkpoint has been written.
-
-Then manually requeue the job:
-
-```bash
-scontrol requeue $JOBID
-```
-
-This provides a controlled way to demonstrate restart behavior without waiting for an actual `serial_requeue` preemption.
-
-Check the job:
-
-```bash
-squeue -j $JOBID
-```
-
-When the job starts again, Slurm executes the batch script from the beginning.
-
-Because:
-
-```bash
-#SBATCH --open-mode=append
-```
-
-is used, the existing output log is preserved and the new output is appended.
-
-Continue following the same file:
-
-```bash
-tail -f pi_c_requeue_${JOBID}.out
-```
-
-After the restart you should see something similar to:
-
-```text
-Slurm job ID        : 12345678
-Slurm restart count : 1
-
-CHECKPOINT FOUND - AUTOMATIC RESTART
-Completed darts  : 25000000
-Inside circle    : ...
-Previous runtime : ...
-```
-
-No `--resume` option is required.
-
-The program automatically discovers the checkpoint and resumes.
-
----
-
-#### What happens during a real `serial_requeue` interruption?
-
-For example:
-
-```text
-0M --- 5M --- 10M --- 15M --- 20M --- 23M
-       CKPT     CKPT     CKPT     CKPT      X
-                                           |
-                                      preemption
-```
-
-The computation between 20 million and 23 million darts may be lost.
-
-However:
-
-```text
-checkpoints/pi_requeue.bin
-```
-
-contains the state at 20 million darts.
-
-After Slurm requeues the job:
-
-```text
-preemption
-     |
-     v
-job returns to queue
-     |
-     v
-new allocation
-     |
-     v
-batch script starts from beginning
-     |
-     v
-./pi_requeue starts
-     |
-     v
-checkpoint detected
-     |
-     v
-state restored
-     |
-     v
-continue computation
-```
-
-Periodic checkpoints are therefore the primary protection against unexpected preemption.
-
----
-
-#### `SLURM_RESTART_COUNT`
-
-The program reports the environment variable:
-
-```bash
-SLURM_RESTART_COUNT
-```
-
-The original execution normally shows:
-
-```text
-Slurm restart count : 0
-```
-
-After one requeue:
-
-```text
-Slurm restart count : 1
-```
-
-and after another:
-
-```text
-Slurm restart count : 2
-```
-
-This makes requeue events easy to identify in the application log.
-
----
-
-#### Do not use `--fresh` inside the batch script
-
-`pi_requeue` supports:
-
-```bash
---fresh
-```
-
-to deliberately discard an old checkpoint and begin a new calculation.
-
-For example:
-
-```bash
-./pi_requeue --fresh ...
-```
-
-However, **do not add `--fresh` to `pi_requeue.sbatch`**.
-
-A requeued Slurm job starts the batch script again from the beginning. If `--fresh` were hardcoded into the script, every restart would discard the checkpoint that the job needs to recover from.
-
-To start a genuinely new batch calculation, delete the checkpoint before the initial submission:
-
-```bash
-rm -f checkpoints/pi_requeue.bin
-```
-
-and then submit the job.
-
----
-
-## Example output
-
-### Resuming `pi_checkpoint`
-
-```text
-========================================================================
-Restarting from checkpoint
-========================================================================
-Completed darts  : 10000000
-Inside circle    : ...
-Previous runtime : ...
-========================================================================
-```
-
----
-
-### `pi_signal` after receiving `SIGUSR1`
-
-```text
-Signal received: SIGUSR1
-Checkpointing at dart 12345678...
-Checkpoint saved: checkpoints/pi_signal.bin
-Exiting cleanly.
-```
-
----
-
-### `pi_requeue` after automatic restart
-
-```text
-========================================================================
-Monte Carlo Pi - C Slurm Requeue Example
-========================================================================
-Slurm job ID        : 12345678
-Slurm restart count : 1
-Checkpoint file     : checkpoints/pi_requeue.bin
-========================================================================
-
-CHECKPOINT FOUND - AUTOMATIC RESTART
-Completed darts  : 25000000
-Inside circle    : ...
-Previous runtime : ...
-```
-
----
-
-## Key concepts illustrated
-
-- **Application state** — the minimum information needed to continue the calculation: progress, numerical state, RNG state, and configuration.
-
-- **Explicit RNG state** — the `xorshift64*` generator has a single `uint64_t` state that can be saved and restored exactly.
-
-- **Periodic checkpointing** — limits lost computation to approximately one checkpoint interval.
-
-- **Binary checkpointing** — the application explicitly defines the structure of the saved state.
-
-- **Checkpoint versioning** — the checkpoint includes a magic identifier and version number so incompatible files can be detected.
-
-- **Atomic checkpoint replacement** — write a temporary file, `fflush()`, `fsync()`, close it, then `rename()` it over the previous checkpoint.
-
-- **Signal-safe design** — a signal handler only modifies `volatile sig_atomic_t` flags; checkpoint I/O happens later in normal program execution.
-
-- **Signal-triggered checkpointing** — an application can respond to scheduler warnings such as `SIGUSR1`.
-
-- **Automatic restart** — `pi_requeue.c` automatically loads an existing checkpoint without requiring a manual `--resume` option.
-
-- **Requeue-aware design** — Slurm restarts the batch workflow rather than restoring the previous process memory; the application must recover from persistent state.
-
-- **Application-level vs. system-level checkpointing** — the C program explicitly chooses which state is required for restart. Later exercises will contrast this with transparent checkpoint/restart systems such as DMTCP.
-
----
-
-## Python vs. C checkpointing
-
-The Python and C exercises implement the same fundamental ideas using different mechanisms:
-
-| Concept | Python | C |
-|---|---|---|
-| Application state | Python objects/dictionary | C structure |
-| RNG state | `rng.getstate()` | `uint64_t rng_state` |
-| Serialization | `pickle` | Binary `fwrite()` |
-| Flush userspace buffer | `f.flush()` | `fflush()` |
-| Flush to storage | `os.fsync()` | `fsync()` |
-| Atomic replacement | `os.replace()` | `rename()` |
-| Signal handling | `signal.signal()` | `sigaction()` |
-| Signal flag | Python global | `volatile sig_atomic_t` |
-| Resume | restore objects | restore structure fields |
-| Requeue logic | automatic file detection | automatic file detection |
-
-The implementation details differ, but the checkpoint/restart model is the same.
-
----
-
-## Notes
-
-- `pi_naive.c` and `pi_checkpoint.c` are intended to be run interactively so the interruption/restart cycle can be observed directly.
-
-- `pi_signal.c` can be tested interactively with:
-
-  ```bash
-  kill -USR1 $PID
-  ```
-
-  or through Slurm's `--signal` mechanism using `pi_signal.sbatch`.
-
-- `pi_requeue.c` is specifically designed for the CANNON `serial_requeue` partition.
-
-- `scontrol requeue $JOBID` provides a convenient way to simulate requeue behavior during the workshop without waiting for a real preemption.
-
-- Compile the C programs before submitting batch jobs rather than recompiling them inside each `sbatch` script.
-
-- `module load gcc` loads the current default GCC module. For reproducibility, a specific GCC module version can be selected with:
-
-  ```bash
-  module spider gcc
-  ```
-
-- The binary checkpoint format used here is intentionally simple. Directly dumping a C structure is not guaranteed to be portable between different architectures, compilers, or future structure layouts. Production applications often use an explicit serialization format or libraries such as HDF5.
-
-- Clean up generated checkpoint files and logs between experiments:
-
-  ```bash
-  rm -f checkpoints/pi_checkpoint.bin checkpoints/pi_checkpoint.bin.tmp
-  rm -f checkpoints/pi_signal.bin checkpoints/pi_signal.bin.tmp
-  rm -f checkpoints/pi_requeue.bin checkpoints/pi_requeue.bin.tmp
-
-  rm -f pi_c_signal_*.out pi_c_signal_*.err
-  rm -f pi_c_requeue_*.out pi_c_requeue_*.err
-  ```
-
-- Rebuild everything with:
-
-  ```bash
-  make
-  ```
-
-- Remove compiled executables with:
-
-  ```bash
-  make clean
-  ```
-
-The main lesson of this exercise is:
-
-> **Checkpointing is an application design pattern, not a Python feature. In C, the same concepts become explicit: define the state, serialize it safely, persist it, and restore it after interruption.**
-

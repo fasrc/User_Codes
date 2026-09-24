@@ -1,0 +1,116 @@
+Job ID : 15366
+Node   : holy7c26504.rc.fas.harvard.edu
+Start  : Wed Sep 23 14:40:47 EDT 2026
+Process ID: 580004
+darts =      1000000 / 10000000000   pi = 3.14330800   error = 1.715e-03   elapsed = 0.01 s
+darts =      2000000 / 10000000000   pi = 3.14220000   error = 6.073e-04   elapsed = 1.01 s
+darts =      3000000 / 10000000000   pi = 3.14184267   error = 2.500e-04   elapsed = 2.02 s
+darts =      4000000 / 10000000000   pi = 3.14236800   error = 7.753e-04   elapsed = 3.02 s
+darts =      5000000 / 10000000000   pi = 3.14191920   error = 3.265e-04   elapsed = 4.03 s
+darts =      6000000 / 10000000000   pi = 3.14158200   error = 1.065e-05   elapsed = 5.03 s
+darts =      7000000 / 10000000000   pi = 3.14163257   error = 3.992e-05   elapsed = 6.04 s
+darts =      8000000 / 10000000000   pi = 3.14161250   error = 1.985e-05   elapsed = 7.04 s
+darts =      9000000 / 10000000000   pi = 3.14169200   error = 9.935e-05   elapsed = 8.05 s
+darts =     10000000 / 10000000000   pi = 3.14165520   error = 6.255e-05   elapsed = 9.05 s
+darts =     11000000 / 10000000000   pi = 3.14182327   error = 2.306e-04   elapsed = 10.06 s
+darts =     12000000 / 10000000000   pi = 3.14163700   error = 4.435e-05   elapsed = 11.06 s
+darts =     13000000 / 10000000000   pi = 3.14175877   error = 1.661e-04   elapsed = 12.07 s
+darts =     14000000 / 10000000000   pi = 3.14190429   error = 3.116e-04   elapsed = 13.07 s
+darts =     15000000 / 10000000000   pi = 3.14174187   error = 1.492e-04   elapsed = 14.08 s
+darts =     16000000 / 10000000000   pi = 3.14176325   error = 1.706e-04   elapsed = 15.08 s
+darts =     17000000 / 10000000000   pi = 3.14179624   error = 2.036e-04   elapsed = 16.09 s
+darts =     18000000 / 10000000000   pi = 3.14190956   error = 3.169e-04   elapsed = 17.09 s
+darts =     19000000 / 10000000000   pi = 3.14180232   error = 2.097e-04   elapsed = 18.10 s
+darts =     20000000 / 10000000000   pi = 3.14176360   error = 1.709e-04   elapsed = 19.10 s
+darts =     21000000 / 10000000000   pi = 3.14184343   error = 2.508e-04   elapsed = 20.11 s
+darts =     22000000 / 10000000000   pi = 3.14176455   error = 1.719e-04   elapsed = 21.12 s
+darts =     23000000 / 10000000000   pi = 3.14178070   error = 1.880e-04   elapsed = 22.12 s
+darts =     24000000 / 10000000000   pi = 3.14167800   error = 8.535e-05   elapsed = 23.13 s
+darts =     25000000 / 10000000000   pi = 3.14159408   error = 1.426e-06   elapsed = 24.13 s
+darts =     26000000 / 10000000000   pi = 3.14152385   error = 6.881e-05   elapsed = 25.14 s
+darts =     27000000 / 10000000000   pi = 3.14140756   error = 1.851e-04   elapsed = 26.14 s
+darts =     28000000 / 10000000000   pi = 3.14136886   error = 2.238e-04   elapsed = 27.15 s
+darts =     29000000 / 10000000000   pi = 3.14136428   error = 2.284e-04   elapsed = 28.15 s
+darts =     30000000 / 10000000000   pi = 3.14128520   error = 3.075e-04   elapsed = 29.16 s
+darts =     31000000 / 10000000000   pi = 3.14131032   error = 2.823e-04   elapsed = 30.16 s
+darts =     32000000 / 10000000000   pi = 3.14138387   error = 2.088e-04   elapsed = 31.17 s
+darts =     33000000 / 10000000000   pi = 3.14130121   error = 2.914e-04   elapsed = 32.17 s
+darts =     34000000 / 10000000000   pi = 3.14135106   error = 2.416e-04   elapsed = 33.18 s
+darts =     35000000 / 10000000000   pi = 3.14137086   error = 2.218e-04   elapsed = 34.18 s
+darts =     36000000 / 10000000000   pi = 3.14138211   error = 2.105e-04   elapsed = 35.19 s
+darts =     37000000 / 10000000000   pi = 3.14141351   error = 1.791e-04   elapsed = 36.19 s
+darts =     38000000 / 10000000000   pi = 3.14145105   error = 1.416e-04   elapsed = 37.21 s
+darts =     39000000 / 10000000000   pi = 3.14147467   error = 1.180e-04   elapsed = 38.21 s
+darts =     40000000 / 10000000000   pi = 3.14150020   error = 9.245e-05   elapsed = 39.22 s
+darts =     41000000 / 10000000000   pi = 3.14143298   error = 1.597e-04   elapsed = 40.22 s
+darts =     42000000 / 10000000000   pi = 3.14146657   error = 1.261e-04   elapsed = 41.23 s
+darts =     43000000 / 10000000000   pi = 3.14146158   error = 1.311e-04   elapsed = 42.23 s
+darts =     44000000 / 10000000000   pi = 3.14149209   error = 1.006e-04   elapsed = 43.24 s
+darts =     45000000 / 10000000000   pi = 3.14147582   error = 1.168e-04   elapsed = 44.24 s
+darts =     46000000 / 10000000000   pi = 3.14154270   error = 4.996e-05   elapsed = 45.25 s
+darts =     47000000 / 10000000000   pi = 3.14156800   error = 2.465e-05   elapsed = 46.25 s
+darts =     48000000 / 10000000000   pi = 3.14155658   error = 3.607e-05   elapsed = 47.26 s
+darts =     49000000 / 10000000000   pi = 3.14158620   error = 6.450e-06   elapsed = 48.26 s
+darts =     50000000 / 10000000000   pi = 3.14155768   error = 3.497e-05   elapsed = 49.27 s
+darts =     51000000 / 10000000000   pi = 3.14151106   error = 8.159e-05   elapsed = 50.27 s
+darts =     52000000 / 10000000000   pi = 3.14153192   error = 6.073e-05   elapsed = 51.28 s
+darts =     53000000 / 10000000000   pi = 3.14152747   error = 6.518e-05   elapsed = 52.28 s
+darts =     54000000 / 10000000000   pi = 3.14156467   error = 2.799e-05   elapsed = 53.29 s
+darts =     55000000 / 10000000000   pi = 3.14152378   error = 6.887e-05   elapsed = 54.29 s
+darts =     56000000 / 10000000000   pi = 3.14152836   error = 6.430e-05   elapsed = 55.30 s
+darts =     57000000 / 10000000000   pi = 3.14160288   error = 1.022e-05   elapsed = 56.31 s
+darts =     58000000 / 10000000000   pi = 3.14165683   error = 6.417e-05   elapsed = 57.31 s
+darts =     59000000 / 10000000000   pi = 3.14165817   error = 6.552e-05   elapsed = 58.32 s
+darts =     60000000 / 10000000000   pi = 3.14163453   error = 4.188e-05   elapsed = 59.32 s
+darts =     61000000 / 10000000000   pi = 3.14163187   error = 3.922e-05   elapsed = 60.33 s
+darts =     62000000 / 10000000000   pi = 3.14164077   error = 4.812e-05   elapsed = 61.33 s
+darts =     63000000 / 10000000000   pi = 3.14162463   error = 3.198e-05   elapsed = 62.34 s
+darts =     64000000 / 10000000000   pi = 3.14164919   error = 5.653e-05   elapsed = 63.34 s
+darts =     65000000 / 10000000000   pi = 3.14160548   error = 1.282e-05   elapsed = 64.35 s
+darts =     66000000 / 10000000000   pi = 3.14159618   error = 3.528e-06   elapsed = 65.35 s
+darts =     67000000 / 10000000000   pi = 3.14156090   error = 3.176e-05   elapsed = 66.36 s
+darts =     68000000 / 10000000000   pi = 3.14158500   error = 7.654e-06   elapsed = 67.36 s
+darts =     69000000 / 10000000000   pi = 3.14160817   error = 1.552e-05   elapsed = 68.37 s
+darts =     70000000 / 10000000000   pi = 3.14164411   error = 5.146e-05   elapsed = 69.37 s
+darts =     71000000 / 10000000000   pi = 3.14164473   error = 5.208e-05   elapsed = 70.38 s
+darts =     72000000 / 10000000000   pi = 3.14166967   error = 7.701e-05   elapsed = 71.38 s
+darts =     73000000 / 10000000000   pi = 3.14170115   error = 1.085e-04   elapsed = 72.39 s
+darts =     74000000 / 10000000000   pi = 3.14168173   error = 8.908e-05   elapsed = 73.39 s
+darts =     75000000 / 10000000000   pi = 3.14169589   error = 1.032e-04   elapsed = 74.40 s
+darts =     76000000 / 10000000000   pi = 3.14172632   error = 1.337e-04   elapsed = 75.41 s
+darts =     77000000 / 10000000000   pi = 3.14173735   error = 1.447e-04   elapsed = 76.41 s
+darts =     78000000 / 10000000000   pi = 3.14171928   error = 1.266e-04   elapsed = 77.42 s
+darts =     79000000 / 10000000000   pi = 3.14171737   error = 1.247e-04   elapsed = 78.42 s
+darts =     80000000 / 10000000000   pi = 3.14169875   error = 1.061e-04   elapsed = 79.43 s
+darts =     81000000 / 10000000000   pi = 3.14166509   error = 7.243e-05   elapsed = 80.43 s
+darts =     82000000 / 10000000000   pi = 3.14162220   error = 2.954e-05   elapsed = 81.44 s
+darts =     83000000 / 10000000000   pi = 3.14159692   error = 4.262e-06   elapsed = 82.44 s
+darts =     84000000 / 10000000000   pi = 3.14159062   error = 2.035e-06   elapsed = 83.45 s
+darts =     85000000 / 10000000000   pi = 3.14161798   error = 2.532e-05   elapsed = 84.45 s
+darts =     86000000 / 10000000000   pi = 3.14161767   error = 2.502e-05   elapsed = 85.46 s
+darts =     87000000 / 10000000000   pi = 3.14160060   error = 7.944e-06   elapsed = 86.46 s
+darts =     88000000 / 10000000000   pi = 3.14164841   error = 5.576e-05   elapsed = 87.47 s
+darts =     89000000 / 10000000000   pi = 3.14164031   error = 4.766e-05   elapsed = 88.47 s
+darts =     90000000 / 10000000000   pi = 3.14162769   error = 3.504e-05   elapsed = 89.48 s
+darts =     91000000 / 10000000000   pi = 3.14161266   error = 2.001e-05   elapsed = 90.48 s
+darts =     92000000 / 10000000000   pi = 3.14162587   error = 3.322e-05   elapsed = 91.49 s
+darts =     93000000 / 10000000000   pi = 3.14165617   error = 6.352e-05   elapsed = 92.49 s
+darts =     94000000 / 10000000000   pi = 3.14164923   error = 5.658e-05   elapsed = 93.50 s
+darts =     95000000 / 10000000000   pi = 3.14165992   error = 6.726e-05   elapsed = 94.50 s
+darts =     96000000 / 10000000000   pi = 3.14166179   error = 6.914e-05   elapsed = 95.51 s
+darts =     97000000 / 10000000000   pi = 3.14165266   error = 6.001e-05   elapsed = 96.52 s
+darts =     98000000 / 10000000000   pi = 3.14164367   error = 5.102e-05   elapsed = 97.52 s
+darts =     99000000 / 10000000000   pi = 3.14165087   error = 5.822e-05   elapsed = 98.53 s
+darts =    100000000 / 10000000000   pi = 3.14164108   error = 4.843e-05   elapsed = 99.53 s
+darts =    101000000 / 10000000000   pi = 3.14165236   error = 5.970e-05   elapsed = 100.54 s
+darts =    102000000 / 10000000000   pi = 3.14161357   error = 2.092e-05   elapsed = 101.54 s
+darts =    103000000 / 10000000000   pi = 3.14161526   error = 2.261e-05   elapsed = 102.55 s
+darts =    104000000 / 10000000000   pi = 3.14161638   error = 2.373e-05   elapsed = 103.55 s
+darts =    105000000 / 10000000000   pi = 3.14163722   error = 4.457e-05   elapsed = 104.56 s
+darts =    106000000 / 10000000000   pi = 3.14161683   error = 2.418e-05   elapsed = 105.56 s
+
+Signal received: SIGUSR1
+Checkpointing at dart 106000001...
+Checkpoint saved: checkpoints/pi_signal.bin
+Exiting cleanly.
+End: Wed Sep 23 14:42:33 EDT 2026

@@ -465,6 +465,11 @@ static options_t parse_args(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 
+    if (options.sleep_seconds < 0.0) {
+        fprintf(stderr, "--sleep cannot be negative\n");
+        exit(EXIT_FAILURE);
+    }
+
     return options;
 }
 
@@ -506,10 +511,14 @@ int main(int argc, char **argv)
         rng_state = checkpoint.rng_state;
         previous_elapsed = checkpoint.elapsed_seconds;
 
-        printf(
-            "Restarting from checkpoint at dart %" PRIu64 "\n",
-            completed_darts
-        );
+        printf("\n");
+        printf("========================================================================\n");
+        printf("Restarting from checkpoint\n");
+        printf("========================================================================\n");
+        printf("Completed darts  : %" PRIu64 "\n", completed_darts);
+        printf("Inside circle    : %" PRIu64 "\n", inside_circle);
+        printf("Previous runtime : %.2f s\n", previous_elapsed);
+        printf("========================================================================\n\n");
     }
 
     printf("Process ID: %ld\n", (long) getpid());
@@ -585,15 +594,22 @@ int main(int argc, char **argv)
                 4.0 * (double) inside_circle /
                 (double) i;
 
+            const double elapsed =
+                previous_elapsed +
+                wall_time() -
+                start_time;
+
             printf(
                 "darts = %12" PRIu64
                 " / %" PRIu64
                 "   pi = %.8f"
-                "   error = %.3e\n",
+                "   error = %.3e"
+                "   elapsed = %.2f s\n",
                 i,
                 options.darts,
                 pi_estimate,
-                fabs(pi_estimate - PI_TRUE)
+                fabs(pi_estimate - PI_TRUE),
+                elapsed
             );
 
             fflush(stdout);
