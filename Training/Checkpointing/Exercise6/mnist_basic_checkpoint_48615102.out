@@ -1,0 +1,149 @@
+============================================================
+MNIST basic checkpoint job
+============================================================
+Job ID : 48615102
+Node   : holygpu7c26105.rc.fas.harvard.edu
+GPU    : NVIDIA A100-SXM4-40GB
+Start  : Fri Sep 25 18:03:44 EDT 2026
+============================================================
+============================================================
+PyTorch MNIST — basic checkpoint/restart
+============================================================
+PyTorch version : 2.14.0+cu132
+Device          : cuda:0
+GPU             : NVIDIA A100-SXM4-40GB MIG 3g.20gb
+Epochs          : 20
+Batch size      : 128
+Learning rate   : 0.001
+Checkpoint      : mnist_checkpoint.pt
+Resume          : False
+============================================================
+
+  Epoch 1 | batch 0/469 | loss 2.3165
+  Epoch 1 | batch 100/469 | loss 0.1390
+  Epoch 1 | batch 200/469 | loss 0.1152
+  Epoch 1 | batch 300/469 | loss 0.1125
+  Epoch 1 | batch 400/469 | loss 0.0826
+
+Epoch 1/20 | train loss 0.1708 | train acc 94.71% | val loss 0.0463 | val acc 98.47% | time 4.49 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 1)
+  Epoch 2 | batch 0/469 | loss 0.0871
+  Epoch 2 | batch 100/469 | loss 0.0621
+  Epoch 2 | batch 200/469 | loss 0.1071
+  Epoch 2 | batch 300/469 | loss 0.0524
+  Epoch 2 | batch 400/469 | loss 0.0588
+
+Epoch 2/20 | train loss 0.0623 | train acc 98.05% | val loss 0.0385 | val acc 98.64% | time 2.04 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 2)
+  Epoch 3 | batch 0/469 | loss 0.0142
+  Epoch 3 | batch 100/469 | loss 0.0237
+  Epoch 3 | batch 200/469 | loss 0.0802
+  Epoch 3 | batch 300/469 | loss 0.0057
+  Epoch 3 | batch 400/469 | loss 0.0393
+
+Epoch 3/20 | train loss 0.0459 | train acc 98.61% | val loss 0.0306 | val acc 98.93% | time 2.05 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 3)
+  Epoch 4 | batch 0/469 | loss 0.0426
+  Epoch 4 | batch 100/469 | loss 0.0599
+  Epoch 4 | batch 200/469 | loss 0.0070
+  Epoch 4 | batch 300/469 | loss 0.0361
+  Epoch 4 | batch 400/469 | loss 0.0258
+
+Epoch 4/20 | train loss 0.0376 | train acc 98.83% | val loss 0.0360 | val acc 98.80% | time 2.04 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 4)
+  Epoch 5 | batch 0/469 | loss 0.0848
+  Epoch 5 | batch 100/469 | loss 0.0401
+  Epoch 5 | batch 200/469 | loss 0.0093
+  Epoch 5 | batch 300/469 | loss 0.0608
+  Epoch 5 | batch 400/469 | loss 0.0222
+
+Epoch 5/20 | train loss 0.0322 | train acc 98.99% | val loss 0.0263 | val acc 99.12% | time 2.05 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 5)
+  Epoch 6 | batch 0/469 | loss 0.0110
+  Epoch 6 | batch 100/469 | loss 0.0089
+  Epoch 6 | batch 200/469 | loss 0.0183
+  Epoch 6 | batch 300/469 | loss 0.0279
+  Epoch 6 | batch 400/469 | loss 0.0017
+
+Epoch 6/20 | train loss 0.0242 | train acc 99.21% | val loss 0.0271 | val acc 99.15% | time 2.04 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 6)
+  Epoch 7 | batch 0/469 | loss 0.0094
+  Epoch 7 | batch 100/469 | loss 0.0139
+  Epoch 7 | batch 200/469 | loss 0.0408
+  Epoch 7 | batch 300/469 | loss 0.0090
+  Epoch 7 | batch 400/469 | loss 0.0466
+
+Epoch 7/20 | train loss 0.0237 | train acc 99.25% | val loss 0.0311 | val acc 99.02% | time 2.04 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 7)
+  Epoch 8 | batch 0/469 | loss 0.0231
+  Epoch 8 | batch 100/469 | loss 0.0067
+  Epoch 8 | batch 200/469 | loss 0.0074
+  Epoch 8 | batch 300/469 | loss 0.0609
+  Epoch 8 | batch 400/469 | loss 0.0011
+
+Epoch 8/20 | train loss 0.0208 | train acc 99.36% | val loss 0.0248 | val acc 99.23% | time 2.06 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 8)
+  Epoch 9 | batch 0/469 | loss 0.0301
+  Epoch 9 | batch 100/469 | loss 0.0019
+  Epoch 9 | batch 200/469 | loss 0.0035
+  Epoch 9 | batch 300/469 | loss 0.0149
+  Epoch 9 | batch 400/469 | loss 0.0294
+
+Epoch 9/20 | train loss 0.0189 | train acc 99.40% | val loss 0.0318 | val acc 99.13% | time 2.03 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 9)
+  Epoch 10 | batch 0/469 | loss 0.0022
+  Epoch 10 | batch 100/469 | loss 0.0117
+  Epoch 10 | batch 200/469 | loss 0.0066
+  Epoch 10 | batch 300/469 | loss 0.0033
+  Epoch 10 | batch 400/469 | loss 0.0965
+
+Epoch 10/20 | train loss 0.0166 | train acc 99.45% | val loss 0.0303 | val acc 99.13% | time 2.04 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 10)
+  Epoch 11 | batch 0/469 | loss 0.0033
+  Epoch 11 | batch 100/469 | loss 0.0230
+  Epoch 11 | batch 200/469 | loss 0.0078
+  Epoch 11 | batch 300/469 | loss 0.0065
+  Epoch 11 | batch 400/469 | loss 0.0048
+
+Epoch 11/20 | train loss 0.0153 | train acc 99.49% | val loss 0.0299 | val acc 99.27% | time 2.05 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 11)
+  Epoch 12 | batch 0/469 | loss 0.0016
+  Epoch 12 | batch 100/469 | loss 0.0046
+  Epoch 12 | batch 200/469 | loss 0.0012
+  Epoch 12 | batch 300/469 | loss 0.0105
+  Epoch 12 | batch 400/469 | loss 0.0217
+
+Epoch 12/20 | train loss 0.0135 | train acc 99.56% | val loss 0.0322 | val acc 99.16% | time 2.06 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 12)
+  Epoch 13 | batch 0/469 | loss 0.0011
+  Epoch 13 | batch 100/469 | loss 0.0032
+  Epoch 13 | batch 200/469 | loss 0.0005
+  Epoch 13 | batch 300/469 | loss 0.0378
+  Epoch 13 | batch 400/469 | loss 0.0155
+
+Epoch 13/20 | train loss 0.0119 | train acc 99.59% | val loss 0.0315 | val acc 99.30% | time 2.04 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 13)
+  Epoch 14 | batch 0/469 | loss 0.0006
+  Epoch 14 | batch 100/469 | loss 0.0008
+  Epoch 14 | batch 200/469 | loss 0.0022
+  Epoch 14 | batch 300/469 | loss 0.0002
+  Epoch 14 | batch 400/469 | loss 0.0010
+
+Epoch 14/20 | train loss 0.0113 | train acc 99.62% | val loss 0.0309 | val acc 99.30% | time 2.03 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 14)
+  Epoch 15 | batch 0/469 | loss 0.0040
+  Epoch 15 | batch 100/469 | loss 0.0009
+  Epoch 15 | batch 200/469 | loss 0.0047
+  Epoch 15 | batch 300/469 | loss 0.0029
+  Epoch 15 | batch 400/469 | loss 0.0246
+
+Epoch 15/20 | train loss 0.0120 | train acc 99.58% | val loss 0.0299 | val acc 99.25% | time 2.03 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 15)
+  Epoch 16 | batch 0/469 | loss 0.0075
+  Epoch 16 | batch 100/469 | loss 0.0179
+  Epoch 16 | batch 200/469 | loss 0.0254
+  Epoch 16 | batch 300/469 | loss 0.0006
+  Epoch 16 | batch 400/469 | loss 0.0537
+
+Epoch 16/20 | train loss 0.0123 | train acc 99.56% | val loss 0.0304 | val acc 99.25% | time 2.03 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 16)

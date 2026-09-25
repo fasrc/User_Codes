@@ -1,0 +1,73 @@
+============================================================
+MNIST complete checkpoint job
+============================================================
+Job ID : 48615586
+Node   : holygpu7c26105.rc.fas.harvard.edu
+GPU    : NVIDIA A100-SXM4-40GB
+Start  : Fri Sep 25 18:07:04 EDT 2026
+============================================================
+============================================================
+PyTorch MNIST — complete training checkpoint
+============================================================
+PyTorch version       : 2.14.0+cu132
+Requested device      : cuda
+Selected device       : cuda:0
+GPU                   : NVIDIA A100-SXM4-40GB MIG 3g.20gb
+Epochs                : 20
+Batch size            : 128
+Initial learning rate : 0.001
+LR patience           : 2
+Early-stop patience   : 5
+Checkpoint            : mnist_complete.pt
+Resume                : False
+Seed                  : 12345
+============================================================
+
+  Epoch 1 | batch 0/469 | loss 2.3057
+  Epoch 1 | batch 100/469 | loss 0.1649
+  Epoch 1 | batch 200/469 | loss 0.1601
+  Epoch 1 | batch 300/469 | loss 0.1510
+  Epoch 1 | batch 400/469 | loss 0.0691
+
+Epoch 1/20 | train loss 0.1744 | train acc 94.71% | val loss 0.0434 | val acc 98.63% | lr 0.001 | improved yes | patience 0/5 | time 3.95 s
+Checkpoint saved: mnist_complete.pt (after epoch 1)
+  Epoch 2 | batch 0/469 | loss 0.0843
+  Epoch 2 | batch 100/469 | loss 0.0532
+  Epoch 2 | batch 200/469 | loss 0.0835
+  Epoch 2 | batch 300/469 | loss 0.0514
+  Epoch 2 | batch 400/469 | loss 0.0602
+
+Epoch 2/20 | train loss 0.0631 | train acc 98.03% | val loss 0.0328 | val acc 98.94% | lr 0.001 | improved yes | patience 0/5 | time 1.69 s
+Checkpoint saved: mnist_complete.pt (after epoch 2)
+  Epoch 3 | batch 0/469 | loss 0.0230
+  Epoch 3 | batch 100/469 | loss 0.0344
+  Epoch 3 | batch 200/469 | loss 0.0395
+  Epoch 3 | batch 300/469 | loss 0.0422
+  Epoch 3 | batch 400/469 | loss 0.0286
+
+Epoch 3/20 | train loss 0.0446 | train acc 98.66% | val loss 0.0324 | val acc 98.91% | lr 0.001 | improved yes | patience 0/5 | time 1.68 s
+Checkpoint saved: mnist_complete.pt (after epoch 3)
+  Epoch 4 | batch 0/469 | loss 0.0279
+  Epoch 4 | batch 100/469 | loss 0.1369
+  Epoch 4 | batch 200/469 | loss 0.1146
+  Epoch 4 | batch 300/469 | loss 0.0817
+  Epoch 4 | batch 400/469 | loss 0.0492
+
+Epoch 4/20 | train loss 0.0376 | train acc 98.85% | val loss 0.0314 | val acc 98.98% | lr 0.001 | improved yes | patience 0/5 | time 1.67 s
+Checkpoint saved: mnist_complete.pt (after epoch 4)
+  Epoch 5 | batch 0/469 | loss 0.0281
+  Epoch 5 | batch 100/469 | loss 0.0101
+  Epoch 5 | batch 200/469 | loss 0.0276
+  Epoch 5 | batch 300/469 | loss 0.0185
+  Epoch 5 | batch 400/469 | loss 0.0206
+
+Epoch 5/20 | train loss 0.0321 | train acc 98.97% | val loss 0.0283 | val acc 99.02% | lr 0.001 | improved yes | patience 0/5 | time 1.68 s
+Checkpoint saved: mnist_complete.pt (after epoch 5)
+  Epoch 6 | batch 0/469 | loss 0.0425
+  Epoch 6 | batch 100/469 | loss 0.0018
+  Epoch 6 | batch 200/469 | loss 0.0058
+  Epoch 6 | batch 300/469 | loss 0.0058
+  Epoch 6 | batch 400/469 | loss 0.0239
+
+Epoch 6/20 | train loss 0.0254 | train acc 99.18% | val loss 0.0271 | val acc 99.08% | lr 0.001 | improved yes | patience 0/5 | time 1.72 s
+Checkpoint saved: mnist_complete.pt (after epoch 6)

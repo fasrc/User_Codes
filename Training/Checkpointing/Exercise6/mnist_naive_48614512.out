@@ -1,0 +1,98 @@
+============================================================
+MNIST training on GPU - no checkpointing
+============================================================
+Job ID : 48614512
+Node   : holygpu7c26105.rc.fas.harvard.edu
+GPU    : NVIDIA A100-SXM4-40GB
+Start  : Fri Sep 25 18:00:13 EDT 2026
+============================================================
+============================================================
+PyTorch MNIST — baseline training
+============================================================
+PyTorch version : 2.14.0+cu132
+Device          : cuda:0
+GPU             : NVIDIA A100-SXM4-40GB MIG 3g.20gb
+Epochs          : 10
+Batch size      : 128
+Learning rate   : 0.001
+Workers         : 2
+Checkpointing   : disabled
+============================================================
+
+  Epoch 1 | batch 0/469 | loss 2.3083
+  Epoch 1 | batch 100/469 | loss 0.1991
+  Epoch 1 | batch 200/469 | loss 0.0621
+  Epoch 1 | batch 300/469 | loss 0.0740
+  Epoch 1 | batch 400/469 | loss 0.0705
+
+Epoch 1/10 | train loss 0.1753 | train acc 94.57% | val loss 0.0419 | val acc 98.58% | time 6.89 s
+  Epoch 2 | batch 0/469 | loss 0.0760
+  Epoch 2 | batch 100/469 | loss 0.0749
+  Epoch 2 | batch 200/469 | loss 0.0518
+  Epoch 2 | batch 300/469 | loss 0.0339
+  Epoch 2 | batch 400/469 | loss 0.0660
+
+Epoch 2/10 | train loss 0.0625 | train acc 98.09% | val loss 0.0341 | val acc 98.89% | time 2.02 s
+  Epoch 3 | batch 0/469 | loss 0.0285
+  Epoch 3 | batch 100/469 | loss 0.1495
+  Epoch 3 | batch 200/469 | loss 0.0155
+  Epoch 3 | batch 300/469 | loss 0.0279
+  Epoch 3 | batch 400/469 | loss 0.0441
+
+Epoch 3/10 | train loss 0.0465 | train acc 98.57% | val loss 0.0272 | val acc 99.12% | time 2.03 s
+  Epoch 4 | batch 0/469 | loss 0.0215
+  Epoch 4 | batch 100/469 | loss 0.0152
+  Epoch 4 | batch 200/469 | loss 0.0899
+  Epoch 4 | batch 300/469 | loss 0.0287
+  Epoch 4 | batch 400/469 | loss 0.0486
+
+Epoch 4/10 | train loss 0.0369 | train acc 98.82% | val loss 0.0265 | val acc 99.12% | time 2.03 s
+  Epoch 5 | batch 0/469 | loss 0.0134
+  Epoch 5 | batch 100/469 | loss 0.0251
+  Epoch 5 | batch 200/469 | loss 0.0085
+  Epoch 5 | batch 300/469 | loss 0.0105
+  Epoch 5 | batch 400/469 | loss 0.0030
+
+Epoch 5/10 | train loss 0.0309 | train acc 98.99% | val loss 0.0310 | val acc 98.98% | time 2.02 s
+  Epoch 6 | batch 0/469 | loss 0.0127
+  Epoch 6 | batch 100/469 | loss 0.0364
+  Epoch 6 | batch 200/469 | loss 0.0458
+  Epoch 6 | batch 300/469 | loss 0.0131
+  Epoch 6 | batch 400/469 | loss 0.0067
+
+Epoch 6/10 | train loss 0.0242 | train acc 99.20% | val loss 0.0268 | val acc 99.16% | time 2.03 s
+  Epoch 7 | batch 0/469 | loss 0.0552
+  Epoch 7 | batch 100/469 | loss 0.0028
+  Epoch 7 | batch 200/469 | loss 0.0136
+  Epoch 7 | batch 300/469 | loss 0.1420
+  Epoch 7 | batch 400/469 | loss 0.0500
+
+Epoch 7/10 | train loss 0.0236 | train acc 99.26% | val loss 0.0284 | val acc 99.13% | time 2.01 s
+  Epoch 8 | batch 0/469 | loss 0.0203
+  Epoch 8 | batch 100/469 | loss 0.0485
+  Epoch 8 | batch 200/469 | loss 0.0136
+  Epoch 8 | batch 300/469 | loss 0.0197
+  Epoch 8 | batch 400/469 | loss 0.0056
+
+Epoch 8/10 | train loss 0.0199 | train acc 99.31% | val loss 0.0266 | val acc 99.20% | time 2.05 s
+  Epoch 9 | batch 0/469 | loss 0.0050
+  Epoch 9 | batch 100/469 | loss 0.0079
+  Epoch 9 | batch 200/469 | loss 0.0152
+  Epoch 9 | batch 300/469 | loss 0.0088
+  Epoch 9 | batch 400/469 | loss 0.0036
+
+Epoch 9/10 | train loss 0.0180 | train acc 99.42% | val loss 0.0300 | val acc 99.08% | time 2.04 s
+  Epoch 10 | batch 0/469 | loss 0.0177
+  Epoch 10 | batch 100/469 | loss 0.0105
+  Epoch 10 | batch 200/469 | loss 0.0042
+  Epoch 10 | batch 300/469 | loss 0.0116
+  Epoch 10 | batch 400/469 | loss 0.0221
+
+Epoch 10/10 | train loss 0.0163 | train acc 99.45% | val loss 0.0299 | val acc 99.23% | time 2.04 s
+
+============================================================
+Training complete
+============================================================
+Total time : 25.16 s
+============================================================
+End: Fri Sep 25 18:00:57 EDT 2026

@@ -1,0 +1,64 @@
+============================================================
+MNIST basic checkpoint restart
+============================================================
+Job ID : 48615162
+Node   : holygpu7c26105.rc.fas.harvard.edu
+GPU    : NVIDIA A100-SXM4-40GB
+Start  : Fri Sep 25 18:05:13 EDT 2026
+============================================================
+============================================================
+PyTorch MNIST — basic checkpoint/restart
+============================================================
+PyTorch version : 2.14.0+cu132
+Device          : cuda:0
+GPU             : NVIDIA A100-SXM4-40GB MIG 3g.20gb
+Epochs          : 20
+Batch size      : 128
+Learning rate   : 0.001
+Checkpoint      : mnist_checkpoint.pt
+Resume          : True
+============================================================
+
+Loading checkpoint: mnist_checkpoint.pt
+Checkpoint restored from epoch 16.
+Training will resume at epoch 17.
+  Epoch 17 | batch 0/469 | loss 0.0139
+  Epoch 17 | batch 100/469 | loss 0.0059
+  Epoch 17 | batch 200/469 | loss 0.0017
+  Epoch 17 | batch 300/469 | loss 0.0014
+  Epoch 17 | batch 400/469 | loss 0.0161
+
+Epoch 17/20 | train loss 0.0109 | train acc 99.63% | val loss 0.0295 | val acc 99.32% | time 4.20 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 17)
+  Epoch 18 | batch 0/469 | loss 0.0011
+  Epoch 18 | batch 100/469 | loss 0.0007
+  Epoch 18 | batch 200/469 | loss 0.0093
+  Epoch 18 | batch 300/469 | loss 0.0017
+  Epoch 18 | batch 400/469 | loss 0.0001
+
+Epoch 18/20 | train loss 0.0088 | train acc 99.70% | val loss 0.0340 | val acc 99.28% | time 2.12 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 18)
+  Epoch 19 | batch 0/469 | loss 0.0053
+  Epoch 19 | batch 100/469 | loss 0.0039
+  Epoch 19 | batch 200/469 | loss 0.0041
+  Epoch 19 | batch 300/469 | loss 0.0000
+  Epoch 19 | batch 400/469 | loss 0.0228
+
+Epoch 19/20 | train loss 0.0092 | train acc 99.69% | val loss 0.0327 | val acc 99.22% | time 2.11 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 19)
+  Epoch 20 | batch 0/469 | loss 0.0029
+  Epoch 20 | batch 100/469 | loss 0.0098
+  Epoch 20 | batch 200/469 | loss 0.0764
+  Epoch 20 | batch 300/469 | loss 0.0011
+  Epoch 20 | batch 400/469 | loss 0.0205
+
+Epoch 20/20 | train loss 0.0103 | train acc 99.67% | val loss 0.0294 | val acc 99.30% | time 2.11 s
+Checkpoint saved: mnist_checkpoint.pt (after epoch 20)
+
+============================================================
+Training complete
+============================================================
+Total time : 20.13 s
+Checkpoint : mnist_checkpoint.pt
+============================================================
+End: Fri Sep 25 18:05:41 EDT 2026

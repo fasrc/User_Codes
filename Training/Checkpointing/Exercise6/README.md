@@ -15,7 +15,7 @@ The vehicle is a small convolutional network (two convolution layers, dropout an
 two linear layers) trained on the MNIST handwritten-digit data with the Adam
 optimizer, on a GPU. The exercise covers three versions of the training script:
 no checkpointing, a basic checkpoint, and a complete training checkpoint. Each is
-run **interactively** first and then in **batch** mode on the `gpu` partition.
+run **interactively** first and then in **batch** mode on the `gpu_test` partition.
 
 Checkpointing is done at the application level: after every completed epoch the
 script saves a dictionary with `torch.save()` to a temporary file and then
@@ -56,6 +56,11 @@ Key ideas along the way:
 | `mnist_basic_restart.sbatch` | Resumes `mnist_checkpoint.py` from its checkpoint | Batch |
 | `mnist_complete_checkpoint.sbatch` | Runs `mnist_complete_checkpoint.py` until its 1-minute time limit stops it | Batch |
 | `mnist_complete_restart.sbatch` | Resumes `mnist_complete_checkpoint.py` from its checkpoint | Batch |
+| `mnist_naive_48614512.out` | Example output of `mnist_naive.sbatch` (10 epochs, completed) | Batch output |
+| `mnist_basic_checkpoint_48615102.out` | Example output of `mnist_basic_checkpoint.sbatch` (stopped by the time limit after epoch 16) | Batch output |
+| `mnist_basic_restart_48615162.out` | Example output of `mnist_basic_restart.sbatch` (resumed at epoch 17, completed) | Batch output |
+| `mnist_complete_checkpoint_48615586.out` | Example output of `mnist_complete_checkpoint.sbatch` (stopped by the time limit after epoch 6) | Batch output |
+| `mnist_complete_restart_48615590.out` | Example output of `mnist_complete_restart.sbatch` (resumed at epoch 7, early stopping at epoch 15) | Batch output |
 
 ---
 
@@ -67,7 +72,7 @@ Steps 1–3 run on a GPU node, not a login node. All scripts accept
 `--device auto|cpu|cuda`; the examples use `--device cuda`.
 
 ```bash
-salloc --partition=gpu --gres=gpu:1 --cpus-per-task=4 --mem=16G --time=01:00:00
+salloc --partition=gpu_test --gres=gpu:1 --cpus-per-task=4 --mem=16G --time=01:00:00
 module load python
 mamba activate /n/holylabs/rc_admin/Everyone/checkpoint-training/pt2.14.0_cuda13.2
 python -c "import torch; print(torch.__version__, torch.cuda.is_available())"
@@ -232,10 +237,10 @@ The checkpoint is loaded onto the CPU first, so it can also be resumed on anothe
 device, for example `--device cpu` for a run started on the GPU. That works but is
 slow.
 
-### 4. Batch mode on the GPU partition
+### 4. Batch mode on the `gpu_test` partition
 
 The same three cases run in batch mode with these scripts. Each requests one GPU,
-four CPUs and 16 GB on the `gpu` partition:
+four CPUs and 16 GB on the `gpu_test` partition:
 
 - `mnist_naive.sbatch` runs 10 epochs and completes.
 - The `*_checkpoint.sbatch` scripts use `--sleep` and a 1-minute time limit, so the
@@ -252,6 +257,40 @@ four CPUs and 16 GB on the `gpu` partition:
    tail -f mnist_naive_JOBID.out
    ```
 
+   From `mnist_naive_48614512.out`:
+
+   ```
+   ============================================================
+   MNIST training on GPU - no checkpointing
+   ============================================================
+   Job ID : 48614512
+   Node   : holygpu7c26105.rc.fas.harvard.edu
+   GPU    : NVIDIA A100-SXM4-40GB
+   Start  : Fri Sep 25 18:00:13 EDT 2026
+   ============================================================
+   ============================================================
+   PyTorch MNIST — baseline training
+   ============================================================
+   PyTorch version : 2.14.0+cu132
+   Device          : cuda:0
+   GPU             : NVIDIA A100-SXM4-40GB MIG 3g.20gb
+   Epochs          : 10
+   ...
+   Epoch 1/10 | train loss 0.1753 | train acc 94.57% | val loss 0.0419 | val acc 98.58% | time 6.89 s
+   ...
+   Epoch 10/10 | train loss 0.0163 | train acc 99.45% | val loss 0.0299 | val acc 99.23% | time 2.04 s
+
+   ============================================================
+   Training complete
+   ============================================================
+   Total time : 25.16 s
+   ============================================================
+   End: Fri Sep 25 18:00:57 EDT 2026
+   ```
+
+   The GPU on `gpu_test` is a MIG slice (`3g.20gb`) of an A100, which is ample
+   for this small model.
+
 2. Basic checkpoint: submit the checkpoint job and the restart job. The
    dependency starts the restart job once the first has ended (replace `JOBID`
    with the job ID printed by `sbatch`):
@@ -261,20 +300,40 @@ four CPUs and 16 GB on the `gpu` partition:
    sbatch --dependency=afterany:$JOBID mnist_basic_restart.sbatch
    ```
 
-   The first job is cut off at its time limit, which shows up in
-   `mnist_basic_checkpoint_JOBID.err`:
+   The first job is cut off at its time limit (Slurm records the cancellation
+   `DUE TO TIME LIMIT` in `mnist_basic_checkpoint_JOBID.err`). Its output ends
+   with the last checkpoint, with no `End:` line
+   (`mnist_basic_checkpoint_48615102.out`):
 
    ```
-   error: *** STEP 15403.0 ON holygpu7c26103 CANCELLED AT 2026-09-24T22:57:51 DUE TO TIME LIMIT ***
+   Epoch 15/20 | train loss 0.0120 | train acc 99.58% | val loss 0.0299 | val acc 99.25% | time 2.03 s
+   Checkpoint saved: mnist_checkpoint.pt (after epoch 15)
+   ...
+   Epoch 16/20 | train loss 0.0123 | train acc 99.56% | val loss 0.0304 | val acc 99.25% | time 2.03 s
+   Checkpoint saved: mnist_checkpoint.pt (after epoch 16)
    ```
 
-   The second job resumes from the last completed epoch (here epoch 14) and
-   finishes the 20 epochs:
+   The second job resumes from the last completed epoch (here epoch 16) and
+   finishes the 20 epochs (`mnist_basic_restart_48615162.out`):
 
    ```
    Loading checkpoint: mnist_checkpoint.pt
-   Checkpoint restored from epoch 14.
-   Training will resume at epoch 15.
+   Checkpoint restored from epoch 16.
+   Training will resume at epoch 17.
+   ...
+   Epoch 17/20 | train loss 0.0109 | train acc 99.63% | val loss 0.0295 | val acc 99.32% | time 4.20 s
+   Checkpoint saved: mnist_checkpoint.pt (after epoch 17)
+   ...
+   Epoch 20/20 | train loss 0.0103 | train acc 99.67% | val loss 0.0294 | val acc 99.30% | time 2.11 s
+   Checkpoint saved: mnist_checkpoint.pt (after epoch 20)
+
+   ============================================================
+   Training complete
+   ============================================================
+   Total time : 20.13 s
+   Checkpoint : mnist_checkpoint.pt
+   ============================================================
+   End: Fri Sep 25 18:05:41 EDT 2026
    ```
 
 3. Complete checkpoint: the same, with the complete-checkpoint scripts:
@@ -285,8 +344,19 @@ four CPUs and 16 GB on the `gpu` partition:
    ```
 
    `--sleep 8` slows this job to about 10 seconds per epoch, so the 1-minute limit
-   stops it after about 6 epochs, before early stopping can trigger. The restart
-   job restores the full state and continues:
+   stops it after about 6 epochs, before early stopping can trigger
+   (`mnist_complete_checkpoint_48615586.out`):
+
+   ```
+   Epoch 5/20 | train loss 0.0321 | train acc 98.97% | val loss 0.0283 | val acc 99.02% | lr 0.001 | improved yes | patience 0/5 | time 1.68 s
+   Checkpoint saved: mnist_complete.pt (after epoch 5)
+   ...
+   Epoch 6/20 | train loss 0.0254 | train acc 99.18% | val loss 0.0271 | val acc 99.08% | lr 0.001 | improved yes | patience 0/5 | time 1.72 s
+   Checkpoint saved: mnist_complete.pt (after epoch 6)
+   ```
+
+   The restart job restores the full state and continues
+   (`mnist_complete_restart_48615590.out`):
 
    ```
    Loading checkpoint: mnist_complete.pt
@@ -295,13 +365,37 @@ four CPUs and 16 GB on the `gpu` partition:
    Training will resume at epoch 7.
    Checkpoint was saved from device type: cuda
    Current device: cuda:0
-   Best validation loss: 0.028196
+   Best validation loss: 0.027076
    Early-stopping counter: 0
    Current learning rate: 0.001
+   ...
+   Epoch 7/20 | train loss 0.0241 | train acc 99.19% | val loss 0.0299 | val acc 99.08% | lr 0.001 | improved no | patience 1/5 | time 3.96 s
+   ...
+   Learning rate reduced: 0.001 -> 0.0005
+
+   Epoch 13/20 | train loss 0.0140 | train acc 99.55% | val loss 0.0278 | val acc 99.23% | lr 0.0005 | improved no | patience 3/5 | time 1.79 s
+   ...
+   Epoch 15/20 | train loss 0.0053 | train acc 99.83% | val loss 0.0269 | val acc 99.40% | lr 0.0005 | improved no | patience 5/5 | time 1.78 s
+   Checkpoint saved: mnist_complete.pt (after epoch 15)
+
+   Early stopping triggered.
+   No validation-loss improvement for 5 consecutive epochs.
+
+   ============================================================
+   Training finished
+   ============================================================
+   Best validation loss : 0.024100
+   Final learning rate  : 0.0005
+   Total time           : 86.39 s
+   Checkpoint           : mnist_complete.pt
+   ============================================================
+   End: Fri Sep 25 18:09:55 EDT 2026
    ```
 
-   In the test run the learning rate was then reduced twice and early stopping
-   triggered at epoch 16 (`Early stopping triggered.`).
+   The best validation loss (0.027076) and early-stopping counter carried over
+   from the first job. The learning rate was halved after epoch 13, and early
+   stopping triggered after epoch 15, five epochs after the best validation loss
+   (0.024100, epoch 10), so the run ended before the 20 requested epochs.
 
 4. Check the outcome of the jobs:
 
@@ -309,12 +403,25 @@ four CPUs and 16 GB on the `gpu` partition:
    sacct -j JOBID -X -o JobID,JobName%22,State,Elapsed
    ```
 
+   For the five example jobs:
+
+   ```
+   JobID                       JobName      State    Elapsed
+   ------------ ---------------------- ---------- ----------
+   48614512                mnist-naive  COMPLETED   00:00:46
+   48615102           mnist-basic-ckpt    TIMEOUT   00:01:21
+   48615162        mnist-basic-restart  COMPLETED   00:00:29
+   48615586        mnist-complete-ckpt    TIMEOUT   00:01:09
+   48615590     mnist-complete-restart  COMPLETED   00:01:36
+   ```
+
    The checkpoint jobs show `TIMEOUT` and the restart jobs `COMPLETED`. The exact
    epoch at which a job is cut off varies from run to run.
 
 ### Cleanup
 
-Leave the allocation, then remove the generated files:
+Leave the allocation, then remove the generated files. Note that
+`mnist_*_*.out` also matches the example output files listed under Content:
 
 ```bash
 exit

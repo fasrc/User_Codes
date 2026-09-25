@@ -1,0 +1,120 @@
+============================================================
+MNIST complete checkpoint restart
+============================================================
+Job ID : 48615590
+Node   : holygpu7c26105.rc.fas.harvard.edu
+GPU    : NVIDIA A100-SXM4-40GB
+Start  : Fri Sep 25 18:08:22 EDT 2026
+============================================================
+============================================================
+PyTorch MNIST — complete training checkpoint
+============================================================
+PyTorch version       : 2.14.0+cu132
+Requested device      : cuda
+Selected device       : cuda:0
+GPU                   : NVIDIA A100-SXM4-40GB MIG 3g.20gb
+Epochs                : 20
+Batch size            : 128
+Initial learning rate : 0.001
+LR patience           : 2
+Early-stop patience   : 5
+Checkpoint            : mnist_complete.pt
+Resume                : True
+Seed                  : 12345
+============================================================
+
+Loading checkpoint: mnist_complete.pt
+CUDA RNG state restored.
+Checkpoint restored from epoch 6.
+Training will resume at epoch 7.
+Checkpoint was saved from device type: cuda
+Current device: cuda:0
+Best validation loss: 0.027076
+Early-stopping counter: 0
+Current learning rate: 0.001
+  Epoch 7 | batch 0/469 | loss 0.0100
+  Epoch 7 | batch 100/469 | loss 0.0158
+  Epoch 7 | batch 200/469 | loss 0.0038
+  Epoch 7 | batch 300/469 | loss 0.0033
+  Epoch 7 | batch 400/469 | loss 0.0034
+
+Epoch 7/20 | train loss 0.0241 | train acc 99.19% | val loss 0.0299 | val acc 99.08% | lr 0.001 | improved no | patience 1/5 | time 3.96 s
+Checkpoint saved: mnist_complete.pt (after epoch 7)
+  Epoch 8 | batch 0/469 | loss 0.0070
+  Epoch 8 | batch 100/469 | loss 0.0597
+  Epoch 8 | batch 200/469 | loss 0.0042
+  Epoch 8 | batch 300/469 | loss 0.0096
+  Epoch 8 | batch 400/469 | loss 0.0111
+
+Epoch 8/20 | train loss 0.0202 | train acc 99.33% | val loss 0.0290 | val acc 99.17% | lr 0.001 | improved no | patience 2/5 | time 1.77 s
+Checkpoint saved: mnist_complete.pt (after epoch 8)
+  Epoch 9 | batch 0/469 | loss 0.0595
+  Epoch 9 | batch 100/469 | loss 0.0071
+  Epoch 9 | batch 200/469 | loss 0.0179
+  Epoch 9 | batch 300/469 | loss 0.0100
+  Epoch 9 | batch 400/469 | loss 0.0931
+
+Epoch 9/20 | train loss 0.0166 | train acc 99.46% | val loss 0.0266 | val acc 99.32% | lr 0.001 | improved yes | patience 0/5 | time 1.79 s
+Checkpoint saved: mnist_complete.pt (after epoch 9)
+  Epoch 10 | batch 0/469 | loss 0.0116
+  Epoch 10 | batch 100/469 | loss 0.0377
+  Epoch 10 | batch 200/469 | loss 0.0190
+  Epoch 10 | batch 300/469 | loss 0.0153
+  Epoch 10 | batch 400/469 | loss 0.0232
+
+Epoch 10/20 | train loss 0.0174 | train acc 99.42% | val loss 0.0241 | val acc 99.34% | lr 0.001 | improved yes | patience 0/5 | time 1.78 s
+Checkpoint saved: mnist_complete.pt (after epoch 10)
+  Epoch 11 | batch 0/469 | loss 0.0029
+  Epoch 11 | batch 100/469 | loss 0.0023
+  Epoch 11 | batch 200/469 | loss 0.0149
+  Epoch 11 | batch 300/469 | loss 0.0008
+  Epoch 11 | batch 400/469 | loss 0.0057
+
+Epoch 11/20 | train loss 0.0142 | train acc 99.53% | val loss 0.0262 | val acc 99.32% | lr 0.001 | improved no | patience 1/5 | time 1.85 s
+Checkpoint saved: mnist_complete.pt (after epoch 11)
+  Epoch 12 | batch 0/469 | loss 0.0062
+  Epoch 12 | batch 100/469 | loss 0.0236
+  Epoch 12 | batch 200/469 | loss 0.1089
+  Epoch 12 | batch 300/469 | loss 0.0093
+  Epoch 12 | batch 400/469 | loss 0.0487
+
+Epoch 12/20 | train loss 0.0146 | train acc 99.54% | val loss 0.0285 | val acc 99.29% | lr 0.001 | improved no | patience 2/5 | time 1.75 s
+Checkpoint saved: mnist_complete.pt (after epoch 12)
+  Epoch 13 | batch 0/469 | loss 0.0032
+  Epoch 13 | batch 100/469 | loss 0.0014
+  Epoch 13 | batch 200/469 | loss 0.0064
+  Epoch 13 | batch 300/469 | loss 0.0120
+  Epoch 13 | batch 400/469 | loss 0.0859
+Learning rate reduced: 0.001 -> 0.0005
+
+Epoch 13/20 | train loss 0.0140 | train acc 99.55% | val loss 0.0278 | val acc 99.23% | lr 0.0005 | improved no | patience 3/5 | time 1.79 s
+Checkpoint saved: mnist_complete.pt (after epoch 13)
+  Epoch 14 | batch 0/469 | loss 0.0182
+  Epoch 14 | batch 100/469 | loss 0.0128
+  Epoch 14 | batch 200/469 | loss 0.0052
+  Epoch 14 | batch 300/469 | loss 0.0007
+  Epoch 14 | batch 400/469 | loss 0.0212
+
+Epoch 14/20 | train loss 0.0083 | train acc 99.72% | val loss 0.0270 | val acc 99.40% | lr 0.0005 | improved no | patience 4/5 | time 1.78 s
+Checkpoint saved: mnist_complete.pt (after epoch 14)
+  Epoch 15 | batch 0/469 | loss 0.0026
+  Epoch 15 | batch 100/469 | loss 0.0027
+  Epoch 15 | batch 200/469 | loss 0.0044
+  Epoch 15 | batch 300/469 | loss 0.0025
+  Epoch 15 | batch 400/469 | loss 0.0086
+
+Epoch 15/20 | train loss 0.0053 | train acc 99.83% | val loss 0.0269 | val acc 99.40% | lr 0.0005 | improved no | patience 5/5 | time 1.78 s
+Checkpoint saved: mnist_complete.pt (after epoch 15)
+
+Early stopping triggered.
+No validation-loss improvement for 5 consecutive epochs.
+
+============================================================
+Training finished
+============================================================
+Best validation loss : 0.024100
+Final learning rate  : 0.0005
+Total time           : 86.39 s
+Checkpoint           : mnist_complete.pt
+============================================================
+End: Fri Sep 25 18:09:55 EDT 2026
