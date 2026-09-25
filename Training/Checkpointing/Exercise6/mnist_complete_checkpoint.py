@@ -994,6 +994,23 @@ def main():
 
             return
 
+        # Do not train further if the checkpointed run had already
+        # stopped early.
+        if (
+            early_stopping_counter
+            >= args.early_stopping_patience
+        ):
+
+            print(
+                f"Checkpoint already reached early stopping "
+                f"(patience {early_stopping_counter}/"
+                f"{args.early_stopping_patience}); "
+                f"nothing left to train.",
+                flush=True,
+            )
+
+            return
+
     # -----------------------------------------------------------------------
     # Training loop
     # -----------------------------------------------------------------------

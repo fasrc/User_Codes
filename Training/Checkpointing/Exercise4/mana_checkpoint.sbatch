@@ -17,8 +17,8 @@ cd "${SLURM_SUBMIT_DIR}"
 rm -rf checkpoints
 mkdir -p checkpoints
 
-# Create a checkpoint every 30 seconds.
-mana_coordinator -i30
+# Create a checkpoint every 15 seconds.
+mana_coordinator -i15
 
 echo "============================================================"
 echo "MANA checkpoint job"

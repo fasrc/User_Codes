@@ -1,0 +1,761 @@
+# Exercise 4 — Transparent MPI Checkpointing with MANA
+
+## Introduction
+
+In Exercise 3, we used **DMTCP** to checkpoint and restart a running application without adding checkpointing logic to the program itself.
+
+In this exercise, we extend the same idea to an **MPI application** using **MANA**.
+
+[MANA](https://github.com/mpickpt/mana) provides transparent checkpoint/restart for MPI applications. Rather than explicitly saving application variables, loop counters, random-number-generator state, and MPI-related state, MANA captures the process state required to restart a distributed MPI computation.
+
+The example application estimates π using a Monte Carlo calculation distributed across four MPI ranks.
+
+The application itself contains **no application-level checkpoint/restart logic**.
+
+The basic workflow is:
+
+```text
+MPI application
+      |
+      v
+mana_launch
+      |
+      v
+running MPI ranks
+      |
+      v
+MANA checkpoint
+      |
+      v
+ckpt_rank_0/
+ckpt_rank_1/
+ckpt_rank_2/
+ckpt_rank_3/
+      |
+      v
+mana_restart
+      |
+      v
+MPI calculation continues
+```
+
+This exercise demonstrates:
+
+- running a native MPI application on CANNON,
+- launching the same application under MANA,
+- creating a coordinated MPI checkpoint,
+- stopping the running calculation,
+- restarting the MPI job from the saved checkpoint,
+- launching and restarting the workflow in Slurm batch mode.
+
+Automatic Slurm requeue is **not included** in this exercise. The focus is the core MANA checkpoint/restart workflow.
+
+---
+
+## Content
+
+The exercise directory contains:
+
+```text
+Exercise4/
+├── README.md
+├── NOTES.txt
+├── Makefile
+├── pi_mpi.c
+├── mana_checkpoint.sbatch
+├── mana_restart.sbatch
+├── mana_launch_15390.out
+└── mana_restart_15392.out
+```
+
+Running `make` creates two executables:
+
+```text
+pi_mpi.x
+pi_mpi_mana.x
+```
+
+They are built differently:
+
+- `pi_mpi.x` is compiled with the standard MPI compiler wrapper and is used for the native MPI baseline.
+- `pi_mpi_mana.x` is compiled with `mpicc_mana` and is used with MANA.
+
+The two Slurm scripts demonstrate the batch workflow:
+
+- `mana_checkpoint.sbatch` launches the MPI program under MANA and creates checkpoint files.
+- `mana_restart.sbatch` restarts the MPI application from those checkpoint files.
+
+Example output from validated runs is included in:
+
+- `mana_launch_15390.out`
+- `mana_restart_15392.out`
+
+---
+
+## Setup
+
+Load the compiler and MPI environment:
+
+```bash
+module load gcc/15.2.0-fasrc01
+module load mpich/5.0.0-fasrc01
+```
+
+Then initialize the MANA environment:
+
+```bash
+source /n/holylabs/rc_admin/Everyone/checkpoint-training/setup_mana.sh
+```
+
+You can verify that the important commands are available:
+
+```bash
+which mpicc
+which mpicc_mana
+which mana_coordinator
+which mana_launch
+which mana_status
+which mana_restart
+```
+
+For this exercise we use:
+
+- GCC 15.2
+- MPICH 5.0
+- MANA
+- Slurm PMIx support
+
+> **Important:** With this MPICH configuration on CANNON, use `srun --mpi=pmix`.
+
+---
+
+# 1. Compile the MPI application
+
+Compile both versions of the program:
+
+```bash
+make
+```
+
+This creates:
+
+```text
+pi_mpi.x
+pi_mpi_mana.x
+```
+
+The native executable is built using the standard MPI compiler wrapper:
+
+```text
+mpicc
+```
+
+The MANA-compatible executable is built using:
+
+```text
+mpicc_mana
+```
+
+This distinction is important. The executable launched through MANA must be built with `mpicc_mana`.
+
+---
+
+# 2. Test the native MPI application
+
+Before introducing checkpointing, first verify that the MPI program works normally.
+
+Request an interactive allocation with four MPI tasks:
+
+```bash
+salloc -n 4 -N 1 -t 180 -p rc-testing --mem-per-cpu=1G
+```
+
+Once the allocation starts, run:
+
+```bash
+srun --mpi=pmix -n 4 ./pi_mpi.x --darts 100000000
+```
+
+You should see output similar to:
+
+```text
+============================================================
+MPI Monte Carlo Pi
+============================================================
+MPI ranks          : 4
+Total darts        : 100000000
+...
+```
+
+followed by progress information and the final estimate of π.
+
+This is our baseline:
+
+```text
+Slurm
+  |
+  v
+srun
+  |
+  v
+native MPI application
+```
+
+No checkpointing is involved yet.
+
+---
+
+# 3. Run the MPI application under MANA
+
+Create a directory for the checkpoint files:
+
+```bash
+mkdir -p checkpoints
+```
+
+Start the MANA coordinator:
+
+```bash
+mana_coordinator -i15
+```
+
+Now launch the MANA-compatible MPI executable:
+
+```bash
+srun --mpi=pmix -n 4 \
+    mana_launch \
+    --ckptdir checkpoints \
+    ./pi_mpi_mana.x \
+    --darts 1000000000 \
+    --report-every 5000000 \
+    --sleep-ms 1000
+```
+
+The larger number of darts and the artificial sleep make the calculation run long enough for us to interact with it.
+
+The workflow is now:
+
+```text
+Slurm
+  |
+  v
+srun
+  |
+  v
+mana_launch
+  |
+  v
+MPI ranks
+```
+
+MANA manages the MPI processes transparently.
+
+The MPI source code itself does not contain checkpoint/restart logic.
+
+---
+
+# 4. Connect to the MANA coordinator from another shell
+
+Leave the MPI calculation running.
+
+Open another terminal and connect to the **same allocated compute node**.
+
+MANA stores coordinator information in a job-specific file such as:
+
+```text
+~/.mana-slurm-15395.rc
+```
+
+The MANA wrapper uses the Slurm job ID to locate this file.
+
+First determine the Slurm job ID of your allocation. In the original shell:
+
+```bash
+echo "$SLURM_JOB_ID"
+```
+
+Suppose the result is:
+
+```text
+15395
+```
+
+In the second shell, initialize the same software environment:
+
+```bash
+module load gcc/15.2.0-fasrc01
+module load mpich/5.0.0-fasrc01
+source /n/holylabs/rc_admin/Everyone/checkpoint-training/setup_mana.sh
+```
+
+Then export the job ID:
+
+```bash
+export SLURM_JOB_ID=15395
+export SLURM_JOBID=15395
+```
+
+Replace `15395` with your actual job ID.
+
+Verify that the MANA coordinator information file exists:
+
+```bash
+ls -l ~/.mana-slurm-${SLURM_JOB_ID}.rc
+```
+
+Check the MANA status:
+
+```bash
+mana_status --status
+```
+
+> **Why is the job ID necessary?**
+>
+> Simply logging into the same node is not sufficient. The second shell does not automatically inherit the Slurm environment of the original allocation. MANA uses the Slurm job ID to identify the correct coordinator information file.
+
+---
+
+# 5. Create a checkpoint
+
+From the second shell, request a coordinated MANA checkpoint:
+
+```bash
+mana_status --checkpoint
+```
+
+MANA creates checkpoint state for all MPI ranks.
+
+Inspect the checkpoint directory:
+
+```bash
+ls -l checkpoints
+```
+
+You should see one directory per MPI rank:
+
+```text
+ckpt_rank_0/
+ckpt_rank_1/
+ckpt_rank_2/
+ckpt_rank_3/
+```
+
+Inspect the checkpoint files:
+
+```bash
+find checkpoints -maxdepth 2 -type f -ls
+```
+
+Conceptually:
+
+```text
+MPI rank 0  --->  ckpt_rank_0/
+MPI rank 1  --->  ckpt_rank_1/
+MPI rank 2  --->  ckpt_rank_2/
+MPI rank 3  --->  ckpt_rank_3/
+```
+
+Unlike the Python and C exercises, we did not explicitly choose which application variables to save. MANA captures the process state transparently.
+
+---
+
+# 6. Stop the running application
+
+After creating the checkpoint, stop the MANA-managed computation cleanly:
+
+```bash
+mana_status --quit
+```
+
+The original `srun` command should terminate.
+
+The checkpoint files remain in:
+
+```text
+checkpoints/
+```
+
+At this point the original MPI calculation is no longer running, but its state has been preserved by MANA.
+
+---
+
+# 7. Restart from the checkpoint interactively
+
+Restart from inside the checkpoint directory:
+
+```bash
+cd checkpoints
+```
+
+Start a new MANA coordinator:
+
+```bash
+mana_coordinator -i15
+```
+
+Then restart all MPI ranks:
+
+```bash
+srun --mpi=pmix -n 4 mana_restart
+```
+
+The MPI application should resume from the saved state rather than starting again from zero.
+
+You should see the progress continue from approximately the point at which the checkpoint was taken.
+
+The restart workflow is:
+
+```text
+ckpt_rank_0/
+ckpt_rank_1/
+ckpt_rank_2/
+ckpt_rank_3/
+      |
+      v
+mana_restart
+      |
+      v
+restored MPI ranks
+      |
+      v
+calculation continues
+```
+
+> **Important:** For the MANA installation used in this exercise, restart from inside the checkpoint directory:
+>
+> ```bash
+> cd checkpoints
+> srun --mpi=pmix -n 4 mana_restart
+> ```
+
+---
+
+# 8. Run the checkpoint workflow in batch mode
+
+The same MANA launch/checkpoint workflow can be submitted through Slurm using:
+
+```text
+mana_checkpoint.sbatch
+```
+
+Submit it with:
+
+```bash
+sbatch mana_checkpoint.sbatch
+```
+
+Monitor the job with:
+
+```bash
+squeue -u "$USER"
+```
+
+The batch script starts the MANA coordinator, launches the MPI application through MANA, and writes checkpoint files into the checkpoint directory.
+
+After the job has run, inspect the checkpoint files:
+
+```bash
+find checkpoints -maxdepth 2 -type f -ls
+```
+
+A validated example of the launch/checkpoint output is included in:
+
+```text
+mana_launch_15390.out
+```
+
+Inspect it with:
+
+```bash
+less mana_launch_15390.out
+```
+
+The batch launch workflow is:
+
+```text
+sbatch mana_checkpoint.sbatch
+          |
+          v
+    Slurm allocation
+          |
+          v
+    mana_coordinator
+          |
+          v
+    srun --mpi=pmix
+          |
+          v
+      mana_launch
+          |
+          v
+     MPI application
+          |
+          v
+    checkpoint files
+```
+
+---
+
+# 9. Restart from the checkpoint in batch mode
+
+Once the checkpoint exists, restart it using:
+
+```text
+mana_restart.sbatch
+```
+
+Submit:
+
+```bash
+sbatch mana_restart.sbatch
+```
+
+The restart script:
+
+1. loads the same GCC, MPICH, and MANA environment,
+2. locates the checkpoint directory,
+3. changes into that directory,
+4. starts a new MANA coordinator,
+5. runs `mana_restart` with four MPI tasks.
+
+A validated example of the restart output is included in:
+
+```text
+mana_restart_15392.out
+```
+
+Inspect it with:
+
+```bash
+less mana_restart_15392.out
+```
+
+The important behavior to look for is that the calculation resumes from the saved progress rather than beginning again from zero.
+
+The batch restart workflow is:
+
+```text
+checkpoint files
+      |
+      v
+sbatch mana_restart.sbatch
+      |
+      v
+new Slurm allocation
+      |
+      v
+mana_coordinator
+      |
+      v
+srun --mpi=pmix -n 4 mana_restart
+      |
+      v
+restored MPI computation
+```
+
+---
+
+# 10. What did MANA save?
+
+Compare this exercise with the application-level checkpointing in Exercises 1 and 2.
+
+In those exercises, the application explicitly saved semantic state such as:
+
+```text
+completed iterations
+partial result
+random-number-generator state
+configuration parameters
+```
+
+The application itself understood the meaning of the checkpoint.
+
+With MANA, the program contains no checkpoint-specific code.
+
+Instead, MANA transparently captures enough process and MPI-related state to reconstruct the distributed computation.
+
+The distinction is:
+
+```text
+Application-level checkpointing
+
+program
+  |
+  ├── decides what state matters
+  ├── writes checkpoint
+  └── knows how to restore it
+```
+
+versus:
+
+```text
+MANA checkpointing
+
+program
+  |
+  v
+MANA
+  |
+  ├── captures process state
+  ├── coordinates MPI ranks
+  └── restores the distributed computation
+```
+
+---
+
+# 11. MANA vs. DMTCP
+
+Exercise 3 used DMTCP to checkpoint a single application process transparently.
+
+Exercise 4 extends this idea to MPI:
+
+```text
+Exercise 3
+DMTCP
+  |
+  v
+single-process application
+```
+
+```text
+Exercise 4
+MANA
+  |
+  v
+MPI application
+  |
+  ├── rank 0
+  ├── rank 1
+  ├── rank 2
+  └── rank 3
+```
+
+MANA builds on checkpoint/restart mechanisms from DMTCP while adding support for MPI applications.
+
+The central idea remains the same:
+
+> The application does not need explicit checkpoint/restart code.
+
+---
+
+# Key concepts
+
+### Transparent checkpointing
+
+The application does not explicitly save its own state.
+
+MANA captures the state needed for restart externally.
+
+### Coordinated MPI checkpoint
+
+All MPI ranks belong to the same distributed computation and must be checkpointed consistently.
+
+### One checkpoint directory per rank
+
+For four MPI ranks, MANA creates:
+
+```text
+ckpt_rank_0
+ckpt_rank_1
+ckpt_rank_2
+ckpt_rank_3
+```
+
+### MPI implementation matters
+
+The MPI program used with MANA must be built using the appropriate MANA compiler wrapper:
+
+```bash
+mpicc_mana
+```
+
+### Slurm MPI launch mode matters
+
+For the MPICH build used in this exercise:
+
+```bash
+srun --mpi=pmix
+```
+
+is required.
+
+### Restart context matters
+
+For this MANA installation on CANNON, restart from inside the checkpoint directory:
+
+```bash
+cd checkpoints
+srun --mpi=pmix -n 4 mana_restart
+```
+
+### The second shell needs Slurm context
+
+When controlling MANA from another shell, export the original Slurm job ID so that `mana_status` can locate:
+
+```text
+~/.mana-slurm-${SLURM_JOB_ID}.rc
+```
+
+### Interactive and batch workflows use the same checkpoint model
+
+The interactive workflow is useful for understanding what MANA is doing.
+
+The batch workflow demonstrates how the same checkpoint and restart mechanism is used in a normal Slurm environment.
+
+---
+
+# Cleanup
+
+When finished, leave the Slurm allocation:
+
+```bash
+exit
+```
+
+Remove checkpoint files if you no longer need them:
+
+```bash
+rm -rf checkpoints
+```
+
+Remove compiled executables:
+
+```bash
+make clean
+```
+
+---
+
+# Summary
+
+In this exercise you:
+
+1. compiled and ran a native MPI application,
+2. compiled a MANA-compatible version using `mpicc_mana`,
+3. launched the MPI calculation through `mana_launch`,
+4. created a coordinated checkpoint of all MPI ranks,
+5. stopped the original computation,
+6. restored the MPI application interactively using `mana_restart`,
+7. launched the MANA workflow through Slurm batch mode,
+8. restarted the checkpoint from a new Slurm batch job.
+
+The main difference from application-level checkpointing is that the MPI application itself did not need to know how to save or restore its state.
+
+The progression so far is:
+
+```text
+Exercise 1   Python application-level checkpointing
+Exercise 2   C application-level checkpointing
+Exercise 3   DMTCP transparent process checkpointing
+Exercise 4   MANA transparent MPI checkpointing
+```
+
+In the next exercises we will look at checkpointing mechanisms built directly into scientific applications and machine-learning frameworks.
+
+---
+
+## References
+
+- MANA: <https://github.com/mpickpt/mana>
+- MANA documentation: <https://mana-doc.readthedocs.io/>
+- NERSC MANA documentation: <https://docs.nersc.gov/development/checkpoint-restart/mana/>

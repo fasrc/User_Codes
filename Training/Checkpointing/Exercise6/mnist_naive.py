@@ -171,6 +171,32 @@ class MNISTNet(nn.Module):
 
 
 # ---------------------------------------------------------------------------
+# Device selection
+# ---------------------------------------------------------------------------
+
+def select_device(requested_device):
+
+    if requested_device == "cpu":
+        return torch.device("cpu")
+
+    if requested_device == "cuda":
+
+        if not torch.cuda.is_available():
+            raise RuntimeError(
+                "CUDA was requested, but torch.cuda.is_available() "
+                "is False."
+            )
+
+        return torch.device("cuda:0")
+
+    # auto
+    if torch.cuda.is_available():
+        return torch.device("cuda:0")
+
+    return torch.device("cpu")
+
+
+# ---------------------------------------------------------------------------
 # Training
 # ---------------------------------------------------------------------------
 
@@ -288,7 +314,7 @@ def evaluate(
 def parse_args():
 
     parser = argparse.ArgumentParser(
-        description="CPU MNIST training without checkpointing"
+        description="MNIST training without checkpointing"
     )
 
     parser.add_argument(
@@ -343,6 +369,16 @@ def parse_args():
         ),
     )
 
+    parser.add_argument(
+        "--device",
+        choices=["auto", "cpu", "cuda"],
+        default="auto",
+        help=(
+            "Training device. "
+            "'auto' uses CUDA when available, otherwise CPU."
+        ),
+    )
+
     return parser.parse_args()
 
 
@@ -354,14 +390,17 @@ def main():
 
     args = parse_args()
 
-    # This exercise intentionally uses CPU training.
-    device = torch.device("cpu")
+    device = select_device(args.device)
 
     print("============================================================")
-    print("PyTorch MNIST — baseline CPU training")
+    print("PyTorch MNIST — baseline training")
     print("============================================================")
     print(f"PyTorch version : {torch.__version__}")
     print(f"Device          : {device}")
+
+    if device.type == "cuda":
+        print(f"GPU             : {torch.cuda.get_device_name(device)}")
+
     print(f"Epochs          : {args.epochs}")
     print(f"Batch size      : {args.batch_size}")
     print(f"Learning rate   : {args.lr}")

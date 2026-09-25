@@ -6,7 +6,8 @@ source /n/holylabs/rc_admin/Everyone/checkpoint-training/setup_mana.sh
 # Compile native MPI code
 make
 
-# Test bative MPI code
+# Test native MPI code interactively
+salloc -n 4 -N 1 -t 180 -p rc-testing --mem-per-cpu=1G
 srun --mpi=pmix -n 4 ./pi_mpi.x --darts 100000000
 
 # --- Checkpointing ---
@@ -14,7 +15,17 @@ mkdir checkpoints
 mana_coordinator -i15
 srun --mpi=pmix -n 4   mana_launch --ckptdir checkpoints ./pi_mpi_mana.x  --darts 1000000000  --report-every 5000000  --sleep-ms 1000
 
+# --- In another shell do, e.g. ( we should get the JOBID !!! )  ---
+export SLURM_JOB_ID=15395
+export SLURM_JOBID=15395
+ls -l ~/.mana-slurm-${SLURM_JOB_ID}.rc
+mana_status --status
+mana_status --checkpoint
+mana_status --quit
+
 # --- Restart ---
 cd checkpoints
 mana_coordinator -i15
 srun --mpi=pmix -n 4 mana_restart
+
+# --- Batch-mode launch and restart ---
