@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=dmtcp-auto
-#SBATCH --partition=rc-testing
+#SBATCH --partition=test
 #SBATCH --time=00:03:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=1G
@@ -12,7 +12,8 @@
 
 set -euo pipefail
 
-module load dmtcp
+module load gcc/15.2.0-fasrc01
+module load dmtcp/4.1.0-fasrc01
 
 mkdir -p checkpoints
 cd checkpoints

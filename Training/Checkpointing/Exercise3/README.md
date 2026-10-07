@@ -181,9 +181,9 @@ The first batch script starts the application under DMTCP and creates periodic c
 ## `dmtcp_checkpoint.sbatch`
 
 ```bash
-#!/bin/bash
+!/bin/bash
 #SBATCH --job-name=dmtcp-ckpt
-#SBATCH --partition=rc-testing
+#SBATCH --partition=test
 #SBATCH --time=00:03:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=1G
@@ -192,7 +192,8 @@ The first batch script starts the application under DMTCP and creates periodic c
 
 set -euo pipefail
 
-module load dmtcp
+module load gcc/15.2.0-fasrc01
+module load dmtcp/4.1.0-fasrc01
 
 mkdir -p checkpoints
 cd checkpoints
@@ -291,7 +292,7 @@ The restart job starts a new Slurm allocation and resumes from the most recent s
 ```bash
 #!/bin/bash
 #SBATCH --job-name=dmtcp-restart
-#SBATCH --partition=rc-testing
+#SBATCH --partition=test
 #SBATCH --time=00:03:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=1G
@@ -300,7 +301,8 @@ The restart job starts a new Slurm allocation and resumes from the most recent s
 
 set -euo pipefail
 
-module load dmtcp
+module load gcc/15.2.0-fasrc01
+module load dmtcp/4.1.0-fasrc01
 
 cd checkpoints
 

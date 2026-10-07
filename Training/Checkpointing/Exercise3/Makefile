@@ -13,7 +13,6 @@ $(PROGRAM): long_run.c
 
 clean:
 	rm -f $(PROGRAM).x
-	rm -f *.out *.err
 	rm -f ckpt_*.dmtcp
 	rm -f dmtcp_restart_*.sh
 	rm -f coordinator.port
