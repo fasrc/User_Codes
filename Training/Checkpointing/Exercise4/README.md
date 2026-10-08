@@ -59,8 +59,8 @@ Key ideas along the way:
 | `setup.sh` | Loads GCC and MPICH and puts MANA on `PATH` (copy of the shared `setup_mana.sh`) | — |
 | `mana_checkpoint.sbatch` | Launches the program under MANA with a checkpoint every 15 s | Batch |
 | `mana_restart.sbatch` | Restarts the program from `checkpoints/` | Batch |
-| `mana_launch_15390.out` | Example output of `mana_checkpoint.sbatch` (ran until its time limit at 20.80%; last checkpoint just before the 19.20% report) | Batch |
-| `mana_restart_15392.out` | Example output of `mana_restart.sbatch` (resumed from that checkpoint) | Batch |
+| `mana_launch_51392273.out` | Example output of `mana_checkpoint.sbatch` (ran until its time limit at 20.80%; last checkpoint just before the 19.20% report) | Batch |
+| `mana_restart_51395336.out` | Example output of `mana_restart.sbatch` (resumed from that checkpoint) | Batch |
 
 ---
 
@@ -72,12 +72,16 @@ Steps 1 and 2 run on a compute node, not a login node. Then load the environment
 build both executables and create the checkpoint directory:
 
 ```bash
-salloc -n 4 -N 1 -t 180 -p rc-testing --mem-per-cpu=1G
-module load gcc/15.2.0-fasrc01
-module load mpich/5.0.0-fasrc01
+salloc -n 4 -N 1 -t 180 -p test --mem-per-cpu=1G
 source /n/holylabs/rc_admin/Everyone/checkpoint-training/setup_mana.sh
 make
 mkdir -p checkpoints
+```
+The `source` command also loads the required modules, i.e.,
+
+```bash
+module load gcc/15.2.0-fasrc01
+module load mpich/5.0.0-fasrc01
 ```
 
 `make` creates `pi_mpi.x` (standard MPI build, used for the native baseline) and
@@ -109,9 +113,21 @@ The baseline runs under Slurm with no checkpointing. With this MPICH build, use
    Report every       : 1000000 local darts
    Sleep after report : 0 ms
    ============================================================
-   Progress: ...
+   Progress:   4.00%  darts=4000000  pi=3.1413600000  error=-2.327e-04  elapsed=0.01 s
+   Progress:   8.00%  darts=8000000  pi=3.1410140000  error=-5.787e-04  elapsed=0.01 s
+   Progress:  12.00%  darts=12000000  pi=3.1411943333  error=-3.983e-04  elapsed=0.02 s
+   Progress:  16.00%  darts=16000000  pi=3.1413702500  error=-2.224e-04  elapsed=0.02 s
    ...
+   ============================================================
    Finished
+   ============================================================
+   Darts       : 100000000
+   Inside      : 78536313
+   Pi estimate : 3.141452520000
+   Pi true     : 3.141592653590
+   Error       : -1.401336e-04
+   Elapsed     : 0.128 s
+   ============================================================
    ```
 
 2. The progress lines end with the final estimate of π. Nothing is saved, so an
@@ -141,23 +157,29 @@ compute node: shell 1 runs the calculation, shell 2 controls MANA.
    ```
 
    ```
-   Progress:   2.00%  darts=20000000  pi=...  error=...  elapsed=... s
-   Progress:   4.00%  darts=40000000  pi=...  error=...  elapsed=... s
+   ============================================================
+   MPI Monte Carlo Pi
+   ============================================================
+   MPI ranks          : 4
+   Total darts        : 1000000000
+   Base seed          : 12345
+   Report every       : 5000000 local darts
+   Sleep after report : 1000 ms
+   ============================================================
+   Progress:   2.00%  darts=20000000  pi=3.1416424000  error=+4.975e-05  elapsed=0.03 s
+   Progress:   4.00%  darts=40000000  pi=3.1413395000  error=-2.532e-04  elapsed=1.05 s
    ...
    ```
 
 2. **Shell 2** — log in to the same compute node and set up the same
    environment. The second shell does not inherit the Slurm environment, so
-   export the job ID from step 1 (replace `15395` with yours; `squeue -u $USER`
+   export the job ID from step 1 (replace `51384650` with yours; `squeue -u $USER`
    also shows it). MANA uses it to find its coordinator file:
 
    ```bash
-   module load gcc/15.2.0-fasrc01
-   module load mpich/5.0.0-fasrc01
    source /n/holylabs/rc_admin/Everyone/checkpoint-training/setup_mana.sh
 
-   export SLURM_JOB_ID=15395
-   export SLURM_JOBID=15395
+   export SLURM_JOB_ID=51384650 # Use the actual JobID
    ls -l ~/.mana-slurm-${SLURM_JOB_ID}.rc
    mana_status --status
    ```
@@ -199,6 +221,16 @@ compute node: shell 1 runs the calculation, shell 2 controls MANA.
    mana_coordinator -i15
    srun --mpi=pmix -n 4 mana_restart
    ```
+
+   ```
+   Progress:  24.00%  darts=240000000  pi=3.1416401500  error=+4.750e-05  elapsed=49.10 s
+   Progress:  26.00%  darts=260000000  pi=3.1416156923  error=+2.304e-05  elapsed=50.13 s
+   Progress:  28.00%  darts=280000000  pi=3.1416204429  error=+2.779e-05  elapsed=51.16 s
+   Progress:  30.00%  darts=300000000  pi=3.1416058000  error=+1.315e-05  elapsed=52.18 s
+   Progress:  32.00%  darts=320000000  pi=3.1416087250  error=+1.607e-05  elapsed=53.21 s
+   Progress:  34.00%  darts=340000000  pi=3.1415853765  error=-7.277e-06  elapsed=54.23 s
+   ...
+   ``` 
 
    The progress lines continue from about where the checkpoint was taken instead
    of starting again from zero. Work done after the last checkpoint is repeated.

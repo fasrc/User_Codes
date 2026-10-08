@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=mana-restart
-#SBATCH --partition=rc-testing
+#SBATCH --partition=test
 #SBATCH --nodes=1
 #SBATCH --ntasks=4
 #SBATCH --time=00:02:00

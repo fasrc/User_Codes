@@ -1,0 +1,166 @@
+*** Coordinator/job information written to /n/home06/pkrastev/.mana-slurm-51392273.rc
+============================================================
+MANA checkpoint job
+============================================================
+Job ID : 51392273
+Node   : holy8a24102.rc.fas.harvard.edu
+Start  : Thu Oct  8 16:26:26 EDT 2026
+============================================================
+original argc_ptr: 0x7fffffff86bc
+original argv_ptr: 0x7fffffff9d28
+dbg_argc_addr: 0x83000c70
+dbg_argv_ptr_addr: 0x83000c78
+dbg_env_ptr_addr: 0x83000cc0 [16-byte aligned]
+dbg_auxv_ptr_addr: 0x83001360
+dbg_argv_strings_addr: 0x830014d1
+dbg_env_strings_addr: 0x83001569
+dbg_end_marker_addr: 0x83005ff8
+dbg_bottom_of_stack: 0x83006000
+original argc_ptr: 0x7fffffff86bc
+original argv_ptr: 0x7fffffff9d28
+dbg_argc_addr: 0x83000c70
+dbg_argv_ptr_addr: 0x83000c78
+dbg_env_ptr_addr: 0x83000cc0 [16-byte aligned]
+dbg_auxv_ptr_addr: 0x83001360
+dbg_argv_strings_addr: 0x830014d1
+dbg_env_strings_addr: 0x83001569
+dbg_end_marker_addr: 0x83005ff8
+dbg_bottom_of_stack: 0x83006000
+original argc_ptr: 0x7fffffff86bc
+original argv_ptr: 0x7fffffff9d28
+dbg_argc_addr: 0x83000c70
+dbg_argv_ptr_addr: 0x83000c78
+dbg_env_ptr_addr: 0x83000cc0 [16-byte aligned]
+dbg_auxv_ptr_addr: 0x83001360
+dbg_argv_strings_addr: 0x830014d1
+dbg_env_strings_addr: 0x83001569
+dbg_end_marker_addr: 0x83005ff8
+dbg_bottom_of_stack: 0x83006000
+original argc_ptr: 0x7fffffff86bc
+original argv_ptr: 0x7fffffff9d28
+dbg_argc_addr: 0x83000c70
+dbg_argv_ptr_addr: 0x83000c78
+dbg_env_ptr_addr: 0x83000cc0 [16-byte aligned]
+dbg_auxv_ptr_addr: 0x83001360
+dbg_argv_strings_addr: 0x830014d1
+dbg_env_strings_addr: 0x83001569
+dbg_end_marker_addr: 0x83005ff8
+dbg_bottom_of_stack: 0x83006000
+============================================================
+MPI Monte Carlo Pi
+============================================================
+MPI ranks          : 4
+Total darts        : 10000000000
+Base seed          : 12345
+Report every       : 5000000 local darts
+Sleep after report : 1000 ms
+============================================================
+Progress:   0.20%  darts=20000000  pi=3.1416424000  error=+4.975e-05  elapsed=0.03 s
+Progress:   0.40%  darts=40000000  pi=3.1413395000  error=-2.532e-04  elapsed=1.05 s
+Progress:   0.60%  darts=60000000  pi=3.1413490000  error=-2.437e-04  elapsed=2.08 s
+Progress:   0.80%  darts=80000000  pi=3.1414128500  error=-1.798e-04  elapsed=3.10 s
+Progress:   1.00%  darts=100000000  pi=3.1414525200  error=-1.401e-04  elapsed=4.13 s
+Progress:   1.20%  darts=120000000  pi=3.1415419667  error=-5.069e-05  elapsed=5.16 s
+Progress:   1.40%  darts=140000000  pi=3.1415732857  error=-1.937e-05  elapsed=6.18 s
+Progress:   1.60%  darts=160000000  pi=3.1415585250  error=-3.413e-05  elapsed=7.21 s
+Progress:   1.80%  darts=180000000  pi=3.1415993778  error=+6.724e-06  elapsed=8.23 s
+Progress:   2.00%  darts=200000000  pi=3.1416564400  error=+6.379e-05  elapsed=9.26 s
+Progress:   2.20%  darts=220000000  pi=3.1415964909  error=+3.837e-06  elapsed=10.28 s
+Progress:   2.40%  darts=240000000  pi=3.1416401500  error=+4.750e-05  elapsed=11.31 s
+Progress:   2.60%  darts=260000000  pi=3.1416156923  error=+2.304e-05  elapsed=12.33 s
+Progress:   2.80%  darts=280000000  pi=3.1416204429  error=+2.779e-05  elapsed=13.36 s
+Progress:   3.00%  darts=300000000  pi=3.1416058000  error=+1.315e-05  elapsed=14.38 s
+Progress:   3.20%  darts=320000000  pi=3.1416087250  error=+1.607e-05  elapsed=17.45 s
+Progress:   3.40%  darts=340000000  pi=3.1415853765  error=-7.277e-06  elapsed=18.48 s
+Progress:   3.60%  darts=360000000  pi=3.1415809444  error=-1.171e-05  elapsed=19.50 s
+Progress:   3.80%  darts=380000000  pi=3.1415722421  error=-2.041e-05  elapsed=20.53 s
+Progress:   4.00%  darts=400000000  pi=3.1415842000  error=-8.454e-06  elapsed=21.55 s
+Progress:   4.20%  darts=420000000  pi=3.1415783714  error=-1.428e-05  elapsed=22.58 s
+Progress:   4.40%  darts=440000000  pi=3.1415728455  error=-1.981e-05  elapsed=23.61 s
+Progress:   4.60%  darts=460000000  pi=3.1415538435  error=-3.881e-05  elapsed=24.63 s
+Progress:   4.80%  darts=480000000  pi=3.1415621000  error=-3.055e-05  elapsed=25.66 s
+Progress:   5.00%  darts=500000000  pi=3.1415656960  error=-2.696e-05  elapsed=26.68 s
+Progress:   5.20%  darts=520000000  pi=3.1415413692  error=-5.128e-05  elapsed=27.71 s
+Progress:   5.40%  darts=540000000  pi=3.1415339704  error=-5.868e-05  elapsed=28.73 s
+Progress:   5.60%  darts=560000000  pi=3.1415138071  error=-7.885e-05  elapsed=29.76 s
+Progress:   5.80%  darts=580000000  pi=3.1415021034  error=-9.055e-05  elapsed=30.78 s
+Progress:   6.00%  darts=600000000  pi=3.1414939000  error=-9.875e-05  elapsed=31.81 s
+Progress:   6.20%  darts=620000000  pi=3.1414932968  error=-9.936e-05  elapsed=32.83 s
+Progress:   6.40%  darts=640000000  pi=3.1414972188  error=-9.543e-05  elapsed=35.91 s
+Progress:   6.60%  darts=660000000  pi=3.1414931515  error=-9.950e-05  elapsed=36.94 s
+Progress:   6.80%  darts=680000000  pi=3.1414715059  error=-1.211e-04  elapsed=37.97 s
+Progress:   7.00%  darts=700000000  pi=3.1414812914  error=-1.114e-04  elapsed=38.99 s
+Progress:   7.20%  darts=720000000  pi=3.1414739000  error=-1.188e-04  elapsed=40.02 s
+Progress:   7.40%  darts=740000000  pi=3.1414692108  error=-1.234e-04  elapsed=41.04 s
+Progress:   7.60%  darts=760000000  pi=3.1414656789  error=-1.270e-04  elapsed=42.07 s
+Progress:   7.80%  darts=780000000  pi=3.1414624718  error=-1.302e-04  elapsed=43.09 s
+Progress:   8.00%  darts=800000000  pi=3.1414546750  error=-1.380e-04  elapsed=44.12 s
+Progress:   8.20%  darts=820000000  pi=3.1414575366  error=-1.351e-04  elapsed=45.14 s
+Progress:   8.40%  darts=840000000  pi=3.1414618143  error=-1.308e-04  elapsed=46.17 s
+Progress:   8.60%  darts=860000000  pi=3.1414658326  error=-1.268e-04  elapsed=47.19 s
+Progress:   8.80%  darts=880000000  pi=3.1414737045  error=-1.189e-04  elapsed=48.22 s
+Progress:   9.00%  darts=900000000  pi=3.1414853378  error=-1.073e-04  elapsed=49.24 s
+Progress:   9.20%  darts=920000000  pi=3.1415016652  error=-9.099e-05  elapsed=50.27 s
+Progress:   9.40%  darts=940000000  pi=3.1415045064  error=-8.815e-05  elapsed=51.30 s
+Progress:   9.60%  darts=960000000  pi=3.1415070125  error=-8.564e-05  elapsed=54.39 s
+Progress:   9.80%  darts=980000000  pi=3.1415048286  error=-8.783e-05  elapsed=55.41 s
+Progress:  10.00%  darts=1000000000  pi=3.1415067680  error=-8.589e-05  elapsed=56.44 s
+Progress:  10.20%  darts=1020000000  pi=3.1415095922  error=-8.306e-05  elapsed=57.46 s
+Progress:  10.40%  darts=1040000000  pi=3.1415256154  error=-6.704e-05  elapsed=58.49 s
+Progress:  10.60%  darts=1060000000  pi=3.1415226792  error=-6.997e-05  elapsed=59.51 s
+Progress:  10.80%  darts=1080000000  pi=3.1415294222  error=-6.323e-05  elapsed=60.54 s
+Progress:  11.00%  darts=1100000000  pi=3.1415411418  error=-5.151e-05  elapsed=61.57 s
+Progress:  11.20%  darts=1120000000  pi=3.1415350429  error=-5.761e-05  elapsed=62.59 s
+Progress:  11.40%  darts=1140000000  pi=3.1415541719  error=-3.848e-05  elapsed=63.62 s
+Progress:  11.60%  darts=1160000000  pi=3.1415529379  error=-3.972e-05  elapsed=64.64 s
+Progress:  11.80%  darts=1180000000  pi=3.1415640441  error=-2.861e-05  elapsed=65.67 s
+Progress:  12.00%  darts=1200000000  pi=3.1415618500  error=-3.080e-05  elapsed=66.69 s
+Progress:  12.20%  darts=1220000000  pi=3.1415579508  error=-3.470e-05  elapsed=67.72 s
+Progress:  12.40%  darts=1240000000  pi=3.1415572903  error=-3.536e-05  elapsed=68.74 s
+Progress:  12.60%  darts=1260000000  pi=3.1415560127  error=-3.664e-05  elapsed=72.09 s
+Progress:  12.80%  darts=1280000000  pi=3.1415633344  error=-2.932e-05  elapsed=73.12 s
+Progress:  13.00%  darts=1300000000  pi=3.1415725692  error=-2.008e-05  elapsed=74.14 s
+Progress:  13.20%  darts=1320000000  pi=3.1415790939  error=-1.356e-05  elapsed=75.17 s
+Progress:  13.40%  darts=1340000000  pi=3.1415729463  error=-1.971e-05  elapsed=76.19 s
+Progress:  13.60%  darts=1360000000  pi=3.1415829618  error=-9.692e-06  elapsed=77.22 s
+Progress:  13.80%  darts=1380000000  pi=3.1415849130  error=-7.741e-06  elapsed=78.24 s
+Progress:  14.00%  darts=1400000000  pi=3.1415875714  error=-5.082e-06  elapsed=79.27 s
+Progress:  14.20%  darts=1420000000  pi=3.1416002930  error=+7.639e-06  elapsed=80.29 s
+Progress:  14.40%  darts=1440000000  pi=3.1416031500  error=+1.050e-05  elapsed=81.32 s
+Progress:  14.60%  darts=1460000000  pi=3.1416158055  error=+2.315e-05  elapsed=82.35 s
+Progress:  14.80%  darts=1480000000  pi=3.1416002838  error=+7.630e-06  elapsed=83.37 s
+Progress:  15.00%  darts=1500000000  pi=3.1415999680  error=+7.314e-06  elapsed=84.40 s
+Progress:  15.20%  darts=1520000000  pi=3.1415980605  error=+5.407e-06  elapsed=85.42 s
+Progress:  15.40%  darts=1540000000  pi=3.1415946234  error=+1.970e-06  elapsed=86.45 s
+Progress:  15.60%  darts=1560000000  pi=3.1416007513  error=+8.098e-06  elapsed=87.47 s
+Progress:  15.80%  darts=1580000000  pi=3.1415901975  error=-2.456e-06  elapsed=90.59 s
+Progress:  16.00%  darts=1600000000  pi=3.1415863950  error=-6.259e-06  elapsed=91.61 s
+Progress:  16.20%  darts=1620000000  pi=3.1415890617  error=-3.592e-06  elapsed=92.64 s
+Progress:  16.40%  darts=1640000000  pi=3.1415946610  error=+2.007e-06  elapsed=93.67 s
+Progress:  16.60%  darts=1660000000  pi=3.1415954964  error=+2.843e-06  elapsed=94.70 s
+Progress:  16.80%  darts=1680000000  pi=3.1415983976  error=+5.744e-06  elapsed=95.72 s
+Progress:  17.00%  darts=1700000000  pi=3.1416039482  error=+1.129e-05  elapsed=96.75 s
+Progress:  17.20%  darts=1720000000  pi=3.1416066698  error=+1.402e-05  elapsed=97.77 s
+Progress:  17.40%  darts=1740000000  pi=3.1416089494  error=+1.630e-05  elapsed=98.80 s
+Progress:  17.60%  darts=1760000000  pi=3.1416083432  error=+1.569e-05  elapsed=99.82 s
+Progress:  17.80%  darts=1780000000  pi=3.1416064202  error=+1.377e-05  elapsed=100.85 s
+Progress:  18.00%  darts=1800000000  pi=3.1416010400  error=+8.386e-06  elapsed=101.87 s
+Progress:  18.20%  darts=1820000000  pi=3.1415998330  error=+7.179e-06  elapsed=102.90 s
+Progress:  18.40%  darts=1840000000  pi=3.1415995978  error=+6.944e-06  elapsed=103.92 s
+Progress:  18.60%  darts=1860000000  pi=3.1415971935  error=+4.540e-06  elapsed=104.95 s
+Progress:  18.80%  darts=1880000000  pi=3.1415948298  error=+2.176e-06  elapsed=105.98 s
+Progress:  19.00%  darts=1900000000  pi=3.1416047789  error=+1.213e-05  elapsed=108.95 s
+Progress:  19.20%  darts=1920000000  pi=3.1416034917  error=+1.084e-05  elapsed=109.97 s
+Progress:  19.40%  darts=1940000000  pi=3.1416068660  error=+1.421e-05  elapsed=111.00 s
+Progress:  19.60%  darts=1960000000  pi=3.1416080061  error=+1.535e-05  elapsed=112.03 s
+Progress:  19.80%  darts=1980000000  pi=3.1416089859  error=+1.633e-05  elapsed=113.05 s
+Progress:  20.00%  darts=2000000000  pi=3.1416089360  error=+1.628e-05  elapsed=114.08 s
+Progress:  20.20%  darts=2020000000  pi=3.1416039050  error=+1.125e-05  elapsed=115.10 s
+Progress:  20.40%  darts=2040000000  pi=3.1416002098  error=+7.556e-06  elapsed=116.13 s
+Progress:  20.60%  darts=2060000000  pi=3.1416010699  error=+8.416e-06  elapsed=117.15 s
+Progress:  20.80%  darts=2080000000  pi=3.1415959731  error=+3.319e-06  elapsed=118.18 s
+Progress:  21.00%  darts=2100000000  pi=3.1415957219  error=+3.068e-06  elapsed=119.20 s
+Progress:  21.20%  darts=2120000000  pi=3.1415894642  error=-3.189e-06  elapsed=120.23 s
+Progress:  21.40%  darts=2140000000  pi=3.1415880131  error=-4.641e-06  elapsed=121.25 s
+Progress:  21.60%  darts=2160000000  pi=3.1415858574  error=-6.796e-06  elapsed=122.28 s
+Progress:  21.80%  darts=2180000000  pi=3.1415838073  error=-8.846e-06  elapsed=123.30 s
