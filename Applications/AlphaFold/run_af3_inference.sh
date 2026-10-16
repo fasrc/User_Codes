@@ -17,12 +17,12 @@ my_output_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir
 my_model_parms_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/model_parameters
 
 # note that the json_path is now output with the .json file from the data pipeline
-singularity exec \
+apptainer exec \
      --nv \
      --bind $data_dir:/data \
      /n/singularity_images/FAS/alphafold/alphafold_3.0.1.sif \
      python /app/alphafold/run_alphafold.py \
-     --json_path=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir/2pv7/2pv7_data.json \
+     --json_path=${my_output_dir}/2PV7/2PV7_data.json \
      --model_dir=$my_model_parms_dir \
      --output_dir=${my_output_dir}   \
      --norun_data_pipeline
