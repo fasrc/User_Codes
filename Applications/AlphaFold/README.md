@@ -60,7 +60,7 @@ my_input_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/input_dir
 my_output_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir
 
 # run alphafold3
-singularity exec \
+apptainer exec \
      --bind $data_dir:/data \
      /n/singularity_images/FAS/alphafold/alphafold_3.0.1.sif \
      python /app/alphafold/run_alphafold.py \
@@ -116,22 +116,22 @@ File `run_af3_inference.sh`:
 #SBATCH --mem=8g                 # Memory
 #SBATCH -o AF3_inf_%j.out        # Both stdout and stderr files
 
-# (don't change this) set database directory
+# (don't change this) set database directory (folder)
 data_dir=/n/holylabs/rc_admin/Everyone/alphafold_databases/v3
 
-# (change this) set output directory
+# (change this) set output directory (folder)
 my_output_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir
 
-# (change this) set model parameters directory
+# (change this) set model parameters directory (folder)
 my_model_parms_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/model_parameters
 
 # note that the json_path is now output with the .json file from the data pipeline
-singularity exec \
+apptainer exec \
      --nv \
      --bind $data_dir:/data \
      /n/singularity_images/FAS/alphafold/alphafold_3.0.1.sif \
      python /app/alphafold/run_alphafold.py \
-     --json_path=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir/2pv7/2pv7_data.json \
+     --json_path=${my_output_dir}/2PV7/2PV7_data.json \
      --model_dir=$my_model_parms_dir \
      --output_dir=${my_output_dir}   \
      --norun_data_pipeline
@@ -187,19 +187,19 @@ sbatch --dependency=afterok:${SLURM_JOB_ID} <<END
 #SBATCH -t 00:10:00
 #SBATCH -o AF3_inf_%j.out
 
-singularity exec \
+apptainer exec \
      --nv \
      --bind $data_dir:/data \
      /n/singularity_images/FAS/alphafold/alphafold_3.0.1.sif \
      python /app/alphafold/run_alphafold.py \
-     --json_path=${my_output_dir}/2pv7/2pv7_data.json \
+     --json_path=${my_output_dir}/2PV7/2PV7_data.json \
      --model_dir=$my_model_parms_dir \
      --output_dir=${my_output_dir}   \
      --norun_data_pipeline
 END
 
 # run data pipeline
-singularity exec \
+apptainer exec \
      --bind $data_dir:/data \
      /n/singularity_images/FAS/alphafold/alphafold_3.0.1.sif \
      python /app/alphafold/run_alphafold.py \
@@ -351,7 +351,7 @@ my_model_type=monomer
 my_max_date="2100-01-01"
 
 # run AlphaFold monomer using Singularity
-singularity run --nv --env TF_FORCE_UNIFIED_MEMORY=1,XLA_PYTHON_CLIENT_MEM_FRACTION=4.0,OPENMM_CPU_THREADS=$SLURM_CPUS_PER_TASK,LD_LIBRARY_PATH=/usr/local/cuda-11.1/targets/x86_64-linux/lib/ --bind /n/holylabs/rc_admin/Everyone/alphafold_databases/v2:/data /n/singularity_images/FAS/alphafold/alphafold_2.3.1.sif \
+apptainer run --nv --env TF_FORCE_UNIFIED_MEMORY=1,XLA_PYTHON_CLIENT_MEM_FRACTION=4.0,OPENMM_CPU_THREADS=$SLURM_CPUS_PER_TASK,LD_LIBRARY_PATH=/usr/local/cuda-11.1/targets/x86_64-linux/lib/ --bind /n/holylabs/rc_admin/Everyone/alphafold_databases/v2:/data /n/singularity_images/FAS/alphafold/alphafold_2.3.1.sif \
 --data_dir=/data/ \
 --bfd_database_path=/data/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt \
 --db_preset=full_dbs \
@@ -426,7 +426,7 @@ my_model_type=multimer
 my_max_date="2100-01-01"
 
 # run AlphaFold multimer using Singularity
-singularity run --nv --env TF_FORCE_UNIFIED_MEMORY=1,XLA_PYTHON_CLIENT_MEM_FRACTION=4.0,OPENMM_CPU_THREADS=$SLURM_CPUS_PER_TASK,LD_LIBRARY_PATH=/usr/local/cuda-11.1/targets/x86_64-linux/lib/ --bind /n/holylabs/rc_admin/Everyone/alphafold_databases/v2:/data -B .:/etc --pwd /app/alphafold /n/singularity_images/FAS/alphafold/alphafold_2.3.1.sif \
+apptainer run --nv --env TF_FORCE_UNIFIED_MEMORY=1,XLA_PYTHON_CLIENT_MEM_FRACTION=4.0,OPENMM_CPU_THREADS=$SLURM_CPUS_PER_TASK,LD_LIBRARY_PATH=/usr/local/cuda-11.1/targets/x86_64-linux/lib/ --bind /n/holylabs/rc_admin/Everyone/alphafold_databases/v2:/data -B .:/etc --pwd /app/alphafold /n/singularity_images/FAS/alphafold/alphafold_2.3.1.sif \
 --data_dir=/data/ \
 --bfd_database_path=/data/bfd/bfd_metaclust_clu_complete_id30_c90_final_seq.sorted_opt \
 --db_preset=full_dbs \
