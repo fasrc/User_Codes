@@ -9,8 +9,8 @@
 #SBATCH -e pytorch_%j.err 
 
 # Load software modules and source conda environment
-module load python/3.10.12-fasrc01
-source activate pt2.1.0_cuda12.1
+module load python
+source activate pt2.14.1_cuda13.2
 
 # Run program
 srun -c 1 --gres=gpu:1 python check_gpu.py 
