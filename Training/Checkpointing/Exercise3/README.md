@@ -117,7 +117,8 @@ It starts again from iteration 1.
 Start the same unchanged application with:
 
 ```bash
-dmtcp_launch ./long_run.x --iterations 100 --sleep-ms 1000
+dmtcp_launch --new-coordinator --coord-port 0 --port-file dmtcp_coord_port   \
+             ./long_run.x --iterations 100 --sleep-ms 1000
 ```
 
 Let it run for a short time.
@@ -126,7 +127,8 @@ From another shell in the same allocation, request a checkpoint:
 
 ```bash
 module load dmtcp/4.1.0-fasrc01
-dmtcp_command --checkpoint
+export DMTCP_COORD_PORT="$(cat dmtcp_coord_port)"
+dmtcp_command --bcheckpoint
 ```
 
 >**Note:** You can use <br> `scontrol show job <JOBID> | grep -oP 'BatchHost=\K\w+'` <br> to display the node where the job ran and then `ssh` to it.
