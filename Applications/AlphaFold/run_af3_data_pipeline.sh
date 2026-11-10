@@ -19,7 +19,7 @@ my_input_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/input_dir
 my_output_dir=/n/holylabs/LABS/jharvard_lab/Lab/alphafold3/output_dir
 
 # run alphafold3
-singularity exec \
+apptainer exec \
      --bind $data_dir:/data \
      /n/singularity_images/FAS/alphafold/alphafold_3.0.1.sif \
      python /app/alphafold/run_alphafold.py \

@@ -29,19 +29,19 @@ sbatch --dependency=afterok:${SLURM_JOB_ID} <<END
 #SBATCH -t 00:10:00
 #SBATCH -o AF3_inf_%j.out
 
-singularity exec \
+apptainer exec \
      --nv \
      --bind $data_dir:/data \
-     ${sif} \
+     /n/singularity_images/FAS/alphafold/alphafold_3.0.1.sif \
      python /app/alphafold/run_alphafold.py \
-     --json_path=${my_output_dir}/2pv7/2pv7_data.json \
+     --json_path=${my_output_dir}/2PV7/2PV7_data.json \
      --model_dir=$my_model_parms_dir \
      --output_dir=${my_output_dir}   \
      --norun_data_pipeline
 END
 
 # run data pipeline
-singularity exec \
+apptainer exec \
      --bind $data_dir:/data \
      /n/singularity_images/FAS/alphafold/alphafold_3.0.1.sif \
      python /app/alphafold/run_alphafold.py \
